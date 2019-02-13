@@ -8,6 +8,8 @@ import AppBar from "@material-ui/core/AppBar";
 import NoSsr from "@material-ui/core/NoSsr";
 import Typography from "@material-ui/core/Typography";
 
+import AccountSettings from "./AccountSettings";
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -61,7 +63,7 @@ class SettingsNavigation extends React.Component {
           </Tabs>
         </Paper>
         {value === 0 && <TabContainer>Team Billing</TabContainer>}
-        {value === 1 && <TabContainer>Account Settings</TabContainer>}
+        {value === 1 && <TabContainer><AccountSettings /></TabContainer>}
         {value === 2 && <TabContainer>Admin Panel</TabContainer>}
       </NoSsr>
     );
