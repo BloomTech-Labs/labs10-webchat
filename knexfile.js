@@ -1,19 +1,21 @@
-// test
+// Update with your config settings.
+
 module.exports = {
+
   development: {
     client: 'pg',
     connection: {
       host: 'host',
       user: 'username',     
       password: 'password',
-      database: 'db',
+      database: 'dbname',
       charset: 'utf8'
     },
     migrations: {
-      directory: './db/migrations'
+      directory: './data/migrations'
     },
     seeds: {
-      directory: './db/seeds/dev'
+      directory: './data/seeds/'
     },
     useNullAsDefault: true
   },
