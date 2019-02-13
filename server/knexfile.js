@@ -10,10 +10,10 @@ module.exports = {
       charset: 'utf8'
     },
     migrations: {
-      directory: './db/migrations'
+      directory: './data/migrations'
     },
     seeds: {
-      directory: './db/seeds/dev'
+      directory: './data/seeds/dev'
     },
     useNullAsDefault: true
   },
