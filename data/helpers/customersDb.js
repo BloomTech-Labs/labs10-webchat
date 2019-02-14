@@ -6,8 +6,6 @@ module.exports = {
   getByEmail,
   insert,
 };
-
-
 function get() {
   return db('customers');
 };
@@ -20,12 +18,14 @@ function getById(id) {
   });
 };
 
-function getByEmail(email) {
-  const query = db('customers').where('email', email);
 
-  return query.then(customers => {
-    return customers[0];
-  });
+function getByEmail(email) {
+  // const query = db('customers').where('email', email);
+
+  return db('customers').where('email', email)
+    .then(customers => {
+      return customers[0];
+    });
 };
 
 function insert(user) {
