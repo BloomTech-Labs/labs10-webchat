@@ -9,6 +9,7 @@ import NoSsr from "@material-ui/core/NoSsr";
 import Typography from "@material-ui/core/Typography";
 
 import AccountSettings from "./AccountSettings";
+import Billing from "./Billing";
 
 function TabContainer(props) {
   return (
@@ -62,7 +63,7 @@ class SettingsNavigation extends React.Component {
             <LinkTab label="Admin Panel"/>
           </Tabs>
         </Paper>
-        {value === 0 && <TabContainer>Team Billing</TabContainer>}
+        {value === 0 && <TabContainer><Billing /></TabContainer>}
         {value === 1 && <TabContainer><AccountSettings /></TabContainer>}
         {value === 2 && <TabContainer>Admin Panel</TabContainer>}
       </NoSsr>
