@@ -13,22 +13,23 @@ router.get('/', (req, res) => {
 		})
 });
 
-// router.get('/:id', (req, res) => {
-// 	const id = req.params.id;
-// 	const request = db.getById(id);      
-// 	request.then(res => { 
-// 		console.log(res);
+router.get('/:id', (req, res) => {
+	const id = req.params.id;
+	const request = db.getById(id);      
+	request.then(res => { 
+		console.log(res);
 
-// 		if(res.length == 0) {
-// 			res.status(404).json({ error: "The rep with the specified Id does not exist" });
-// 		} else {
-// 			console.log(res);
-// 			res.status(200).json(res);
-// 		}
-// 	})
-// 	.catch(err => {
-// 		res.status(500).json({ err: "Failed to retrieve the rep" })
-// 	});
-// })
+		if(res.length == 0) {
+			res.status(404).json({ error: "The rep with the specified Id does not exist" });
+		} else {
+			console.log(res);
+			res.status(200).json(res);
+		}
+	})
+	.catch(err => {
+		res.status(500).json({ err: "Failed to retrieve the rep" })
+	});
+})
 
-// module.exports = router;
+
+module.exports = router;
