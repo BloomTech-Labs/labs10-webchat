@@ -1,5 +1,8 @@
 .navigation-container {
     display: flex;
     justify-content: flex-end;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    margin-right: 2%; 
 
 }

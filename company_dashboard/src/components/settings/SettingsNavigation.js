@@ -36,7 +36,7 @@ const styles = {
 
 class SettingsNavigation extends React.Component {
   state = {
-    value: 0
+    value: 1
   };
 
   handleChange = (event, value) => {

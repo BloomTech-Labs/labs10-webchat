@@ -1,15 +1,12 @@
 import React from "react";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
-import "./Navigation.css";
+import Button from "@material-ui/core/Button";
 
-library.add(faCog);
+import "./Navigation.css";
 
 const Navigation = () => (
   <div className="navigation-container">
-    <FontAwesomeIcon icon="cog" size="2x" />
-    <p>Log Out</p>
+    <Button size="large">Settings</Button>
+    <Button size="large">Sign Out</Button>
   </div>
 );
 
