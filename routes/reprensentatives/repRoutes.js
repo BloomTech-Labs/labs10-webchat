@@ -33,17 +33,17 @@ router.get('/:id', (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
-        const {id} = req.params;
+	const {id} = req.params;
 
-        const request = db.remove(id);
+	const request = db.remove(id);
 
-        request.then(response => {
-        res.status(200).json(response);
-        })
+	request.then(response => {
+	res.status(200).json(response);
+	})
 
-        .catch(error => {
-        res.status(500).json({error: "Failed to delete user"});
-        })
+	.catch(error => {
+	res.status(500).json({error: "Failed to delete user"});
+	})
 
 });
 

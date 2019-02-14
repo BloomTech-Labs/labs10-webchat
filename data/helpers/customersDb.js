@@ -7,6 +7,7 @@ module.exports = {
   insert,
 };
 
+
 function get() {
   return db('customers');
 };
