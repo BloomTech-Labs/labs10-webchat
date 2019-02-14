@@ -19,6 +19,7 @@ function getById(id) {
   });
 };
 
+
 function getByEmail(email) {
   // const query = db('customers').where('email', email);
 

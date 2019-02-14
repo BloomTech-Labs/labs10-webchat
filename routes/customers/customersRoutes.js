@@ -18,7 +18,6 @@ router.get('/:id', (req, res) => {
 	const request = db.getById(id);      
 	request.then(res => { 
 		console.log(res);
-
 		if(res.length == 0) {
 			res.status(404).json({ error: "The user with the specified Id does not exist" });
 		} else {
