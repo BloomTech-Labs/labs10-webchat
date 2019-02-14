@@ -8,6 +8,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@material-ui/core": "^3.9.2",
     "axios": "^0.18.0",
+    "firebase": "^5.8.2",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-scripts": "2.1.5",
