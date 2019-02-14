@@ -10,6 +10,7 @@ class LandingPage extends Component {
         <div className="navigation-container">
           <Button size="large">Sign In</Button>
           <Button size="large">Sign Up</Button>
+          <img className="netlify-logo" src={require("./images/logomark.png")} alt="Netlify logo" />
         </div>
         <div className="landing-info">
           <h1>Web Chat</h1>
