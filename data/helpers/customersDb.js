@@ -6,7 +6,6 @@ module.exports = {
   getByEmail,
   insert,
 };
-
 function get() {
   return db('customers');
 };

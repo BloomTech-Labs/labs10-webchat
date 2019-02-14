@@ -55,12 +55,13 @@ router.post('/', (req, res) => {         // POST to '/api/customers/'
         .catch(err => {
             const withEmail = db.getByEmail(email);
 
-            if (withEmail) {
-                res.status(400).json({message: 'The provided email is already associated with an account.'});
-            }
-            // else:
-            res.status(500).json({err});
-        })
+        if (withEmail) {
+            res.status(400).json({message: 'The provided email is already associated with an account.'});
+        }
+        // else:
+        res.status(500).json({err});
+    })
 })
+
 
 module.exports = router;

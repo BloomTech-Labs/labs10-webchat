@@ -1,4 +1,0 @@
-[build]
-base = "company_dashboard/"
-publish = "company_dashboard/build/"
-command = "npm build"
