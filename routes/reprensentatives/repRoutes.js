@@ -31,7 +31,47 @@ router.get('/:id', (req, res) => {
 	});
 })
 
+router.post('/', (req, res) => {
+	let { name, email, company_id } = req.body;
+	if(!name) {
+		res.status(400).json({message: 'Please provide your Name.'});
+		return;
+	}
+	if(!email) {
+		res.status(400).json({message: 'Please provide your Email.'});
+      return;
+	}
+	if(!company_id) {
+		res.status(400).json({message: 'Please identify your Company.'});
+      return;
+	}
 
+	const request = db('companies').where('id', company_id);
+
+	request.then(res => {
+		db
+		.insert(req.body)
+		.then(representative => {
+				res.status(200).json(representative);
+		})
+		.catch(err => {
+				const withEmail = db.getByEmail(email);
+
+				if (withEmail) {
+						res.status(400).json({message: 'The provided email is already associated with an account.'});
+				}
+				// else:
+				res.status(500).json({err});
+	})
+	.catch(err => {
+		res.status(400).json({message: 'That company does not exhist! Please choose another Company.'})
+		// This company doesn't exist
+		// Redirect to company registration page so user can register)
+	});
+})
+})
+
+	
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
 
