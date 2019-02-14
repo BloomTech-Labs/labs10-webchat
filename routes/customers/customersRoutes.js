@@ -45,7 +45,8 @@ router.post('/', (req, res) => {         // POST to '/api/customers/'
     if (!summary) {
         res.status(400).json({message: 'Please provide a summary of your inquiry.'});
         return;
-    }
+	}
+	let newCustomer = { name, email, summary };
     db
         .insert(newCustomer)
         .then(customer => {

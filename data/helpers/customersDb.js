@@ -20,11 +20,12 @@ function getById(id) {
 };
 
 function getByEmail(email) {
-  const query = db('customers').where('email', email);
+  // const query = db('customers').where('email', email);
 
-  return query.then(customers => {
-    return customers[0];
-  });
+  return db('customers').where('email', email)
+    .then(customers => {
+      return customers[0];
+    });
 };
 
 function insert(user) {
