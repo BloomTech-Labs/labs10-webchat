@@ -2,3 +2,7 @@
 base = "company_dashboard/"
 publish = "company_dashboard/build/"
 command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "11.8.0"
+  NPM_VERSION = "6.5.0"
