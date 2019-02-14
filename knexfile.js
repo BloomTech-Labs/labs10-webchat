@@ -1,46 +1,38 @@
 // Update with your config settings.
+const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
 
-  development: {
-    client: 'pg',
-    connection: {
-      host: 'host',
-      user: 'username',     
-      password: 'password',
-      database: 'dbname',
-      charset: 'utf8'
-    },
-    migrations: {
-      directory: './data/migrations'
-    },
-    seeds: {
-      directory: './data/seeds/'
-    },
-    useNullAsDefault: true
-  },
-
-  // test: {
+  // development: {
   //   client: 'pg',
-  //   connection:'postgres://localhost/<examples_test>',
+  //   connection: {
+  //     host: 'host',
+  //     user: 'username',     
+  //     password: 'password',
+  //     database: 'dbname',
+  //     charset: 'utf8'
+  //   },
   //   migrations: {
-  //     directory: './db/migrations'
+  //     directory: './data/migrations'
   //   },
   //   seeds: {
-  //     directory: './db/seeds/test'
+  //     directory: './data/seeds'
   //   },
   //   useNullAsDefault: true
   // },
 
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: dbConnection,
+    pool: {
+	  min: 2,
+      max: 10
+    },
     migrations: {
-      directory: './db/migrations'
+      tableName: 'knex_migrations',
+      directory: './data/migrations',
     },
-    seeds: {
-      directory: './db/seeds/production'
-    },
-    useNullAsDefault: true
+    seeds: { directory: './data/seeds' },
   }
+
 };
