@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../data/helpers/repDb');
+const db = require('../../data/helpers/repDb');
 
 
 router.get('/', (req, res) => {
