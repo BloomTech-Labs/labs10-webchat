@@ -1,0 +1,14 @@
+.navigation-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    margin-right: 2%; 
+
+}
+
+.landing-info {
+    width: 60%;
+    margin: auto;
+    margin-top: 13%;
+}
