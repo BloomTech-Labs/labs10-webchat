@@ -31,5 +31,35 @@ router.get('/:id', (req, res) => {
 	});
 })
 
+router.post('/', (req, res) => {         // POST to '/api/customers/'
+    let { name, email, summary } = req.body;
+    // Some error checking; could be eliminated if more efficient method is found
+    if (!name) {
+        res.status(400).json({message: 'Please provide your name.'});
+        return;
+    }
+    if (!email) {
+        res.status(400).json({message: 'Please provide an email address.'});
+        return;
+    }
+    if (!summary) {
+        res.status(400).json({message: 'Please provide a summary of your inquiry.'});
+        return;
+    }
+    db
+        .insert(newCustomer)
+        .then(customer => {
+            res.status(200).json(customer);
+        })
+        .catch(err => {
+            const withEmail = db.getByEmail(email);
+
+            if (withEmail) {
+                res.status(400).json({message: 'The provided email is already associated with an account.'});
+            }
+            // else:
+            res.status(500).json({err});
+        })
+})
 
 module.exports = router;
