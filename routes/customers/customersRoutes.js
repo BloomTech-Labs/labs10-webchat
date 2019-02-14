@@ -16,14 +16,14 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 	const id = req.params.id;
 	const request = db.getById(id);      
-	request.then(res => { 
-		console.log(res);
+	request.then(response_data => { 
+		console.log(response_data);
 
-		if(res.length == 0) {
+		if(response_data.length == 0) {
 			res.status(404).json({ error: "The user with the specified Id does not exist" });
 		} else {
 			console.log(res);
-			res.status(200).json(res);
+			res.status(200).json(response_data);
 		}
 	})
 	.catch(err => {
@@ -50,17 +50,18 @@ router.post('/', (req, res) => {         // POST to '/api/customers/'
     db
         .insert(newCustomer)
         .then(customer => {
+            console.log("customer inside .then: ", customer);
             res.status(200).json(customer);
         })
         .catch(err => {
-            const withEmail = db.getByEmail(email);
-
-        if (withEmail) {
-            res.status(400).json({message: 'The provided email is already associated with an account.'});
-        }
-        // else:
-        res.status(500).json({err});
-    })
+            const request = db.getByEmail(email);
+            request.then(response_data => {
+                console.log(response_data);
+		        if (response_data) {
+			        res.status(400).json({ error: 'The provided email is already associated with an account.' });
+                } 
+            });
+        })
 })
 
 
