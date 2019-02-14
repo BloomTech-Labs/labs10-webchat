@@ -1,25 +1,25 @@
 // Update with your config settings.
-const dbConnection = process.env.DATABASE_URL;
+const dbConnection = process.env.DATABASE_URL || 'development';
 
 module.exports = {
 
-  // development: {
-  //   client: 'pg',
-  //   connection: {
-  //     host: 'host',
-  //     user: 'username',     
-  //     password: 'password',
-  //     database: 'dbname',
-  //     charset: 'utf8'
-  //   },
-  //   migrations: {
-  //     directory: './data/migrations'
-  //   },
-  //   seeds: {
-  //     directory: './data/seeds'
-  //   },
-  //   useNullAsDefault: true
-  // },
+  development: {
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      user: 'cameronwebchat',     
+      password: 'webchat',
+      database: 'webchatdbdev',
+      charset: 'utf8'
+    },
+    migrations: {
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
+    },
+    useNullAsDefault: true
+  },
 
   production: {
     client: 'pg',
