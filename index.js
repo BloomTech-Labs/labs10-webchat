@@ -8,10 +8,11 @@ const port = process.env.PORT || 5000;
 server.use(express.json());
 server.use(morgan('dev'));
 server.use(helmet());
+server.use(cors());
 
 
 server.get('/',(req, res) => {
-        res.send("Welcome to Webchat app....");
+  res.send("Welcome to Webchat app....");
 });
 
 
@@ -21,6 +22,6 @@ server.use(function(req, res) {
 
 
 server.listen(port, () => {
-    console.log(`=== API is listening at ${port} ===`);
+  console.log(`=== API is listening at ${port} ===`);
 });
 
