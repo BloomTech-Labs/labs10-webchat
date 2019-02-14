@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
 		console.log(res);
 
 		if(res.length == 0) {
-			res.status(404).json({ error: "The customer with the specified Id does not exist" });
+			res.status(404).json({ error: "The user with the specified Id does not exist" });
 		} else {
 			console.log(res);
 			res.status(200).json(res);
