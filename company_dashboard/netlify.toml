@@ -4,5 +4,5 @@ publish = "company_dashboard/build/"
 command = "npm run build"
 
 [build.environment]
-  NODE_VERSION = "11.8.0"
+  NODE_VERSION = "11.9.0"
   NPM_VERSION = "6.5.0"
