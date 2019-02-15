@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Lambda-School-Labs/labs10-webchat#readme",
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "helmet": "^3.15.1",
