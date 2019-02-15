@@ -5,6 +5,7 @@ module.exports = {
   getById,
   getByEmail,
   insert,
+  remove,	
 };
 function get() {
   return db('customers');
@@ -31,4 +32,10 @@ function getByEmail(email) {
 function insert(user) {
   return db('customers')
     .insert(user).returning('id').then(ids => ids[0]);
+};
+
+function remove(id){
+        return db('customers')
+               .where({id: Number(id)})
+               .del();
 };

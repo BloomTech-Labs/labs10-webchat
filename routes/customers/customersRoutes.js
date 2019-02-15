@@ -27,8 +27,26 @@ router.get('/:id', (req, res) => {
 		}
 	})
 	.catch(err => {
-		res.status(500).json({ err: "Failed to retrieve the user" })
-	});
+		res.status(500).json({ err: "Failed to retrieve the user" });
+	})
+})
+
+router.get('/:email', (req, res) => {
+	const email = req.body.email;
+	const request = db.getByEmail(email);      
+	request.then(response_data => { 
+		console.log(response_data);
+
+		if(response_data.length == 0) {
+			res.status(404).json({ error: "The user with the specified Email does not exist" })
+		} else {
+			console.log(res);
+			res.status(200).json(response_data);
+		}
+	})
+	.catch(err => {
+		res.status(500).json({ err: "Failed to retrieve the user" });
+	})
 })
 
 router.post('/', (req, res) => {         // POST to '/api/customers/'
@@ -64,5 +82,20 @@ router.post('/', (req, res) => {         // POST to '/api/customers/'
         })
 })
 
+
+router.delete('/:id', (req, res) => {
+        const {id} = req.params;
+
+        const request = db.remove(id);
+
+        request.then(response => {
+        res.status(200).json(response);
+        })
+
+        .catch(error => {
+        res.status(500).json({error: "Failed to delete user"});
+        })
+
+});
 
 module.exports = router;
