@@ -20,7 +20,7 @@ function getById(id) {
 };
 
 
-function getByEmail(email) {
+function getByEmail(email) {   // This is used when posting a customer to check if email is a duplicate
   // const query = db('customers').where('email', email);
 
   return db('customers').where('email', email)
@@ -39,3 +39,5 @@ function remove(id){
                .where({id: Number(id)})
                .del();
 };
+
+// Cameron testing github contributions
