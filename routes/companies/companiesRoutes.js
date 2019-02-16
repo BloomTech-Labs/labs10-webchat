@@ -32,4 +32,28 @@ router.get('/:id', (req, res) => {
 	});
 })
 
+router.post('/', (req, res) => {
+	let { name, api_token } = req.body;
+
+	if (!name) {
+		res.status(400).json({ message: 'Please provide company\'s name' });
+		return;
+	}
+	if (!api_token) {
+		res.status(400).json({ message: 'Please provide an api_token' });
+		return;
+	}
+
+	let newCompany = { name, api_token };
+	db
+		.insert(newCompany)
+		.then(company => {
+			console.log(company);
+			res.status(200).json(company);
+		})
+		.catch(err => {
+			res.status(500).json({ err: 'Failed to add new company\'s name' });
+		})
+})
+
 module.exports = router;
