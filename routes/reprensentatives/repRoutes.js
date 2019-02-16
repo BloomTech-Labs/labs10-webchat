@@ -15,19 +15,20 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
 	const id = req.params.id;
-	const request = db.getById(id);      
-	request.then(res => { 
-		console.log(res);
+	const request = db.getById(id);
 
-		if(res.length == 0) {
-			res.status(404).json({ error: "The rep with the specified Id does not exist" });
+	request.then(response_data => { 
+		console.log(response_data);
+
+		if(response_data.length == 0) {
+			res.status(400).json({ error: "The representative with the specified id does not exist" });
 		} else {
-			console.log(res);
-			res.status(200).json(res);
+			console.log(response_data);
+			res.status(200).json(response_data);
 		}
 	})
 	.catch(err => {
-		res.status(500).json({ err: "Failed to retrieve the rep" })
+		res.status(500).json({ err: "Failed to retrieve represenative details" });
 	});
 })
 
