@@ -31,47 +31,39 @@ router.get('/:id', (req, res) => {
 	});
 })
 
+/****************************************/
 router.post('/', (req, res) => {
-	let { name, email, company_id } = req.body;
-	if(!name) {
-		res.status(400).json({message: 'Please provide your Name.'});
+	let { company_id, name, motto, phone_number, email, image_id} = req.body;
+	let newRepresentative = { company_id, name, motto, phone_number, email, image_id };
+
+	if (!name) {
+		res.status(400).json({message: 'Please provide your name.'});
 		return;
 	}
-	if(!email) {
-		res.status(400).json({message: 'Please provide your Email.'});
-      return;
+	if (!email) {
+		res.status(400).json({message: 'Please provide an email address.'});
+		return;
 	}
-	if(!company_id) {
-		res.status(400).json({message: 'Please identify your Company.'});
-      return;
+	if (!image_id) {
+		image_id = 1;
+	}
+	if (!company_id) {
+		res.status(400).json({message: 'No company id, rep must be member of existing company.'});
+		return;
 	}
 
-	const request = db('companies').where('id', company_id);
-
-	request.then(res => {
-		db
-		.insert(req.body)
+	db
+		.insert(newRepresentative)
 		.then(representative => {
-				res.status(200).json(representative);
+			console.log(representative);
+			res.status(200).json(representative);
 		})
 		.catch(err => {
-				const withEmail = db.getByEmail(email);
-
-				if (withEmail) {
-						res.status(400).json({message: 'The provided email is already associated with an account.'});
-				}
-				// else:
-				res.status(500).json({err});
-	})
-	.catch(err => {
-		res.status(400).json({message: 'That company does not exhist! Please choose another Company.'})
-		// This company doesn't exist
-		// Redirect to company registration page so user can register)
-	});
-})
-})
-
-	
+			res.status(500).json({ message: err.message });
+		});
+});
+/****************************************/
+			
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
 
