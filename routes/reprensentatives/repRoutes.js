@@ -31,7 +31,6 @@ router.get('/:id', (req, res) => {
 	});
 })
 
-/****************************************/
 router.post('/', (req, res) => {
 	let { company_id, name, motto, phone_number, email, image_id} = req.body;
 	let newRepresentative = { company_id, name, motto, phone_number, email, image_id };
@@ -62,7 +61,6 @@ router.post('/', (req, res) => {
 			res.status(500).json({ message: err.message });
 		});
 });
-/****************************************/
 			
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
