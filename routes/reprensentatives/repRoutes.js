@@ -33,8 +33,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 	let { company_id, name, motto, phone_number, email, image_id} = req.body;
-	let newRepresentative = { company_id, name, motto, phone_number, email, image_id };
-
+	
 	if (!name) {
 		res.status(400).json({message: 'Please provide your name.'});
 		return;
@@ -50,7 +49,8 @@ router.post('/', (req, res) => {
 		res.status(400).json({message: 'No company id, rep must be member of existing company.'});
 		return;
 	}
-
+	let newRepresentative = { company_id, name, motto, phone_number, email, image_id };
+	
 	db
 		.insert(newRepresentative)
 		.then(representative => {
@@ -58,7 +58,13 @@ router.post('/', (req, res) => {
 			res.status(200).json(representative);
 		})
 		.catch(err => {
-			res.status(500).json({ message: err.message });
+			const request = db.getByEmail(email);
+			request.then(response_data => {
+				console.log(response_data);
+				if (response_data) {
+					res.status(400).json({ error: 'The provided email is already associated with an account' });
+				}
+			});
 		});
 });
 			
