@@ -68,19 +68,46 @@ router.post('/', (req, res) => {
 			});
 		});
 });
-			
+
+
+//update a representative's admin status
+
+router.put('/adminstatus/:id', (req, res) => {
+        const id = req.params.id;
+
+        const is_admin = req.body.is_admin;
+        const user = {is_admin};
+
+        console.log(user);
+        console.log(req.body);
+
+
+        const request= db.update(id, user);
+
+        request.then(response_data => {
+                res.status(200).json(response_data);
+        })
+
+        .catch(error => {
+                res.status(500).json({error: "Failed to update admin status"});
+        })
+
+});
+
+
+
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
 
 	const request = db.remove(id);
 
-	request.then(response => {
-	res.status(200).json(response);
+	request.then(response_data => {
+		res.status(200).json(response_data);
 	})
 
 	.catch(error => {
-	res.status(500).json({error: "Failed to delete user", error });
-	})
+    res.status(500).json({error: "Failed to delete user"});
+  })
 
 });
 
