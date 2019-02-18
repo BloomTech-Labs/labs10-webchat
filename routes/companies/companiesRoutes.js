@@ -56,4 +56,38 @@ router.post('/', (req, res) => {
 		})
 })
 
+router.delete('/:id', (req, res) => {
+	const {id} = req.params;
+
+	const request = db.remove(id);
+
+	request.then(response => {
+	res.status(200).json(response);
+	})
+
+	.catch(error => {
+	res.status(500).json({error: "Failed to delete company", error });
+	})
+
+});
+
+router.put('/:id', (req, res) => {
+	const { id } = req.params;
+	const { name, api_token } = req.body;
+	const newCompany = { name, api_token };
+	if (!id) {
+		res.status(404).json({ message: 'The company with the specified ID does not exist' });
+	}
+	else if (!newCompany) {
+		res.status(404).json({ message: 'Please provide name and api_token for the company' });
+	}
+	companiesDb.update(id, newCompany)
+		.then(company => {
+			res.status(200).json({ message: 'The company has updated' });
+		})
+		.catch(err => {
+			res.status(500).json({ error: 'The company information could not be modified', err });
+		})
+})
+
 module.exports = router;
