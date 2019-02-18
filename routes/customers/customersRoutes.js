@@ -133,6 +133,23 @@ router.post('/register', (req, res) => {         	// POST to '/api/customers/reg
 });
 
 
+router.post('/login', (req, res)=>{
+        let {email, password} = req.body;
+
+        auth.signInWithEmailAndPassword(email, password)  ////firebase auth function to log a registered user into the system, requires email and password fields only
+        .then(response_data => {
+                console.log(response_data);
+                res.status(200).json({message:"Successfully logged in using firebase"});
+        })
+        .catch(err => {
+		
+		// Handle Errors here.
+		let errorMessage = err.message;
+                res.status(500).json(errorMessage);
+        })
+});
+
+
 router.delete('/:id', (req, res) => {
         const {id} = req.params;
 
