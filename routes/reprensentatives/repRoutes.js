@@ -15,74 +15,98 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
 	const id = req.params.id;
-	const request = db.getById(id);      
-	request.then(res => { 
-		console.log(res);
+	const request = db.getById(id);
 
-		if(res.length == 0) {
-			res.status(404).json({ error: "The rep with the specified Id does not exist" });
+	request.then(response_data => { 
+		console.log(response_data);
+
+		if(response_data.length == 0) {
+			res.status(400).json({ error: "The representative with the specified id does not exist" });
 		} else {
-			console.log(res);
-			res.status(200).json(res);
+			console.log(response_data);
+			res.status(200).json(response_data);
 		}
 	})
 	.catch(err => {
-		res.status(500).json({ err: "Failed to retrieve the rep" })
+		res.status(500).json({ err: "Failed to retrieve represenative details" });
 	});
 })
 
 router.post('/', (req, res) => {
-	let { name, email, company_id } = req.body;
-	if(!name) {
-		res.status(400).json({message: 'Please provide your Name.'});
+	let { company_id, name, motto, phone_number, email, image_id} = req.body;
+	
+	if (!name) {
+		res.status(400).json({message: 'Please provide your name.'});
 		return;
 	}
-	if(!email) {
-		res.status(400).json({message: 'Please provide your Email.'});
-      return;
+	if (!email) {
+		res.status(400).json({message: 'Please provide an email address.'});
+		return;
 	}
-	if(!company_id) {
-		res.status(400).json({message: 'Please identify your Company.'});
-      return;
+	if (!image_id) {
+		image_id = 1;
 	}
-
-	const request = db('companies').where('id', company_id);
-
-	request.then(res => {
-		db
-		.insert(req.body)
+	if (!company_id) {
+		res.status(400).json({message: 'No company id, rep must be member of existing company.'});
+		return;
+	}
+	let newRepresentative = { company_id, name, motto, phone_number, email, image_id };
+	
+	db
+		.insert(newRepresentative)
 		.then(representative => {
-				res.status(200).json(representative);
+			console.log(representative);
+			res.status(200).json(representative);
 		})
 		.catch(err => {
-				const withEmail = db.getByEmail(email);
-
-				if (withEmail) {
-						res.status(400).json({message: 'The provided email is already associated with an account.'});
+			const request = db.getByEmail(email);
+			request.then(response_data => {
+				console.log(response_data);
+				if (response_data) {
+					res.status(400).json({ error: 'The provided email is already associated with an account' });
 				}
-				// else:
-				res.status(500).json({err});
-	})
-	.catch(err => {
-		res.status(400).json({message: 'That company does not exhist! Please choose another Company.'})
-		// This company doesn't exist
-		// Redirect to company registration page so user can register)
-	});
-})
-})
+			});
+		});
+});
 
-	
+
+//update a representative's admin status
+
+router.put('/adminstatus/:id', (req, res) => {
+        const id = req.params.id;
+
+        const is_admin = req.body.is_admin;
+        const user = {is_admin};
+
+        console.log(user);
+        console.log(req.body);
+
+
+        const request= db.update(id, user);
+
+        request.then(response_data => {
+                res.status(200).json(response_data);
+        })
+
+        .catch(error => {
+                res.status(500).json({error: "Failed to update admin status"});
+        })
+
+});
+
+
+
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
 
 	const request = db.remove(id);
 
-	request.then(response => {
-	res.status(200).json(response);
+	request.then(response_data => {
+		res.status(200).json(response_data);
 	})
 
 	.catch(error => {
-	res.status(500).json({error: "Failed to delete user"});
+		res.status(500).json({error: "Failed to delete user"});
 	})
 
 });
