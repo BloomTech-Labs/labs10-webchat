@@ -1,13 +1,6 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
-        knex.schema.createTable('companies', table => {
-            table.increments('id').primary();           // id of the company
-            table.string('name')
-                .unique()
-                .notNullable();
-            table.string('api_token')
-                .unique()
-                .notNullable();
+        knex.schema.table('companies', table => {
             table.boolean('has_paid')
                 .defaultTo(false);
         })
@@ -16,6 +9,8 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
     return Promise.all([
-        knex.schema.dropTableIfEsists('companies')
+        knex.schema.table('companies' => {
+            table.dropColumn('has_paid');
+        }
     ])
 };
