@@ -15,25 +15,15 @@ class CheckoutForm extends Component {
     let company_id = 1;
     // Company ID is hardcoded in until we have user accounts set up
 
-    // let response = await fetch("http://localhost:5000/api/billing/charge", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "text/plain" },
-    //   body: {
-    //     "token": token.id,
-    //     "company_id": company_id
-    //   }
-    // });
     let chargeRequest = { token: token.id, company_id: company_id};
     axios.post("http://localhost:5000/api/billing/charge", chargeRequest)
       .then(response => {
         console.log("charge response: ", response);
+        this.setState({ complete: true });
       })
       .catch(err => {
         console.log(err);
       })
-
-
-    // if (response.ok) this.setState({ complete: true });
   }
 
   render() {
