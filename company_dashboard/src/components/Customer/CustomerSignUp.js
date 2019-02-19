@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
+//import { withFirebase } from "../Firebase";
+//import { Link, withRouter } from "react-router-dom"
+import { FirebaseContext } from '../Firebase';
 //import * as ROUTES from '../../constants/routes';
 
 const CustomerSignUpPage = () => (
   <div>
     <h1>SignUp</h1>
-    <CustomerSignUpForm />
+    <FirebaseContext.Consumer>
+      {firebase => <CustomerSignUpForm firebase={firebase} />}
+    </FirebaseContext.Consumer>
   </div>
 );
+
 
 class CustomerSignUpForm extends Component {
   constructor(props) {
@@ -17,21 +21,36 @@ class CustomerSignUpForm extends Component {
      this.state = {
     	email:"",
 	password:"",
-	password1:"",     
+	password1:"",
+	error:null     
     };
 	  
   }
 
   onSubmit = event => {
+    const {email, password } = this.state;
 
-  }
+    this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+          console.log(authUser);
+
+	 this.setState({email:"", password:"", password1:"" });
+      })
+      .catch(error => {
+        this.setState({ error:error });
+      });
+
+    event.preventDefault();
+  };
+
 
   onChange = event => {
 	this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-
+    const {email, password, password1, error} = this.state; 
     const condition = password !== password1 || password1 === '' || email === '';
 
 
@@ -60,7 +79,8 @@ class CustomerSignUpForm extends Component {
             placeholder="Re-enter your password"
             onChange={this.onChange}
         />
-	<button disabled={condition} type="submit">Sign Up</button>    
+	<button disabled={condition} type="submit">Sign Up</button>   
+	{error && <p>{error.message}</p>}    
       </form>
     );
   }
@@ -72,6 +92,12 @@ const CustomerSignUpLink = () => (
   </p>
 );
 
+
+
 export default CustomerSignUpPage;
 
 export { CustomerSignUpForm, CustomerSignUpLink };
+
+//const CustomerSignUpForm = withRouter(withFirebase(CustomerSignUpFormBase));
+//export default CustomerSignUpPage;
+//export { CustomerSignUpForm, CustomerSignUpLink };
