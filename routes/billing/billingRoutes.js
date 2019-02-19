@@ -25,13 +25,12 @@ router.post("/charge", async (req, res) => {
         // await db("companies")
         //     .where("id", req.body.company_id)
         //     .update({ has_paid: true });
-        await db.update(company_id, )
-            .where("id", req.body.company_id)
-            .update({ has_paid: true });
+        let payment_status = { has_paid: true };
+        await db.update(company_id, payment_status)
         res.json({ status });
     } catch (err) {
         res.status(500).end();
     }
 });
 
-module.exports = Router;
+module.exports = router;
