@@ -10,10 +10,16 @@ class CheckoutForm extends Component {
 
   async submit(ev) {
     let { token } = await this.props.stripe.createToken({ name: "Name" });
+    let company_id = 1;
+    // Company ID is hardcoded in until we have user accounts set up
+
     let response = await fetch("/charge", {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
-      body: token.id
+      body: {
+        "token": token.id,
+        "company_id": company_id
+      }
     });
 
     if (response.ok) this.setState({ complete: true });
