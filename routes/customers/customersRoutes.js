@@ -11,6 +11,17 @@ if(process.env.NODE_ENV !== 'production'){
 require("firebase/auth");
 require("firebase/database");
 
+const admin = require('firebase-admin');
+
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  }),
+  databaseURL: process.env.FIREBASE_DB_URL
+});
+
 const db = require('../../data/helpers/customersDb');
 
 
@@ -20,10 +31,12 @@ const config = {
     databaseURL: process.env.FIREBASE_DB_URL,
     projectId: process.env.FIREBASE_PROJECT_ID,
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,	
   };
-  firebase.initializeApp(config);    //initialize firebase by passing config variables
+  firebase.initializeApp(config);    //initialize firebase by passing config variables obtained after creating an account with firebase
 
 const auth = firebase.auth();
+
 
 router.get('/', (req, res) => {
 	db.get()
@@ -36,53 +49,48 @@ router.get('/', (req, res) => {
 });
 
 
-//Test code - to understand how firebase is implemented  before integrating with adding a new user
-
-/*router.post('/register', (req, res) => {
-	let {email, password} = req.body 
-
-	auth.createUserWithEmailAndPassword(email, password)    //firebase auth function to register a new user, requires email and password, just 2 fields, stores them in firebase databse
-	.then(response_data =>{
-		
-		console.log(response_data);
-		res.status(200).json(response_data);    //response_data conatins the new user's registration details dent back by firebase
-	
-	})
-	.catch(err => {
-	  	// Handle Errors here.
-		let errorCode = err.code;
-  		let errorMessage = err.message;
-
-  	  	res.status(500).json(errorMessage);
-	})
-
-});*/
-
-
 router.get('/:id', (req, res) => {
-	const id = req.params.id;
-	const request = db.getById(id);      
-	request.then(response_data => { 
-		console.log(response_data);
+        const id = req.params.id;
+        const request = db.getById(id);
+        request.then(response_data => { 
+                console.log(response_data);
 
-		if(response_data.length == 0) {
-			res.status(404).json({ error: "The user with the specified Id does not exist" });
-		} else {
-			console.log(res);
-			res.status(200).json(response_data);
-		}
-	})
-	.catch(err => {
-		res.status(500).json({ err: "Failed to retrieve the user" });
-	})
+                if(response_data.length == 0) {
+                        res.status(404).json({ error: "The user with the specified Id does not exist" });
+                } else {
+                        console.log(res);
+                        res.status(200).json(response_data);
+                }
+        })
+        .catch(err => {
+                res.status(500).json({ err: "Failed to retrieve the user" });
+        })
 })
 
 
-router.post('/register', (req, res) => {         	// POST to '/api/customers/register'
-    let { name, email, password, summary } = req.body;
-    
-   //checking for missing values
-	
+//verify firebase token
+router.post('/verify', (req,res) =>{
+
+	const idToken = req.headers.authorization;
+
+	admin.auth().verifyIdToken(idToken)
+                .then(decodedToken =>{
+                        console.log(decodedToken);
+                        const uid = decodedToken.uid;
+                        res.status(200).json(uid);
+
+                 })
+                .catch(err =>{
+                        res.status(500).json(err.message);
+               })
+
+})
+
+
+
+router.post('/', (req, res) => {         // POST to '/api/customers/'
+    let { name, email, summary } = req.body;
+    // Some error checking; could be eliminated if more efficient method is found
     if (!name) {
         res.status(400).json({message: 'Please provide your name.'});
         return;
@@ -91,63 +99,27 @@ router.post('/register', (req, res) => {         	// POST to '/api/customers/reg
         res.status(400).json({message: 'Please provide an email address.'});
         return;
     }
-
-    if (!password) {
-        res.status(400).json({message: 'Please provide a password.'});
-        return;
-    }	
     if (!summary) {
         res.status(400).json({message: 'Please provide a summary of your inquiry.'});
         return;
-    }
-	
+	}
 	let newCustomer = { name, email, summary };
-    	
-	auth.createUserWithEmailAndPassword(email, password) //firebase auth function to register a new user, requires email and password fields only, stores the details in firebase databse 
-        .then(response_data =>{
-
-        	console.log(response_data);  //response_data conatins the new user's registration details sent back by firebase
-		console.log(newCustomer);
-
-		const request = db.insert(newCustomer);
-        	
-		request.then(customer => {
-           		 
-            		console.log("customer inside db insert then: ", customer);
-
-            		res.status(200).json(customer);
-        	})	
-        	.catch(err => {
-                        res.status(400).json(err.message);
-            	})
+    db
+        .insert(newCustomer)
+        .then(customer => {
+            console.log("customer inside .then: ", customer);
+            res.status(200).json(customer);
         })
         .catch(err => {
-         	
-		// Handle Errors here.
-                let errorCode = err.code;
-                let errorMessage = err.message;
-
-                res.status(500).json(errorMessage);
-         })
-
-});
-
-
-router.post('/login', (req, res)=>{
-        let {email, password} = req.body;
-
-        auth.signInWithEmailAndPassword(email, password)  ////firebase auth function to log a registered user into the system, requires email and password fields only
-        .then(response_data => {
+            const request = db.getByEmail(email);
+            request.then(response_data => {
                 console.log(response_data);
-                res.status(200).json({message:"Successfully logged in using firebase"});
+		        if (response_data) {
+			        res.status(400).json({ error: 'The provided email is already associated with an account.' });
+                } 
+            });
         })
-        .catch(err => {
-		
-		// Handle Errors here.
-		let errorMessage = err.message;
-                res.status(500).json(errorMessage);
-        })
-});
+})
 
 
 router.delete('/:id', (req, res) => {
@@ -164,5 +136,8 @@ router.delete('/:id', (req, res) => {
         })
 
 });
+
+
+
 
 module.exports = router;

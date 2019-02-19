@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-//import { withFirebase } from "../Firebase";
+import { withFirebase } from "../Firebase";
 //import { Link, withRouter } from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
 //import * as ROUTES from '../../constants/routes';
 
 const CustomerSignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
     <FirebaseContext.Consumer>
       {firebase => <CustomerSignUpForm firebase={firebase} />}
     </FirebaseContext.Consumer>
@@ -14,7 +13,7 @@ const CustomerSignUpPage = () => (
 );
 
 
-class CustomerSignUpForm extends Component {
+class CustomerSignUpFormBase extends Component {
   constructor(props) {
     super(props);
       
@@ -22,7 +21,8 @@ class CustomerSignUpForm extends Component {
     	email:"",
 	password:"",
 	password1:"",
-	error:null     
+	error:null,
+	logged:false,     
     };
 	  
   }
@@ -34,8 +34,8 @@ class CustomerSignUpForm extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
           console.log(authUser);
-
-	 this.setState({email:"", password:"", password1:"" });
+	      
+	 this.setState({logged:true, email:"", password:"", password1:"" });
       })
       .catch(error => {
         this.setState({ error:error });
@@ -55,6 +55,9 @@ class CustomerSignUpForm extends Component {
 
 
     return (
+      <div>{this.state.logged ? (<h1>Successfully Logged In</h1>):(
+       <div>
+       <h1>SignUp</h1>	      
       <form onSubmit={this.onSubmit}>
 	<input
 	    name="email"
@@ -82,7 +85,8 @@ class CustomerSignUpForm extends Component {
 	<button disabled={condition} type="submit">Sign Up</button>   
 	{error && <p>{error.message}</p>}    
       </form>
-    );
+      </div>)}
+    </div>);
   }
 }
 
@@ -94,10 +98,11 @@ const CustomerSignUpLink = () => (
 
 
 
+
+
+const CustomerSignUpForm = withFirebase(CustomerSignUpFormBase);
+
 export default CustomerSignUpPage;
 
 export { CustomerSignUpForm, CustomerSignUpLink };
 
-//const CustomerSignUpForm = withRouter(withFirebase(CustomerSignUpFormBase));
-//export default CustomerSignUpPage;
-//export { CustomerSignUpForm, CustomerSignUpLink };
