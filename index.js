@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 const repRoutes = require('./routes/reprensentatives/repRoutes');
 const customersRoutes = require('./routes/customers/customersRoutes');
 const companiesRoutes = require('./routes/companies/companiesRoutes');
-const billingRoutes = require('./routes/billing');
+const billingRoutes = require('./routes/billing/billingRoutes');
 
 
 server.use(express.json());
