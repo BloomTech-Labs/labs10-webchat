@@ -38,8 +38,8 @@ function remove(id){
          .del();
 };
 
-function updatePayment(id, payment_status) {
+function updatePayment(id, paymentStatus) {
   return db('companies')
     .where({id: Number(id)})
-    .update(payment_status);
+    .update({ has_paid: paymentStatus });
 }
