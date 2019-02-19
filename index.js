@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const server = express();
+require('dotenv').config();
 const port = process.env.PORT || 5000;
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');

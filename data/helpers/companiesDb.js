@@ -5,8 +5,10 @@ module.exports = {
   getById,
   insert,
   update,
-  remove
+  remove,
+  updatePayment
 };
+
 function get() {
   return db('companies');
 };
@@ -40,6 +42,6 @@ function remove(id){
 
 function updatePayment(id, paymentStatus) {
   return db('companies')
-    .where({id: Number(id)})
+    .where('id', id)
     .update({ has_paid: paymentStatus });
 }
