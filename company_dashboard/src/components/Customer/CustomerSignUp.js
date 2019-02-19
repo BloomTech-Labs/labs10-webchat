@@ -33,7 +33,29 @@ class CustomerSignUpForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
+	<input
+	    name="email"
+	    type="text"
+	    value={this.state.email}
+	    placeholder="Enter your email"
+	    onChange={this.onChange}
+	/>	    
+	
+	<input 
+            name="password"
+            type="password"
+            value={this.state.password}
+            placeholder="Enter your password"
+            onChange={this.onChange}
+        />    
 
+ 	<input
+            name="password1"
+            type="password"
+            value={this.state.password1}
+            placeholder="Re-enter your password"
+            onChange={this.onChange}
+        />	    
       </form>
     );
   }
