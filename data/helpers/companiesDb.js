@@ -37,3 +37,9 @@ function remove(id){
          .where({id: Number(id)})
          .del();
 };
+
+function updatePayment(id, paymentStatus) {
+  return db('companies')
+    .where({id: Number(id)})
+    .update({ has_paid: paymentStatus });
+}
