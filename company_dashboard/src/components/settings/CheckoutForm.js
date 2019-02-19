@@ -10,7 +10,7 @@ class CheckoutForm extends Component {
   }
 
   async submit(ev) {
-    let { token } = await this.props.stripe.createToken({ name: "Name" });
+    let { token } = await this.props.stripe.createToken();
     console.log("Stripe token from checkout form submit: ", token);
     let company_id = 1;
     // Company ID is hardcoded in until we have user accounts set up
