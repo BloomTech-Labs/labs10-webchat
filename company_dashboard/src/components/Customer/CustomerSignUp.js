@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import * as ROUTES from '../../constants/routes';
+//import * as ROUTES from '../../constants/routes';
 
 const CustomerSignUpPage = () => (
   <div>
@@ -31,6 +31,10 @@ class CustomerSignUpForm extends Component {
   };
 
   render() {
+
+    const condition = password !== password1 || password1 === '' || email === '';
+
+
     return (
       <form onSubmit={this.onSubmit}>
 	<input
@@ -55,7 +59,8 @@ class CustomerSignUpForm extends Component {
             value={this.state.password1}
             placeholder="Re-enter your password"
             onChange={this.onChange}
-        />	    
+        />
+	<button disabled={condition} type="submit">Sign Up</button>    
       </form>
     );
   }
@@ -63,7 +68,7 @@ class CustomerSignUpForm extends Component {
 
 const CustomerSignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.CUSTOMER_SIGN_UP}>Sign Up</Link>
+    Don't have an accoun?
   </p>
 );
 
