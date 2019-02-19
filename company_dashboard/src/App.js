@@ -3,6 +3,7 @@ import "./App.css";
 import { Route } from 'react-router-dom';
 
 import LandingPage from './components/LandingPage';
+//import CustomerSignUp from './components/Customer/CustomerSignUp';
 import RepsLogin from "./components/representatives/RepsLogin";
 
 class App extends Component {

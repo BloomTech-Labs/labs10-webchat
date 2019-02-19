@@ -27,5 +27,23 @@
   "bugs": {
     "url": "https://github.com/Lambda-School-Labs/labs10-webchat/issues"
   },
+<<<<<<< HEAD
+  "homepage": "https://github.com/Lambda-School-Labs/labs10-webchat#readme",
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "firebase": "^5.8.3",
+    "firebase-admin": "^7.0.0",
+    "helmet": "^3.15.1",
+    "knex": "^0.16.3",
+    "morgan": "^1.9.1",
+    "pg": "^7.8.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0"
+  }
+=======
   "homepage": "https://github.com/Lambda-School-Labs/labs10-webchat#readme"
+>>>>>>> ae1477e4a3c5cae21391770d27858e007c0c939f
 }
