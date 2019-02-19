@@ -132,7 +132,7 @@ router.delete('/:id', (req, res) => {
         })
 
         .catch(error => {
-        res.status(500).json({error: "Failed to delete user"});
+        res.status(500).json({error: "Failed to delete user", error });
         })
 
 });
