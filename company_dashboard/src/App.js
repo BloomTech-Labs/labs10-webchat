@@ -7,6 +7,7 @@ import CustomerSignUp from './components/Customer/CustomerSignUp';
 import RepsLogin from "./components/representatives/RepsLogin";
 import RepRegister from "./components/representatives/RepRegister"
 import CompanyRegister from "./components/company/CompanyRegister";
+import PersonalInfo from "./components/representatives/PersonalInfo";
 
 class App extends Component {
   render() {
@@ -19,7 +20,7 @@ class App extends Component {
        <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />	
        <Route path={ROUTES.REP_REGISTER} component={RepRegister} />	    
        <Route path={ROUTES.COMPANY_REGISTER} component={CompanyRegister} />
-	    
+       <Route path={ROUTES.PERSONAL_INFO} component={PersonalInfo} />	    
       </div>
       </Router>	    
     );
