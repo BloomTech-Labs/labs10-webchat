@@ -45,8 +45,13 @@ class CompanyRegisterFormBase extends Component {
     
         request.then(response => {
 		console.log(response.data);
-		
 		//this.setState({logged:true});
+	
+		this.props.history.push({
+                pathname: '/personalinfo',
+                state: { rep_id: response.data }
+                });		
+		
 	})
         .catch(err => {
         	console.log(err.message);
