@@ -17,3 +17,31 @@ const RepSignUpPage = () => (
     </FirebaseContext.Consumer>
   </div>
 );
+
+
+class RepSignUpFormBase extends Component {
+  constructor(props) {
+    super(props);
+
+     this.state = {
+        email:"",
+        password:"",
+        password1:"",
+        error:null,
+        logged:false,
+    };
+
+  }
+
+  onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.onSubmit}>
+
+      </form>
+    );
+  }
+}	
