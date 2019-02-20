@@ -39,7 +39,9 @@ class RepSignUpFormBase extends Component {
 
   render() {
     return (
-	    
+  	const {email, password, password1, error} = this.state;
+        const condition = password !== password1 || password1 === '' || email === '';	    
+	
 	<div>
         <MuiThemeProvider>
         {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
