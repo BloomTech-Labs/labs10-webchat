@@ -91,9 +91,9 @@ router.put('/:id', (req, res) => {
 })
 
 // Route for an admin rep to add emails to approved email list for their company:
-router.post('/:id/approve', (req, res) => {
+router.post('/approve/:id', (req, res) => {
 	const { id } = req.params;
-	const {company_id } = id;
+	const company_id = id;
 	const { email } = req.body;
 	const approved_email = { company_id, email };  // we want to insert a company_id and email
 	db
