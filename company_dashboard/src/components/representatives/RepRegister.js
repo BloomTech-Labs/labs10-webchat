@@ -39,9 +39,67 @@ class RepSignUpFormBase extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+	    
+	<div>
+        <MuiThemeProvider>
+        {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+        Successfully Logged In
+        </Typography>):(
+       <div>
+       <AppBar
+            title="Sign Up"
+       />
+        <form onSubmit={this.onSubmit}>
+        <TextField
+            hintText="Enter your Email"
+            floatingLabelText="Email"
+            name="email"
+            type="text"
+            required={true}
+            value={this.state.email}
+            onChange={this.onChange}
+           />
+          <br/>
 
+        <TextField
+            hintText="Enter your password"
+            floatingLabelText="Password"
+            required={true}
+            name="password"
+            type="password"
+            value={this.state.password}
+            onChange={this.onChange}
+           />
+          <br/>
+
+         <TextField
+            hintText="Re-enter your password"
+            floatingLabelText="Re-enter password"
+            name="password1"
+            type="password"
+            required={true}
+            value={this.state.password1}
+            onChange={this.onChange}
+           />
+          <br/>
+
+        <RaisedButton
+              label="SignUp"
+              primary={true}
+              type="submit"
+              disabled={condition}
+        />
+
+        {error && <p>{error.message}</p>}
       </form>
-    );
+      </div>)}
+   </MuiThemeProvider>
+</div>);
   }
-}	
+}
+
+const RepSignUpForm = withRouter(withFirebase(RepSignUpFormBase));
+
+export default RepSignUpPage;
+
+export { RepSignUpForm};
