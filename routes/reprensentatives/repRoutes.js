@@ -113,7 +113,14 @@ router.delete('/:id', (req, res) => {
 
 router.post('/verifyemail', (req, res) => {
 	const { email } = req.body;
-
+	const table = 'approved_emails';
+	const request = db.getByEmail(email, table);
+	request.then(response_data => {
+		console.log(response_data);
+		if (!response_data) {
+			res.status(400).json({ error: 'You are not approved to join this company.' });
+		}
+	});
 
 })
 
