@@ -90,4 +90,20 @@ router.put('/:id', (req, res) => {
 		})
 })
 
+// Route for an admin rep to add emails to approved email list for their company:
+router.post('/:id/approve', (req, res) => {
+	const { id } = req.params;
+	const {company_id } = id;
+	const { email } = req.body;
+	const approved_email = { company_id, email };  // we want to insert a company_id and email
+	db
+		.addApprovedEmail(approved_email)
+		.then(response_data => {
+			res.status(200).json({ message: "email added to approved emails table"});
+		})
+		.catch(err => {
+			res.status(500).json({ error: "error adding email to approved emails table"});
+		})
+});
+
 module.exports = router;
