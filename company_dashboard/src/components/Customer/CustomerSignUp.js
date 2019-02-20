@@ -3,6 +3,11 @@ import { withFirebase } from "../Firebase";
 //import { Link, withRouter } from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
 //import * as ROUTES from '../../constants/routes';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Typography from '@material-ui/core/Typography';
 
 const CustomerSignUpPage = () => (
   <div>
@@ -55,38 +60,60 @@ class CustomerSignUpFormBase extends Component {
 
 
     return (
-      <div>{this.state.logged ? (<h1>Successfully Logged In</h1>):(
+      <div> 
+       <MuiThemeProvider>{this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+        Successfully Logged In
+      </Typography>):(
        <div>
-       <h1>SignUp</h1>	      
+       <AppBar
+            title="Sign Up"
+       />	      
       <form onSubmit={this.onSubmit}>
-	<input
+	<TextField
+            hintText="Enter your Email"
+            floatingLabelText="Email"
 	    name="email"
-	    type="text"
+	    type="text"   
+            required={true}
 	    value={this.state.email}
-	    placeholder="Enter your email"
-	    onChange={this.onChange}
-	/>	    
-	
-	<input 
-            name="password"
-            type="password"
-            value={this.state.password}
-            placeholder="Enter your password"
             onChange={this.onChange}
-        />    
-
- 	<input
+           />
+          <br/>       
+	
+	<TextField
+            hintText="Enter your password"
+            floatingLabelText="Password"
+            required={true}
+	    name="password"
+            type="password"  
+            value={this.state.password}
+            onChange={this.onChange}
+           />
+          <br/>
+	      
+	 <TextField
+            hintText="Re-enter your password"
+            floatingLabelText="Re-enter password"
             name="password1"
             type="password"
+	    required={true}  
             value={this.state.password1}
-            placeholder="Re-enter your password"
             onChange={this.onChange}
-        />
-	<button disabled={condition} type="submit">Sign Up</button>   
+           />
+          <br/>      
+	
+	<RaisedButton 
+              label="SignUp" 
+              primary={true} 
+              type="submit"
+	      disabled={condition} 
+        />       
+	       
 	{error && <p>{error.message}</p>}    
       </form>
       </div>)}
-    </div>);
+ </MuiThemeProvider>   
+</div>);
   }
 }
 
