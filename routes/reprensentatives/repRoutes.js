@@ -59,7 +59,8 @@ router.post('/', (req, res) => {
 			res.status(200).json(representative);
 		})
 		.catch(err => {
-			const request = db.getByEmail(email);
+			let table = 'representatives';
+			const request = db.getByEmail(email, table);
 			request.then(response_data => {
 				console.log(response_data);
 				if (response_data) {
@@ -95,7 +96,6 @@ router.put('/adminstatus/:id', (req, res) => {
 });
 
 
-
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
 
@@ -110,6 +110,12 @@ router.delete('/:id', (req, res) => {
   })
 
 });
+
+router.post('/verifyemail', (req, res) => {
+	const { email } = req.body;
+
+
+})
 
 
 module.exports = router;

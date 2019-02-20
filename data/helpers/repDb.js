@@ -21,8 +21,8 @@ const query = db('representatives').where('id', id);
     });
 }
 
-function getByEmail(email){
-const query = db('representatives').where('email', email);
+function getByEmail(email, table) {
+const query = db(table).where('email', email);
 
     return query.then(representatives => {
             return representatives[0];
