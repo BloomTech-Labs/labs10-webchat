@@ -117,7 +117,9 @@ router.post('/verifyemail', (req, res) => {
 	const request = db.getByEmail(email, table);
 	request.then(response_data => {
 		console.log(response_data);
-		if (!response_data) {
+		if (response_data) {
+			res.status(200).json(response_data.company_id);
+		} else {
 			res.status(400).json({ error: 'You are not approved to join this company.' });
 		}
 	});
