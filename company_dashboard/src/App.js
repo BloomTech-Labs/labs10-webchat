@@ -11,7 +11,7 @@ import CompanyRegister from "./components/company/CompanyRegister";
 class App extends Component {
   render() {
     return (
-       <Router>	    
+       <Router>	
        <div className="App">
 	
        <Route exact path={ROUTES.LANDING} component={LandingPage}/>
