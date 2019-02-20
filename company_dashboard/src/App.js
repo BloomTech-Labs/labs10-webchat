@@ -9,6 +9,7 @@ import * as ROUTES from './constants/routes';
 import LandingPage from './components/LandingPage';
 import CustomerSignUp from './components/Customer/CustomerSignUp';
 import RepsLogin from "./components/representatives/RepsLogin";
+import AdminPanel from "./components/settings/AdminPanel";
 
 class App extends Component {
   render() {
@@ -17,8 +18,9 @@ class App extends Component {
       <div className="App">
 
        <Route exact path={ROUTES.LANDING} component={LandingPage} />
-       <Route exact path={ROUTES.REPS_LOGIN} component={RepsLogin} /> 	    
-       <Route exact path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />	
+       <Route path={ROUTES.REPS_LOGIN} component={RepsLogin} /> 	    
+       <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
+       <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
 	    
       </div>
       </Router>	    
