@@ -16,4 +16,4 @@ exports.down = function(knex, Promise) {
     return Promise.all([
         knex.schema.dropTableIfEsists('companies')
     ])
-};
+};git 
