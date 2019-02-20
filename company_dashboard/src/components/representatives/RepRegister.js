@@ -41,8 +41,8 @@ class RepSignUpFormBase extends Component {
       .then(authUser => {
           console.log(authUser);
 
-         this.setState({email:"", password:"", password1:"" });
-         this.props.history.push(ROUTES.COMPANY_REGISTER);
+         this.setState({logged: true, email:"", password:"", password1:"" });
+         //this.props.history.push(ROUTES.COMPANY_REGISTER);
       })
       .catch(error => {
         this.setState({ error:error });
@@ -57,10 +57,11 @@ class RepSignUpFormBase extends Component {
   };
 
   render() {
-    return (
+   
   	const {email, password, password1, error} = this.state;
         const condition = password !== password1 || password1 === '' || email === '';	    
 	
+	return (  
 	<div>
         <MuiThemeProvider>
         {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
