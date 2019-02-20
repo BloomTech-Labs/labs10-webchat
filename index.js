@@ -3,11 +3,14 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const server = express();
+require('dotenv').config();
 const port = process.env.PORT || 5000;
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');
 const customersRoutes = require('./routes/customers/customersRoutes');
 const companiesRoutes = require('./routes/companies/companiesRoutes');
+const billingRoutes = require('./routes/billing/billingRoutes');
+
 
 server.use(express.json());
 server.use(morgan('dev'));
@@ -22,6 +25,8 @@ server.get('/',(req, res) => {
 server.use('/api/reps', repRoutes);
 server.use('/api/customers', customersRoutes);
 server.use('/api/companies', companiesRoutes);
+server.use('/api/billing', billingRoutes);
+
 
 server.use(function(req, res) {
   res.status(404).send("Wrong URL. This page does not exist");

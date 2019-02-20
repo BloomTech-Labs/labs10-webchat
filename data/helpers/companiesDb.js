@@ -4,7 +4,11 @@ module.exports = {
   get,
   getById,
   insert,
+  update,
+  remove,
+  updatePayment
 };
+
 function get() {
   return db('companies');
 };
@@ -22,3 +26,22 @@ function insert(company) {
   return db('companies')
     .insert(company).returning('id').then(ids => ids[0]);
 };
+
+function update(id, company){
+  return db('companies')
+    .where({id: Number(id)})
+    .update(company);
+}
+
+
+function remove(id){
+  return db('companies')
+         .where({id: Number(id)})
+         .del();
+};
+
+function updatePayment(id, paymentStatus) {
+  return db('companies')
+    .where('id', id)
+    .update({ has_paid: paymentStatus });
+}
