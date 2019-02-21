@@ -1,0 +1,24 @@
+.admin-panel form {
+  display: flex;
+  margin-top: 5%;
+}
+
+.admin-panel .left {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  padding-left: 15px;
+}
+
+.admin-panel p {
+  /* border: 1px solid black; */
+  display: flex;
+  padding-left: 15px;
+}
+
+.admin-panel .add-button {
+  /* border: 1px solid red; */
+  font-size: 12px;
+  width: 180px;
+  margin-top: 15px;
+}
