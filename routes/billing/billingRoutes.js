@@ -7,12 +7,11 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 router.post("/charge", async (req, res) => {
     // Take the Stripe token and company_id from req.body:
     let { token, company_id } = req.body;
-    console.log("req.body in post to /charge: ", req.body);
     // Get the company by id:
     const company = db.getById(company_id);
 
     if (company.length === 0) {
-        console.log("company not found");
+        console.log("Company not found");
         return res.status(500).send("Company not found");
     }
     // Charge company $30:
@@ -23,10 +22,6 @@ router.post("/charge", async (req, res) => {
             source: req.body.token
         });
         // Change has_paid boolean to true for company
-        // await db("companies")
-        //     .where("id", req.body.company_id)
-        //     .update({ has_paid: true });
-        // let payment_status = { has_paid: true };
         await db.updatePayment(company_id, true);
         res.json({ status });
     } catch (err) {
