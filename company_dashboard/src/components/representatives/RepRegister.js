@@ -78,6 +78,8 @@ class RepSignUpFormBase extends Component {
   render() {
    
   	const {email, password, password1, error} = this.state;
+
+	//checking if all the required fields are non-empty  
         const condition = password !== password1 || password1 === '' || email === '';	    
 	
 	return (  
@@ -131,6 +133,7 @@ class RepSignUpFormBase extends Component {
               disabled={condition}
         />
 
+	//if there is an error while registering, it will be displayed on the page 		
         {error && <p>{error.message}</p>}
       </form>
       </div>)}
@@ -139,6 +142,7 @@ class RepSignUpFormBase extends Component {
   }
 }
 
+//wrapping the react component with firebase higher order component withFirebase to access all firebase functions
 const RepSignUpForm = withRouter(withFirebase(RepSignUpFormBase));
 
 export default RepSignUpPage;
