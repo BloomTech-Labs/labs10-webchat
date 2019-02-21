@@ -37,7 +37,7 @@ class RepLoginFormBase extends React.Component {
 	const {email, password, error} = this.state;
 
         //checking if all the required fields are non-empty  
-        const condition = password !== password1 || password1 === '' || email === '';
+        const condition = password === '' || email === '';
 
     return (
 	<div>
@@ -74,7 +74,6 @@ class RepLoginFormBase extends React.Component {
               onClick={this.login}
             />
 
-      //if there is an error while registering, it will be displayed on the page              
         {error && <p>{error.message}</p>}
       </form>
       </div>)}

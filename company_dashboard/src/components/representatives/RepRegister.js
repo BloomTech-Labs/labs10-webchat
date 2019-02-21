@@ -133,7 +133,6 @@ class RepSignUpFormBase extends Component {
               disabled={condition}
         />
 
-	//if there is an error while registering, it will be displayed on the page 		
         {error && <p>{error.message}</p>}
       </form>
       </div>)}
