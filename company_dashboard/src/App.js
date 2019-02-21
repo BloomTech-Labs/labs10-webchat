@@ -8,13 +8,33 @@ import RepsLogin from "./components/representatives/RepsLogin";
 import RepRegister from "./components/representatives/RepRegister"
 import CompanyRegister from "./components/company/CompanyRegister";
 import PersonalInfo from "./components/representatives/PersonalInfo";
+import { withFirebase } from './components/Firebase';
+import Navigation from './components/Navigation';
 
 class App extends Component {
-  render() {
+constructor(props) {
+    super(props);
+
+    this.state = {
+      authUser: null,
+    };
+  }
+
+  componentDidMount() {
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    });
+  }
+	
+		
+render() {
     return (
        <Router>	    
        <div className="App">
-	
+
+
        <Route exact path={ROUTES.LANDING} component={LandingPage}/>
        <Route path={ROUTES.REPS_LOGIN} component={RepsLogin} /> 	    
        <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />	
@@ -27,4 +47,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withFirebase(App);

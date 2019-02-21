@@ -36,18 +36,19 @@ class CustomerSignUpFormBase extends Component {
   onSubmit = event => {
     const {email, password } = this.state;
 
+    
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-          console.log(authUser);
-	      
-	 this.setState({email:"", password:"", password1:"" });
-	 this.props.history.push(ROUTES.LANDING);     
-      })
-      .catch(error => {
-        this.setState({ error:error });
-      });
-
+            console.log(authUser.user.uid);
+		  
+	   this.setState({email:"", password:"", password1:"" });
+           this.props.history.push(ROUTES.LANDING);		  
+          })
+          .catch(error => {
+            this.setState({ error:error });
+          });
+    
     event.preventDefault();
   };
 

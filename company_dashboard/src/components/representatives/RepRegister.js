@@ -41,8 +41,8 @@ class RepSignUpFormBase extends Component {
       .then(authUser => {
           console.log(authUser);
 
-         this.setState({logged: true, email:"", password:"", password1:"" });
-         //this.props.history.push(ROUTES.COMPANY_REGISTER);
+         this.setState({email:"", password:"", password1:"" });
+         this.props.history.push(ROUTES.COMPANY_REGISTER);
       })
       .catch(error => {
         this.setState({ error:error });
