@@ -13,10 +13,12 @@ class Chat extends Component {
 
 				this.sendMessage = (ev) => {
 					ev.preventDefault();
-					this.socket.emit('SEND_MESSAGE', {
-							author: this.state.username,
-							message: this.state.message
-					});
+					if(this.state.username && this.state.message) {
+						this.socket.emit('SEND_MESSAGE', {
+								author: this.state.username,
+								message: this.state.message
+						});
+					} else alert('You are missing one of the following(s): Username, Message');
 					this.setState({message: ''});
 				}
 
