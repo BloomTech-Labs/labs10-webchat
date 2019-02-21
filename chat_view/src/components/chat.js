@@ -10,6 +10,25 @@ class Chat extends React.Component {
 			messages: []
         };
         this.socket = io('http://localhost:3000');
+
+        this.socket.on('RECEIVE_MESSAGE', function(data) {
+            addMessage(data);
+        });
+
+        const addMessage = (data) => {
+            console.log(data);
+            this.setState({messages: [...this.state.messages, data]});
+            console.log(this.state.messages);
+        }
+        
+        this.sendMessage = (ev) => {
+            ev.preventDefault();
+            this.socket.emit('SEND_MESSAGE', {
+                author: this.state.username,
+                message: this.state.message
+            });
+            this.setState({message: ''});
+        }
 	}
 	render() {
 		return(
