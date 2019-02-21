@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 import './AdminPanel.css';
 
 const styles = theme => ({
@@ -43,6 +44,7 @@ class AdminPanel extends React.Component {
   state = {
     name: '',
     motto: '',
+    error:null,	  
     codeSnippet: '',
     team: {
       name: '',
@@ -51,6 +53,29 @@ class AdminPanel extends React.Component {
       remove: false
     }
   };
+
+  componentDidMount() {
+	const id = this.props.history.location.state.rep_id;  
+	const request = axios.get(`http://localhost:5000/api/reps/${id}`);
+
+        request.then(response => {
+		 console.log(response);
+                console.log(response.data);
+		console.log(response.data.name);
+                this.setState({name: response.data.name, motto: response.data.motto});
+
+               //this.props.history.push({
+               // pathname: '/adminpanel',
+               // state: { rep_id: response.data }
+               // });
+
+        })
+        .catch(err => {
+                console.log(err.message);
+                this.setState({error:err});
+        })
+
+}
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
@@ -70,25 +95,25 @@ class AdminPanel extends React.Component {
         </Typography>   
          <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
-            <TextField
-              id='outlined-name'
-              label='Name'
-              className={classes.TextField}
-              value={this.state.name}
-              onChange={this.handleChange('name')}
-              margin='normal'
-              variant='outlined'
+	
+	    <p>Name</p>
+	   <TextField
+	    id='outlined-codeSnippet'
+	    margin='normal'
+	    rowsMax={Infinity}
+            fullWidth
+            className={classes.TextField}
+	    value={this.state.name}
+	    />
+		
+	    <p>Motto</p>
+	    <TextField
+            id='outlined-codeSnippet'
+            margin='normal'
+            value={this.state.motto}
             />
 
-            <TextField
-              id='outlined-motto'
-              label='Motto'
-              className={classes.TextField}
-              value={this.state.motto}
-              onChange={this.handleChange('motto')}
-              margin='normal'
-              variant='outlined'
-            />
+
 
             <p>Code Snippet</p>
             <TextField
