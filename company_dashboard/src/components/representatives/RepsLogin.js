@@ -8,8 +8,9 @@ class RepsLogin extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-    email:'',
-    password:''
+    email:"",
+    password:"",
+    error:"",	    
     }
   }
 
@@ -18,16 +19,26 @@ class RepsLogin extends React.Component {
   };
   
   render() {
+	const {email, password, error} = this.state;
+
+        //checking if all the required fields are non-empty  
+        const condition = password !== password1 || password1 === '' || email === '';
+
     return (
-      <div>
-        <MuiThemeProvider>
-          <div>
-          <AppBar
-            title="Login"
-          />
+	<div>
+       	 <MuiThemeProvider>
+        	{this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+        	Successfully Logged In
+        	</Typography>):(
+       	<div>
+       	<AppBar
+            title="Sign Up"
+       	/>
+	  <form onSubmit={this.onSubmit}>  
           <TextField
             hintText="Enter your Email"
             floatingLabelText="Email"
+	    required={true}
             value={this.state.email}
             onChange={this.handleChange}
             />
@@ -36,6 +47,7 @@ class RepsLogin extends React.Component {
               type="password"
               hintText="Enter your Password"
               floatingLabelText="Password"
+	      required={true}
               value={this.state.password}
               onChange={this.handleChange}
               />
@@ -46,10 +58,13 @@ class RepsLogin extends React.Component {
               style={style} 
               onClick={this.login}
             />
-        </div>
-        </MuiThemeProvider>
-      </div>
-    );
+
+      //if there is an error while registering, it will be displayed on the page              
+        {error && <p>{error.message}</p>}
+      </form>
+      </div>)}
+   </MuiThemeProvider>
+</div>);
   }
 }
 
