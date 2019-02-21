@@ -10,44 +10,32 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const RepSignUpPage = () => (
-  <div>
-    <FirebaseContext.Consumer>
-      {firebase => <RepSignUpForm firebase={firebase} />}
-    </FirebaseContext.Consumer>
-  </div>
-);
+//const PersonalSignUpPage = () => (
+  //<div>
+    //<FirebaseContext.Consumer>
+      //{firebase => <PersonalSignUpForm firebase={firebase} />}
+    //</FirebaseContext.Consumer>
+  //</div>
+//);
 
 
-class RepSignUpFormBase extends Component {
+class PersonalSignUpFormBase extends Component {
   constructor(props) {
     super(props);
 
      this.state = {
         email:"",
-        password:"",
-        password1:"",
+        name:"",
+	motto:"",
+	phonenumber:"",     
         error:null,
-        logged:false,
+        logged:true,  
     };
 
   }
 
-   onSubmit = event => {
-    const {email, password } = this.state;
-
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then(authUser => {
-          console.log(authUser);
-
-         this.setState({email:"", password:"", password1:"" });
-         this.props.history.push(ROUTES.COMPANY_REGISTER);
-      })
-      .catch(error => {
-        this.setState({ error:error });
-      });
-
+  onSubmit = event => {
+    const {email, name, motto, phonenumber} = this.state;
     event.preventDefault();
   };
 
@@ -57,20 +45,18 @@ class RepSignUpFormBase extends Component {
   };
 
   render() {
-   
-  	const {email, password, password1, error} = this.state;
-        const condition = password !== password1 || password1 === '' || email === '';	    
-	
-	return (  
-	<div>
+    const {email, name, motto, phonenumber, error} = this.state;
+    const condition = name === '' || email === '';
+
+
+    return (
+      <div>
         <MuiThemeProvider>
-        {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
-        Successfully Logged In
-        </Typography>):(
+        {this.state.logged ? (<div>Success, rep id is: {this.props.history.location.state.rep_id}</div>):(
        <div>
        <AppBar
             title="Sign Up"
-       />
+       />      
         <form onSubmit={this.onSubmit}>
         <TextField
             hintText="Enter your Email"
@@ -82,25 +68,24 @@ class RepSignUpFormBase extends Component {
             onChange={this.onChange}
            />
           <br/>
-
-        <TextField
-            hintText="Enter your password"
-            floatingLabelText="Password"
+      <TextField
+            hintText="Enter your name"
+            floatingLabelText="Name"
             required={true}
-            name="password"
-            type="password"
-            value={this.state.password}
+            name="name"
+            type="text"
+            value={this.state.name}
             onChange={this.onChange}
            />
           <br/>
 
          <TextField
-            hintText="Re-enter your password"
-            floatingLabelText="Re-enter password"
-            name="password1"
-            type="password"
+            hintText="Enter your motto"
+            floatingLabelText="Motto"
+            name="motto"
+            type="text"
             required={true}
-            value={this.state.password1}
+            value={this.state.motto}
             onChange={this.onChange}
            />
           <br/>
@@ -120,8 +105,9 @@ class RepSignUpFormBase extends Component {
   }
 }
 
-const RepSignUpForm = withRouter(withFirebase(RepSignUpFormBase));
 
-export default RepSignUpPage;
+//const PersonalSignUpForm = withRouter(withFirebase(PersonalSignUpFormBase));
 
-export { RepSignUpForm};
+export default PersonalSignUpFormBase;
+
+//export { PersonalSignUpForm };	
