@@ -12,6 +12,7 @@ import axios from 'axios';
 //import PersonalInfo from '../representatives/PersonalInfo';
 
 
+
 const CompanyRegisterPage = () => (
   <div>
     <FirebaseContext.Consumer>
@@ -37,7 +38,12 @@ class CompanyRegisterFormBase extends Component {
     };
 
   }
-
+  // if (NODE_ENV !== 'production') { 
+  //   POST_REP_URL =  `http://localhost:5000/api/reps`
+  // } else {
+  //   POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`
+  // }
+  // const POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`;
   onSubmit = event => {
 
 	const data = {
@@ -50,7 +56,7 @@ class CompanyRegisterFormBase extends Component {
     uid: this.state.uid
   };
 	  
-	const request = axios.post("http://localhost:5000/api/reps", data);
+	const request = axios.post('https://webchatlabs10.herokuapp.com/api/reps', data);
     
         request.then(response => {
 		console.log(response.data);
