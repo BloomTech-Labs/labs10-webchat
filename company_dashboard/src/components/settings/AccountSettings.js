@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
 import "./AccountSettings.css";
 
 const styles = theme => ({
@@ -26,13 +27,22 @@ class AccountSettings extends React.Component {
     name: "Customer Name",
     number: "770-867-5309",
     motto: "The best customer service ever!",
-    email: 'email@email.com'
+    email: "email@email.com",
+    selectedFile: null
   };
-
+  //Sets Input to state
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
     });
+  };
+  //Sets selectedFile in state after selecting an image
+  fileChangedHandler = (event) => {
+    this.setState({ selectedFile: event.target.file });
+  };
+  //In the future will upload to file to the database
+  uploadHandler = () => {
+    console.log(this.state.selectedFile);
   };
 
   render() {
@@ -110,13 +120,17 @@ class AccountSettings extends React.Component {
                 alt="profile picture"
               />
               <h2>Your Profile Photo</h2>
-              <Button
-                variant="outlined"
-                color="primary"
-                className="upload-button"
-              >
-                Upload
-              </Button>
+              <input
+                accept="image/*"
+                id="raised-button-file"
+                type="file"
+                onChange={this.fileChangedHandler}
+              />
+              <label>
+                <Button raised component="span" onClick={this.uploadHandler}>
+                  Upload
+                </Button>
+              </label>
             </div>
           </div>
         </form>

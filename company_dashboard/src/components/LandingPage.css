@@ -17,3 +17,12 @@
     max-width: 65px;
     max-height: 65px;
 }
+
+a { 
+    text-decoration: none;
+ }
+a:visited {
+    text-decoration: none;
+    color: black;
+ }
+a:hover { text-decoration: none; }
