@@ -34,22 +34,20 @@ class RepSignUpFormBase extends Component {
     };
 
   }
-  // if (process.env.NODE_ENV === 'development') { 
-  //   const VERIFY_URL =  `http://localhost:5000/api/reps/verifyemail`;
-  // } else {
-  //   const VERIFY_URL = `https://webchatlabs10.herokuapp.com/api/reps/verifyemail`;
-  // }
-  //  const VERIFY_URL = `https://webchatlabs10.herokuapp.com/api/reps/verifyemail`;
+  
+
    onSubmit = event => {
     const {email, password } = this.state;
-
+    
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log(authUser);
         console.log(authUser.user.uid);
         const data = { email: email };
-        const verifyRequest = axios.post('https://webchatlabs10.herokuapp.com/api/reps/verifyemail', data);  //check if the email is in approved emails table
+        
+        
+        const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
         verifyRequest
           .then(company_id => {    // if the email was approved, get the company_id back from server
             this.props.history.push({   // send the user to a form to sign up and directly join their company
