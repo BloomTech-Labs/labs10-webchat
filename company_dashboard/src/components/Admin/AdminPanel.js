@@ -64,7 +64,7 @@ class AdminPanel extends React.Component {
   // const POST_REP_URL = 'https://webchatlabs10.herokuapp.com/api/reps';
   componentDidMount() {
 	const id = this.props.history.location.state.rep_id;  
-	const request = axios.get('https://webchatlabs10.herokuapp.com/api/reps');
+	const request = axios.get(`https://webchatlabs10.herokuapp.com/api/reps/${id}`);
 
         request.then(response => {
 		 console.log(response);
