@@ -32,7 +32,7 @@ class RepLoginFormBase extends React.Component {
 
   onSubmit = event => {
     const {email, password } = this.state;
-
+	console.log("in onSubmit");
     this.props.firebase
       .doSignInWithEmailAndPassword (email, password)
       .then(authUser => {
@@ -90,12 +90,13 @@ class RepLoginFormBase extends React.Component {
               onChange={this.handleChange}
               />
             <br/>
-            <RaisedButton 
-              label="Login" 
-              primary={true} 
-              style={style} 
-              onClick={this.login}
-            />
+	
+	    <RaisedButton
+              label="Login"
+              primary={true}
+              type="submit"
+              disabled={condition}
+        />
 
         {error && <p>{error.message}</p>}
       </form>
