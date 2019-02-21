@@ -12,6 +12,7 @@ import axios from 'axios';
 //import PersonalInfo from '../representatives/PersonalInfo';
 
 
+
 const CompanyRegisterPage = () => (
   <div>
     <FirebaseContext.Consumer>
@@ -30,25 +31,39 @@ class CompanyRegisterFormBase extends Component {
 	email:"",
 	motto:"",
 	phone:"",
-	companyname:"",     
+  companyname:"",  
+  uid: props.history.location.state.uid,   
         error:null,
         logged:false,
     };
 
   }
-
+  // if (NODE_ENV !== 'production') { 
+  //   POST_REP_URL =  `http://localhost:5000/api/reps`
+  // } else {
+  //   POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`
+  // }
+  // const POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`;
   onSubmit = event => {
 
-	const data = {name: this.state.name, email: this.state.email, companyname: this.state.companyname, motto: this.state.motto, phone_number: this.state.phone}
+	const data = {
+    name: this.state.name, 
+    email: this.state.email, 
+    companyname: this.state.companyname, 
+    motto: this.state.motto, 
+    phone_number: this.state.phone, 
+    is_admin: true,
+    uid: this.state.uid
+  };
 	  
-	const request = axios.post("http://localhost:5000/api/reps", data);
+	const request = axios.post('https://webchatlabs10.herokuapp.com/api/reps', data);
     
         request.then(response => {
 		console.log(response.data);
 		//this.setState({logged:true});
 	
 		this.props.history.push({
-                pathname: '/personalinfo',
+                pathname: '/adminpanel',
                 state: { rep_id: response.data }
                 });		
 		
