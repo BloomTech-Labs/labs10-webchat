@@ -4,7 +4,17 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-class RepsLogin extends React.Component {
+
+const RepLoginPage = () => (
+  <div>
+    <FirebaseContext.Consumer>
+      {firebase => <RepLoginForm firebase={firebase} />}
+    </FirebaseContext.Consumer>
+  </div>
+);
+
+
+class RepLoginFormBase extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -72,4 +82,11 @@ const style = {
  margin: 15,
 };
 
-export default RepsLogin;
+
+//wrapping the react component with firebase higher order component withFirebase to access all firebase functions
+const RepLoginForm = withRouter(withFirebase(RepLoginFormBase));
+
+export default RepLoginPage;
+
+export { RepLoginForm};
+
