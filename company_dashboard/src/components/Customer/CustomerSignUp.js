@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withFirebase } from "../Firebase";
-//import { Link, withRouter } from "react-router-dom"
+import { Link, withRouter, Route} from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
-//import * as ROUTES from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
+
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -40,7 +41,8 @@ class CustomerSignUpFormBase extends Component {
       .then(authUser => {
           console.log(authUser);
 	      
-	 this.setState({logged:true, email:"", password:"", password1:"" });
+	 this.setState({email:"", password:"", password1:"" });
+	 this.props.history.push(ROUTES.LANDING);     
       })
       .catch(error => {
         this.setState({ error:error });
@@ -61,14 +63,15 @@ class CustomerSignUpFormBase extends Component {
 
     return (
       <div> 
-       <MuiThemeProvider>{this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+      	<MuiThemeProvider> 
+	{this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
         Successfully Logged In
-      </Typography>):(
+      	</Typography>):(
        <div>
        <AppBar
             title="Sign Up"
        />	      
-      <form onSubmit={this.onSubmit}>
+	<form onSubmit={this.onSubmit}>
 	<TextField
             hintText="Enter your Email"
             floatingLabelText="Email"
@@ -112,7 +115,7 @@ class CustomerSignUpFormBase extends Component {
 	{error && <p>{error.message}</p>}    
       </form>
       </div>)}
- </MuiThemeProvider>   
+   </MuiThemeProvider>
 </div>);
   }
 }
@@ -126,10 +129,11 @@ const CustomerSignUpLink = () => (
 
 
 
-
-const CustomerSignUpForm = withFirebase(CustomerSignUpFormBase);
+const CustomerSignUpForm = withRouter(withFirebase(CustomerSignUpFormBase));
 
 export default CustomerSignUpPage;
 
 export { CustomerSignUpForm, CustomerSignUpLink };
+
+
 
