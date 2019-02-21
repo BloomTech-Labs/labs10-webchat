@@ -39,19 +39,19 @@ class RepSignUpFormBase extends Component {
    onSubmit = event => {
     const {email, password } = this.state;
     
+    // if (process.env.NODE_ENV !== 'production') { 
+    //   const VERIFY_URL =  `http://localhost:5000/api/reps/verifyemail`
+    // } else {
+    //   const VERIFY_URL = `https://webchatlabs10.herokuapp.com/api/reps/verifyemail`
+    // }
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log(authUser);
         console.log(authUser.user.uid);
         const data = { email: email };
-        if (process.env.NODE_ENV !== 'production') { 
-          const VERIFY_URL =  `http://localhost:5000/api/reps/verifyemail`;
-        } else {
-          const VERIFY_URL = `https://webchatlabs10.herokuapp.com/api/reps/verifyemail`;
-        }
         
-
+        
         const verifyRequest = axios.post(VERIFY_URL, data);  //check if the email is in approved emails table
         verifyRequest
           .then(company_id => {    // if the email was approved, get the company_id back from server
