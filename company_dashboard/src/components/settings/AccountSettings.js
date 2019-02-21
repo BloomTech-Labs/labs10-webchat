@@ -30,17 +30,17 @@ class AccountSettings extends React.Component {
     email: "email@email.com",
     selectedFile: null
   };
-
+  //Sets Input to state
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
     });
   };
-
+  //Sets selectedFile in state after selecting an image
   fileChangedHandler = (event) => {
     this.setState({ selectedFile: event.target.file });
   };
-
+  //In the future will upload to file to the database
   uploadHandler = () => {
     console.log(this.state.selectedFile);
   };
@@ -126,7 +126,7 @@ class AccountSettings extends React.Component {
                 type="file"
                 onChange={this.fileChangedHandler}
               />
-              <label htmlFor="raised-button-file">
+              <label>
                 <Button raised component="span" onClick={this.uploadHandler}>
                   Upload
                 </Button>
