@@ -6,9 +6,9 @@ import * as ROUTES from '../../constants/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
-
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 const RepSignUpPage = () => (
   <div>
@@ -39,12 +39,31 @@ class RepSignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-          console.log(authUser);
-
-         this.setState({email:"", password:"", password1:"" });
-         this.props.history.push(ROUTES.COMPANY_REGISTER);
+        console.log(authUser);
+        console.log(authUser.user.uid);
+        const data = { email: email };
+        const verifyRequest = axios.post('http://localhost:5000/api/reps/verifyemail', data);  //check if the email is in approved emails table
+        verifyRequest
+          .then(company_id => {    // if the email was approved, get the company_id back from server
+            this.props.history.push({   // send the user to a form to sign up and directly join their company
+              pathname: '/reptocompanyform',
+              state: { 
+                company_id: company_id.data,
+                uid: authUser.user.uid
+              }  //company_id.data gives the company_id int value
+            });
+          })
+          .catch(error => {
+            this.setState({ error:error });
+            this.props.history.push({           // send the user to the form to register a new company
+              pathname: ROUTES.COMPANY_REGISTER,
+              state: {
+                uid: authUser.user.uid
+              }
+            });       
+          })
       })
-      .catch(error => {
+      .catch(error => {   // if the user was not created in Firebase
         this.setState({ error:error });
       });
 
