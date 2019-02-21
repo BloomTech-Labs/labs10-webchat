@@ -56,15 +56,15 @@ class AdminPanel extends React.Component {
     }
   };
 
-  // if (process.env.ENVIRONMENT !== 'production') { 
-  //   const POST_REP_URL =  `http://localhost:5000/api/reps`
-  // } else {
-  //   const POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`
-  // }
-  // const POST_REP_URL = 'https://webchatlabs10.herokuapp.com/api/reps';
+  
   componentDidMount() {
-	const id = this.props.history.location.state.rep_id;  
-	const request = axios.get(`https://webchatlabs10.herokuapp.com/api/reps/${id}`);
+  const id = this.props.history.location.state.rep_id; 
+  if (process.env.ENVIRONMENT !== 'production') { 
+    const GET_REP_URL =  `http://localhost:5000/api/reps/${id}`
+  } else {
+    const GET_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps/${id}`
+  } 
+	const request = axios.get(GET_REP_URL);
 
         request.then(response => {
 		 console.log(response);
