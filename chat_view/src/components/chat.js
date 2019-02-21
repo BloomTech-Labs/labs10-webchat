@@ -8,7 +8,8 @@ class Chat extends React.Component {
 			username: '',
 			message: '',
 			messages: []
-		};
+        };
+        this.socket = io('http://localhost:3000');
 	}
 	render() {
 		return(
