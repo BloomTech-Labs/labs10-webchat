@@ -10,7 +10,8 @@ class LandingPage extends Component {
     return (
       <div className="landing-page">
         <div className="navigation-container">
-	  <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>  
+	  <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
+	  <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>  
 	  <img className="netlify-logo" src={require("./images/logomark.png")} alt="Netlify logo" />
         </div>
         <div className="landing-info">
