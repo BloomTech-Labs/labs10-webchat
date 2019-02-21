@@ -7,6 +7,12 @@ const app = express();
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 
+// Socket.io
+const socketIo = require('socket.io');
+const http = require('http');
+var server = http.createServer(app);
+var io = socketIo(server);
+
 const repRoutes = require('./routes/reprensentatives/repRoutes');
 const customersRoutes = require('./routes/customers/customersRoutes');
 const companiesRoutes = require('./routes/companies/companiesRoutes');
