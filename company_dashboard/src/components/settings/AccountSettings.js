@@ -27,7 +27,8 @@ class AccountSettings extends React.Component {
     name: "Customer Name",
     number: "770-867-5309",
     motto: "The best customer service ever!",
-    email: "email@email.com"
+    email: "email@email.com",
+    selectedFile: null
   };
 
   handleChange = name => event => {
@@ -36,9 +37,13 @@ class AccountSettings extends React.Component {
     });
   };
 
-  uploadHandler = () => {
+  fileChangedHandler = (event) => {
+    this.setState({ selectedFile: event.target.file });
+  };
 
-  }
+  uploadHandler = () => {
+    console.log(this.state.selectedFile);
+  };
 
   render() {
     const { classes } = this.props;
@@ -119,7 +124,7 @@ class AccountSettings extends React.Component {
                 accept="image/*"
                 id="raised-button-file"
                 type="file"
-                onChange={fileChangedHandler}
+                onChange={this.fileChangedHandler}
               />
               <label htmlFor="raised-button-file">
                 <Button raised component="span" onClick={this.uploadHandler}>
