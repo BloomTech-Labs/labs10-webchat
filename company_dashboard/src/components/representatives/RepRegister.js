@@ -41,7 +41,8 @@ class RepSignUpFormBase extends Component {
       .then(authUser => {
         console.log(authUser);
         console.log(authUser.user.uid);
-        const verifyRequest = axios.post('http://localhost:5000/api/reps/verifyemail', email);  //check if the email is in approved emails table
+        const data = { email: email };
+        const verifyRequest = axios.post('http://localhost:5000/api/reps/verifyemail', data);  //check if the email is in approved emails table
         verifyRequest
           .then(company_id => {    // if the email was approved, get the company_id back from server
             this.props.history.push({   // send the user to a form to sign up and directly join their company
