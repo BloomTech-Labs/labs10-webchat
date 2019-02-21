@@ -15,8 +15,9 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
 	const id = req.params.id;
+	console.log(id);
+	
 	const request = db.getById(id);
-
 	request.then(response_data => { 
 		console.log(response_data);
 
@@ -29,8 +30,8 @@ router.get('/:id', (req, res) => {
 	})
 	.catch(err => {
 		res.status(500).json({ err: "Failed to retrieve represenative details" });
-	});
-})
+	})
+});
 
 router.post('/', (req, res) => {
 
