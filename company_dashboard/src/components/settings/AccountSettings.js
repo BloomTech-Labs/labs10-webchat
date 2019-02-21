@@ -23,9 +23,10 @@ const styles = theme => ({
 
 class AccountSettings extends React.Component {
   state = {
-    name: "Cat in the Hat",
+    name: "Customer Name",
     number: "770-867-5309",
-    motto: "The best customer service ever!"
+    motto: "The best customer service ever!",
+    email: 'email@email.com'
   };
 
   handleChange = name => event => {
@@ -65,8 +66,8 @@ class AccountSettings extends React.Component {
               id="outlined-email"
               label="Email"
               className={classes.textField}
-              value={this.state.name}
-              onChange={this.handleChange("name")}
+              value={this.state.email}
+              onChange={this.handleChange("email")}
               margin="normal"
               variant="outlined"
             />
