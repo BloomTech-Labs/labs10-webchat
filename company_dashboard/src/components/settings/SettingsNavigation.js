@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 
 import AccountSettings from "./AccountSettings";
 import Billing from "./Billing";
+import AdminPanel from "./AdminPanel";
 
 function TabContainer(props) {
   return (
@@ -65,7 +66,7 @@ class SettingsNavigation extends React.Component {
         </Paper>
         {value === 0 && <TabContainer><Billing /></TabContainer>}
         {value === 1 && <TabContainer><AccountSettings /></TabContainer>}
-        {value === 2 && <TabContainer>Admin Panel</TabContainer>}
+        {value === 2 && <TabContainer><AdminPanel /></TabContainer>}
       </NoSsr>
     );
   }
