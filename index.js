@@ -4,7 +4,9 @@ const morgan = require('morgan');
 const cors = require('cors');
 // Changed Express Variable from server to App for Socket.io
 const app = express();
-require('dotenv').config();
+if (process.env.ENVIRONMENT == 'development') { 
+  require('dotenv').config(); 
+}
 const port = process.env.PORT || 5000;
 
 // Socket.io
