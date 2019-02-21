@@ -30,7 +30,8 @@ class CompanyRegisterFormBase extends Component {
 	email:"",
 	motto:"",
 	phone:"",
-	companyname:"",     
+  companyname:"",  
+  uid: props.history.location.state.uid,   
         error:null,
         logged:false,
     };
@@ -39,7 +40,15 @@ class CompanyRegisterFormBase extends Component {
 
   onSubmit = event => {
 
-	const data = {name: this.state.name, email: this.state.email, companyname: this.state.companyname, motto: this.state.motto, phone_number: this.state.phone, is_admin: true};
+	const data = {
+    name: this.state.name, 
+    email: this.state.email, 
+    companyname: this.state.companyname, 
+    motto: this.state.motto, 
+    phone_number: this.state.phone, 
+    is_admin: true,
+    uid: this.state.uid
+  };
 	  
 	const request = axios.post("http://localhost:5000/api/reps", data);
     

@@ -18,7 +18,8 @@ class RepToCompanyFormBase extends Component {
         email:"",
         motto:"",
         phone:"",
-        company_id: props.history.location.state.company_id,   
+        company_id: props.history.location.state.company_id, 
+        uid: props.history.location.state.uid,  
         error:null,
         logged:false,
       };
