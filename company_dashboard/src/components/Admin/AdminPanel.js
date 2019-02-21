@@ -15,11 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import './AdminPanel.css';
 
-if (process.env.ENVIRONMENT !== 'production') { 
-  REP_URL ==  `http://localhost:5000/api/reps/${id}`
-} else {
-  REP_URL == `https://webchatlabs10.herokuapp.com/api/reps/${id}`
-}
+
 
 const styles = theme => ({
   root: {
@@ -60,9 +56,15 @@ class AdminPanel extends React.Component {
     }
   };
 
+  // if (process.env.ENVIRONMENT !== 'production') { 
+  //   const POST_REP_URL =  `http://localhost:5000/api/reps`
+  // } else {
+  //   const POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`
+  // }
+  // const POST_REP_URL = 'https://webchatlabs10.herokuapp.com/api/reps';
   componentDidMount() {
 	const id = this.props.history.location.state.rep_id;  
-	const request = axios.get(REP_URL);
+	const request = axios.get('https://webchatlabs10.herokuapp.com/api/reps');
 
         request.then(response => {
 		 console.log(response);
