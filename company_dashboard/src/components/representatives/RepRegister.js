@@ -39,12 +39,22 @@ class RepSignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-          console.log(authUser);
-
-         this.setState({email:"", password:"", password1:"" });
-         this.props.history.push(ROUTES.COMPANY_REGISTER);
+        console.log(authUser);
+        console.log(authUser.user.uid);
+        const verifyRequest = axios.post('http://localhost:5000/api/reps/verifyemail', email);  //check if the email is in approved emails table
+        verifyRequest
+          .then(company_id => {    // if the email was approved, get the company_id back from server
+            this.props.history.push({   // send the user to a form to sign up and directly join their company
+              pathname: '/reptocompanyform',
+              state: { company_id: company_id.data }  //company_id.data gives the company_id int value
+            });
+          })
+          .catch({
+            this.setState({email:"", password:"", password1:"" });  // if the email was not approved the server throws an error code 400
+            this.props.history.push(ROUTES.COMPANY_REGISTER);       // send the user to the form to register a new company
+          })
       })
-      .catch(error => {
+      .catch(error => {   // if the user was not created in Firebase
         this.setState({ error:error });
       });
 
