@@ -55,7 +55,12 @@ class RepSignUpFormBase extends Component {
           })
           .catch(error => {
             this.setState({ error:error });
-            this.props.history.push(ROUTES.COMPANY_REGISTER);       // send the user to the form to register a new company
+            this.props.history.push({           // send the user to the form to register a new company
+              pathname: ROUTES.COMPANY_REGISTER,
+              state: {
+                uid: authUser.user.uid
+              }
+            });       
           })
       })
       .catch(error => {   // if the user was not created in Firebase
