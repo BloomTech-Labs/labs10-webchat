@@ -25,12 +25,11 @@ class RepToCompanyFormBase extends Component {
     }
   
     onSubmit = event => {
-  
-      const data = {name: this.state.name, email: this.state.email, company_id: this.state.company_id, motto: this.state.motto, phone_number: this.state.phone};
+        const data = {name: this.state.name, email: this.state.email, company_id: this.state.company_id, motto: this.state.motto, phone_number: this.state.phone};
         
-      const request = axios.post("http://localhost:5000/api/reps", data);
+        const request = axios.post("http://localhost:5000/api/reps", data);
       
-          request.then(response => {
+        request.then(response => {
             console.log(response.data);
             //this.setState({logged:true});
       
@@ -39,12 +38,12 @@ class RepToCompanyFormBase extends Component {
                   state: { rep_id: response.data }
             });		
           
-      })
-          .catch(err => {
-              console.log(err.message);
-              this.setState({error:err});		
-          })
-      event.preventDefault();  
+        })
+        .catch(err => {
+            console.log(err.message);
+            this.setState({ error:err });		
+        })
+        event.preventDefault();  
     };	  
            
   
@@ -57,16 +56,16 @@ class RepToCompanyFormBase extends Component {
       const condition = name === '' || email === '';
   
   
-      return (
+        return (
         <div>
-          <MuiThemeProvider>
-          {this.state.logged ? 
-      (<Typography variant='display1' align='center' gutterBottom>
-          Successfully Logged In
-          </Typography>):(
+            <MuiThemeProvider>
+            {this.state.logged ? 
+                (<Typography variant='display1' align='center' gutterBottom>
+                Successfully Logged In
+                </Typography>):(
          
-      <div>
-      <AppBar
+        <div>
+        <AppBar
               title="Register Details"
          />
           
