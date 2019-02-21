@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import io from 'socket.io-client';
 
-class Chat extends React.Component {
+class Chat extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -9,26 +9,31 @@ class Chat extends React.Component {
 			message: '',
 			messages: []
         };
-        this.socket = io('http://localhost:5000');
+        this.socket = io('localhost:5000');
+
+				this.sendMessage = (ev) => {
+					console.log('sendMessage triggered');
+					console.log(this.state);
+					ev.preventDefault();
+					this.socket.emit('SEND_MESSAGE', {
+							author: this.state.username,
+							message: this.state.message
+					});
+					this.setState({message: ''});
+				}
 
         this.socket.on('RECEIVE_MESSAGE', function(data) {
-            addMessage(data);
+					console.log('RECEIVE_MESSAGE triggered');
+					addMessage(data);
         });
 
         const addMessage = (data) => {
-            console.log(data);
-            this.setState({messages: [...this.state.messages, data]});
-            console.log(this.state.messages);
+					console.log(data);
+					console.log('addMessage triggered');
+					this.setState({messages: [...this.state.messages, data]});
+					console.log(this.state.messages);
         }
         
-        this.sendMessage = (ev) => {
-            ev.preventDefault();
-            this.socket.emit('SEND_MESSAGE', {
-                author: this.state.username,
-                message: this.state.message
-            });
-            this.setState({message: ''});
-        }
 	}
 	render() {
 		return(
@@ -45,7 +50,7 @@ class Chat extends React.Component {
 									<div className="messages">
 										{this.state.messages.map((message, index) => {
 											return(
-												<div>{message.author} : {message.message}</div>
+												<div key={index}>{message.author} : {message.message}</div>
 											);
 										})}
 									</div>
@@ -54,7 +59,7 @@ class Chat extends React.Component {
 										<br/>
 										<input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
 										<br/>
-										<button className="btn btn-primary form-control">Send</button>
+										<button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
 									</div>
 								</div>
 							</div>
