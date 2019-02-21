@@ -6,7 +6,8 @@ module.exports = {
   insert,
   update,
   remove,
-  updatePayment
+  updatePayment,
+  addApprovedEmail
 };
 
 function get() {
@@ -44,4 +45,11 @@ function updatePayment(id, paymentStatus) {
   return db('companies')
     .where('id', id)
     .update({ has_paid: paymentStatus });
+}
+
+function addApprovedEmail(approved_email) {
+  return db('approved_emails')
+    .insert(approved_email)
+    .returning('id')
+    .then(ids => ids[0]);
 }

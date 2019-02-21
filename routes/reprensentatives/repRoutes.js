@@ -114,6 +114,18 @@ router.post('/', (req, res) => {
 });
 
 
+/*let table = 'representatives';
+                        const request = db.getByEmail(email, table);
+                        request.then(response_data => {
+                                console.log(response_data);
+                                if (response_data) {
+                                        res.status(400).json({ error: 'The provided email is already associated with an account' });
+                                }
+                        });
+                });*/
+
+
+
 //update a representative's admin status
 
 router.put('/adminstatus/:id', (req, res) => {
@@ -139,7 +151,6 @@ router.put('/adminstatus/:id', (req, res) => {
 });
 
 
-
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
 
@@ -154,6 +165,21 @@ router.delete('/:id', (req, res) => {
   })
 
 });
+
+router.post('/verifyemail', (req, res) => {
+	const { email } = req.body;
+	const table = 'approved_emails';
+	const request = db.getByEmail(email, table);
+	request.then(response_data => {
+		console.log(response_data);
+		if (response_data) {
+			res.status(200).json(response_data.company_id);
+		} else {
+			res.status(400).json({ error: 'You are not approved to join this company.' });
+		}
+	});
+
+})
 
 
 module.exports = router;
