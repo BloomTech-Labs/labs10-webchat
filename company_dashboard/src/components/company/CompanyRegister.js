@@ -57,7 +57,7 @@ class CompanyRegisterFormBase extends Component {
 		//this.setState({logged:true});
 	
 		this.props.history.push({
-                pathname: '/personalinfo',
+                pathname: '/adminpanel',
                 state: { rep_id: response.data }
                 });		
 		
