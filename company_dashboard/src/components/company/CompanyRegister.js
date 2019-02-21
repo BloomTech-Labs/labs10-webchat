@@ -8,6 +8,9 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
+//import PersonalInfo from '../representatives/PersonalInfo';
+
 
 const CompanyRegisterPage = () => (
   <div>
@@ -24,6 +27,11 @@ class CompanyRegisterFormBase extends Component {
 
      this.state = {
    	name:"", 
+	email:"",
+	motto:"",
+	phone:"",
+  companyname:"",  
+  uid: props.history.location.state.uid,   
         error:null,
         logged:false,
     };
@@ -31,19 +39,44 @@ class CompanyRegisterFormBase extends Component {
   }
 
   onSubmit = event => {
-    event.preventDefault();
-    const {name} = this.state;
-    	  
-  };
 
+	const data = {
+    name: this.state.name, 
+    email: this.state.email, 
+    companyname: this.state.companyname, 
+    motto: this.state.motto, 
+    phone_number: this.state.phone, 
+    is_admin: true,
+    uid: this.state.uid
+  };
+	  
+	const request = axios.post("http://localhost:5000/api/reps", data);
+    
+        request.then(response => {
+		console.log(response.data);
+		//this.setState({logged:true});
+	
+		this.props.history.push({
+                pathname: '/personalinfo',
+                state: { rep_id: response.data }
+                });		
+		
+	})
+        .catch(err => {
+        	console.log(err.message);
+        	this.setState({error:err});		
+    	})
+	event.preventDefault();  
+  };	  
+   	  
 
   onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-    const {name, error} = this.state;
-    const condition = name === '';
+    const {name, companyname, email, error} = this.state;
+    const condition = name === '' || email === '' || companyname === '';
 
 
     return (
@@ -51,18 +84,29 @@ class CompanyRegisterFormBase extends Component {
         <MuiThemeProvider>
         {this.state.logged ? 
 	(<Typography variant='display1' align='center' gutterBottom>
-        Successfully Registered your Company With WebChat
+        Successfully Logged In
         </Typography>):(
        
 	<div>
 	<AppBar
-            title="Register Company Name"
+            title="Register Details"
        />
         
 	<form onSubmit={this.onSubmit}>
         <TextField
             hintText="Enter company name"
             floatingLabelText="Company Name"
+            name="companyname"
+            type="text"
+            required={true}
+            value={this.state.companyname}
+            onChange={this.onChange}
+           />
+          <br/>
+
+         <TextField
+            hintText="Enter Your name"
+            floatingLabelText="Name"
             name="name"
             type="text"
             required={true}
@@ -70,6 +114,38 @@ class CompanyRegisterFormBase extends Component {
             onChange={this.onChange}
            />
           <br/>
+	
+         <TextField
+            hintText="Enter your email"
+            floatingLabelText="Email"
+            name="email"
+            type="text"
+            required={true}
+            value={this.state.email}
+            onChange={this.onChange}
+           />
+          <br/>
+	
+	 <TextField
+            hintText="Enter phone number"
+            floatingLabelText="Phone Number"
+            name="phone"
+            type="text"
+            value={this.state.phone}
+            onChange={this.onChange}
+           />
+          <br/>	
+
+         <TextField
+            hintText="Enter your motto"
+            floatingLabelText="Motto"
+            name="motto"
+            type="text"
+            required={true}
+            value={this.state.motto}
+            onChange={this.onChange}
+           />
+          <br/>		
 
         <RaisedButton
               label="Register"

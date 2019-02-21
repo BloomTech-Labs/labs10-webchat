@@ -33,28 +33,31 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-	let { name, api_token } = req.body;
+	const name = req.body.name;
+	const api_token = req.body.name;
+
+	console.log(api_token);
 
 	if (!name) {
 		res.status(400).json({ message: 'Please provide company\'s name' });
 		return;
 	}
-	if (!api_token) {
-		res.status(400).json({ message: 'Please provide an api_token' });
-		return;
-	}
+	//if (!api_token) {
+	//	res.status(400).json({ message: 'Please provide an api_token' });
+	//	return;
+	//}
 
 	let newCompany = { name, api_token };
-	db
-		.insert(newCompany)
-		.then(company => {
-			console.log(company);
+	const request = db.insert(newCompany);
+		
+		request.then(company => {
+			console.log('company_id is', company);
 			res.status(200).json(company);
 		})
 		.catch(err => {
-			res.status(500).json({ err: 'Failed to add new company\'s name' });
+			res.status(500).json({ err: "Company name already exists" });
 		})
-})
+});
 
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
