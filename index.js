@@ -13,9 +13,10 @@ const http = require('http');
 var server = http.createServer(app);
 var io = socketIo(server);
 
-io.on('connection', function(client) {
-  console.log(`Listening for 'connection' on client${client.id}`);
+io.on('connection', function(socket) {
+  console.log(`Listening for 'connection' on client${socket.id}`);
   
+  socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');
