@@ -6,9 +6,9 @@ import * as ROUTES from '../../constants/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
-
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 const RepSignUpPage = () => (
   <div>
@@ -49,8 +49,8 @@ class RepSignUpFormBase extends Component {
               state: { company_id: company_id.data }  //company_id.data gives the company_id int value
             });
           })
-          .catch({
-            this.setState({email:"", password:"", password1:"" });  // if the email was not approved the server throws an error code 400
+          .catch(error => {
+            this.setState({ error:error });
             this.props.history.push(ROUTES.COMPANY_REGISTER);       // send the user to the form to register a new company
           })
       })
