@@ -36,6 +36,10 @@ class AccountSettings extends React.Component {
     });
   };
 
+  uploadHandler = () => {
+
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -115,9 +119,10 @@ class AccountSettings extends React.Component {
                 accept="image/*"
                 id="raised-button-file"
                 type="file"
+                onChange={fileChangedHandler}
               />
               <label htmlFor="raised-button-file">
-                <Button raised component="span">
+                <Button raised component="span" onClick={this.uploadHandler}>
                   Upload
                 </Button>
               </label>
