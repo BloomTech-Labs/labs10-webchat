@@ -20,18 +20,9 @@ io.on('connection', (socket) => {
   socket.on('SEND_MESSAGE', function(data){
       io.emit('RECEIVE_MESSAGE', data);
   })
-});
-
-// io.on('connection', function(socket) {
-//   console.log(`Listening for 'connection' on client${socket.id}`);
-
-//   socket.on('SEND_MESSAGE', function(data){
-//     console.log('SEND_RECEIVE is triggered');
-//     io.emit('RECEIVE_MESSAGE', data);
-//   });
   
-//   socket.on('disconnect', () => console.log('Client disconnected'));
-// });
+  socket.on('disconnect', () => console.log('Client disconnected'));
+});
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');
 const customersRoutes = require('./routes/customers/customersRoutes');
