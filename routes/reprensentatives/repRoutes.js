@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 
-	let {companyname, motto, phone_number, email, image_id} = req.body;
+	let {companyname, motto, phone_number, email, image_id, is_admin, uid} = req.body;
 	let repname = req.body.name;
 
 	console.log(companyname);
@@ -73,7 +73,16 @@ router.post('/', (req, res) => {
 	console.log('repname is', repname);
 	console.log('comapny_id is', company_id);
 
-	let newRepresentative = { company_id: company_id, name: repname, motto: motto, phone_number: phone_number, email: email, image_id: image_id };
+	let newRepresentative = { 
+		company_id: company_id, 
+		name: repname, 
+		motto: motto, 
+		phone_number: phone_number, 
+		email: email, 
+		image_id: image_id, 
+		is_admin: is_admin, 
+		uid: uid
+	};
 
 		const request = db.insert(newRepresentative);
 		

@@ -9,3 +9,4 @@ export const ADMIN_PANEL = '/adminpanel';
 export const REP_REGISTER = '/repregister';
 export const COMPANY_REGISTER = '/companyregister';
 export const PERSONAL_INFO = '/personalinfo';
+export const REPTOCOMPANYFORM = '/reptocompanyform';
