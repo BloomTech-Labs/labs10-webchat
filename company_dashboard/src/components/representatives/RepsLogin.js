@@ -75,6 +75,7 @@ class RepLoginFormBase extends React.Component {
             hintText="Enter your Email"
             floatingLabelText="Email"
 	    required={true}
+            name="email"			
             value={this.state.email}
             onChange={this.handleChange}
             />
@@ -84,6 +85,7 @@ class RepLoginFormBase extends React.Component {
               hintText="Enter your Password"
               floatingLabelText="Password"
 	      required={true}
+	      name="password"		
               value={this.state.password}
               onChange={this.handleChange}
               />
