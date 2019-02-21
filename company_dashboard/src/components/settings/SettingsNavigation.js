@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 
 import AccountSettings from "./AccountSettings";
 import Billing from "./Billing";
-import AdminPanel from "./AdminPanel";
+import AdminPanel from "../Admin/AdminPanel";
 
 function TabContainer(props) {
   return (
