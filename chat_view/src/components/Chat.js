@@ -12,8 +12,6 @@ class Chat extends Component {
         this.socket = io('localhost:5000');
 
 				this.sendMessage = (ev) => {
-					console.log('sendMessage triggered');
-					console.log(this.state);
 					ev.preventDefault();
 					this.socket.emit('SEND_MESSAGE', {
 							author: this.state.username,
@@ -23,13 +21,11 @@ class Chat extends Component {
 				}
 
         this.socket.on('RECEIVE_MESSAGE', function(data) {
-					console.log('RECEIVE_MESSAGE triggered');
 					addMessage(data);
         });
 
         const addMessage = (data) => {
 					console.log(data);
-					console.log('addMessage triggered');
 					this.setState({messages: [...this.state.messages, data]});
 					console.log(this.state.messages);
         }
