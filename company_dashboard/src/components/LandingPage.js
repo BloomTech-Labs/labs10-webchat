@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./LandingPage.css";
+import { Link } from "react-router-dom";
+import * as ROUTES from "../constants/routes";
 
 import Button from "@material-ui/core/Button";
 
@@ -8,9 +10,17 @@ class LandingPage extends Component {
     return (
       <div className="landing-page">
         <div className="navigation-container">
-          <Button size="large">Sign In</Button>
-          <Button size="large">Sign Up</Button>
-          <img className="netlify-logo" src={require("./images/logomark.png")} alt="Netlify logo" />
+          <Button size="large">
+            <Link to={ROUTES.REP_REGISTER}>Sign In</Link>
+          </Button>
+          <Button size="large">
+            <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
+          </Button>
+          <img
+            className="netlify-logo"
+            src={require("./images/logomark.png")}
+            alt="Netlify logo"
+          />
         </div>
         <div className="landing-info">
           <h1>Web Chat</h1>

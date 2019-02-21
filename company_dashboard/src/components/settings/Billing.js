@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
         <div className="example">
-          <h1>Purchase of month of WebChat(name pending)</h1>
+          <h1>Lifetime purchase of webchat for $30</h1>
           <Elements>
             <CheckoutForm />
           </Elements>
