@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
 import "./AccountSettings.css";
 
 const styles = theme => ({
@@ -26,7 +27,7 @@ class AccountSettings extends React.Component {
     name: "Customer Name",
     number: "770-867-5309",
     motto: "The best customer service ever!",
-    email: 'email@email.com'
+    email: "email@email.com"
   };
 
   handleChange = name => event => {
@@ -110,13 +111,16 @@ class AccountSettings extends React.Component {
                 alt="profile picture"
               />
               <h2>Your Profile Photo</h2>
-              <Button
-                variant="outlined"
-                color="primary"
-                className="upload-button"
-              >
-                Upload
-              </Button>
+              <input
+                accept="image/*"
+                id="raised-button-file"
+                type="file"
+              />
+              <label htmlFor="raised-button-file">
+                <Button raised component="span">
+                  Upload
+                </Button>
+              </label>
             </div>
           </div>
         </form>
