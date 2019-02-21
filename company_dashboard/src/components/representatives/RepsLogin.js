@@ -38,8 +38,8 @@ class RepLoginFormBase extends React.Component {
       .then(authUser => {
             console.log(authUser.user.uid);
 
-           this.setState({email:"", password:""});
-           this.props.history.push(ROUTES.LANDING);
+           this.setState({logged: true, email:"", password:""});
+           //this.props.history.push(ROUTES.LANDING);
           })
           .catch(error => {
             this.setState({ error:error });
@@ -68,7 +68,7 @@ class RepLoginFormBase extends React.Component {
         	</Typography>):(
        	<div>
        	<AppBar
-            title="Sign Up"
+            title="Sign In"
        	/>
 	  <form onSubmit={this.onSubmit}>  
           <TextField

@@ -11,7 +11,7 @@ class LandingPage extends Component {
       <div className="landing-page">
         <div className="navigation-container">
           <Button size="large">
-            <Link to={ROUTES.REP_REGISTER}>Sign In</Link>
+            <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
           </Button>
           <Button size="large">
             <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
