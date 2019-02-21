@@ -1,13 +1,31 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import "./Navigation.css";
+import SignOutButton from './SignOut';
+import * as ROUTES from '../constants/routes';
 
-const Navigation = () => (
-  <div className="navigation-container">
-    <Button size="large">Settings</Button>
-    <Button size="large">Sign Out</Button>
-  </div>
+
+const Navigation = ({ authUser }) => (
+  <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+);
+
+const NavigationAuth = () => (
+  <ul>
+    <li>
+      <Link to={ROUTES.LANDING}>Home</Link>
+    </li>
+    <li>
+      <SignOutButton />
+    </li>
+  </ul>
+);
+
+const NavigationNonAuth = () => (
+      <div>
+	<Link to={ROUTES.LANDING}>Home</Link>
+      	<Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
+     </div>		
 );
 
 export default Navigation;
+
