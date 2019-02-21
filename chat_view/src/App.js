@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Chat from './components/Chat';
 import './App.css';
 
 class App extends Component {
@@ -6,8 +7,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          Chat  
+          Welcome to Customer Service, how can we help?  
         </header>
+        <Chat />
       </div>
     );
   }
