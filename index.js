@@ -15,6 +15,10 @@ var io = socketIo(server);
 
 io.on('connection', function(socket) {
   console.log(`Listening for 'connection' on client${socket.id}`);
+
+  socket.on('SEND_MESSAGE', function(data){
+    io.emit('RECEIVE_MESSAGE', data);
+});
   
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
