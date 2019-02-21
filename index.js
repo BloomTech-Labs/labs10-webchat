@@ -13,6 +13,11 @@ const http = require('http');
 var server = http.createServer(app);
 var io = socketIo(server);
 
+io.on('connection', function(client) {
+  console.log(`Listening for 'connection' on client${client.id}`);
+  
+});
+
 const repRoutes = require('./routes/reprensentatives/repRoutes');
 const customersRoutes = require('./routes/customers/customersRoutes');
 const companiesRoutes = require('./routes/companies/companiesRoutes');
