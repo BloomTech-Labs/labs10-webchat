@@ -23,7 +23,7 @@ class Chat extends React.Component {
 									</div>
 									<hr/>
 									<div className="messages">
-										{this.state.messages.map((messages, index) => {
+										{this.state.messages.map((message, index) => {
 											return(
 												<div>{message.author} : {message.message}</div>
 											);
