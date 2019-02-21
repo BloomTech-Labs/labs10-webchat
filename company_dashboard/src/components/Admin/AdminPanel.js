@@ -59,7 +59,7 @@ class AdminPanel extends React.Component {
   
   componentDidMount() {
   const id = this.props.history.location.state.rep_id; 
-  if (process.env.ENVIRONMENT !== 'production') { 
+  if (process.env.NODE_ENV !== 'production') { 
     const GET_REP_URL =  `http://localhost:5000/api/reps/${id}`
   } else {
     const GET_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps/${id}`

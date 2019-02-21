@@ -50,10 +50,10 @@ class CompanyRegisterFormBase extends Component {
     is_admin: true,
     uid: this.state.uid
   };
-  if (NODE_ENV !== 'production') { 
-    POST_REP_URL =  `http://localhost:5000/api/reps`
+  if (process.env.NODE_ENV !== 'production') { 
+    const POST_REP_URL =  `http://localhost:5000/api/reps`
   } else {
-    POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`
+    const POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`
   }
 	const request = axios.post(POST_REP_URL, data);
     
