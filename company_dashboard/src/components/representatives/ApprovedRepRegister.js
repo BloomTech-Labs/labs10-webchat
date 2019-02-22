@@ -10,7 +10,7 @@ import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 
-class ApprovedRepRegisterFormBase extends Component {
+class ApprovedRepRegisterForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -27,6 +27,7 @@ class ApprovedRepRegisterFormBase extends Component {
     }
   
     componentDidMount() {
+      const company_id = this.state.company_id;
       const companyInfoRequest = axios.get(`/api/companies/${company_id}`);
 
       companyInfoRequest
