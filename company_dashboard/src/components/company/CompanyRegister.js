@@ -31,8 +31,9 @@ class CompanyRegisterFormBase extends Component {
 	email:"",
 	motto:"",
 	phone:"",
-  companyname:"",  
-  uid: props.history.location.state.uid,   
+  	companyname:"",
+	selectedFile:null,     
+  	uid: props.history.location.state.uid,   
         error:null,
         logged:false,
     };
@@ -41,16 +42,28 @@ class CompanyRegisterFormBase extends Component {
   
   onSubmit = event => {
 
-	const data = {
-    name: this.state.name, 
-    email: this.state.email, 
-    companyname: this.state.companyname, 
-    motto: this.state.motto, 
-    phone_number: this.state.phone, 
-    is_admin: true,
-    uid: this.state.uid
-  };
-  
+   let data = new FormData();
+        data.append('name', this.state.name);
+        data.append('email', this.state.email);
+        data.append('companyname', this.state.companyname);
+	data.append('motto', this.state.motto);
+	data.append('phone_number', this.state.phone);
+	data.append('is_admin', true);
+	data.append('uid', this.state.uid);  
+	data.append('file', this.state.selectedFile);
+	  
+		  
+	 
+	 // const data = {
+    //name: this.state.name, 
+    //email: this.state.email, 
+    //companyname: this.state.companyname, 
+    //motto: this.state.motto, 
+    //phone_number: this.state.phone, 
+    //is_admin: true,
+    //uid: this.state.uid
+  //};
+
 	const request = axios.post('/api/reps', data);
     
         request.then(response => {
@@ -70,6 +83,10 @@ class CompanyRegisterFormBase extends Component {
 	event.preventDefault();  
   };	  
    	  
+  fileChangeHandler = (event) => {
+ 	 this.setState({selectedFile: event.target.files[0]})
+  };
+
 
   onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -95,7 +112,7 @@ class CompanyRegisterFormBase extends Component {
         
 	<form onSubmit={this.onSubmit}>
         <TextField
-            hintText="Enter company name"
+            hintText="Enter your company name"
             floatingLabelText="Company Name"
             name="companyname"
             type="text"
@@ -128,7 +145,7 @@ class CompanyRegisterFormBase extends Component {
           <br/>
 	
 	 <TextField
-            hintText="Enter phone number"
+            hintText="Enter your phone number"
             floatingLabelText="Phone Number"
             name="phone"
             type="text"
@@ -142,11 +159,16 @@ class CompanyRegisterFormBase extends Component {
             floatingLabelText="Motto"
             name="motto"
             type="text"
-            required={true}
             value={this.state.motto}
             onChange={this.onChange}
            />
-          <br/>		
+          <br/><br/>	
+
+	 <input
+	    type="file"	
+            onChange={this.fileChangeHandler} 
+	  />
+	  <br/><br/>		
 
         <RaisedButton
               label="Register"

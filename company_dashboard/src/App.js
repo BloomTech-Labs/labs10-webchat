@@ -16,6 +16,7 @@ import SettingsNavigation from "./components/settings/SettingsNavigation";
 import CustomerWaiting from './components/Customer/CustomerWaiting';
 import ApprovedRepRegisterForm from './components/representatives/ApprovedRepRegister';
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,6 @@ class App extends Component {
           <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
           <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
           <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
-          <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
           <Route path={ROUTES.REP_REGISTER} component={RepRegister} />
           <Route path={ROUTES.APPROVED_REP_REGISTER} component={ApprovedRepRegisterForm} />
           <Route path={ROUTES.COMPANY_REGISTER} component={CompanyRegister} />

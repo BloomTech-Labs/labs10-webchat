@@ -69,7 +69,7 @@ router.get('/:id', (req, res) => {
 
 
 //verify firebase token
-router.post('/verify', (req,res) =>{
+/*router.post('/verifyregistration', (req,res) =>{
 
 	const idToken = req.headers.authorization;
 
@@ -84,7 +84,7 @@ router.post('/verify', (req,res) =>{
                         res.status(500).json(err.message);
                })
 
-})
+})*/
 
 
 
