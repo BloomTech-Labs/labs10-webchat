@@ -32,11 +32,9 @@ class RepSignUpFormBase extends Component {
         error:null,
         logged:false,
     };
-
   }
   
-
-   onSubmit = event => {
+  onSubmit = event => {
     const {email, password } = this.state;
     
     this.props.firebase
@@ -75,68 +73,66 @@ class RepSignUpFormBase extends Component {
     event.preventDefault();
   };
 
-
   onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-   
   	const {email, password, password1, error} = this.state;
 
-	//checking if all the required fields are non-empty  
-        const condition = password !== password1 || password1 === '' || email === '';	    
+	  //checking if all the required fields are non-empty  
+    const condition = password !== password1 || password1 === '' || email === '';	    
 	
-	return (  
-	<div>
+	  return (  
+	    <div>
         <MuiThemeProvider>
-        {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
-        Successfully Logged In
-        </Typography>):(
-       <div>
-       <AppBar
-            title="Sign Up"
-       />
-        <form onSubmit={this.onSubmit}>
-        <TextField
-            hintText="Enter your Email"
-            floatingLabelText="Email"
-            name="email"
-            type="text"
-            required={true}
-            value={this.state.email}
-            onChange={this.onChange}
-           />
-          <br/>
+          {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+            Successfully Logged In
+            </Typography>):(
+            <div>
+            <AppBar
+              title="Sign Up"
+            />
+             <form onSubmit={this.onSubmit}>
+              <TextField
+                hintText="Enter your Email"
+                floatingLabelText="Email"
+                name="email"
+                type="text"
+                required={true}
+                value={this.state.email}
+                onChange={this.onChange}
+              />
+              <br/>
 
-        <TextField
-            hintText="Enter your password"
-            floatingLabelText="Password"
-            required={true}
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.onChange}
-           />
-          <br/>
+              <TextField
+                hintText="Enter your password"
+                floatingLabelText="Password"
+                required={true}
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onChange}
+              />
+              <br/>
 
-         <TextField
-            hintText="Re-enter your password"
-            floatingLabelText="Re-enter password"
-            name="password1"
-            type="password"
-            required={true}
-            value={this.state.password1}
-            onChange={this.onChange}
-           />
-          <br/>
+              <TextField
+                hintText="Re-enter your password"
+                floatingLabelText="Re-enter password"
+                name="password1"
+                type="password"
+                required={true}
+                value={this.state.password1}
+                onChange={this.onChange}
+              />
+              <br/>
 
-        <RaisedButton
-              label="SignUp"
-              primary={true}
-              type="submit"
-              disabled={condition}
-        />
+              <RaisedButton
+                label="SignUp"
+                primary={true}
+                type="submit"
+                disabled={condition}
+              />
 
         {error && <p>{error.message}</p>}
       </form>
