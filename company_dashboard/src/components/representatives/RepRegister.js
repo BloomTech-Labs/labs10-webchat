@@ -59,7 +59,7 @@ class RepSignUpFormBase extends Component {
             });
           })
           .catch(error => {
-            this.setState({ error:error });
+            //this.setState({ error:error });
             this.props.history.push({           // send the user to the form to register a new company
               pathname: ROUTES.COMPANY_REGISTER,
               state: {
