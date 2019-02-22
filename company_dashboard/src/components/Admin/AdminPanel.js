@@ -60,7 +60,7 @@ class AdminPanel extends React.Component {
   componentDidMount() {
   const id = this.props.history.location.state.rep_id; 
  
-	const request = axios.get('/api/reps/${id}');
+	const request = axios.get(`/api/reps/${id}`);
 
         request.then(response => {
 		 console.log(response);
