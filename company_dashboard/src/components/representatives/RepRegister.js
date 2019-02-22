@@ -49,7 +49,7 @@ class RepSignUpFormBase extends Component {
         verifyRequest
           .then(company_id => {               // if the email was approved, get the company_id back from server
             this.props.history.push({         // send the user to a form to sign up and directly join their company
-              pathname: '/reptocompanyform',
+              pathname: ROUTES.APPROVED_REP_REGISTER,
               state: { 
                 company_id: company_id.data,  //company_id.data gives the company_id int value
                 uid: authUser.user.uid
