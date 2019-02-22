@@ -42,16 +42,28 @@ class CompanyRegisterFormBase extends Component {
   
   onSubmit = event => {
 
-	const data = {
-    name: this.state.name, 
-    email: this.state.email, 
-    companyname: this.state.companyname, 
-    motto: this.state.motto, 
-    phone_number: this.state.phone, 
-    is_admin: true,
-    uid: this.state.uid
-  };
-  
+   let data = new FormData();
+        data.append('name', this.state.name);
+        data.append('email', this.state.email);
+        data.append('companyname', this.state.companyname);
+	data.append('motto', this.state.motto);
+	data.append('phone_number', this.state.phone);
+	data.append('is_admin', true);
+	data.append('uid', this.state.uid);  
+	data.append('file', this.state.selectedFile);
+	  
+		  
+	 
+	 // const data = {
+    //name: this.state.name, 
+    //email: this.state.email, 
+    //companyname: this.state.companyname, 
+    //motto: this.state.motto, 
+    //phone_number: this.state.phone, 
+    //is_admin: true,
+    //uid: this.state.uid
+  //};
+
 	const request = axios.post('/api/reps', data);
     
         request.then(response => {
