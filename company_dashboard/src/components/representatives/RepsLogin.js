@@ -38,8 +38,8 @@ class RepLoginFormBase extends React.Component {
       .then(authUser => {
             console.log(authUser.user.uid);
 
-           this.setState({logged: true, email:"", password:""});
-           //this.props.history.push(ROUTES.LANDING);
+           this.setState({email:"", password:""});
+           this.props.history.push(ROUTES.ADMIN_SETTINGS);
           })
           .catch(error => {
             this.setState({ error:error });

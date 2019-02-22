@@ -30,7 +30,7 @@ const repRoutes = require('./routes/reprensentatives/repRoutes');
 const customersRoutes = require('./routes/customers/customersRoutes');
 const companiesRoutes = require('./routes/companies/companiesRoutes');
 const billingRoutes = require('./routes/billing/billingRoutes');
-
+const imageRoutes = require('./routes/images/imageRoutes');
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -42,10 +42,33 @@ app.get('/',(req, res) => {
   res.send("Welcome to Webchat app....");
 });
 
+
+app.use(async(req,res) =>{
+
+        const idToken = req.headers.authorization;
+	
+try{
+      	await admin.
+		auth().verifyIdToken(idToken)
+                .then(decodedToken =>{
+                        console.log(decodedToken);
+                        const uid = decodedToken.uid;
+                        res.status(200).json(uid);
+
+                 });
+
+}
+                catch(e) {
+                        res.status(401).json({error:"You are not authorized"});
+               }
+
+});
+
 app.use('/api/reps', repRoutes);
 app.use('/api/customers', customersRoutes);
 app.use('/api/companies', companiesRoutes);
 app.use('/api/billing', billingRoutes);
+app.use('/api/images', imageRoutes);
 
 
 app.use(function(req, res) {

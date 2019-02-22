@@ -16,7 +16,6 @@ import axios from 'axios';
 import './AdminPanel.css';
 
 
-
 const styles = theme => ({
   root: {
     width: "100%",
@@ -43,9 +42,13 @@ const rows = [
 ];
 
 class AdminPanel extends React.Component {
-  state = {
+constructor(props){
+    super(props);  
+	this.state = {
     name: '',
     motto: '',
+    image_id: '',
+    url:'',	  
     error:null,	  
     codeSnippet: '',
     team: {
@@ -54,38 +57,51 @@ class AdminPanel extends React.Component {
       admin: false,
       remove: false
     }
-  };
+  }
+}	;
 
   
   componentDidMount() {
   const id = this.props.history.location.state.rep_id; 
  
-	const request = axios.get('/api/reps/${id}');
+	const request = axios.get(`/api/reps/${id}`);
 
         request.then(response => {
 		 console.log(response);
                 console.log(response.data);
 		console.log(response.data.name);
-                this.setState({name: response.data.name, motto: response.data.motto});
+		console.log('on react side image_id is:', response.data.image_id);
 
-               //this.props.history.push({
-               // pathname: '/adminpanel',
-               // state: { rep_id: response.data }
-               // });
+                this.setState({image_id: response.data.image_id, name: response.data.name, motto: response.data.motto});
+		const imgid = this.state.image_id;
+		const img_req = axios.get(`/api/images/${imgid}`);
 
-        })
+
+		img_req.then(image => {
+                	console.log(image);
+                	console.log(image.data);
+                	console.log('image url on react side:', image.data.url);
+                	this.setState({url: image.data.url});
+
+        	})
+		.catch(error => {
+                        console.log(error.message);
+                        this.setState({error:error});
+                })
+
         .catch(err => {
                 console.log(err.message);
                 this.setState({error:err});
         })
 
-}
+})
+}  
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
-
-  render() {
+  
+render() {
     const { classes } = this.props;
 
     const handleClick = name => {
@@ -97,7 +113,12 @@ class AdminPanel extends React.Component {
 	 <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
         </Typography>   
-         <form className={classes.container} noValidate autoComplete='off'>
+	 
+	  <div className="image-style">   
+         	<img src={this.state.url} alt="admin image" />
+	 </div>
+
+	   <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
 	
 	    <p>Name</p>
