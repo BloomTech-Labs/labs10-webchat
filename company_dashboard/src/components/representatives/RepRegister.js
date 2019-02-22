@@ -93,7 +93,8 @@ class RepSignUpFormBase extends Component {
             <AppBar
               title="Sign Up"
             />
-             <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
+
               <TextField
                 hintText="Enter your Email"
                 floatingLabelText="Email"
@@ -134,11 +135,11 @@ class RepSignUpFormBase extends Component {
                 disabled={condition}
               />
 
-        {error && <p>{error.message}</p>}
-      </form>
-      </div>)}
-   </MuiThemeProvider>
-</div>);
+              {error && <p>{error.message}</p>}
+            </form>
+          </div>)}
+        </MuiThemeProvider>
+      </div>);
   }
 }
 
