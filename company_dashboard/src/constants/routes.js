@@ -11,3 +11,4 @@ export const COMPANY_REGISTER = "/companyregister";
 export const PERSONAL_INFO = "/personalinfo";
 export const REPTOCOMPANYFORM = "/reptocompanyform";
 export const ADMIN_SETTINGS = "/adminsettings";
+export const CUSTOMER_WAITING = '/customerwaiting';

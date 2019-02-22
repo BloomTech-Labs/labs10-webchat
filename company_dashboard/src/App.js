@@ -13,6 +13,7 @@ import PersonalInfo from "./components/representatives/PersonalInfo";
 import { withFirebase } from "./components/Firebase";
 import Navigation from "./components/Navigation";
 import SettingsNavigation from "./components/settings/SettingsNavigation";
+import CustomerWaiting from './components/Customer/CustomerWaiting';
 
 class App extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class App extends Component {
           <Route path={ROUTES.COMPANY_REGISTER} component={CompanyRegister} />
           <Route path={ROUTES.PERSONAL_INFO} component={PersonalInfo} />
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
+          <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
         </div>
       </Router>
     );
