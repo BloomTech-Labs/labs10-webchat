@@ -31,8 +31,9 @@ class CompanyRegisterFormBase extends Component {
 	email:"",
 	motto:"",
 	phone:"",
-  companyname:"",  
-  uid: props.history.location.state.uid,   
+  	companyname:"",
+	selectedFile:null,     
+  	uid: props.history.location.state.uid,   
         error:null,
         logged:false,
     };
@@ -70,6 +71,10 @@ class CompanyRegisterFormBase extends Component {
 	event.preventDefault();  
   };	  
    	  
+  fileChangeHandler = (event) => {
+ 	 this.setState({selectedFile: event.target.files[0]})
+  };
+
 
   onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -95,7 +100,7 @@ class CompanyRegisterFormBase extends Component {
         
 	<form onSubmit={this.onSubmit}>
         <TextField
-            hintText="Enter company name"
+            hintText="Enter your company name"
             floatingLabelText="Company Name"
             name="companyname"
             type="text"
@@ -128,7 +133,7 @@ class CompanyRegisterFormBase extends Component {
           <br/>
 	
 	 <TextField
-            hintText="Enter phone number"
+            hintText="Enter your phone number"
             floatingLabelText="Phone Number"
             name="phone"
             type="text"
@@ -142,11 +147,16 @@ class CompanyRegisterFormBase extends Component {
             floatingLabelText="Motto"
             name="motto"
             type="text"
-            required={true}
             value={this.state.motto}
             onChange={this.onChange}
            />
-          <br/>		
+          <br/><br/>	
+
+	 <input
+	    type="file"	
+            onChange={this.fileChangeHandler} 
+	  />
+	  <br/><br/>		
 
         <RaisedButton
               label="Register"
