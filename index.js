@@ -42,6 +42,28 @@ app.get('/',(req, res) => {
   res.send("Welcome to Webchat app....");
 });
 
+
+app.use(async(req,res) =>{
+
+        const idToken = req.headers.authorization;
+	
+try{
+      	await admin.
+		auth().verifyIdToken(idToken)
+                .then(decodedToken =>{
+                        console.log(decodedToken);
+                        const uid = decodedToken.uid;
+                        res.status(200).json(uid);
+
+                 });
+
+}
+                catch(e) {
+                        res.status(401).json({error:"You are not authorized"});
+               }
+
+});
+
 app.use('/api/reps', repRoutes);
 app.use('/api/customers', customersRoutes);
 app.use('/api/companies', companiesRoutes);
