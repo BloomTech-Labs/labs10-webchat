@@ -25,3 +25,15 @@ function insert(image) {
   return db('images')
     .insert(image).returning('id').then(ids => ids[0]);
 }
+
+function update(id, image){
+        return db('images')
+               .where({id: Number(id)})
+               .update(image);
+}
+
+function remove(id){
+        return db('images')
+               .where({id: Number(id)})
+               .del();
+}
