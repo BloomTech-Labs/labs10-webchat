@@ -30,10 +30,36 @@ class RepSignUpFormBase extends Component {
         password:"",
         password1:"",
         error:null,
-        logged:false,
+        authUser: JSON.parse(localStorage.getItem('authUser')),
+        authTokenReceived: false
     };
   }
-  
+  componentDidMount() {
+    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
+          axios.defaults.headers.common['Authorization'] = idToken;
+          axios
+            .get('/')
+            .then(response => {
+              localStorage.setItem('authUser', JSON.stringify(authUser));
+              this.setState({
+                authUser: authUser,
+                authTokenReceived: true
+              });
+            })
+            .catch(err => console.log(err.message));
+        });
+      } else {
+        localStorage.setItem('authUser', null);
+        this.setState({
+          authUser: null,
+          authTokenReceived: false
+        });
+      }
+    })
+  }
+
   onSubmit = event => {
     const {email, password } = this.state;
     
