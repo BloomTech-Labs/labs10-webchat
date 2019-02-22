@@ -28,7 +28,7 @@ class RepToCompanyFormBase extends Component {
     onSubmit = event => {
         const data = {name: this.state.name, email: this.state.email, company_id: this.state.company_id, motto: this.state.motto, phone_number: this.state.phone};
         
-        const request = axios.post("http://localhost:5000/api/reps", data);
+        const request = axios.post("/api/reps", data);
       
         request.then(response => {
             console.log(response.data);
