@@ -32,11 +32,9 @@ class RepSignUpFormBase extends Component {
         error:null,
         logged:false,
     };
-
   }
   
-
-   onSubmit = event => {
+  onSubmit = event => {
     const {email, password } = this.state;
     
     this.props.firebase
@@ -49,18 +47,18 @@ class RepSignUpFormBase extends Component {
         
         const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
         verifyRequest
-          .then(company_id => {    // if the email was approved, get the company_id back from server
-            this.props.history.push({   // send the user to a form to sign up and directly join their company
-              pathname: '/reptocompanyform',
+          .then(company_id => {               // if the email was approved, get the company_id back from server
+            this.props.history.push({         // send the user to a form to sign up and directly join their company
+              pathname: ROUTES.APPROVED_REP_REGISTER,
               state: { 
-                company_id: company_id.data,
+                company_id: company_id.data,  //company_id.data gives the company_id int value
                 uid: authUser.user.uid
-              }  //company_id.data gives the company_id int value
+              }  
             });
           })
           .catch(error => {
             this.setState({ error:error });
-            this.props.history.push({           // send the user to the form to register a new company
+            this.props.history.push({             // send the user to the form to register a new company
               pathname: ROUTES.COMPANY_REGISTER,
               state: {
                 uid: authUser.user.uid
@@ -75,74 +73,73 @@ class RepSignUpFormBase extends Component {
     event.preventDefault();
   };
 
-
   onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-   
   	const {email, password, password1, error} = this.state;
 
-	//checking if all the required fields are non-empty  
-        const condition = password !== password1 || password1 === '' || email === '';	    
+	  //checking if all the required fields are non-empty  
+    const condition = password !== password1 || password1 === '' || email === '';	    
 	
-	return (  
-	<div>
+	  return (  
+	    <div>
         <MuiThemeProvider>
-        {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
-        Successfully Logged In
-        </Typography>):(
-       <div>
-       <AppBar
-            title="Sign Up"
-       />
-        <form onSubmit={this.onSubmit}>
-        <TextField
-            hintText="Enter your Email"
-            floatingLabelText="Email"
-            name="email"
-            type="text"
-            required={true}
-            value={this.state.email}
-            onChange={this.onChange}
-           />
-          <br/>
+          {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+            Successfully Logged In
+            </Typography>):(
+            <div>
+            <AppBar
+              title="Sign Up"
+            />
+            <form onSubmit={this.onSubmit}>
 
-        <TextField
-            hintText="Enter your password"
-            floatingLabelText="Password"
-            required={true}
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.onChange}
-           />
-          <br/>
+              <TextField
+                hintText="Enter your Email"
+                floatingLabelText="Email"
+                name="email"
+                type="text"
+                required={true}
+                value={this.state.email}
+                onChange={this.onChange}
+              />
+              <br/>
 
-         <TextField
-            hintText="Re-enter your password"
-            floatingLabelText="Re-enter password"
-            name="password1"
-            type="password"
-            required={true}
-            value={this.state.password1}
-            onChange={this.onChange}
-           />
-          <br/>
+              <TextField
+                hintText="Enter your password"
+                floatingLabelText="Password"
+                required={true}
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onChange}
+              />
+              <br/>
 
-        <RaisedButton
-              label="SignUp"
-              primary={true}
-              type="submit"
-              disabled={condition}
-        />
+              <TextField
+                hintText="Re-enter your password"
+                floatingLabelText="Re-enter password"
+                name="password1"
+                type="password"
+                required={true}
+                value={this.state.password1}
+                onChange={this.onChange}
+              />
+              <br/>
 
-        {error && <p>{error.message}</p>}
-      </form>
-      </div>)}
-   </MuiThemeProvider>
-</div>);
+              <RaisedButton
+                label="SignUp"
+                primary={true}
+                type="submit"
+                disabled={condition}
+              />
+
+              {error && <p>{error.message}</p>}
+            </form>
+          </div>)}
+        </MuiThemeProvider>
+      </div>);
   }
 }
 
