@@ -21,9 +21,9 @@ const query = db('images').where('id', id);
 }
 
 
-function insert(image) {
+function insert(url) {
   return db('images')
-    .insert(image).returning('id').then(ids => ids[0]);
+    .insert(url).returning('id').then(ids => ids[0]);
 }
 
 function update(id, image){
