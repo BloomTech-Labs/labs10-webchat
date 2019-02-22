@@ -17,10 +17,9 @@ class CheckoutForm extends Component {
     console.log("Stripe token from checkout form submit: ", token);
     let company_id = 1;
     // Company ID is hardcoded in until we have user accounts set up
-    const url = `${process.env.REACT_APP_BACKEND_URL}billing/charge/`;
     let chargeRequest = { token: token.id, company_id: company_id };
     axios
-      .post(`${url}`, chargeRequest)
+      .post("/api/billing/charge", chargeRequest)
       .then(response => {
         console.log("charge response: ", response);
         this.setState({ complete: true });
