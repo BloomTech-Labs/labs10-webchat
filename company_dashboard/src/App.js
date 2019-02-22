@@ -14,6 +14,7 @@ import { withFirebase } from "./components/Firebase";
 import Navigation from "./components/Navigation";
 import SettingsNavigation from "./components/settings/SettingsNavigation";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +46,7 @@ class App extends Component {
           <Route path={ROUTES.COMPANY_REGISTER} component={CompanyRegister} />
           <Route path={ROUTES.PERSONAL_INFO} component={PersonalInfo} />
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
+	  <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />  
         </div>
       </Router>
     );
