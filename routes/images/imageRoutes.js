@@ -35,6 +35,30 @@ router.get('/:id', (req, res) => {
 });
 
 
+router.post('/', (req, res) => {
+        const url = req.body.url;
+
+        console.log(url);
+
+        if (!url) {
+                res.status(400).json({ message: 'Please provide image url' });
+                return;
+        }
+
+        let image = {url: url};
+        const request = db.insert(image);
+
+                request.then(image => {
+                        console.log('image id is', image);
+                        res.status(200).json(image);
+                })
+                .catch(err => {
+                        res.status(500).json({ err: err.message});
+                })
+});
+
+
+
 router.delete('/:id', (req, res) => {
         const {id} = req.params;
 
