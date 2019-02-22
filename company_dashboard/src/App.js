@@ -42,7 +42,6 @@ class App extends Component {
           <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
           <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
           <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
-          <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
           <Route path={ROUTES.REP_REGISTER} component={RepRegister} />
           <Route path={ROUTES.COMPANY_REGISTER} component={CompanyRegister} />
           <Route path={ROUTES.PERSONAL_INFO} component={PersonalInfo} />
