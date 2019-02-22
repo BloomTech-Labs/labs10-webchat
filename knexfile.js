@@ -7,9 +7,9 @@ module.exports = {
     client: 'pg',
     connection: {
       host: 'localhost',
-      user: 'linda',     
-      password: 'password',
-      database: 'api',
+      user: 'cameronwebchat',     
+      password: 'webchat',
+      database: 'webchatdbdev',
       charset: 'utf8'
     },
     migrations: {

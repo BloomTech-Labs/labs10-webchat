@@ -7,7 +7,7 @@ module.exports = {
   update,
   remove,
   updatePayment,
-  addApprovedEmail
+  addApprovedEmail,
 };
 
 function get() {
