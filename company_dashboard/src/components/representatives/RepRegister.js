@@ -73,11 +73,11 @@ class RepSignUpFormBase extends Component {
         // console.log(authUser);
         // console.log(authUser.user.uid);
         console.log('authUser: ', authUser);
-        localStorage.setItem('authUser', JSON.stringify(authUser));
+        localStorage.setItem('authUser', JSON.stringify(authUser));  // If set here, passing uid to next component state may not be neccesary
         this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
           console.log("idToken after doCreate: ", idToken);
           const data = { email: email };
-          axios.defaults.headers.common['Authorization'] = idToken;
+          axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
           const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
           verifyRequest
             .then(company_id => {               // if the email was approved, get the company_id back from server
