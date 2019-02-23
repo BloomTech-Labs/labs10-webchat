@@ -89,8 +89,8 @@ class RepSignUpFormBase extends Component {
                 });
               })
               .catch(error => {
-                //this.setState({ error:error });
-                this.props.history.push({             // send the user to the form to register a new company
+                this.setState({ error:error });
+                this.props.history.push({             // send the user to register a new company
                   pathname: ROUTES.COMPANY_REGISTER,
                   state: {
                     uid: authUser.user.uid
@@ -98,43 +98,15 @@ class RepSignUpFormBase extends Component {
                 });       
               })
           })
-          .catch(error => {   // if the user was not created in Firebase
+          .catch(error => {   // if Firebase getIdToken throws an error
             this.setState({ error:error });
           });
         }
       })
-      .catch(error => {   // if the user was not created in Firebase
+      .catch(error => {   // if Firebase createUser throws an error
           this.setState({ error:error });
       });
-        // **********************
-      //   console.log("idToken in onSubmit: ",this.state.idToken);
-      //   const data = { email: email };
-      //   axios.defaults.headers.common['Authorization'] = this.state.idToken;
-      //   const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
-      //   verifyRequest
-      //     .then(company_id => {               // if the email was approved, get the company_id back from server
-      //       this.props.history.push({         // send the user to a form to sign up and directly join their company
-      //         pathname: ROUTES.APPROVED_REP_REGISTER,
-      //         state: { 
-      //           company_id: company_id.data,  //company_id.data gives the company_id int value
-      //           uid: authUser.user.uid        // authUser returned from Firebase
-      //         }  
-      //       });
-      //     })
-      //     .catch(error => {
-      //       //this.setState({ error:error });
-      //       this.props.history.push({             // send the user to the form to register a new company
-      //         pathname: ROUTES.COMPANY_REGISTER,
-      //         state: {
-      //           uid: authUser.user.uid
-      //         }
-      //       });       
-      //     })
-      // })
-      // .catch(error => {   // if the user was not created in Firebase
-      //   this.setState({ error:error });
-      // });
-      // **************************
+        
     event.preventDefault();
   }
 
