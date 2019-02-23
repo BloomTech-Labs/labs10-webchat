@@ -9,6 +9,8 @@ if (process.env.ENVIRONMENT == 'development') {
 }
 const port = process.env.PORT || 5000;
 
+const admin = require('firebase-admin');
+
 // Socket.io
 const socketIo = require('socket.io');
 const http = require('http');
