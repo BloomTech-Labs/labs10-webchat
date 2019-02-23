@@ -49,21 +49,17 @@ app.use(async(req,res) =>{
   console.log(req.headers.authorization);
         const idToken = req.headers.authorization;
 	
-try{
-      	await admin.
-		auth().verifyIdToken(idToken)
-                .then(decodedToken =>{
-                        console.log(decodedToken);
-                        const uid = decodedToken.uid;
-                        res.status(200).json(uid);
-
-                 });
-
-}
-                catch(e) {
-                        res.status(401).json({error:"You are not authorized"});
-               }
-
+  try {
+    await admin.auth().verifyIdToken(idToken)
+      .then(decodedToken => {
+        console.log(decodedToken);
+        const uid = decodedToken.uid;
+        res.status(200).json(uid);
+      });
+  }
+  catch(e) {
+    res.status(401).json({error:"You are not authorized"});
+  }
 });
 
 app.use('/api/reps', repRoutes);
