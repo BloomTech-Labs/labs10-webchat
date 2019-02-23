@@ -35,34 +35,7 @@ class RepSignUpFormBase extends Component {
         // idToken: null,
     };
   }
-  componentDidMount() {
-    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-      if (authUser) {
-        this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
-          console.log("idToken in CDM: ", idToken);
-          // this.setState({ idToken: idToken });
-          axios.defaults.headers.common['Authorization'] = idToken;
-          axios
-            .get('/')
-            .then(response => {
-              localStorage.setItem('authUser', JSON.stringify(authUser));
-              this.setState({
-                authUser: authUser,
-                authTokenReceived: true,
-                idToken: idToken,
-              });
-            })
-            .catch(err => console.log(err.message));
-        });
-      } else {
-        localStorage.setItem('authUser', null);
-        this.setState({
-          authUser: null,
-          authTokenReceived: false
-        });
-      }
-    })
-  }
+  
 
   onSubmit = event => {
     const {email, password } = this.state;
@@ -73,6 +46,7 @@ class RepSignUpFormBase extends Component {
         // console.log(authUser);
         // console.log(authUser.user.uid);
         if (authUser) {
+          console.log('authUser: ', authUser);
           this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
             console.log("idToken after doCreate: ", idToken);
             const data = { email: email };
@@ -98,12 +72,12 @@ class RepSignUpFormBase extends Component {
                 });       
               })
           })
-          .catch(error => {   // if Firebase getIdToken throws an error
+          .catch(error => {                 // if Firebase getIdToken throws an error
             this.setState({ error:error });
           });
         }
       })
-      .catch(error => {   // if Firebase createUser throws an error
+      .catch(error => {                    // if Firebase doCreateUser throws an error
           this.setState({ error:error });
       });
         
