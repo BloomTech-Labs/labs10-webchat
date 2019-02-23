@@ -36,32 +36,32 @@ class RepSignUpFormBase extends Component {
     };
   }
   componentDidMount() {
-    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-      if (authUser) {
-        this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
-          console.log("idToken in CDM: ", idToken);
-          // this.setState({ idToken: idToken });
-          axios.defaults.headers.common['Authorization'] = idToken;
-          axios
-            .get('/')
-            .then(response => {
-              localStorage.setItem('authUser', JSON.stringify(authUser));
-              this.setState({
-                authUser: authUser,
-                authTokenReceived: true,
-                idToken: idToken,
-              });
-            })
-            .catch(err => console.log(err.message));
-        });
-      } else {
-        localStorage.setItem('authUser', null);
-        this.setState({
-          authUser: null,
-          authTokenReceived: false
-        });
-      }
-    })
+    // this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+    //   if (authUser) {
+    //     this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
+    //       console.log("idToken in CDM: ", idToken);
+    //       // this.setState({ idToken: idToken });
+    //       axios.defaults.headers.common['Authorization'] = idToken;
+    //       axios
+    //         .get('/')
+    //         .then(response => {
+    //           localStorage.setItem('authUser', JSON.stringify(authUser));
+    //           this.setState({
+    //             authUser: authUser,
+    //             authTokenReceived: true,
+    //             // idToken: idToken,
+    //           });
+    //         })
+    //         .catch(err => console.log(err.message));
+    //     });
+    //   } else {
+    //     localStorage.setItem('authUser', null);
+    //     this.setState({
+    //       authUser: null,
+    //       authTokenReceived: false
+    //     });
+    //   }
+    // })
   }
 
   onSubmit = event => {
@@ -70,14 +70,18 @@ class RepSignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        // console.log(authUser);
-        // console.log(authUser.user.uid);
-        if (authUser) {
-          this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
+        console.log('authUser: ', authUser);
+        localStorage.setItem('authUser', JSON.stringify(authUser.user.uid));  // If set here, passing uid to next component state may not be neccesary
+
+        this.props.firebase.auth.currentUser.getIdToken()
+          .then(idToken => {
             console.log("idToken after doCreate: ", idToken);
+
             const data = { email: email };
-            axios.defaults.headers.common['Authorization'] = idToken;
+            axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
+            
             const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
+
             verifyRequest
               .then(company_id => {               // if the email was approved, get the company_id back from server
                 this.props.history.push({         // send the user to a form to sign up and directly join their company
@@ -88,7 +92,7 @@ class RepSignUpFormBase extends Component {
                   }  
                 });
               })
-              .catch(error => {
+              .catch(error => {                  // if email is not approved server throws 400 error
                 this.setState({ error:error });
                 this.props.history.push({             // send the user to register a new company
                   pathname: ROUTES.COMPANY_REGISTER,
@@ -98,14 +102,13 @@ class RepSignUpFormBase extends Component {
                 });       
               })
           })
-          .catch(error => {   // if Firebase getIdToken throws an error
+          .catch(error => {                 // if Firebase getIdToken throws an error
             this.setState({ error:error });
           });
-        }
-      })
-      .catch(error => {   // if Firebase createUser throws an error
-          this.setState({ error:error });
-      });
+    })
+    .catch(error => {                    // if Firebase doCreateUser throws an error
+        this.setState({ error:error });
+    });
         
     event.preventDefault();
   }
