@@ -71,7 +71,7 @@ class RepSignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log('authUser: ', authUser);
-        localStorage.setItem('authUser', JSON.stringify(authUser));  // If set here, passing uid to next component state may not be neccesary
+        localStorage.setItem('authUser', JSON.stringify(authUser.user.uid));  // If set here, passing uid to next component state may not be neccesary
 
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
@@ -92,7 +92,7 @@ class RepSignUpFormBase extends Component {
                   }  
                 });
               })
-              .catch(error => {                  // in email is not approved server throws 400 error
+              .catch(error => {                  // if email is not approved server throws 400 error
                 this.setState({ error:error });
                 this.props.history.push({             // send the user to register a new company
                   pathname: ROUTES.COMPANY_REGISTER,
