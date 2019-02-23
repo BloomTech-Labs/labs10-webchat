@@ -26,18 +26,21 @@ class RepSignUpFormBase extends Component {
     super(props);
 
      this.state = {
-        email:"",
-        password:"",
-        password1:"",
-        error:null,
+        email: "",
+        password: "",
+        password1: "",
+        error: null,
         authUser: JSON.parse(localStorage.getItem('authUser')),
-        authTokenReceived: false
+        authTokenReceived: false,
+        idToken: null,
     };
   }
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
+          console.log("idToken: ", idToken);
+          // this.setState({ idToken: idToken });
           axios.defaults.headers.common['Authorization'] = idToken;
           axios
             .get('/')
@@ -45,7 +48,8 @@ class RepSignUpFormBase extends Component {
               localStorage.setItem('authUser', JSON.stringify(authUser));
               this.setState({
                 authUser: authUser,
-                authTokenReceived: true
+                authTokenReceived: true,
+                idToken: idToken,
               });
             })
             .catch(err => console.log(err.message));
@@ -68,9 +72,9 @@ class RepSignUpFormBase extends Component {
       .then(authUser => {
         console.log(authUser);
         console.log(authUser.user.uid);
+        console.log(this.state.idToken);
         const data = { email: email };
-        
-        
+        axios.defaults.headers.common['Authorization'] = this.state.idToken;
         const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
         verifyRequest
           .then(company_id => {               // if the email was approved, get the company_id back from server

@@ -44,7 +44,7 @@ app.get('/',(req, res) => {
 
 
 app.use(async(req,res) =>{
-
+  console.log(req.headers.authorization);
         const idToken = req.headers.authorization;
 	
 try{
