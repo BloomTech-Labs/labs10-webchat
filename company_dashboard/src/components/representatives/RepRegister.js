@@ -70,38 +70,39 @@ class RepSignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        // console.log(authUser);
-        // console.log(authUser.user.uid);
         console.log('authUser: ', authUser);
         localStorage.setItem('authUser', JSON.stringify(authUser));  // If set here, passing uid to next component state may not be neccesary
-        this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
-          console.log("idToken after doCreate: ", idToken);
-          const data = { email: email };
-          axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
-          const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
-          verifyRequest
-            .then(company_id => {               // if the email was approved, get the company_id back from server
-              this.props.history.push({         // send the user to a form to sign up and directly join their company
-                pathname: ROUTES.APPROVED_REP_REGISTER,
-                state: { 
-                  company_id: company_id.data,  //company_id.data gives the company_id int value
-                  uid: authUser.user.uid        // authUser returned from Firebase
-                }  
-              });
-            })
-            .catch(error => {
-              this.setState({ error:error });
-              this.props.history.push({             // send the user to register a new company
-                pathname: ROUTES.COMPANY_REGISTER,
-                state: {
-                  uid: authUser.user.uid
-                }
-              });       
-            })
-        })
-        .catch(error => {                 // if Firebase getIdToken throws an error
-          this.setState({ error:error });
-        });
+
+        this.props.firebase.auth.currentUser.getIdToken()
+          .then(idToken => {
+            console.log("idToken after doCreate: ", idToken);
+            const data = { email: email };
+            axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
+            
+            const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
+            verifyRequest
+              .then(company_id => {               // if the email was approved, get the company_id back from server
+                this.props.history.push({         // send the user to a form to sign up and directly join their company
+                  pathname: ROUTES.APPROVED_REP_REGISTER,
+                  state: { 
+                    company_id: company_id.data,  //company_id.data gives the company_id int value
+                    uid: authUser.user.uid        // authUser returned from Firebase
+                  }  
+                });
+              })
+              .catch(error => {
+                this.setState({ error:error });
+                this.props.history.push({             // send the user to register a new company
+                  pathname: ROUTES.COMPANY_REGISTER,
+                  state: {
+                    uid: authUser.user.uid
+                  }
+                });       
+              })
+          })
+          .catch(error => {                 // if Firebase getIdToken throws an error
+            this.setState({ error:error });
+          });
     })
     .catch(error => {                    // if Firebase doCreateUser throws an error
         this.setState({ error:error });
