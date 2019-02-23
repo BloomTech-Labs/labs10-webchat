@@ -53,10 +53,10 @@ app.use(async(req,res) => {
     await admin.auth().verifyIdToken(idToken)       // verify the idToken with Firebase
       .then(decodedToken => {                       // get the decoded token back from Firebase
         console.log(decodedToken);
-        const uid = decodedToken.uid;
-        res.status(200).json(uid);
-        // req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req
-        // return req.next();                          // return and move to the next (.then) part of the original req
+        // const uid = decodedToken.uid;               // get the uid from the Firebase decoded token
+        // res.status(200).json(uid);                  // send back res with the uid
+        req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req
+        return req.next();                          // return and move to the next (.then) part of the original req
       });
   }
   catch(e) {
