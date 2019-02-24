@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 	console.log('req.params.id is:', req.params.id);
         const id = req.params.id;
-        console.log('id is', id);
+        console.log('image id on server is', id);
 
         const request = db.getById(id);
         request.then(response_data => { 

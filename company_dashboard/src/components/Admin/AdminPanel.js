@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import UserImage from '../company/UserImage';
 import './AdminPanel.css';
 
 
@@ -49,7 +50,8 @@ constructor(props){
     motto: '',
     image_id: '',
     url:'',	  
-    error:null,	  
+    error:null,
+    logged:false,		
     codeSnippet: '',
     team: {
       name: '',
@@ -69,11 +71,11 @@ constructor(props){
         request.then(response => {
 		 console.log(response);
                 console.log(response.data);
-		console.log(response.data.name);
+		console.log('image id is: ', response.data.image_id);
 		console.log('on react side image_id is:', response.data.image_id);
 
-                this.setState({image_id: response.data.image_id, name: response.data.name, motto: response.data.motto});
-		const imgid = this.state.image_id;
+                this.setState({image_id: response.data.image_id, name: response.data.name, motto: response.data.motto, logged:true});
+		/*const imgid = this.state.image_id;
 		const img_req = axios.get(`/api/images/${imgid}`);
 
 
@@ -87,15 +89,15 @@ constructor(props){
 		.catch(error => {
                         console.log(error.message);
                         this.setState({error:error});
-                })
-
+                })*/
+	})
         .catch(err => {
                 console.log(err.message);
                 this.setState({error:err});
         })
 
-})
-}  
+}
+  
 
 handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -112,13 +114,11 @@ render() {
       <div className='admin-panel'>
 	 <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
-        </Typography>   
-	 
-	  <div className="image-style">   
-         	<img src={this.state.url} alt="admin image" />
-	 </div>
+         </Typography>
 
-	   <form className={classes.container} noValidate autoComplete='off'>
+	    {this.state.logged ?(<UserImage image_id={this.state.image_id} />):(<p>Loading image</p>)} 
+	
+	  <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
 	
 	    <p>Name</p>
