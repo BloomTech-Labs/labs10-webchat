@@ -193,15 +193,16 @@ router.delete('/:id', (req, res) => {
 
 
 router.post('/verifyemail', (req, res) => {
+	console.log("verifyemail endpoint hit");
 	const { email } = req.body;
 	const table = 'approved_emails';
 	const request = db.getByEmail(email, table);
 	request.then(response_data => {
-		console.log(response_data);
+		console.log("verifyemail response: ", response_data);
 		if (response_data) {
 			res.status(200).json(response_data.company_id);
 		} else {
-			res.status(400).json({ error: 'You are not approved to join this company.' });
+			res.status(400).json({ message: 'You are not approved to join this company.' });
 		}
 	});
 
