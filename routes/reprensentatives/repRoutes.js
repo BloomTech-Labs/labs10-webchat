@@ -210,15 +210,14 @@ router.post('/verifyemail', (req, res) => {
 
 router.post('/nonadmin', upload.single('file'),(req, res) => {
 
-	let {motto, phone_number, email, uid} = req.body;
-	let repname = req.body.name;
-	let image_id=null;
+	let { name, email, company_id, uid, motto, phone_number } = req.body;
+	let image_id = null;
 
-	console.log('company name is: ', companyname);
+	// console.log('company name is: ', companyname);
 	
 	console.log('req.file is ', req.file);
 
-        let imgUrl="";
+        let imgUrl = "";
 
         cloudinary.uploader.upload(req.file.path,(result) =>{
 			console.log('inside cloudinary uploader');
@@ -242,44 +241,26 @@ router.post('/nonadmin', upload.single('file'),(req, res) => {
 					image_id = 1;
 				}
 
-				let api_token = req.body.companyname;
-        		let newCompany = {name: companyname, api_token: api_token};
+				let newRep = {
+					name: name,
+					email: email,  // ??? Do we need to make sure this matches their registration email?
+					company_id: company_id,
+					phone_number: phone_number,
+					motto: motto,
+					image_id: image_id,
+					is_admin: false,
+					uid: uid
+				};
 
-        		const comp_req = compdb.insert(newCompany);
+				const request = db.insert(newRep);
 
-        		comp_req.then(id_company => {
-					console.log(id_company);
-					//res.status(200).json(id_company);
-
-        			let company_id = id_company;
-        			console.log('repname is', repname);
-        			console.log('comapny_id is', company_id);
-
-					let newRepresentative = {
-						company_id: company_id,
-						name: repname,
-						motto: motto,
-						phone_number: phone_number,
-						email: email,
-						image_id: image_id,
-						is_admin: is_admin,
-						uid: uid
-					};
-
-                	const request = db.insert(newRepresentative);
-
-                	request.then(representative => {
-						console.log(representative);
-						res.status(200).json(representative);
-                	})
-                	.catch(err => {  // catch error from insert new rep request
-						console.log(err.message);
-						res.status(500).json({message: err.message});
-                	})
-        		})
-				.catch(err => {   // catch error from comp_req
-						console.log('company creation error message', err.message);
-						res.status(500).json({error: "Company already exists"});
+				request.then(rep_response => {
+					console.log(rep_response);
+					res.status(200).json(rep_response);
+				})
+				.catch(err => {  // catch error from insert new rep request
+					console.log(err.message);
+					res.status(500).json({message: err.message});
 				})
 			})
 			.catch(error => {     // catch error from request = dbimg.insert(url)

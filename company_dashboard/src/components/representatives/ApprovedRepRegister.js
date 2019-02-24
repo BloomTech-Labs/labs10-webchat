@@ -29,7 +29,8 @@ class ApprovedRepRegisterForm extends Component {
   
     componentDidMount() {
       const uid = JSON.parse(localStorage.getItem('uid'));
-      
+      // ** NOTE: if we use authUser, either through localStorage or currentUser, we can set email
+      // that way the user doesn't have to write it again, and we make sure it matches the registration email
       const company_id = this.state.company_id;
       const companyInfoRequest = axios.get(`/api/companies/${company_id}`);
       companyInfoRequest
