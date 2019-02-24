@@ -18,9 +18,9 @@ if (process.env.ENVIRONMENT == 'development') {
 
 
 cloudinary.config({ 
-  cloud_name:process.env.CLOUD_NAME,
-  api_key:process.env.CLOUDINARY_API_KEY,
-  api_secret:process.env.CLOUDINARY_API_SECRET
+  cloud_name:"dvgfmipda",
+  api_key:"682433638449357",
+  api_secret:"XCwRt4rmt3a6-Jc06bzwSRhv3ns"
 });
 
 router.get('/', (req, res) => {
