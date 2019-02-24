@@ -55,7 +55,7 @@ class ApprovedRepRegisterForm extends Component {
           file: this.state.selectedFile
         };
         
-        const addRepRequest = axios.post("/api/reps", data);  // Add user's info to the reps table
+        const addRepRequest = axios.post("/api/reps/nonadmin", data);  // Add user's info to the reps table
       
         addRepRequest.then(response => {
             console.log(response.data);
