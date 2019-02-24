@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "@sendgrid/mail": "^6.3.1",
     "cloudinary": "^1.13.2",
     "cors": "^2.8.5",
     "express": "^4.16.4",
