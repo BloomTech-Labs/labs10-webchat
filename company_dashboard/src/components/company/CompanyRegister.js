@@ -26,70 +26,72 @@ class CompanyRegisterFormBase extends Component {
   constructor(props) {
     super(props);
 
-     this.state = {
-   	name:"", 
-	email:"",
-	motto:"",
-	phone:"",
-  	companyname:"",
-	selectedFile:null,     
-  	uid: props.history.location.state.uid,   
-        error:null,
-        logged:false,
+    this.state = {
+   	  name: "", 
+	    email: "",
+      motto: "",
+      phone: "",
+  	  companyname: "",
+	    selectedFile:null,        
+      error:null,
+      logged:false,
     };
 
   }
   
+
   onSubmit = event => {
 
-   let data = new FormData();
-        data.append('name', this.state.name);
-        data.append('email', this.state.email);
-        data.append('companyname', this.state.companyname);
-	data.append('motto', this.state.motto);
-	data.append('phone_number', this.state.phone);
-	data.append('is_admin', true);
-	data.append('uid', this.state.uid);  
-	data.append('file', this.state.selectedFile);
+    let data = new FormData();
+      data.append('name', this.state.name);
+      data.append('email', this.state.email);
+      data.append('companyname', this.state.companyname);
+      data.append('motto', this.state.motto);
+      data.append('phone_number', this.state.phone);
+      data.append('is_admin', true);
+      data.append('uid', this.state.uid);  
+      data.append('file', this.state.selectedFile);
 	  
 		  
 	 
-	 // const data = {
-    //name: this.state.name, 
-    //email: this.state.email, 
-    //companyname: this.state.companyname, 
-    //motto: this.state.motto, 
-    //phone_number: this.state.phone, 
-    //is_admin: true,
-    //uid: this.state.uid
-  //};
+    // const data = {
+      //name: this.state.name, 
+      //email: this.state.email, 
+      //companyname: this.state.companyname, 
+      //motto: this.state.motto, 
+      //phone_number: this.state.phone, 
+      //is_admin: true,
+      //uid: this.state.uid
+    //};
 
-	const request = axios.post('/api/reps', data);
+	  const request = axios.post('/api/reps', data);
     
-        request.then(response => {
-		console.log(response.data);
-		//this.setState({logged:true});
+    request
+      .then(response => {
+		    console.log(response.data);
+		    //this.setState({logged:true});
 	
-		this.props.history.push({
-                pathname: '/adminpanel',
-                state: { rep_id: response.data }
-                });		
+        this.props.history.push({
+          pathname: '/adminpanel',
+          state: { rep_id: response.data }
+        });		
 		
-	})
-        .catch(err => {
+	    })
+      .catch(err => {
         	console.log(err.message);
         	this.setState({error:err});		
-    	})
-	event.preventDefault();  
+      })
+      
+	  event.preventDefault();  
   };	  
    	  
   fileChangeHandler = (event) => {
- 	 this.setState({selectedFile: event.target.files[0]})
+ 	  this.setState({selectedFile: event.target.files[0]})
   };
 
 
   onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
@@ -100,88 +102,88 @@ class CompanyRegisterFormBase extends Component {
     return (
       <div>
         <MuiThemeProvider>
-        {this.state.logged ? 
-	(<Typography variant='display1' align='center' gutterBottom>
-        Successfully Logged In
-        </Typography>):(
-       
-	<div>
-	<AppBar
-            title="Register Details"
-       />
+          {this.state.logged ? 
+          (<Typography variant='display1' align='center' gutterBottom>
+          Successfully Logged In
+          </Typography>):(
         
-	<form onSubmit={this.onSubmit}>
-        <TextField
-            hintText="Enter your company name"
-            floatingLabelText="Company Name"
-            name="companyname"
-            type="text"
-            required={true}
-            value={this.state.companyname}
-            onChange={this.onChange}
-           />
-          <br/>
+          <div>
+            <AppBar
+              title="Register Details"
+            />
+          
+            <form onSubmit={this.onSubmit}>
+              <TextField
+                hintText="Enter your company name"
+                floatingLabelText="Company Name"
+                name="companyname"
+                type="text"
+                required={true}
+                value={this.state.companyname}
+                onChange={this.onChange}
+              />
+              <br/>
 
-         <TextField
-            hintText="Enter Your name"
-            floatingLabelText="Name"
-            name="name"
-            type="text"
-            required={true}
-            value={this.state.name}
-            onChange={this.onChange}
-           />
-          <br/>
-	
-         <TextField
-            hintText="Enter your email"
-            floatingLabelText="Email"
-            name="email"
-            type="text"
-            required={true}
-            value={this.state.email}
-            onChange={this.onChange}
-           />
-          <br/>
-	
-	 <TextField
-            hintText="Enter your phone number"
-            floatingLabelText="Phone Number"
-            name="phone"
-            type="text"
-            value={this.state.phone}
-            onChange={this.onChange}
-           />
-          <br/>	
+              <TextField
+                  hintText="Enter Your name"
+                  floatingLabelText="Name"
+                  name="name"
+                  type="text"
+                  required={true}
+                  value={this.state.name}
+                  onChange={this.onChange}
+                />
+                <br/>
+        
+              <TextField
+                  hintText="Enter your email"
+                  floatingLabelText="Email"
+                  name="email"
+                  type="text"
+                  required={true}
+                  value={this.state.email}
+                  onChange={this.onChange}
+                />
+                <br/>
+    
+                <TextField
+                  hintText="Enter your phone number"
+                  floatingLabelText="Phone Number"
+                  name="phone"
+                  type="text"
+                  value={this.state.phone}
+                  onChange={this.onChange}
+                />
+                <br/>	
 
-         <TextField
-            hintText="Enter your motto"
-            floatingLabelText="Motto"
-            name="motto"
-            type="text"
-            value={this.state.motto}
-            onChange={this.onChange}
-           />
-          <br/><br/>	
+                <TextField
+                  hintText="Enter your motto"
+                  floatingLabelText="Motto"
+                  name="motto"
+                  type="text"
+                  value={this.state.motto}
+                  onChange={this.onChange}
+                />
+                <br/><br/>	
 
-	 <input
-	    type="file"	
-            onChange={this.fileChangeHandler} 
-	  />
-	  <br/><br/>		
+                <input
+                  type="file"	
+                  onChange={this.fileChangeHandler} 
+                />
+                <br/><br/>		
 
-        <RaisedButton
-              label="Register"
-              primary={true}
-              type="submit"
-              disabled={condition}
-        />
+                <RaisedButton
+                  label="Register"
+                  primary={true}
+                  type="submit"
+                  disabled={condition}
+                />
 
-        {error && <p>{error.message}</p>}
-      </form>
-      </div>)}
-   </MuiThemeProvider>
-</div>);
+                {error && <p>{error.message}</p>}
+            </form>
+          </div>)}
+        </MuiThemeProvider>
+      </div>);
   }
 }
 

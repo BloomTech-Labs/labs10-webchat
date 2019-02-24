@@ -30,11 +30,10 @@ class RepSignUpFormBase extends Component {
         password: "",
         password1: "",
         error: null,
-        authUser: JSON.parse(localStorage.getItem('authUser')),
         authTokenReceived: false,
-        // idToken: null,
     };
   }
+  // Leaving CDM temporarily as example of listener for auth state change
   componentDidMount() {
     // this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
     //   if (authUser) {
@@ -71,7 +70,7 @@ class RepSignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log('authUser: ', authUser);
-        localStorage.setItem('authUser', JSON.stringify(authUser.user.uid));  // If set here, passing uid to next component state may not be neccesary
+        localStorage.setItem('uid', JSON.stringify(authUser.user.uid));  // If set here, passing uid to next component state may not be neccesary
 
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
