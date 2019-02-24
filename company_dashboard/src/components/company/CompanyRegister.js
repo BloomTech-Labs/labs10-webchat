@@ -64,7 +64,7 @@ class CompanyRegisterFormBase extends Component {
       //uid: this.state.uid
     //};
 
-	  const request = axios.post('/api/reps', data);
+	  const request = axios.post('/api/reps/admin', data);
     
     request
       .then(response => {

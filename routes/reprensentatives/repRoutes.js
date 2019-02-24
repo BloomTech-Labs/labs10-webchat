@@ -49,7 +49,7 @@ router.get('/:id', (req, res) => {
 });
 
 
-router.post('/', upload.single('file'),(req, res) => {
+router.post('/admin', upload.single('file'),(req, res) => {
 
 	let {companyname, motto, phone_number, email, is_admin, uid} = req.body;
 	let repname = req.body.name;
