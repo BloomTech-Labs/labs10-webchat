@@ -64,7 +64,7 @@ constructor(props){
 
   
   componentDidMount() {
-  const id = this.props.history.location.state.rep_id; 
+  	const id = this.props.history.location.state.rep_id; 
  
 	const request = axios.get(`/api/reps/${id}`);
 
@@ -116,8 +116,8 @@ render() {
           Admin Panel
          </Typography>
 
-	    {this.state.logged ?(<UserImage image_id={this.state.image_id} />):(<p>Loading image</p>)} 
-	
+		{this.state.logged ?(<UserImage image_id={this.state.image_id} />):(<p>Loading image</p>)}
+
 	  <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
 	
