@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../data/helpers/approvedemailDb');
+const sgMail = require('@sendgrid/mail');
 
+if (process.env.ENVIRONMENT == 'development') {
+  require('dotenv').config();
+}
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 router.get('/', (req, res) => {
