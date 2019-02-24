@@ -3,19 +3,24 @@ const router = express.Router();
 const db = require('../../data/helpers/repDb');
 const compdb = require('../../data/helpers/companiesDb');
 const dbimg = require('../../data/helpers/imageDb');
+const dbapp = require('../../data/helpers/approvedemailDb');
 const multer = require('multer');
 const upload = multer({ dest: __dirname + '/files/' });
 const fs = require('fs');
 const cloudinary = require('cloudinary');
 
+
+
 if (process.env.ENVIRONMENT == 'development') {
   require('dotenv').config();
 }
 
+
+
 cloudinary.config({ 
-  cloud_name:"dvgfmipda",
-  api_key:"682433638449357",
-  api_secret:"XCwRt4rmt3a6-Jc06bzwSRhv3ns"
+  cloud_name:process.env.CLOUD_NAME,
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET
 });
 
 router.get('/', (req, res) => {
@@ -234,6 +239,8 @@ router.post('/verifyemail', (req, res) => {
 	});
 
 })
+
+
 
 router.post('/nonadmin', upload.single('file'),(req, res) => {
 
