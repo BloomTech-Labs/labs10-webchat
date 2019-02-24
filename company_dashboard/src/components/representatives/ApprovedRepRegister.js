@@ -44,6 +44,7 @@ class ApprovedRepRegisterForm extends Component {
           console.log("Error finding company name from company. How did you get to this page?")
         })
     }
+    
     onSubmit = event => {
         const data = {
           name: this.state.name, 

@@ -211,36 +211,57 @@ router.post('/verifyemail', (req, res) => {
 router.post('/nonadmin', upload.single('file'),(req, res) => {
 
 	let { name, email, company_id, uid, motto, phone_number } = req.body;
-	let image_id = null;
+	if (!req.file) {
+		let image_id = 1;
+		let newRep = {
+			name: name,
+			email: email,  // ??? Do we need to make sure this matches their registration email?
+			company_id: company_id,
+			phone_number: phone_number,
+			motto: motto,
+			image_id: image_id,
+			is_admin: false,
+			uid: uid
+		};
 
-	// console.log('company name is: ', companyname);
+		const request = db.insert(newRep);
+
+		request.then(rep_response => {
+			console.log(rep_response);
+			res.status(200).json(rep_response);
+		})
+		.catch(err => {  // catch error from insert new rep request
+			console.log(err.message);
+			res.status(500).json({message: err.message});
+		})
+	} else {
+		let image_id = null;
+
+
+		let imgUrl = "";
 	
-	console.log('req.file is ', req.file);
-
-        let imgUrl = "";
-
-        cloudinary.uploader.upload(req.file.path,(result) =>{
+		cloudinary.uploader.upload(req.file.path,(result) =>{
 			console.log('inside cloudinary uploader');
 			console.log(result);
 			imgUrl = result.secure_url;
 		})
 		.then(() => {
 			console.log('inside cloudinary then');
-        	console.log('image url', imgUrl);
-        	//const image=imgUrl;
-        	const url = {url:imgUrl};
-
-        	const request = dbimg.insert(url);
-
-        	request.then(response => {
-                console.log('inside db image insert, image id is:', response);
+			console.log('image url', imgUrl);
+			//const image=imgUrl;
+			const url = {url:imgUrl};
+	
+			const request = dbimg.insert(url);
+	
+			request.then(response => {
+				console.log('inside db image insert, image id is:', response);
 				//console.log('imgage id is'response);
 				image_id = response;
 			
 				if (!image_id) {
 					image_id = 1;
 				}
-
+	
 				let newRep = {
 					name: name,
 					email: email,  // ??? Do we need to make sure this matches their registration email?
@@ -251,9 +272,9 @@ router.post('/nonadmin', upload.single('file'),(req, res) => {
 					is_admin: false,
 					uid: uid
 				};
-
+	
 				const request = db.insert(newRep);
-
+	
 				request.then(rep_response => {
 					console.log(rep_response);
 					res.status(200).json(rep_response);
@@ -266,7 +287,9 @@ router.post('/nonadmin', upload.single('file'),(req, res) => {
 			.catch(error => {     // catch error from request = dbimg.insert(url)
 				res.status(500).json({error: "Failed to save image to the database" });
 			})
-        })   // no catch for cloudinary.uploader.upload()
+		})   // no catch for cloudinary.uploader.upload()
+	}
+	
 });
 
 
