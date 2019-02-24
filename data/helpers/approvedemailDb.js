@@ -34,6 +34,13 @@ function insert(user) {
     .insert(user).returning('id').then(ids => ids[0]);
 };
 
+
+function update(id, user){
+        return db('approved_emails')
+               .where({id: Number(id)})
+               .update(user);
+};
+
 function remove(id){
         return db('approved_emails')
                .where({id: Number(id)})
