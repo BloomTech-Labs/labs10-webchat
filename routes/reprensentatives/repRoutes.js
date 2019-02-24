@@ -105,7 +105,7 @@ router.post('/', upload.single('file'),(req, res) => {
         		const comp_req = compdb.insert(newCompany);
 
         		comp_req.then(id_company => {
-                        	console.log(id_company);
+                        	console.log('company id inside company insert is: ', id_company);
                         	//res.status(200).json(id_company);
 
         			let company_id = id_company;
