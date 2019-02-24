@@ -19,20 +19,25 @@ class ApprovedRepRegisterForm extends Component {
         motto: "",
         phone: "",
         company_id: props.history.location.state.company_id, 
-        uid: props.history.location.state.uid,  
+        uid: null,  
         company_name: "",
+	      selectedFile:null,
         error:null,
         logged:false,
       };
     }
   
     componentDidMount() {
+      const uid = JSON.parse(localStorage.getItem('uid'));
+      
       const company_id = this.state.company_id;
       const companyInfoRequest = axios.get(`/api/companies/${company_id}`);
-
       companyInfoRequest
         .then(company => {
-          this.setState({ company_name: company.name });
+          this.setState({ 
+            company_name: company.name,
+            uid: uid
+          });
         })
         .catch(err => {
           console.log("Error finding company name from company. How did you get to this page?")
@@ -43,9 +48,11 @@ class ApprovedRepRegisterForm extends Component {
           name: this.state.name, 
           email: this.state.email, 
           company_id: this.state.company_id, 
+          company_name: this.state.company_name,
           motto: this.state.motto, 
           phone_number: this.state.phone,
-          uid: this.state.uid
+          uid: this.state.uid,
+          file: this.state.selectedFile
         };
         
         const addRepRequest = axios.post("/api/reps", data);  // Add user's info to the reps table

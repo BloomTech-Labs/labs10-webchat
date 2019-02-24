@@ -208,5 +208,90 @@ router.post('/verifyemail', (req, res) => {
 
 })
 
+router.post('/nonadmin', upload.single('file'),(req, res) => {
+
+	let {motto, phone_number, email, uid} = req.body;
+	let repname = req.body.name;
+	let image_id=null;
+
+	console.log('company name is: ', companyname);
+	
+	
+	console.log('req.file is ', req.file);
+
+        let imgUrl="";
+
+        cloudinary.uploader.upload(req.file.path,(result) =>{
+		console.log('inside cloudinary uploader');
+                console.log(result);
+                imgUrl = result.secure_url;
+        }).then(() =>{
+		
+		console.log('inside cloudinary then');
+        	console.log('image url', imgUrl);
+        	//const image=imgUrl;
+        	const url = {url:imgUrl};
+
+        	const request = dbimg.insert(url);
+
+        	request.then(response => {
+                	console.log('inside db image insert, image id is:', response);
+			//console.log('imgage id is'response);
+			image_id = response;
+			
+			if (!image_id) {
+        	      		image_id = 1;
+        		}
+
+			let api_token = req.body.companyname;
+        		let newCompany = {name: companyname, api_token: api_token};
+
+        		const comp_req = compdb.insert(newCompany);
+
+        		comp_req.then(id_company => {
+                        	console.log(id_company);
+                        	//res.status(200).json(id_company);
+
+        			let company_id = id_company;
+        			console.log('repname is', repname);
+        			console.log('comapny_id is', company_id);
+
+        		let newRepresentative = {
+                		company_id: company_id,
+                		name: repname,
+                		motto: motto,
+                		phone_number: phone_number,
+                		email: email,
+                		image_id: image_id,
+                		is_admin: is_admin,
+                		uid: uid
+        		};
+
+                	const request = db.insert(newRepresentative);
+
+                	request.then(representative => {
+                        	console.log(representative);
+                        	res.status(200).json(representative);
+                	})
+                	.catch(err => {
+                        	console.log(err.message);
+                        	res.status(500).json({message: err.message});
+                	})
+
+        		})
+        	.catch(err => {
+                	console.log('company creation error message', err.message);
+                	res.status(500).json({error: "Company already exists"});
+        	})
+
+        })
+        .catch(error => {
+        	res.status(500).json({error: "Failed to save image to the database" });
+       	})
+
+        })
+	
+});
+
 
 module.exports = router;
