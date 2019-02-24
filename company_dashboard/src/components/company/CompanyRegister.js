@@ -32,19 +32,13 @@ class CompanyRegisterFormBase extends Component {
       motto: "",
       phone: "",
   	  companyname: "",
-	    selectedFile:null,     
-  	  uid: null,   
+	    selectedFile:null,        
       error:null,
       logged:false,
     };
 
   }
-  componentDidMount() {
-    const uid = JSON.parse(localStorage.getItem('uid'));
-    this.setState({
-      uid
-    })
-  }
+  
 
   onSubmit = event => {
 
