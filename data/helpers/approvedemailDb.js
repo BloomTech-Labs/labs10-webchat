@@ -28,3 +28,14 @@ const query = db('approved_emails').where('email', email);
             return approved_emails[0];
     });
 }
+
+function insert(user) {
+  return db('approved_emails')
+    .insert(user).returning('id').then(ids => ids[0]);
+};
+
+function remove(id){
+        return db('approved_emails')
+               .where({id: Number(id)})
+               .del();
+};
