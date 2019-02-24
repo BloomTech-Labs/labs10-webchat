@@ -35,6 +35,31 @@ router.get('/:id', (req, res) => {
 })
 
 
+router.post('/', (req, res) => {
+        const {email, company_id} = req.body;
+        const user = {email, company_id};
+
+        const request = db.insert(user);
+
+        request.then(response =>{
+                const msg = {
+                        to: email,
+                        from: 'webchat@test.com',
+                        subject: 'Added as a team member by admin',
+                        text: 'You have been  added to as a team member',
+                        html: '<strong>Welcome to the team, go ahead and create an account at this link https://labs10-webchat.netlify.com</strong>',
+                };
+
+                sgMail.send(msg);
+                console.log('success sending email');
+                res.status(200).json(response);
+        })
+        .catch(error =>{
+                res.status(500).json({message: error.message});
+        })
+});
+
+
 router.delete('/:id', (req, res) => {
         const {id} = req.params;
 
