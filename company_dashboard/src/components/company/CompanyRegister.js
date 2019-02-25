@@ -28,13 +28,14 @@ class CompanyRegisterFormBase extends Component {
 
     this.state = {
    	  name: "", 
-	    email: "",
-      motto: "",
-      phone: "",
+	  email: "",
+      	  motto: "",
+          phone: "",
   	  companyname: "",
-	    selectedFile:null,        
-      error:null,
-      logged:false,
+	  selectedFile:null,        
+      	  error:null,
+          uid:props.history.location.state.uid,	    
+          logged:false,
     };
 
   }

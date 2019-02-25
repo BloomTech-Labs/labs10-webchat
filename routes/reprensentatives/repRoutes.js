@@ -3,14 +3,19 @@ const router = express.Router();
 const db = require('../../data/helpers/repDb');
 const compdb = require('../../data/helpers/companiesDb');
 const dbimg = require('../../data/helpers/imageDb');
+const dbapp = require('../../data/helpers/approvedemailDb');
 const multer = require('multer');
 const upload = multer({ dest: __dirname + '/files/' });
 const fs = require('fs');
 const cloudinary = require('cloudinary');
 
+
+
 if (process.env.ENVIRONMENT == 'development') {
   require('dotenv').config();
 }
+
+
 
 cloudinary.config({ 
   cloud_name:"dvgfmipda",
@@ -74,30 +79,13 @@ router.post('/admin', upload.single('file'),(req, res) => {
 	let {companyname, motto, phone_number, email, is_admin, uid} = req.body;
 	let repname = req.body.name;
 	let image_id=null;
-	
-	console.log('company name is: ', companyname);
-
-
-	//not required since we are checking this on the client side
-	/*if (!repname) {
-		res.status(400).json({message: 'Please provide your name.'});
-		return;
-	}
-	if (!email) {
-		res.status(400).json({message: 'Please provide an email address.'});
-		return;
-	}
-	if (!companyname) {
-                res.status(400).json({message: 'Please provide an email address.'});
-                return;
-        }*/
-	
-	
-	//console.log('req.file is ', req.file);
-
         let imgUrl="";
+
+	console.log('company name is: ', companyname);
 	
-	if(req.file){
+	if(req.file){			// if there is an image provided by the user
+
+	//using cloudinary to store image, cloudinary responds back with an image url which can be stored in our database	
         cloudinary.uploader.upload(req.file.path,(result) =>{
 		console.log('inside cloudinary uploader');
                 console.log(result);
@@ -106,14 +94,12 @@ router.post('/admin', upload.single('file'),(req, res) => {
 		
 		console.log('inside cloudinary then');
         	console.log('image url', imgUrl);
-        	//const image=imgUrl;
         	const url = {url:imgUrl};
 
         	const request = dbimg.insert(url);
 
         	request.then(response => {
                 	console.log('inside db image insert, image id is:', response);
-			//console.log('imgage id is'response);
 			image_id = response;
 			
 			if (!image_id) {
@@ -168,9 +154,9 @@ router.post('/admin', upload.single('file'),(req, res) => {
 
         })
 	}
-	else{
+	else{		//if no image is provided by the user, user default image
 		if (!image_id) {
-                                image_id = 1;
+                                image_id = 1;        //default image id
                         }
 
                         let api_token = req.body.companyname;
@@ -180,7 +166,6 @@ router.post('/admin', upload.single('file'),(req, res) => {
 
                         comp_req.then(id_company => {
                                 console.log('company id inside company insert is: ', id_company);
-                                //res.status(200).json(id_company);
 
                                 let company_id = id_company;
                                 console.log('repname is', repname);
@@ -213,11 +198,7 @@ router.post('/admin', upload.single('file'),(req, res) => {
                         console.log('company creation error message', err.message);
                         res.status(500).json({error: "Company already exists"});
                 	})
-
-	}	
-	
-	//}
-	
+	}		
 });
 
 
@@ -278,6 +259,8 @@ router.post('/verifyemail', (req, res) => {
 	});
 
 })
+
+
 
 router.post('/nonadmin', upload.single('file'),(req, res) => {
 
