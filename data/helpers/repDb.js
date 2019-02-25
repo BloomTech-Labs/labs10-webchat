@@ -3,7 +3,8 @@ const db = require('../db.js');
 module.exports = {
   get,
   getById,
-  getByEmail,	
+  getByEmail,
+  getByCompanyId,	
   getDetails,
   insert,
   update,
@@ -28,6 +29,16 @@ const query = db('representatives').where('email', email);
     return query.then(representatives => {
             return representatives[0];
     });
+}
+
+
+function getByCompanyId(company_id){
+const query = db('representatives').where('company_id', company_id);
+
+	return query.then(representatives =>{
+		return representatives;
+	});
+
 }
 
 
