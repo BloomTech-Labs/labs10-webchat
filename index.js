@@ -61,7 +61,7 @@ app.get('/',(req, res) => {
   res.send("Welcome to Webchat app....");
 });
 
-Any req coming into the server has to go through this verification:
+// Any req coming into the server has to go through this verification:
 app.use(async(req,res) => {                         
   console.log(req.headers.authorization);
         const idToken = req.headers.authorization;  // get the idToken from Auth header of the incoming req
@@ -72,7 +72,7 @@ app.use(async(req,res) => {
         console.log(decodedToken);
         // const uid = decodedToken.uid;               // get the uid from the Firebase decoded token
         // res.status(200).json(uid);                  // send back res with the uid
-        req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req
+        // req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req
         return req.next();                          // return and move to the next (.then) part of the original req
       });
   }

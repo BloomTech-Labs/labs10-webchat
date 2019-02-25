@@ -7,6 +7,7 @@ module.exports = {
   insert,
   update,
   remove,
+  getByUid,
 };
 
 function get(){

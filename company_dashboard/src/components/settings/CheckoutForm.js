@@ -12,6 +12,42 @@ class CheckoutForm extends Component {
     this.submit = this.submit.bind(this);
   }
 
+  componentDidMount() {
+  //   this.props.firebase.auth.currentUser
+  //     .getIdToken()
+  //     .then(idToken => {
+  //       console.log('idToken in checkoutForm: ', idToken);
+  //     })
+  //     .catch(err => {
+  //       console.log(err.message);
+  //     });
+    
+    const uid = localStorage.getItem('uid');
+    const data = {
+      uid: uid
+    }
+    console.log('getByUid request data: ', data);
+    const idToken = localStorage.getItem('idToken');
+    axios.defaults.headers.common['Authorization'] = idToken;
+	  const request = axios.get(`/api/reps/getbyUID`, data);
+
+      request.then(response => {
+		    console.log(response);
+        console.log(response.data);
+		    console.log('company id is: ', response.data.compay_id);
+
+        this.setState({ 
+          company_id: response.data.company_id, 
+        });
+		
+	    })
+      .catch(err => {
+        console.log(err.message);
+        this.setState({error:err});
+      })
+
+}
+
   async submit(ev) {
     let { token } = await this.props.stripe.createToken();
     console.log("Stripe token from checkout form submit: ", token);
