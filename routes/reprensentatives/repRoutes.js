@@ -69,7 +69,7 @@ router.get('/getbyUID', (req, res) => {
 		}
 	})
 	.catch(err => {
-		res.status(500).json({ err: "Failed to retrieve represenative details" });
+		res.status(500).json({ err: "Failed to retrieve representative details" });
 	})
 });
 

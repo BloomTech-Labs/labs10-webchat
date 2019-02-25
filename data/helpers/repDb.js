@@ -21,6 +21,14 @@ const query = db('representatives').where('id', id);
     });
 }
 
+function getByUid(uid){
+        const query = db('representatives').where('uid', uid);
+        
+            return query.then(representatives => {
+                return representatives[0];
+            });
+}
+
 function getByEmail(email) {
 const query = db('representatives').where('email', email);
 
