@@ -53,6 +53,19 @@ router.get('/:id', (req, res) => {
 	})
 });
 
+router.get('/adminpanel/:id', (req,res) => {
+	const id = req.params.id;
+        console.log('id is', id);
+
+	const request = db.getDetails(id);
+	request.then(details => {
+                       res.status(200).json(details);	
+                })
+                .catch(err => {
+                        res.status(500).json(err.message);
+                })
+});
+
 
 router.post('/admin', upload.single('file'),(req, res) => {
 
