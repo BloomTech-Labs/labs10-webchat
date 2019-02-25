@@ -48,6 +48,26 @@ router.get('/:id', (req, res) => {
 	})
 });
 
+router.get('/getbyUID', (req, res) => {
+	const { uid } = req.body;
+	console.log('uid is', uid);
+	
+	const request = db.getByUid(uid);
+	request.then(response_data => { 
+		console.log(response_data);
+
+		if(response_data.length == 0) {
+			res.status(400).json({ error: "The representative with the specified id does not exist" });
+		} else {
+			console.log(response_data);
+			res.status(200).json(response_data);
+		}
+	})
+	.catch(err => {
+		res.status(500).json({ err: "Failed to retrieve represenative details" });
+	})
+});
+
 
 router.post('/admin', upload.single('file'),(req, res) => {
 

@@ -23,29 +23,29 @@ class RepLoginFormBase extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-    email:"",
-    password:"",
-    error:"",
-    logged:false,	    
+    email: "",
+    password: "",
+    error: "",
+    logged: false,	    
     }
   }
 
   onSubmit = event => {
     const {email, password } = this.state;
-	console.log("in onSubmit");
+	  
     this.props.firebase
       .doSignInWithEmailAndPassword (email, password)
       .then(authUser => {
-            console.log(authUser.user.uid);
+        console.log(authUser.user.uid);
+        localStorage.setItem('uid', JSON.stringify(authUser.user.uid));
+        this.setState({email:"", password:""});
+        this.props.history.push(ROUTES.ADMIN_SETTINGS);
+      })
+      .catch(error => {
+        this.setState({ error:error });
+      });
 
-           this.setState({email:"", password:""});
-           this.props.history.push(ROUTES.ADMIN_SETTINGS);
-          })
-          .catch(error => {
-            this.setState({ error:error });
-          });
-
-    event.preventDefault();
+      event.preventDefault();
   };
 
 
