@@ -12,6 +12,27 @@ class CheckoutForm extends Component {
     this.submit = this.submit.bind(this);
   }
 
+  componentDidMount() {
+  
+  const request = axios.get(`/api/reps/getbyUID`);
+
+  request.then(response => {
+    console.log(response);
+    console.log(response.data);
+    console.log('company id is: ', response.data.company_id);
+
+    this.setState({ 
+      company_id: response.data.company_id, 
+    });
+
+  })
+  .catch(err => {
+    console.log(err.message);
+    this.setState({error:err});
+  })
+
+}
+
   async submit(ev) {
     let { token } = await this.props.stripe.createToken();
     console.log("Stripe token from checkout form submit: ", token);
