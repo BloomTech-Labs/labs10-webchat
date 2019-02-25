@@ -34,7 +34,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/getbyUID', (req, res) => {
-	const { uid } = req.body;
+	console.log(req.body.uid);
+	const uid  = req.body.uid;
 	console.log('uid is', uid);
 	
 	const request = db.getByUid(uid);
