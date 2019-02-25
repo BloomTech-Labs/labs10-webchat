@@ -46,7 +46,7 @@ class AdminPanel extends React.Component {
 constructor(props){
     super(props);  
 	this.state = {
-    name: '',
+    companyname: '',
     motto: '',
     image_id: '',
     url:'',	  
@@ -64,17 +64,20 @@ constructor(props){
 
   
   componentDidMount() {
+	//using rep_id to get representative details to display on Admin panel  
   	const id = this.props.history.location.state.rep_id; 
  
-	const request = axios.get(`/api/reps/${id}`);
+	//created a new endpoint in representatives routes called adminpanel, using inner join in helper functions to get companyname, image url and rep motto form 3 different tables
+	 
+	const request = axios.get(`/api/reps/adminpanel/${id}`);  
 
         request.then(response => {
 		 console.log(response);
                 console.log(response.data);
-		console.log('image id is: ', response.data.image_id);
-		console.log('on react side image_id is:', response.data.image_id);
+		console.log('companyname is: ', response.data.name);
+		console.log('on client side image_id is:', response.data.image_id);
 
-                this.setState({image_id: response.data.image_id, name: response.data.name, motto: response.data.motto, logged:true});
+                this.setState({image_id: response.data.image_id, companyname: response.data.name, motto: response.data.motto, url:response.data.url, logged:true});
 	})
         .catch(err => {
                 console.log(err.message);
@@ -101,19 +104,19 @@ render() {
           Admin Panel
          </Typography>
 
-		{this.state.logged ?(<UserImage image_id={this.state.image_id} />):(<p>Loading image</p>)}
+		{this.state.logged ?(<UserImage url={this.state.url} />):(<p>Image</p>)}
 
 	  <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
 	
-	    <p>Name</p>
+	   <p>Company Name</p>
 	   <TextField
 	    id='outlined-codeSnippet'
 	    margin='normal'
 	    rowsMax={Infinity}
             fullWidth
             className={classes.TextField}
-	    value={this.state.name}
+	    value={this.state.companyname}
 	    />
 		
 	    <p>Motto</p>
@@ -122,8 +125,6 @@ render() {
             margin='normal'
             value={this.state.motto}
             />
-
-
 
             <p>Code Snippet</p>
             <TextField
