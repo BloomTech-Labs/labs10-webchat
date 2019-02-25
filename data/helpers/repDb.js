@@ -4,6 +4,7 @@ module.exports = {
   get,
   getById,
   getByEmail,	
+  getDetails,
   insert,
   update,
   remove,
@@ -28,6 +29,17 @@ const query = db('representatives').where('email', email);
             return representatives[0];
     });
 }
+
+
+function getDetails(id){
+const query = db.select(["representatives.motto", "representatives.image_id", "companies.name", "images.url"]).from
+('representatives').innerJoin('companies', 'representatives.company_id', 'companies.id').innerJoin('images', 'representatives.image_id','images.id').where('representatives.id', id);
+
+	return query.then(details =>{
+		return details[0];
+	});
+}
+
 
 function insert(user) {
   return db('representatives')
