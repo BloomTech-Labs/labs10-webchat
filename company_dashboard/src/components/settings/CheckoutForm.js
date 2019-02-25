@@ -8,36 +8,33 @@ import "./AccountSettings.css";
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { complete: false };
+    this.state = { complete: false,
+                   company_id: null
+                 };
     this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {
-  
-  const request = axios.get(`/api/reps/getbyUID`);
+    const request = axios.get(`/api/reps/getbyUID`);
 
-  request.then(response => {
-    console.log(response);
-    console.log(response.data);
-    console.log('company id is: ', response.data.company_id);
+    request.then(response => {
+      console.log(response);
+      console.log(response.data);
 
-    this.setState({ 
-      company_id: response.data.company_id, 
-    });
+      this.setState({ company_id: response.data.company_id });
+    })
+      .catch(err => {
+        console.log(err.message);
+        this.setState({ error: err });
+      })
 
-  })
-  .catch(err => {
-    console.log(err.message);
-    this.setState({error:err});
-  })
 
-}
+  }
 
   async submit(ev) {
     let { token } = await this.props.stripe.createToken();
     console.log("Stripe token from checkout form submit: ", token);
-    let company_id = 1;
-    // Company ID is hardcoded in until we have user accounts set up
+    let company_id = this.state.company_id;
     let chargeRequest = { token: token.id, company_id: company_id };
     axios
       .post("/api/billing/charge", chargeRequest)
