@@ -75,21 +75,6 @@ constructor(props){
 		console.log('on react side image_id is:', response.data.image_id);
 
                 this.setState({image_id: response.data.image_id, name: response.data.name, motto: response.data.motto, logged:true});
-		/*const imgid = this.state.image_id;
-		const img_req = axios.get(`/api/images/${imgid}`);
-
-
-		img_req.then(image => {
-                	console.log(image);
-                	console.log(image.data);
-                	console.log('image url on react side:', image.data.url);
-                	this.setState({url: image.data.url});
-
-        	})
-		.catch(error => {
-                        console.log(error.message);
-                        this.setState({error:error});
-                })*/
 	})
         .catch(err => {
                 console.log(err.message);
