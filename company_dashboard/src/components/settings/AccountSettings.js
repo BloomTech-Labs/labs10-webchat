@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+import axios from 'axios';
 import "./AccountSettings.css";
 
 const styles = theme => ({
@@ -24,12 +24,33 @@ const styles = theme => ({
 
 class AccountSettings extends React.Component {
   state = {
-    name: "Customer Name",
-    number: "770-867-5309",
-    motto: "The best customer service ever!",
-    email: "email@email.com",
+    name: "",
+    email: "",
+    phone_number: "",
+    motto: "",
     selectedFile: null
   };
+
+  componentDidMount() {
+    const request = axios.get(`/api/reps/getbyUID`);
+
+    request.then(response => {
+      console.log(response);
+      console.log(response.data);
+
+      this.setState({ 
+        name: response.data.name,
+        email: response.data.email,
+        phone_number: response.data.phone_number,
+        motto: response.data.phone_number,
+       });
+    })
+    .catch(err => {
+      console.log(err.message);
+      this.setState({ error: err });
+    })
+  }
+
   //Sets Input to state
   handleChange = name => event => {
     this.setState({
