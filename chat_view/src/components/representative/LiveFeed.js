@@ -6,29 +6,40 @@ import Chat from '../Chat';
 import './Query.css';
 
 class LiveFeed extends Component {
-  state = {
-    clickedQuery: false,
-    currentQuery: null,
-    queries: [1, 2, 3]
-  }
-    
-    componentDidMount() {
-
-      // socket.on("", function(data) {
-
-      // })
-      // socket.emit("", function(data) {
-
-      // })
-      let data = [36, 62, 24];
-        
-      this.setState({ queries: data })
-      console.log(this.state.queries);
-      // on.emit("get_queries", function(data) {
-        
-      //   this.setState(queries: data)
-      // })
+  constructor(props) {
+    super(props)
+    this.state = {
+      clickedQuery: false,
+      currentQuery: null,
+      queries: [
+        1, 2, 3
+      ]
     }
+  }
+
+  componentDidMount() {
+
+    // socket.on("", function(data) {
+
+    // })
+    // socket.emit("", function(data) {
+
+    // })
+    // let data = [36, 62, 24];
+      
+    // this.setState({ queries: data });
+    console.log(this.state.queries);
+    // on.emit("get_queries", function(data) {
+      
+    //   this.setState(queries: data)
+    // })
+  }
+
+    // socket.on("incoming_queries", function() {
+    //   axios.get("/api/customers/company/:id")
+    //   this.setState(...this.state.queries, data);
+      
+    // });
   // io.on("incoming_queries", function(data) {
   
   
@@ -48,7 +59,7 @@ class LiveFeed extends Component {
   }
 
   render() {
-    let links = this.state.queries.map((element, index) => {
+    let queries = this.state.queries.map((element, index) => {
       return (
         <Query key={index} uuid={element} openQuery={this.openQuery} />
       );
@@ -57,7 +68,7 @@ class LiveFeed extends Component {
     return(
       <div className="LiveFeed">
         <div className="Query">
-          {links}
+          {queries}
         </div>
         <div className="QueryPanel">
         {/* How do i make this querypanel dynamic? I need to add the states uuid here */}
