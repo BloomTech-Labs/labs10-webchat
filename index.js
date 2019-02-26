@@ -50,6 +50,7 @@ const customersRoutes = require('./routes/customers/customersRoutes');
 const companiesRoutes = require('./routes/companies/companiesRoutes');
 const billingRoutes = require('./routes/billing/billingRoutes');
 const imageRoutes = require('./routes/images/imageRoutes');
+const approvedemailRoutes = require('./routes/approvedemails/approvedemails');
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -86,7 +87,7 @@ app.use('/api/customers', customersRoutes);
 app.use('/api/companies', companiesRoutes);
 app.use('/api/billing', billingRoutes);
 app.use('/api/images', imageRoutes);
-
+app.use('/api/approvedemails', approvedemailRoutes);
 
 app.use(function(req, res) {
   res.status(404).send("Wrong URL. This page does not exist");
