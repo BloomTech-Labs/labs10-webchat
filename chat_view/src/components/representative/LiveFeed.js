@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import socket from 'socket.io-client';
 import Query from './Query';
 import QueryPanel from './QueryPanel';
+import Chat from '../Chat';
 import './Query.css';
 
 class LiveFeed extends Component {
@@ -11,6 +13,13 @@ class LiveFeed extends Component {
   }
     
     componentDidMount() {
+
+      // socket.on("", function(data) {
+
+      // })
+      // socket.emit("", function(data) {
+
+      // })
       let data = [36, 62, 24];
         
       this.setState({ queries: data })
@@ -21,8 +30,8 @@ class LiveFeed extends Component {
       // })
     }
   // io.on("incoming_queries", function(data) {
-  // 
-  // 
+  
+  
   // Update statequeryFeed with io's
   // });
 
@@ -52,7 +61,8 @@ class LiveFeed extends Component {
         </div>
         <div className="QueryPanel">
         {/* How do i make this querypanel dynamic? I need to add the states uuid here */}
-          { this.state.clickedQuery ? <QueryPanel uuid={this.state.currentQuery}/> : null }
+          {/* { this.state.clickedQuery ? <QueryPanel uuid={this.state.currentQuery}/> : null } */}
+          { this.state.clickedQuery ? <Chat /> : null }
         </div>
       </div>
     );
