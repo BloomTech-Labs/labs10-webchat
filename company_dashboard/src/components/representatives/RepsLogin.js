@@ -20,7 +20,7 @@ const RepLoginPage = () => (
 
 
 class RepLoginFormBase extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       email: "",
@@ -61,54 +61,55 @@ class RepLoginFormBase extends React.Component {
   };
   
   render() {
-	const {email, password, error} = this.state;
+    const {email, password, error} = this.state;
 
-        //checking if all the required fields are non-empty  
-        const condition = password === '' || email === '';
+    //checking if all the required fields are non-empty  
+    const condition = password === '' || email === '';
 
     return (
-	<div>
-       	 <MuiThemeProvider>
-        	{this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
-        	Successfully Logged In
-        	</Typography>):(
-       	<div>
-       	<AppBar
-            title="Sign In"
-       	/>
-	  <form onSubmit={this.onSubmit}>  
-          <TextField
-            hintText="Enter your Email"
-            floatingLabelText="Email"
-	    required={true}
-            name="email"			
-            value={this.state.email}
-            onChange={this.handleChange}
+      <div>
+        <MuiThemeProvider>
+          {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+            Successfully Logged In
+          </Typography>):(
+          <div>
+            <AppBar
+              title="Sign In"
             />
-          <br/>
-            <TextField
-              type="password"
-              hintText="Enter your Password"
-              floatingLabelText="Password"
-	      required={true}
-	      name="password"		
-              value={this.state.password}
-              onChange={this.handleChange}
+            <form onSubmit={this.onSubmit}>  
+              <TextField
+                hintText="Enter your Email"
+                floatingLabelText="Email"
+                required={true}
+                name="email"			
+                value={this.state.email}
+                onChange={this.handleChange}
               />
-            <br/>
-	
-	    <RaisedButton
-              label="Login"
-              primary={true}
-              type="submit"
-              disabled={condition}
-        />
+              <br/>
+              <TextField
+                type="password"
+                hintText="Enter your Password"
+                floatingLabelText="Password"
+                required={true}
+                name="password"		
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <br/>
+      
+              <RaisedButton
+                label="Login"
+                primary={true}
+                type="submit"
+                disabled={condition}
+              />
 
-        {error && <p>{error.message}</p>}
-      </form>
-      </div>)}
-   </MuiThemeProvider>
-</div>);
+              {error && <p>{error.message}</p>}
+            </form>
+          </div>)}
+        </MuiThemeProvider>
+      </div>
+    );
   }
 }
 

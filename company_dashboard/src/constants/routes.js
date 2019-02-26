@@ -13,4 +13,7 @@ export const APPROVED_REP_REGISTER = "/approvedrepregister";
 export const ADMIN_SETTINGS = "/adminsettings";
 export const CUSTOMER_WAITING = '/customerwaiting';
 export const CUSTOMER_CHAT = '/customerchat';
+<<<<<<< HEAD
 export const UPDATE_PASSWORD = '/updatepassword';
+=======
+>>>>>>> 65c7992ecdeba08583f9704a5088f04efe8eef00
