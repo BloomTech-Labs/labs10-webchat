@@ -1,4 +1,7 @@
 import React from "react";
+import { withFirebase } from "../Firebase";
+import { FirebaseContext } from '../Firebase';
+import { withRouter } from "react-router-dom"
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -21,6 +24,14 @@ const styles = theme => ({
     width: 200
   }
 });
+
+// const AccountSettingsPage = () => (
+//   <div>
+//     <FirebaseContext.Consumer>
+//       {firebase => <AccountSettings firebase={firebase} />}
+//     </FirebaseContext.Consumer>
+//   </div>
+// );
 
 class AccountSettings extends React.Component {
   state = {
@@ -165,4 +176,15 @@ AccountSettings.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
+
 export default withStyles(styles)(AccountSettings);
+
+// const AccountSettings = withFirebase(AccountSettingsBase);
+
+// AccountSettings.propTypes = {
+//   classes: PropTypes.object.isRequired
+// };
+
+// export default withStyles(styles)(AccountSettingsPage);
+
+// export { AccountSettings };

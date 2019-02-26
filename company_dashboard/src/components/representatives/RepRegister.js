@@ -178,7 +178,8 @@ class RepSignUpFormBase extends Component {
             </form>
           </div>)}
         </MuiThemeProvider>
-      </div>);
+      </div>
+    );
   }
 }
 
