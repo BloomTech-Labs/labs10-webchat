@@ -15,10 +15,26 @@ import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
 import axios from 'axios';
 import UserImage from '../company/UserImage';
 import IconButton from '@material-ui/core/IconButton';
 import './AdminPanel.css';
+
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 
 const styles = theme => ({
@@ -29,7 +45,15 @@ const styles = theme => ({
   },
   table: {
     minWidth: 700
-  }
+  },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+  },
 });
 
 let id = 0;
@@ -72,26 +96,26 @@ constructor(props){
     codeSnippet: '',
    allreps:[],		
     team: {
-      name: '',
-      email: '',
-      admin: false,
-      remove: false
+        name: '',
+        email: '',
+        admin: false,
+        remove: false
+      },
+      open: false,
     }
-  }
-}	;
+  };
 
   
   componentDidMount() {
 	//using rep_id to get representative details to display on Admin panel  
   	const id = this.props.history.location.state.rep_id; 
  
-	//created a new endpoint in representatives routes called adminpanel, using inner join in helper functions to get companyname, image url and rep motto form 3 different tables
-
 	this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             console.log("idToken after in Admin panel: ", idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
 
+	//get  details like componay name, motto, image url	  
 	const request = axios.get(`/api/reps/adminpanel/${id}`);  
 
         request.then(response => {
@@ -99,6 +123,7 @@ constructor(props){
 		console.log('companyname is: ', response.data.name);
 		console.log('on client side image_id is:', response.data.image_id);
 
+		//get all the team members that belong to the same comapny as the admin
 		const app_req = axios.get(`/api/reps/allreps/${id}`);
 
 		app_req.then(reps =>{
@@ -161,23 +186,24 @@ handleClick = () => {
 
 
 
-handleChange = event => {
+  handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
   
-render() {
+  render() {
     const { classes } = this.props;
 
     
+      
     return (
       <div className='admin-panel'>
-	 <Typography variant='display1' align='center' gutterBottom>
+        <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
-         </Typography>
+        </Typography>
 
 		{this.state.logged ?(<UserImage url={this.state.url} />):(<p>Image</p>)}
 
-	  <form className={classes.container} noValidate autoComplete='off'>
+        <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
 	
 	   <p>Company Name</p>
@@ -190,11 +216,21 @@ render() {
 	    value={this.state.companyname}
 	    />
 		
-	    <p>Motto</p>
-	    <TextField
-            id='outlined-codeSnippet'
-            margin='normal'
-            value={this.state.motto}
+            <p>Name</p>
+            <TextField
+              id='outlined-codeSnippet'
+              margin='normal'
+              rowsMax={Infinity}
+              fullWidth
+              className={classes.TextField}
+              value={this.state.name}
+            />
+      
+            <p>Motto</p>
+            <TextField
+              id='outlined-codeSnippet'
+              margin='normal'
+              value={this.state.motto}
             />
 
             <p>Code Snippet</p>
@@ -254,9 +290,51 @@ render() {
           variant="outlined"
           color="primary"
           className="add-button"
+          onClick={this.handleOpen}
         >
           Add Team Member
         </Button>
+
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.open}
+          onClose={this.handleClose}
+        >
+          <div style={getModalStyle()} className={classes.paper}>
+            <Typography variant="h6" id="modal-title">
+              Add Team Member
+            </Typography>
+            
+            <form onSubmit={this.onSubmit}>  
+              <TextField
+                hintText="Enter your Name"
+                floatingLabelText="Name"
+                required={true}
+                name="name"			
+                value={this.state.name}
+                onChange={this.handleChange}
+              />
+              <br/>
+              <TextField
+                hintText="Enter your Email"
+                floatingLabelText="Email"
+                required={true}
+                name="email"		
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+              <br/>
+      
+              <Button
+                variant='outlined'
+                className={classes.button}
+              >
+                Add Team Member
+              </Button>
+            </form>
+          </div>
+        </Modal>
       </div>
     );
   }
