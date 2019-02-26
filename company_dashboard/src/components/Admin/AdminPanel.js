@@ -1,5 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { withFirebase } from "../Firebase";
+import { Link, withRouter, Route} from "react-router-dom"
+import { FirebaseContext } from '../Firebase';
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,6 +17,7 @@ import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import UserImage from '../company/UserImage';
+import IconButton from '@material-ui/core/IconButton';
 import './AdminPanel.css';
 
 
@@ -42,15 +46,28 @@ const rows = [
   createData('Joe Smith', 'joe@joe.com')
 ];
 
-class AdminPanel extends React.Component {
+
+const AdminPanel = () => (
+  <div>
+    <FirebaseContext.Consumer>
+      {firebase => <AdminPanelComponent firebase={firebase} />}
+    </FirebaseContext.Consumer>
+  </div>
+);
+
+
+class AdminPanelBaseForm extends React.Component {
 constructor(props){
     super(props);  
 	this.state = {
     companyname: '',
     motto: '',
     image_id: '',
-    url:'',	  
+    url:'',
+    company_id:'',		
+    rep_id:props.history.location.state.rep_id,		
     error:null,
+    deleted:false,		
     logged:false,		
     codeSnippet: '',
    allreps:[],		
@@ -69,21 +86,26 @@ constructor(props){
   	const id = this.props.history.location.state.rep_id; 
  
 	//created a new endpoint in representatives routes called adminpanel, using inner join in helper functions to get companyname, image url and rep motto form 3 different tables
-	 
+
+	this.props.firebase.auth.currentUser.getIdToken()
+          .then(idToken => {
+            console.log("idToken after in Admin panel: ", idToken);
+            axios.defaults.headers.common['Authorization'] = idToken;
+
 	const request = axios.get(`/api/reps/adminpanel/${id}`);  
 
         request.then(response => {
-		 console.log(response);
-                console.log(response.data);
+                console.log('respnse.data is:', response.data);
 		console.log('companyname is: ', response.data.name);
 		console.log('on client side image_id is:', response.data.image_id);
 
-		const app_req = axios.get(`/api/reps/company/${id}`);
+		const app_req = axios.get(`/api/reps/allreps/${id}`);
 
 		app_req.then(reps =>{
 		console.log('all reps are on client side are: ', reps.data);
-
-		this.setState({image_id: response.data.image_id, companyname: response.data.name, motto: response.data.motto, url:response.data.url, logged:true, allreps: reps.data});
+		
+		console.log('compnay_id is', response.data.company_id);	
+		this.setState({image_id: response.data.image_id, company_id:response.data.company_id, companyname: response.data.name, motto: response.data.motto, url:response.data.url, logged:true, allreps: reps.data});
         	
 		})
 		
@@ -97,9 +119,17 @@ constructor(props){
                 console.log(err.message);
                 this.setState({error:err});
         })
-
+	  })		  
+     .catch(error => {                 // if Firebase getIdToken throws an error
+             console.log(error.message);
+	     this.setState({ error:error });
+          })		  
+	
 }
   
+
+
+
 
 handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -108,9 +138,6 @@ handleChange = event => {
 render() {
     const { classes } = this.props;
 
-    const handleClick = name => {
-      console.log(name);
-    };
     
     return (
       <div className='admin-panel'>
@@ -180,11 +207,12 @@ render() {
                       />
                     </TableCell>
                     <TableCell>
-                      <DeleteIcon
-                        className={classes.icon}
-                        click={() => handleClick(reps.name)}
-                      />
-                    </TableCell>
+
+		<IconButton onClick={this.handleClick}>
+   			<DeleteIcon/>
+		</IconButton>	
+			
+		 </TableCell>
                   </TableRow>
                 );
               })}
@@ -204,8 +232,15 @@ render() {
   }
 }
 
-AdminPanel.propTypes = {
+AdminPanelBaseForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(AdminPanel);
+const AdminPanelComponent = withStyles (styles) (withRouter(withFirebase(AdminPanelBaseForm)));
+
+//export withStyles (styles) (AdminPanelBaseForm);
+export default AdminPanel;
+
+export { AdminPanelComponent};
+
+//export default withStyles(styles)(AdminPanel);
