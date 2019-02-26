@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LiveFeed from './LiveFeed';
+import Stats from './Stats';
 import './Dashboard.css';
 
 class Dashboard extends Component {
@@ -15,7 +16,7 @@ class Dashboard extends Component {
         {/* Shows query information */}
         {/* <QueryPanel /> */}
         {/* STRETCH- Basic representative statistics */}
-        {/* <Stats /> */}
+        <Stats />
       </div>
     )
   }

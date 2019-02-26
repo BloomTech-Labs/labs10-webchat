@@ -7,6 +7,7 @@ class Chat extends Component {
 		this.state = {
 			username: '',
 			message: '',
+			uuid: 'asdf',
 			messages: []
         };
         this.socket = io('localhost:5000');
@@ -16,7 +17,8 @@ class Chat extends Component {
 					if(this.state.username && this.state.message) {
 						this.socket.emit('SEND_MESSAGE', {
 								author: this.state.username,
-								message: this.state.message
+								message: this.state.message,
+								uuid: this.state.uuid
 						});
 					} else alert('You are missing one of the following(s): Username, Message');
 					this.setState({message: ''});
@@ -28,6 +30,7 @@ class Chat extends Component {
 
         const addMessage = (data) => {
 					console.log(data);
+					// data.uuid = this.state.uuid;
 					this.setState({messages: [...this.state.messages, data]});
 					console.log(this.state.messages);
         }

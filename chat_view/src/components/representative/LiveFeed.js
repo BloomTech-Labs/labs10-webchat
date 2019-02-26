@@ -6,8 +6,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class LiveFeed extends Component {
   state = {
-      queries: [1, 2, 3]
-    }
+    clickedQuery: false,
+    queries: [1, 2, 3]
+  }
     
     componentDidMount() {
       let data = [36, 62, 24];
@@ -30,21 +31,32 @@ class LiveFeed extends Component {
   //  this.setState(queryfeed: data.uuid )
   // })
 
+
+  showQuery(i) {
+    console.log('Clicking Query', i);
+    this.setState({ clickedQuery: !this.state.clickedQuery });
+    console.log('this.state.clickedQuery:', this.state.clickedQuery);
+  }
+
   render() {
-    let links = this.state.queries.map((element, i) => {
+    let links = this.state.queries.map((element, index) => {
       return (
-        <li><button key={i}onClick={() => console.log('Button click!')}>{element}</button></li>
-      )
-    })
+        <li key={index}>
+          <button onClick={(event) => this.showQuery(index) }>
+            Query: {element}
+          </button>
+        </li>
+      );
+    });
+
+    
+
     return(
       <div>
           <div>
             <ol>
               {links}
             </ol>
-            
-            --------------
-            {/* <Route path="/chat/:customerUUID" render={(props) =>  <QueryPanel {...props} isAuthed={true}/>} /> */}
           </div>
           
         {/* {this.state.queryFeed.map((element, index) => {
