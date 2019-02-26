@@ -2,6 +2,8 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
+const db = require('./data/db.js');
+
 // Changed Express Variable from server to App for Socket.io
 const app = express();
 if (process.env.ENVIRONMENT == 'development') { 
@@ -11,6 +13,7 @@ const port = process.env.PORT || 5000;
 
 const admin = require('firebase-admin');
 
+
 // Socket.io
 const socketIo = require('socket.io');
 const http = require('http');
@@ -18,15 +21,29 @@ var server = http.createServer(app);
 var io = socketIo(server);
 
 
+
 io.on('connection', (socket) => {
   console.log(socket.id);
 
+  // io.emit or .on
+  // socket.emit or .on
+  
   socket.on('SEND_MESSAGE', function(data){
-      io.emit('RECEIVE_MESSAGE', data);
-  })
+    console.log(data)
+    const message = { message: data.message };
+    console.log(message);
+    // const request = db('test_messages').insert(message).returning('id').then(ids => ids[0]);
+    // console.log(request);
+    const companies = db("companies");
+    console.log(companies);
+    
+    io.emit('RECEIVE_MESSAGE', data);
+  });
   
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
+  
+
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');
 const customersRoutes = require('./routes/customers/customersRoutes');

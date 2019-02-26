@@ -70,12 +70,12 @@ class RepSignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log('authUser: ', authUser);
-        localStorage.setItem('uid', JSON.stringify(authUser.user.uid));  // If set here, passing uid to next component state may not be neccesary
-
+        // localStorage.setItem('uid', JSON.stringify(authUser.user.uid));  // If set here, passing uid to next component state may not be neccesary
+        
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             console.log("idToken after doCreate: ", idToken);
-
+            // localStorage.setItem('idToken', idToken);
             const data = { email: email };
             axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
             

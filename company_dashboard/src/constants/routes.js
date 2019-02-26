@@ -12,3 +12,5 @@ export const PERSONAL_INFO = "/personalinfo";
 export const APPROVED_REP_REGISTER = "/approvedrepregister";
 export const ADMIN_SETTINGS = "/adminsettings";
 export const CUSTOMER_WAITING = '/customerwaiting';
+export const CUSTOMER_CHAT = '/customerchat';
+

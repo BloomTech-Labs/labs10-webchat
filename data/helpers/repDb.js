@@ -9,6 +9,7 @@ module.exports = {
   insert,
   update,
   remove,
+  getByUid,
 };
 
 function get(){
@@ -21,6 +22,14 @@ const query = db('representatives').where('id', id);
     return query.then(representatives => {
             return representatives[0];
     });
+}
+
+function getByUid(uid){
+        const query = db('representatives').where('uid', uid);
+        
+            return query.then(representatives => {
+                return representatives[0];
+            });
 }
 
 function getByEmail(email) {

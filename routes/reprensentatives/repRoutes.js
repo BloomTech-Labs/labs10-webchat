@@ -32,6 +32,27 @@ router.get('/', (req, res) => {
 		})
 });
 
+router.get('/getbyUID', (req, res) => {
+	console.log(req.body.uid);
+	const uid  = req.body.uid;
+	console.log('uid is', uid);
+	
+	const request = db.getByUid(uid);
+	request.then(response_data => { 
+		console.log(response_data);
+
+		if(response_data.length == 0) {
+			res.status(400).json({ error: "The representative with the specified id does not exist" });
+		} else {
+			console.log(response_data);
+			res.status(200).json(response_data);
+		}
+	})
+	.catch(err => {
+		res.status(500).json({ err: "Failed to retrieve representative details" });
+	})
+});
+
 router.get('/:id', (req, res) => {
 	const id = req.params.id;
 	console.log('id is', id);
@@ -92,6 +113,8 @@ router.get('/company/:id', (req,res) =>{
                         res.status(500).json(err.message);
                 })
 });
+
+
 
 
 
