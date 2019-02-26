@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 
 class CustomerRequest extends Component {
-    constructor() {
-        super();
-
-        this.state = {
-            blank: ''
-        };
+    state = {
+        
     }
 
     render() {
