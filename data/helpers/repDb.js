@@ -7,6 +7,7 @@ module.exports = {
   insert,
   update,
   remove,
+  getByUid,
 };
 
 function get(){
@@ -21,8 +22,16 @@ const query = db('representatives').where('id', id);
     });
 }
 
-function getByEmail(email, table) {
-const query = db(table).where('email', email);
+function getByUid(uid){
+        const query = db('representatives').where('uid', uid);
+        
+            return query.then(representatives => {
+                return representatives[0];
+            });
+}
+
+function getByEmail(email) {
+const query = db('representatives').where('email', email);
 
     return query.then(representatives => {
             return representatives[0];

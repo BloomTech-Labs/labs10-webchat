@@ -5,6 +5,7 @@ module.exports = {
   getById,
   getByEmail,
   insert,
+  update,	
   remove,	
 };
 function get() {
@@ -34,10 +35,15 @@ function insert(user) {
     .insert(user).returning('id').then(ids => ids[0]);
 };
 
+function update(id, user){
+        return db('customers')
+               .where({id: Number(id)})
+               .update(user);
+};
+
 function remove(id){
         return db('customers')
                .where({id: Number(id)})
                .del();
 };
 
-// Cameron testing github contributions

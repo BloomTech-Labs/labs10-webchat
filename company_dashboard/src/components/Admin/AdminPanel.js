@@ -13,8 +13,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import UserImage from '../company/UserImage';
 import './AdminPanel.css';
-
 
 
 const styles = theme => ({
@@ -43,10 +43,15 @@ const rows = [
 ];
 
 class AdminPanel extends React.Component {
-  state = {
+constructor(props){
+    super(props);  
+	this.state = {
     name: '',
     motto: '',
-    error:null,	  
+    image_id: '',
+    url:'',	  
+    error:null,
+    logged:false,		
     codeSnippet: '',
     team: {
       name: '',
@@ -54,42 +59,51 @@ class AdminPanel extends React.Component {
       admin: false,
       remove: false
     }
-  };
+  }
+}	;
 
-  // if (process.env.ENVIRONMENT !== 'production') { 
-  //   const POST_REP_URL =  `http://localhost:5000/api/reps`
-  // } else {
-  //   const POST_REP_URL = `https://webchatlabs10.herokuapp.com/api/reps`
-  // }
-  // const POST_REP_URL = 'https://webchatlabs10.herokuapp.com/api/reps';
+  
   componentDidMount() {
-	const id = this.props.history.location.state.rep_id;  
-	const request = axios.get(`https://webchatlabs10.herokuapp.com/api/reps/${id}`);
+  	const id = this.props.history.location.state.rep_id; 
+ 
+	const request = axios.get(`/api/reps/${id}`);
 
         request.then(response => {
 		 console.log(response);
                 console.log(response.data);
-		console.log(response.data.name);
-                this.setState({name: response.data.name, motto: response.data.motto});
+		console.log('image id is: ', response.data.image_id);
+		console.log('on react side image_id is:', response.data.image_id);
 
-               //this.props.history.push({
-               // pathname: '/adminpanel',
-               // state: { rep_id: response.data }
-               // });
+                this.setState({image_id: response.data.image_id, name: response.data.name, motto: response.data.motto, logged:true});
+		/*const imgid = this.state.image_id;
+		const img_req = axios.get(`/api/images/${imgid}`);
 
-        })
+
+		img_req.then(image => {
+                	console.log(image);
+                	console.log(image.data);
+                	console.log('image url on react side:', image.data.url);
+                	this.setState({url: image.data.url});
+
+        	})
+		.catch(error => {
+                        console.log(error.message);
+                        this.setState({error:error});
+                })*/
+	})
         .catch(err => {
                 console.log(err.message);
                 this.setState({error:err});
         })
 
 }
+  
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
-
-  render() {
+  
+render() {
     const { classes } = this.props;
 
     const handleClick = name => {
@@ -100,8 +114,11 @@ class AdminPanel extends React.Component {
       <div className='admin-panel'>
 	 <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
-        </Typography>   
-         <form className={classes.container} noValidate autoComplete='off'>
+         </Typography>
+
+		{this.state.logged ?(<UserImage image_id={this.state.image_id} />):(<p>Loading image</p>)}
+
+	  <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
 	
 	    <p>Name</p>

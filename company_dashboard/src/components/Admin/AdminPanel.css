@@ -22,3 +22,11 @@
   width: 180px;
   margin-top: 15px;
 }
+
+.admin-panel .image-style {
+  /* border: 1px solid red; */
+  width: 50px;
+  margin-top: 4%;
+  margin-left:5%;
+
+}
