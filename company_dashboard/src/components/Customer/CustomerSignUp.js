@@ -135,6 +135,28 @@ class CustomerSignUpFormBase extends Component {
             onChange={this.onChange}
            />
           <br/>
+	
+	<TextField
+            hintText="Enter your name"
+            floatingLabelText="Name"
+            required={true}
+            name="name"
+            type="text" 
+            value={this.state.name}
+            onChange={this.onChange}
+           />
+          <br/>
+
+        <TextField
+            hintText="summary"
+            floatingLabelText="What can we help you with?"
+            required={true}
+            name="summary"
+            type="text"   
+            value={this.state.summary}
+            onChange={this.onChange}
+           />
+          <br/>	
 
 	<RaisedButton 
               label="SignUp" 
