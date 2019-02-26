@@ -15,42 +15,21 @@ class LiveFeed extends Component {
         1, 2, 3
       ]
     }
+    
+    socket.on("send_data", function(data) {
+      console.log("send_data");
+      let queries = this.state.queries;
+      queries.push(data);
+      this.setState({ queries });
+      // or this.setState({ queries: [...this.state.queries, data] })
+    });
   }
-
+  
   componentDidMount() {
-
-    // socket.on("", function(data) {
-
-    // })
-    // socket.emit("", function(data) {
-
-    // })
-    // let data = [36, 62, 24];
-      
-    // this.setState({ queries: data });
-    console.log(this.state.queries);
-    // on.emit("get_queries", function(data) {
-      
-    //   this.setState(queries: data)
-    // })
+    console.log("componentDidMount");
   }
-
-    // socket.on("incoming_queries", function() {
-    //   axios.get("/api/customers/company/:id")
-    //   this.setState(...this.state.queries, data);
-      
-    // });
-  // io.on("incoming_queries", function(data) {
   
   
-  // Update statequeryFeed with io's
-  // });
-
-  // componentDidMount
-  // sock.on(fldkfas, function(data) {
-  //  this.setState(queryfeed: data.uuid )
-  // })
-
 
   openQuery = (query) => {
     this.setState({ clickedQuery: !this.state.clickedQuery });
