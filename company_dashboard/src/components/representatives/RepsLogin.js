@@ -23,29 +23,35 @@ class RepLoginFormBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    email:"",
-    password:"",
-    error:"",
-    logged:false,	    
+    email: "",
+    password: "",
+    error: "",
+    logged: false,	    
     }
   }
 
   onSubmit = event => {
-    const {email, password } = this.state;
-	  console.log("in onSubmit");
+    const { email, password } = this.state;
+	  
     this.props.firebase
       .doSignInWithEmailAndPassword (email, password)
       .then(authUser => {
-        console.log(authUser.user.uid);
-
-          this.setState({email:"", password:""});
+        this.props.firebase.auth.currentUser.getIdToken()
+        .then(idToken => {
+          axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
+          this.setState({email: "", password: ""});
           this.props.history.push(ROUTES.ADMIN_SETTINGS);
+        })
+        .catch(error => {                 // if Firebase getIdToken throws an error
+          console.log(error.message);
+          this.setState({ error:error });
+        });
       })
       .catch(error => {
         this.setState({ error:error });
       });
 
-    event.preventDefault();
+      event.preventDefault();
   };
 
 
