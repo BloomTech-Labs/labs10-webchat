@@ -53,6 +53,7 @@ constructor(props){
     error:null,
     logged:false,		
     codeSnippet: '',
+   allreps:[],		
     team: {
       name: '',
       email: '',
@@ -77,7 +78,20 @@ constructor(props){
 		console.log('companyname is: ', response.data.name);
 		console.log('on client side image_id is:', response.data.image_id);
 
-                this.setState({image_id: response.data.image_id, companyname: response.data.name, motto: response.data.motto, url:response.data.url, logged:true});
+		const app_req = axios.get(`/api/reps/company/${id}`);
+
+		app_req.then(reps =>{
+		console.log('all reps are on client side are: ', reps.data);
+
+		this.setState({image_id: response.data.image_id, companyname: response.data.name, motto: response.data.motto, url:response.data.url, logged:true, allreps: reps.data});
+        	
+		})
+		
+		.catch(error =>{
+			console.log(error.message);
+                	this.setState({error:error});
+		});
+
 	})
         .catch(err => {
                 console.log(err.message);
@@ -140,8 +154,8 @@ render() {
             />
           </div>
         </form>
-
-        <Paper className={classes.root}>
+	
+	    <Paper className={classes.root}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -152,13 +166,13 @@ render() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => {
+              {this.state.allreps.map(reps => {
                 return (
-                  <TableRow key={row.id}>
+                  <TableRow key={reps.id}>
                     <TableCell component="th" scope="row">
-                      {row.name}
+                      {reps.name}
                     </TableCell>
-                    <TableCell>{row.email}</TableCell>
+                    <TableCell>{reps.email}</TableCell>
                     <TableCell>
                       <Checkbox
                         checked={this.state.admin}
@@ -166,9 +180,9 @@ render() {
                       />
                     </TableCell>
                     <TableCell>
-                      <DeleteIcon 
-                        className={classes.icon} 
-                        click={() => handleClick(row.name)}
+                      <DeleteIcon
+                        className={classes.icon}
+                        click={() => handleClick(reps.name)}
                       />
                     </TableCell>
                   </TableRow>
@@ -177,6 +191,7 @@ render() {
             </TableBody>
           </Table>
         </Paper>
+
         <Button
           variant="outlined"
           color="primary"

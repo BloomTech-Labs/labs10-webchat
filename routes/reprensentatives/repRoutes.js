@@ -15,13 +15,12 @@ if (process.env.ENVIRONMENT == 'development') {
   require('dotenv').config();
 }
 
-
-
 cloudinary.config({ 
   cloud_name:"dvgfmipda",
   api_key:"682433638449357",
   api_secret:"XCwRt4rmt3a6-Jc06bzwSRhv3ns"
 });
+
 
 router.get('/', (req, res) => {
 	db.get()
@@ -65,6 +64,35 @@ router.get('/adminpanel/:id', (req,res) => {
                         res.status(500).json(err.message);
                 })
 });
+
+
+router.get('/company/:id', (req,res) =>{
+	const id = req.params.id;           //later modify it to get by uid
+	console.log('rep_id is', id);
+
+        const request = db.getById(id);
+
+	request.then(response => {
+                       
+		let company_id = response.company_id;
+		console.log('company_id', company_id);
+
+			const repsall_req = db.getByCompanyId(company_id);	
+			
+			repsall_req.then(response_data => {
+				console.log('all the reps that belong to a company', response_data);
+		
+				res.status(200).json(response_data);	
+			})
+			.catch(error => {
+                        	res.status(500).json(error.message);
+                	})
+                })
+                .catch(err => {
+                        res.status(500).json(err.message);
+                })
+});
+
 
 
 router.post('/admin', upload.single('file'),(req, res) => {
