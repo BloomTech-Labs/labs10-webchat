@@ -42,8 +42,9 @@ class AccountSettings extends React.Component {
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
-        motto: response.data.phone_number,
+        motto: response.data.motto,
        });
+       console.log(this.state.motto);
     })
     .catch(err => {
       console.log(err.message);
@@ -107,7 +108,7 @@ class AccountSettings extends React.Component {
               id="outlined-phone-number"
               label="Phone Number"
               className={classes.textField}
-              value={this.state.number}
+              value={this.state.phone_number}
               onChange={this.handleChange("phone")}
               margin="normal"
               variant="outlined"
