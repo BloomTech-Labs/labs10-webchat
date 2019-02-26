@@ -8,8 +8,8 @@ class DummyWebsite extends Component {
         return (
             <div className="dummy-website">
                 <div className="dummy-top-info">
-                    <h1>Super Mario Bros Plumbing</h1>
-                    <p>World 1-1 Mushroom Kingdom</p>
+                    <h1>Joes Plumbing</h1>
+                    <p>10800 Greene Street</p>
                     <p>1-800-456-7890</p>
                     <p>Monday-Saturday 9:00-5:00</p>
                 </div>
@@ -22,7 +22,7 @@ class DummyWebsite extends Component {
                     <p className="navigation-link">GET APPOINTMENT</p>
                 </div>
                 <div className="dummy-info">
-                    <h3>Super Mario Bros Plumbing</h3>
+                    <h3>Joe's Plumbing</h3>
                     <ul>
                         <li>Upfront, Flat Rate Pricing</li>
                         <li>Never an Overtime Charge</li>
