@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class CustomerRequest extends Component {
+class CustomerWaiting extends Component {
     constructor() {
         super();
 
@@ -10,12 +10,12 @@ class CustomerRequest extends Component {
     }
 
     render() {
-        return(
+        return (
             <div>
                 TEXT
             </div>
-        );
+        )
     }
-};
+}
 
-export default CustomerRequest;
+export default CustomerWaiting;

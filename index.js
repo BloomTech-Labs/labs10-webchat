@@ -23,20 +23,31 @@ var io = socketIo(server);
 
 
 io.on('connection', (socket) => {
-  console.log(socket.id);
-
-  // io.emit or .on
-  // socket.emit or .on
+  // Client will emit "new_query" and send appropriate data to the server
+  socket.on("new_query", function(data) {
+    // Rep client side will have a listener called "send_data"
+    // "send_data" will send the data to the representative's data
+    // Updates a mapped list of Queries in the Reps Live View
+    // data = {
+    //    email: "example@mail.com",
+    //    name: "George Johnson",
+    //    firstMessage: "Hello, this product I purchased doesn't seem to be working",
+    //    url: "/chat/name=wonaje?32894dfsfs"
+    // }
+    socket.emit("send_data", {data});
+  });
   
+  socket.on("join", function(data) {
+    socket.join(data.room);
+  });
+
+  socket.on("send_msg", function(data) {
+    console.log("sending room post", data.room);
+    socket.to(data.room).emit("Example username",data.message);
+  });
+
   socket.on('SEND_MESSAGE', function(data){
-    console.log(data)
-    const message = { message: data.message };
-    console.log(message);
-    // const request = db('test_messages').insert(message).returning('id').then(ids => ids[0]);
-    // console.log(request);
-    const companies = db("companies");
-    console.log(companies);
-    
+    console.log("uuid", data.uuid);
     io.emit('RECEIVE_MESSAGE', data);
   });
   
