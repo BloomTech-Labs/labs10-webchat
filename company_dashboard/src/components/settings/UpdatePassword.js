@@ -25,7 +25,7 @@ class UpdatePasswordFormBase extends React.Component {
           oldPassword: "",
           newPassword1: "",
           newPassword2: "",
-          error: "",	    
+          error: null,	    
         }
       }
 
@@ -34,6 +34,9 @@ class UpdatePasswordFormBase extends React.Component {
     };
 
     render() {
+        const {oldPassword, newPassword1, newPassword2, error} = this.state;
+        //checking if all the required fields are non-empty  
+        const condition = oldPassword === '' || newPassword1 === '' ||  newPassword2 === '';
         return (
             <div>
                 <MuiThemeProvider>
