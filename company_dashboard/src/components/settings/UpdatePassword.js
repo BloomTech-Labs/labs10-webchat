@@ -18,7 +18,7 @@ const UpdatePasswordPage = () => (
     </div>
   );
 
-class RepLoginFormBase extends React.Component {
+class UpdatePasswordFormBase extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -85,5 +85,10 @@ class RepLoginFormBase extends React.Component {
             </div>
         )
     }
-
 }
+
+const UpdatePasswordForm = withRouter(withFirebase(UpdatePasswordFormBase));
+
+export default UpdatePasswordPage;
+
+export { UpdatePasswordForm };
