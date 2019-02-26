@@ -54,18 +54,7 @@ class CompanyRegisterFormBase extends Component {
       data.append('file', this.state.selectedFile);
 	  
 		  
-	 
-    // const data = {
-      //name: this.state.name, 
-      //email: this.state.email, 
-      //companyname: this.state.companyname, 
-      //motto: this.state.motto, 
-      //phone_number: this.state.phone, 
-      //is_admin: true,
-      //uid: this.state.uid
-    //};
-
-	  const request = axios.post('/api/reps/admin', data);
+const request = axios.post('/api/reps/admin', data);
     
     request
       .then(response => {

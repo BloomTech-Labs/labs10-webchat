@@ -3,7 +3,9 @@ const db = require('../db.js');
 module.exports = {
   get,
   getById,
-  getByEmail,	
+  getByEmail,
+  getByCompanyId,	
+  getDetails,
   insert,
   update,
   remove,
@@ -37,6 +39,27 @@ const query = db('representatives').where('email', email);
             return representatives[0];
     });
 }
+
+
+function getByCompanyId(company_id){
+const query = db('representatives').where('company_id', company_id);
+
+	return query.then(representatives =>{
+		return representatives;
+	});
+
+}
+
+
+function getDetails(id){
+const query = db.select(["representatives.motto","representatives.company_id","representatives.image_id", "companies.name", "images.url"]).from
+('representatives').innerJoin('companies', 'representatives.company_id', 'companies.id').innerJoin('images', 'representatives.image_id','images.id').where('representatives.id', id);
+
+	return query.then(details =>{
+		return details[0];
+	});
+}
+
 
 function insert(user) {
   return db('representatives')
