@@ -87,8 +87,26 @@ router.get('/adminpanel/:id', (req,res) => {
 });
 
 
-router.get('/company/:id', (req,res) =>{
-	const id = req.params.id;           //later modify it to get by uid
+
+router.get('/company/:id', (req, res)=>{
+	const company_id = req.params.id;         
+        console.log('company_id is', company_id);
+
+        const request = db.getByCompanyId(company_id);
+	
+	request.then(response => {
+
+                console.log('all the reps that belong to a company', response);
+		res.status(200).json(response);
+        })
+        .catch(error => {
+        	res.status(500).json(error.message);
+        })
+});
+
+
+router.get('/allreps/:id', (req,res) =>{
+	const id = req.params.id;           //later modify it to get by uid if required
 	console.log('rep_id is', id);
 
         const request = db.getById(id);
