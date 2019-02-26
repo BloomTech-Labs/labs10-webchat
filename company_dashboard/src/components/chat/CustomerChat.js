@@ -1,22 +1,81 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import CustomerMessage from './CustomerMessage';
 
-class CustomerChat extends Component {
-    constructor() {
-        super();
+class CustomerChat extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      repName: 'John Agent',
+      repMotto: 'Serving customers since 2009',
+      repImage_id: '',
+      rate: null,
+      chats: [
+        {
+          username: 'John Agent',
+          content: <p>John's chat text goes here</p>
+        },
+        {
+          username: 'User',
+          content: <p>User chat text goes here</p>
+        },
+        {
+          username: 'John Agent',
+          content: <p>John's chat text goes here</p>
+        },
+      ]
+    };
 
-        this.state = {
-            blank: ''
-        };
+    this.submitMessage = this.submitMessage.bind(this);
+  }
 
-    }
+  componentDidMount() {
+    this.scrollToBot();
+  }
 
-    render() {
-        return (
-            <div>
-                TEXT
-            </div>
-        );
-    }
+  componentDidUpdate() {
+    this.scrollToBot();
+  }
+
+  scrollToBot() {
+    ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
+  }
+
+  submitMessage(e) {
+    e.preventDefault();
+
+    this.setState({
+      chats: this.state.chats.concat([{
+          username: 'John Agent',
+          content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>
+      }])
+    }, () => {
+      ReactDOM.findDOMNode(this.refs.msg).value = '';
+    });
+}
+  render() {
+    const username = 'John Agent';
+    const { chats } = this.state;
+
+    return (
+      <div className='chatroom'>
+        {this.state.repName}
+        <br/>
+        {this.state.repMotto}
+        <ul className='chats' ref='chats'>
+          {
+            chats.map((chat) => 
+              <CustomerMessage chat={chat} user={username} />
+            )
+          }
+        </ul>
+        <form className='input' onSubmit={(event) => this.submitMessage(event)}>
+          <input type='text' ref='msg' />
+          <input type='submit' value='submit' />
+        </form>
+      </div>
+    );
+  }
 };
 
 export default CustomerChat;
