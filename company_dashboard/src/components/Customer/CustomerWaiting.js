@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import Avatar from '@material-ui/core/Avatar';
-import './CustomerWaiting.css';
 
 const styles = {
   root: {
