@@ -45,6 +45,7 @@ class App extends Component {
           <Route path={ROUTES.REPS_LOGIN} component={RepsLogin} />
           <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
           <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
+          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
           <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
           <Route path={ROUTES.REP_REGISTER} component={RepRegister} />
           <Route path={ROUTES.APPROVED_REP_REGISTER} component={ApprovedRepRegisterForm} />
