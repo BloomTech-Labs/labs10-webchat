@@ -9,6 +9,7 @@ class CustomerChat extends React.Component {
     this.state = {
       uid:props.history.location.state.uid,	    
       name:"",
+      message:"",	    
       motto:"",
       image_id:"",
       rate: null,
@@ -34,23 +35,23 @@ class CustomerChat extends React.Component {
    this.socket = io('localhost:5000');     
 
 
-                // set-up a connection between the client and the server
+              this.socket.on('connect', function(data) {
 
-               this.socket.on('connect', function() {
-                // Connected, to the server, join a room to chat with a representative
-                      this.socket.emit('join', props.history.location.state.uid);
-           });
+                     //this.socket.emit('join', this.props.history.location.state.uid);
+           	});
 
-          //      this.socket.on('message', function(data) {
-            //     console.log('Incoming message:', data);
-              //  });
+          this.socket.on(this.state.uid, function(data) {
+                console.log('Incoming message:', data);
+            });
 	  
   }
 
 
 
   componentDidMount() {
-    this.scrollToBot();
+    //this.scrollToBot();
+	  //
+	   console.log('room_uid inside onSubmit is', this.state.uid);
   }
 
   componentDidUpdate() {
@@ -60,6 +61,25 @@ class CustomerChat extends React.Component {
   scrollToBot() {
     ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
   }
+
+
+onSubmit = event =>{
+	console.log('room_uid inside onSubmit is', this.state.uid);
+	let data = {};
+	  data.uid = this.state.uid;
+	  data.message = this.state.message;
+
+	 //this.socket.on('connect', function(data) {
+                      
+		 this.socket.emit('join', data);
+		 this.setState({message:""});
+        // });
+	event.preventDefault();
+}
+
+  onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+  };
 
   submitMessage(e) {
     e.preventDefault();
@@ -89,9 +109,13 @@ class CustomerChat extends React.Component {
             )
           }
         </ul>
-        <form className='input' onSubmit={(event) => this.submitMessage(event)}>
-          <input type='text' ref='msg' />
-          <input type='submit' value='submit' />
+        <form className='input' onSubmit={this.onSubmit}>
+          <input 
+	    type="text"
+	    name="message"
+	    onChange={this.onChange}
+	    value={this.state.message} />
+	    <button type="submit">send</button>
         </form>
       </div>
     );
