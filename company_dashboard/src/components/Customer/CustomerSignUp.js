@@ -9,8 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import socket from 'socket.io-client';
-
+import io from 'socket.io-client';
 
 
 const CustomerSignUpPage = () => (
@@ -36,23 +35,21 @@ class CustomerSignUpFormBase extends Component {
 	error:null,
 	registered:false,     
     };
-	  
-  }
+  }	  
+	this.socket = io('localhost:5000');	  
 
 
 		// set-up a connection between the client and the server
-                var socket = socket.connect();
 
                 // the room name the client page, once rendered, wants to join
-
-                var room_uid = this.state.uid;
-
-                socket.on('connect', function() {
+                this.socket.on('connect', function() {
                 // Connected, to the server, join a room to chat with a representative
-                socket.emit('join', room_uid);
-                });
+                if(this.state.uid){
+			this.socket.emit('join', this.state.uid);
+		}
+		});
 
-                socket.on('message', function(data) {
+                this.socket.on('message', function(data) {
                  console.log('Incoming message:', data);
                 });
 
