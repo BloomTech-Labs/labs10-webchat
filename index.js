@@ -23,8 +23,11 @@ var io = socketIo(server);
 
 
 io.on('connection', (socket) => {
+  console.log("A user connected");
   // Client will emit "new_query" and send appropriate data to the server
+
   //socket.on("new_query", function(data) {
+
     // Rep client side will have a listener called "send_data"
     // "send_data" will send the data to the representative's data
     // Updates a mapped list of Queries in the Reps Live View
@@ -34,17 +37,30 @@ io.on('connection', (socket) => {
     //    firstMessage: "Hello, this product I purchased doesn't seem to be working",
     //    url: "/chat/name=wonaje?32894dfsfs"
     // }
+
    // socket.emit("send_data", {data});
   //});
   console.log("user connected");
+  
+//socket.on("join", function(data) {
+//    console.log("message", data.message); 
+ //   console.log('room_uid on server is', data.uid);	  
+    
+//   socket.join(data.uid);
+  //});
+
   socket.on("join", function(room_uid) {
   	console.log("user connected inside join"); 
-  console.log('room_uid', room_uid);	  
-    console.log("Room_uid from Firebase Login", room_uid);
-    socket.join(room_uid);
-  });
+  	console.log('room_uid', room_uid);	  
+    	console.log("Room_uid from Firebase Login", room_uid);
+    
+	socket.join(room_uid);
+ // });
 
-  socket.on("send_msg", function(data) {
+
+  io.sockets.in(data.uid).emit(data.uid, data.message);
+});	
+  /*socket.on("send_msg", function(data) {
     console.log("sending room post", data.room);
     socket.to(data.room).emit("Example username",data.message);
   });
@@ -52,7 +68,7 @@ io.on('connection', (socket) => {
   socket.on('SEND_MESSAGE', function(data){
     console.log("uuid", data.uuid);
     io.emit('RECEIVE_MESSAGE', data);
-  });
+  });*/
   
   socket.on('disconnect', () => console.log('Client disconnected'));
 });

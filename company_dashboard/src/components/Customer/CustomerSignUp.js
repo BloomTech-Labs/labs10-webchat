@@ -35,22 +35,7 @@ class CustomerSignUpFormBase extends Component {
 	error:null,
 	registered:false,     
     };
-	//this.socket = io('localhost:5000');	  
 
-
-		// set-up a connection between the client and the server
-
-                // the room name the client page, once rendered, wants to join
-               // this.socket.on('connect', function() {
-                // Connected, to the server, join a room to chat with a representative
-               // if(this.state.uid){
-		//	this.socket.emit('join', this.state.uid);
-	//	}
-	//	});
-
-          //      this.socket.on('message', function(data) {
-            //     console.log('Incoming message:', data);
-              //  });
 
   }
 
@@ -62,23 +47,7 @@ class CustomerSignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
             console.log(authUser.user.uid);
-	    
-	    this.setState({uid:authUser.user.uid, registered: true});   //update uid to use as room name in socket connection
-
 		
-	  //this.socket.on('connect', function() {
-                // Connected, to the server, join a room to chat with a representative
-                
-	//	  setTimeout(this.socket.emit('join', authUser.user.uid), 3000);
-		  
-		  
-		  //if(authUser.user.uid){
-		//	let room_uid = authUser.user.uid;
-                  //      this.socket.emit('join', room_uid);
-               // }
-          //     });
-
-
 	this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             console.log("idToken from curentUser: ", idToken);
@@ -95,7 +64,7 @@ class CustomerSignUpFormBase extends Component {
 			
 			
            		this.props.history.push({
-                  	pathname: ROUTES.CUSTOMER_CHAT,
+                  	pathname: ROUTES.CHAT_PAGE,
                   	state: {
                     	uid: authUser.user.uid        // authUser returned from Firebase
                   	}
@@ -116,16 +85,12 @@ class CustomerSignUpFormBase extends Component {
  }	 
 
 
-
-
-
-
-
   onChange = event => {
 	this.setState({ [event.target.name]: event.target.value });
   };
 
-  render() {
+
+render() {
     const {email, password, password1, error, name, summary} = this.state; 
     const condition = password !== password1 || password1 === '' || email === '' || name === '' || summary === '';
 
