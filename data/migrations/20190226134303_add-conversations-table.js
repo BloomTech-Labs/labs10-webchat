@@ -12,9 +12,9 @@ exports.up = function(knex, Promise) {
             table.string('summary')
                 .notNullable();     
             table.boolean('in_q')
-                defaultsTo(true);
+                .defaultTo(true);
             table.boolean('is_open')
-                defaultsTo(true);
+                .defaultTo(true);
         })
     ])
 };
