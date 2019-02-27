@@ -53,7 +53,7 @@ class CustomerSignUpFormBase extends Component {
             console.log("idToken from curentUser: ", idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
 	 	
-	    const data ={name: this.state.name, email: this.state.email, summary: this.state.summary}	
+	    const data ={name: this.state.name, email: this.state.email, summary: this.state.summary, uid:authUser.user.uid}	
 		
 	    	//add customer details to customer table
 		const request = axios.post('/api/customers', data);
