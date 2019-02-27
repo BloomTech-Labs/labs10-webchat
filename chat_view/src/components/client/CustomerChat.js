@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 
-class CustomerWaiting extends React {
+class CustomerChat extends Component {
     constructor() {
         super();
 
         this.state = {
             blank: ''
         };
+
     }
 
     render() {
@@ -14,8 +15,8 @@ class CustomerWaiting extends React {
             <div>
                 TEXT
             </div>
-        )
+        );
     }
-}
+};
 
-export default CustomerWaiting;
+export default CustomerChat;

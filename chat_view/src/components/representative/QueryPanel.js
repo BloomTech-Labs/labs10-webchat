@@ -5,7 +5,9 @@ class QueryPanel extends Component {
   render() {
     return(
       <div>
-        Struggling
+        Customer Panel
+        Customer Name: Name
+        Customer Question: {this.props.uuid}
       </div>
     )
   }

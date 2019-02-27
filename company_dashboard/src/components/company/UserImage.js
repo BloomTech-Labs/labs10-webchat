@@ -15,8 +15,8 @@ class UserImage extends Component {
     super(props);
 
      this.state = {
-	image_id:props.image_id,     //image_id is passed a prop from Admin Panel
-	url:"",
+	url:props.url,     //url is passed a prop from Admin Panel
+	image_id:"",
         selectedFile:null,
         error:null,
         logged:false,
@@ -26,7 +26,7 @@ class UserImage extends Component {
 
 componentDidMount() {
 
-                const id = this.state.image_id;
+                /*const id = this.state.image_id;
                 console.log(id);
                 const request = axios.get(`/api/images/${id}`);
 
@@ -41,7 +41,7 @@ componentDidMount() {
                 .catch(error => {
                         console.log(error.message);
                         this.setState({error:error});
-                })
+                })*/
 
  }
 

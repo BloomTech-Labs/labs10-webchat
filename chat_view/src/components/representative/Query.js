@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import './Query.css';
 
 class Query extends Component {
 
   render() {
     return(
-      <div onClick={this.props.clickQuery}>
-        name: {this.props.query}
+      <div className="Query" onClick={() => this.props.openQuery(this.props.uuid)}>
+        Room ID: {this.props.uuid}
       </div>
     );
   }
