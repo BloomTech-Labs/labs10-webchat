@@ -2,6 +2,9 @@ exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTable('representatives', table => {
             table.increments('id').primary();         // id of the rep/employee
+            table.string('uid')
+                .unique()
+                .notNullable();
             table.integer('company_id')
                 .references('id')
                 .inTable('companies');
@@ -20,6 +23,7 @@ exports.up = function(knex, Promise) {
                 .defaultTo(false);
             table.boolean('is_admin')
                 .defaultTo(false);
+            
         })
     ])
 };

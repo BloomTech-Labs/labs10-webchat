@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withFirebase } from "../Firebase";
 import { Link, withRouter, Route} from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
@@ -23,10 +23,10 @@ class RepLoginFormBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    email: "",
-    password: "",
-    error: "",
-    logged: false,	    
+      email: "",
+      password: "",
+      error: "",
+      logged: false,	    
     }
   }
 
