@@ -9,6 +9,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import io from 'socket.io-client';
+
 
 const CustomerSignUpPage = () => (
   <div>
@@ -28,12 +30,28 @@ class CustomerSignUpFormBase extends Component {
 	password:"",
 	password1:"",
 	name:"",
+	uid:"",     
 	summary:"",     
 	error:null,
-	logged:false,     
+	registered:false,     
     };
-	  
-  }
+  }	  
+	this.socket = io('localhost:5000');	  
+
+
+		// set-up a connection between the client and the server
+
+                // the room name the client page, once rendered, wants to join
+                this.socket.on('connect', function() {
+                // Connected, to the server, join a room to chat with a representative
+                if(this.state.uid){
+			this.socket.emit('join', this.state.uid);
+		}
+		});
+
+                this.socket.on('message', function(data) {
+                 console.log('Incoming message:', data);
+                });
 
 
  onSubmit = event => {
@@ -44,13 +62,14 @@ class CustomerSignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
             console.log(authUser.user.uid);
-		
+	    
+	    this.setState({uid:authUser.user.uid, registered: true});   //update uid to use as room name in socket connection
+
 	this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             console.log("idToken from curentUser: ", idToken);
-            
             axios.defaults.headers.common['Authorization'] = idToken;
-
+	 	
 	    const data ={name: this.state.name, email: this.state.email, summary: this.state.summary}	
 		
 	    	//add customer details to customer table
@@ -60,9 +79,9 @@ class CustomerSignUpFormBase extends Component {
                 console.log('newly added customer', response.data);
                         //this.setState({allreps: r.data});
 			
-			//redirect customer to summary page after signup               
+
            		this.props.history.push({
-                  	pathname: ROUTES.PERSONAL_INFO,
+                  	pathname: ROUTES.CUSTOMER_CHAT,
                   	state: {
                     	uid: authUser.user.uid        // authUser returned from Firebase
                   	}
@@ -81,6 +100,11 @@ class CustomerSignUpFormBase extends Component {
   });
 	     event.preventDefault();
  }	 
+
+
+
+
+
 
 
   onChange = event => {
