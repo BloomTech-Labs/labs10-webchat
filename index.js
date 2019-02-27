@@ -37,8 +37,9 @@ io.on('connection', (socket) => {
     socket.emit("send_data", {data});
   });
   
-  socket.on("join", function(data) {
-    socket.join(data.room);
+  socket.on("join", function(room_uid) {
+    console.log("Room_uid from Firebase Login", room_uid);
+    socket.join(room_uid);
   });
 
   socket.on("send_msg", function(data) {
