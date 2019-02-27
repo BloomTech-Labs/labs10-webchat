@@ -69,4 +69,87 @@ onSubmit = event =>{
           console.log('messages', this.state.messages);
           event.preventDefault();
 }
-	
+
+onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+};
+
+
+
+        render() {
+                const { classes } = this.props;
+                return(
+                <div>
+                 <MuiThemeProvider>
+                <div className="container">
+                <div className="row">
+                <div className="col-12">
+                <div className="card">
+                <div className="card-body">
+                <div className="card-title">
+                </div>
+                <hr/>
+                <AppBar
+                title="Chat"
+                />
+                <br/>
+                <br/>
+
+                <div className={classes.root}>
+                <div className="messages">
+                {this.state.messages.map((message, index) => {
+                return(
+                <Paper key={index} className={classes.paper}>
+		<Grid container wrap="nowrap" spacing={16}>
+                <Grid item>
+                <Avatar>C</Avatar>
+                </Grid>
+                <Grid item xs zeroMinWidth>
+                  <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
+                </Grid>
+                </Grid>
+                </Paper>
+                );
+                })}
+                </div>
+                <div className="footer">
+
+                <form onSubmit={this.onSubmit}>
+                <br/>
+                <br/>
+                <br/>
+                <TextField
+                hintText="message"
+                name="message"
+                type="text"
+                value={this.state.message}
+                onChange={this.onChange}
+		/>
+                <br/>
+
+                <RaisedButton
+                label="send"
+                primary={true}
+                type="submit"
+                />
+
+                </form>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </MuiThemeProvider>
+                </div>
+                );
+        }
+}
+
+
+ChatRepPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ChatRepPage);	
