@@ -2,39 +2,40 @@ import React, { Component } from 'react';
 import socket from 'socket.io-client';
 import Query from './Query';
 import QueryPanel from './QueryPanel';
-import Chat from '../Chat';
+import ChatRepPage from './ChatRepPage';
 import './Query.css';
+import axios from 'axios';
+
 
 class LiveFeed extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      rep_id: props.history.location.state.rep_id,	    
       clickedQuery: false,
       currentQuery: null,
-      queries: [
-        1, 2, 3
-      ]
+      queries: [1, 2, 3],
     }
     
     socket.on("send_data", function(data) {
       console.log("send_data");
-      let queries = this.state.queries;
-      queries.push(data);
-      this.setState({ queries });
+      //let queries = this.state.queries;
+      //queries.push(data);
+      //this.setState({ queries });
       // or this.setState({ queries: [...this.state.queries, data] })
     });
   }
   
   componentDidMount() {
-    const request = axios.get('/api/customers/:id');
-        	request.then(response => {
-                        this.setState({ queries: response.data });
+  const id = this.props.history.location.state.rep_id;	  
+    const request = axios.get('/api/customers/company/:id');
+        	
+	       request.then(response => {
+			console.log('query: ', response.data);
                 })
                 .catch(error =>{
                         console.log(error.message);
-                        // this.setState({error:error});
                 })	  
-          })
   }
   
   
@@ -60,7 +61,7 @@ class LiveFeed extends Component {
         <div className="QueryPanel">
         {/* How do i make this querypanel dynamic? I need to add the states uuid here */}
           {/* { this.state.clickedQuery ? <QueryPanel uuid={this.state.currentQuery}/> : null } */}
-          { this.state.clickedQuery ? <Chat /> : null }
+          { this.state.clickedQuery ? <ChatRepPage /> : null }
         </div>
       </div>
     );
