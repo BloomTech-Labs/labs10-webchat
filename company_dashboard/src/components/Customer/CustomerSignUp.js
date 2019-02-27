@@ -35,23 +35,23 @@ class CustomerSignUpFormBase extends Component {
 	error:null,
 	registered:false,     
     };
+    this.socket = io('localhost:5001');	  
+  
+  
+      // set-up a connection between the client and the server
+  
+      // the room name the client page, once rendered, wants to join
+      this.socket.on('connect', function() {
+        // Connected, to the server, join a room to chat with a representative
+        if(this.state.uid){
+          this.socket.emit('join', this.state.uid);
+        }
+      });
+  
+    this.socket.on('message', function(data) {
+      console.log('Incoming message:', data);
+    });
   }	  
-	this.socket = io('localhost:5000');	  
-
-
-		// set-up a connection between the client and the server
-
-                // the room name the client page, once rendered, wants to join
-                this.socket.on('connect', function() {
-                // Connected, to the server, join a room to chat with a representative
-                if(this.state.uid){
-			this.socket.emit('join', this.state.uid);
-		}
-		});
-
-                this.socket.on('message', function(data) {
-                 console.log('Incoming message:', data);
-                });
 
 
  onSubmit = event => {
