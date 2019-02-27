@@ -43,7 +43,7 @@ class Chat extends Component {
 									<hr/>
 									<div className="messages">
 										{this.state.messages.map((message, index) => {
-											return(
+											return (
 												<div key={index}>USER : {message.message}</div>
 											);
 										})}

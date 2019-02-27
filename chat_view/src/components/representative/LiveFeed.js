@@ -26,7 +26,15 @@ class LiveFeed extends Component {
   }
   
   componentDidMount() {
-    console.log("componentDidMount");
+    const request = axios.get('/api/customers/:id');
+        	request.then(response => {
+                        this.setState({ queries: response.data });
+                })
+                .catch(error =>{
+                        console.log(error.message);
+                        // this.setState({error:error});
+                })	  
+          })
   }
   
   
