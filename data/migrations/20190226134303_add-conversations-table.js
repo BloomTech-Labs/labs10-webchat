@@ -9,6 +9,8 @@ exports.up = function(knex, Promise) {
             table.string('customer_uid') // will aslo serve as socket room name
                 .references('uid')
                 .inTable('customers');
+            table.string('summary')
+                .notNullable();     
             table.boolean('in_q')
                 defaultsTo(true);
             table.boolean('is_open')
