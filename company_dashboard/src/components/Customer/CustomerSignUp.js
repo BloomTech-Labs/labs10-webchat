@@ -35,24 +35,9 @@ class CustomerSignUpFormBase extends Component {
 	error:null,
 	registered:false,     
     };
-    this.socket = io('localhost:5001');	  
-  
-  
-      // set-up a connection between the client and the server
-  
-      // the room name the client page, once rendered, wants to join
-      this.socket.on('connect', function() {
-        // Connected, to the server, join a room to chat with a representative
-        if(this.state.uid){
-          this.socket.emit('join', this.state.uid);
-        }
-      });
-  
-    this.socket.on('message', function(data) {
-      console.log('Incoming message:', data);
-    });
-  }	  
 
+
+  }
 
  onSubmit = event => {
     const {email, password } = this.state;
@@ -64,6 +49,20 @@ class CustomerSignUpFormBase extends Component {
             console.log(authUser.user.uid);
 	    
 	    this.setState({uid:authUser.user.uid, registered: true});   //update uid to use as room name in socket connection
+
+		
+	  //this.socket.on('connect', function() {
+                // Connected, to the server, join a room to chat with a representative
+                
+	//	  setTimeout(this.socket.emit('join', authUser.user.uid), 3000);
+		  
+		  
+		  //if(authUser.user.uid){
+		//	let room_uid = authUser.user.uid;
+                  //      this.socket.emit('join', room_uid);
+               // }
+          //     });
+
 
 	this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
@@ -79,7 +78,7 @@ class CustomerSignUpFormBase extends Component {
                 console.log('newly added customer', response.data);
                         //this.setState({allreps: r.data});
 			
-
+			
            		this.props.history.push({
                   	pathname: ROUTES.CUSTOMER_CHAT,
                   	state: {
