@@ -14,4 +14,3 @@ export const ADMIN_SETTINGS = "/adminsettings";
 export const CUSTOMER_WAITING = '/customerwaiting';
 export const CUSTOMER_CHAT = '/customerchat';
 export const DUMMY_PAGE = '/plumbing';
-

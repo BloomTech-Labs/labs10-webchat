@@ -23,20 +23,34 @@ var io = socketIo(server);
 
 
 io.on('connection', (socket) => {
-  console.log(socket.id);
+  // Client will emit "new_query" and send appropriate data to the server
+  //socket.on("new_query", function(data) {
+    // Rep client side will have a listener called "send_data"
+    // "send_data" will send the data to the representative's data
+    // Updates a mapped list of Queries in the Reps Live View
+    // data = {
+    //    email: "example@mail.com",
+    //    name: "George Johnson",
+    //    firstMessage: "Hello, this product I purchased doesn't seem to be working",
+    //    url: "/chat/name=wonaje?32894dfsfs"
+    // }
+   // socket.emit("send_data", {data});
+  //});
+  console.log("user connected");
+  socket.on("join", function(room_uid) {
+  	console.log("user connected inside join"); 
+  console.log('room_uid', room_uid);	  
+    console.log("Room_uid from Firebase Login", room_uid);
+    socket.join(room_uid);
+  });
 
-  // io.emit or .on
-  // socket.emit or .on
-  
+  socket.on("send_msg", function(data) {
+    console.log("sending room post", data.room);
+    socket.to(data.room).emit("Example username",data.message);
+  });
+
   socket.on('SEND_MESSAGE', function(data){
-    console.log(data)
-    const message = { message: data.message };
-    console.log(message);
-    // const request = db('test_messages').insert(message).returning('id').then(ids => ids[0]);
-    // console.log(request);
-    const companies = db("companies");
-    console.log(companies);
-    
+    console.log("uuid", data.uuid);
     io.emit('RECEIVE_MESSAGE', data);
   });
   
@@ -50,6 +64,7 @@ const customersRoutes = require('./routes/customers/customersRoutes');
 const companiesRoutes = require('./routes/companies/companiesRoutes');
 const billingRoutes = require('./routes/billing/billingRoutes');
 const imageRoutes = require('./routes/images/imageRoutes');
+const approvedemailRoutes = require('./routes/approvedemails/approvedemails');
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -86,7 +101,7 @@ app.use('/api/customers', customersRoutes);
 app.use('/api/companies', companiesRoutes);
 app.use('/api/billing', billingRoutes);
 app.use('/api/images', imageRoutes);
-
+app.use('/api/approvedemails', approvedemailRoutes);
 
 app.use(function(req, res) {
   res.status(404).send("Wrong URL. This page does not exist");

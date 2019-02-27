@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CustomerMessage from './CustomerMessage';
+import io from 'socket.io-client';
 
 class CustomerChat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repName: 'John Agent',
-      repMotto: 'Serving customers since 2009',
-      repImage_id: '',
+      uid:props.history.location.state.uid,	    
+      name:"",
+      motto:"",
+      image_id:"",
       rate: null,
       chats: [
         {
@@ -27,7 +29,25 @@ class CustomerChat extends React.Component {
     };
 
     this.submitMessage = this.submitMessage.bind(this);
+
+
+   this.socket = io('localhost:5000');     
+
+
+                // set-up a connection between the client and the server
+
+               this.socket.on('connect', function() {
+                // Connected, to the server, join a room to chat with a representative
+                      this.socket.emit('join', props.history.location.state.uid);
+           });
+
+          //      this.socket.on('message', function(data) {
+            //     console.log('Incoming message:', data);
+              //  });
+	  
   }
+
+
 
   componentDidMount() {
     this.scrollToBot();

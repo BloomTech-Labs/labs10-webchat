@@ -5,7 +5,6 @@ class Chat extends Component {
 	constructor() {
 		super();
 		this.state = {
-			username: '',
 			message: '',
 			messages: []
         };
@@ -13,12 +12,11 @@ class Chat extends Component {
 
 				this.sendMessage = (ev) => {
 					ev.preventDefault();
-					if(this.state.username && this.state.message) {
+					if(this.state.message) {
 						this.socket.emit('SEND_MESSAGE', {
-								author: this.state.username,
-								message: this.state.message
+								message: this.state.message,
 						});
-					} else alert('You are missing one of the following(s): Username, Message');
+					} else alert('You are missing one of the following(s): Message');
 					this.setState({message: ''});
 				}
 
@@ -27,9 +25,7 @@ class Chat extends Component {
         });
 
         const addMessage = (data) => {
-					console.log(data);
 					this.setState({messages: [...this.state.messages, data]});
-					console.log(this.state.messages);
         }
         
 	}
@@ -42,20 +38,18 @@ class Chat extends Component {
 							<div className="card">
 								<div className="card-body">
 									<div className="card-title">
-									Global Chat
+									Customer Name
 									</div>
 									<hr/>
 									<div className="messages">
 										{this.state.messages.map((message, index) => {
 											return(
-												<div key={index}>{message.author} : {message.message}</div>
+												<div key={index}>USER : {message.message}</div>
 											);
 										})}
 									</div>
 									<div className="footer">
-										<input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
-										<br/>
-										<input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
+										<input type="text" placeholder="Say something" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
 										<br/>
 										<button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
 									</div>
