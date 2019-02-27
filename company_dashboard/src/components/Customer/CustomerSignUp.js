@@ -36,6 +36,7 @@ class CustomerSignUpFormBase extends Component {
 	registered:false,     
     };
 
+
   }
 
  onSubmit = event => {
@@ -84,16 +85,12 @@ class CustomerSignUpFormBase extends Component {
  }	 
 
 
-
-
-
-
-
   onChange = event => {
 	this.setState({ [event.target.name]: event.target.value });
   };
 
-  render() {
+
+render() {
     const {email, password, password1, error, name, summary} = this.state; 
     const condition = password !== password1 || password1 === '' || email === '' || name === '' || summary === '';
 
