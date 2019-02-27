@@ -9,16 +9,16 @@ class CustomerChat extends React.Component {
   state = {
     messages: [
       {
-        type: 0,
+        type: 1,
         image,
         text: 'John\'s chat text goes here'
       },
       {
-        type: 1,
+        type: 0,
         text: 'User chat text goes here'
       },
       {
-        type: 0,
+        type: 1,
         image,
         text: 'John\'s chat text goes here'
       },
@@ -29,7 +29,7 @@ class CustomerChat extends React.Component {
     this.setState({
       messages: this.state.messages.concat([{
         text,
-        type: 0,
+        type: 1,
         image,
       }])
     });
