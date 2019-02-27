@@ -49,3 +49,24 @@ class ChatRepPage extends Component {
                 this.setState({messages: [...this.state.messages, data]});
         }
         }
+
+onSubmit = event =>{
+          console.log('room_uid inside onSubmit is', this.state.uid);
+          console.log('messages array', this.state.messages);
+
+          //var newArr = this.state.messages.slice();
+          //newArr.push(this.state.message);
+
+          let data = {};
+          data.uid = this.state.uid;
+          data.message = this.state.message;
+
+
+          this.socket.emit('join', data);
+          this.setState({message:""});
+
+
+          console.log('messages', this.state.messages);
+          event.preventDefault();
+}
+	
