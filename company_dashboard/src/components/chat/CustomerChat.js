@@ -32,7 +32,7 @@ class CustomerChat extends React.Component {
     this.submitMessage = this.submitMessage.bind(this);
 
 
-   this.socket = io('localhost:5000');     
+    this.socket = io('localhost:5000');     
 
 
               this.socket.on('connect', function(data) {
