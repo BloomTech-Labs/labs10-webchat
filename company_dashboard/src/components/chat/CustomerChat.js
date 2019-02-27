@@ -31,21 +31,20 @@ class CustomerChat extends React.Component {
     this.submitMessage = this.submitMessage.bind(this);
 
 
-   this.socket = io('localhost:5000');     
+    this.socket = io('localhost:5000');     
 
 
-                // set-up a connection between the client and the server
+    // set-up a connection between the client and the server
 
-               this.socket.on('connect', function() {
-                // Connected, to the server, join a room to chat with a representative
-                      this.socket.emit('join', props.history.location.state.uid);
-           });
+    this.socket.on('connect', function() {
+      // Connected, to the server, join a room to chat with a representative
+      this.socket.emit('join', props.history.location.state.uid);
+    });
 
-          //      this.socket.on('message', function(data) {
-            //     console.log('Incoming message:', data);
-              //  });
-	  
-  }
+    // this.socket.on('message', function(data) {
+      // console.log('Incoming message:', data);
+    // });
+	}
 
 
 
