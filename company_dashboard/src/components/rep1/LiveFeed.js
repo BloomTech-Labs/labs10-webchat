@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { withFirebase } from "../Firebase";
-import { Link, withRouter, Route} from "react-router-dom"
+import { withRouter} from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
 import socket from 'socket.io-client';
@@ -10,6 +10,33 @@ import QueryPanel from './QueryPanel';
 import ChatRepPage from './ChatRepPage';
 import './Query.css';
 import axios from 'axios';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    padding: `0 ${theme.spacing.unit * 3}px`,
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing.unit}px auto`,
+    padding: theme.spacing.unit * 2,
+  },
+});
+
+
+
+
 
 
 
@@ -30,10 +57,10 @@ class LiveFeedFormBase extends Component {
       rep_id: props.history.location.state.rep_id,	    
       currentQuery: null,
       error: null,	    
-      queries: [],
+      queries: ["hello"],
+      logged: false,	    
     }
-   
-	  
+  
   }
 
   componentDidMount() {
@@ -47,12 +74,14 @@ class LiveFeedFormBase extends Component {
 	    console.log('rep_is is', this.props.history.location.state.rep_id);	
 	     const id = this.props.history.location.state.rep_id;
 
-		//axios call to get all the customer questions to display on representative dashboard		  
+	     //axios call to get all the customer questions to display on representative dashboard		  
 	     const request = axios.get(`/api/customers/company/${id}`);
 
                 request.then(response => {
                         console.log('query: ', response.data);
-			this.setState({queries: response.data});
+			this.setState({queries: response.data, logged: true});
+
+			
                 })
                 .catch(err =>{
                         console.log(err.message);
@@ -66,48 +95,53 @@ class LiveFeedFormBase extends Component {
 	  
 }  
 
-  openQuery = (query) => {
-    this.setState({ clickedQuery: !this.state.clickedQuery });
-    console.log('clickedQuery State: ', this.state.clickedQuery);
-    this.setState({ currentQuery: query});
-  }
+
 
   render() {
-    let queries = this.state.queries.map((element, index) => {
+	  const { classes } = this.props;
       return (
-        <div className="Query">
-          <Link to={element.uid} key={index}>
-            <Query query={"drop query props here"} />
-          </Link>
-        </div>
-      );
-    });
-    return(
-      <Router>
-        <div className="LiveFeed">
-          <div className="Queries">
-            {queries}
-          </div>
-        </div>
-        <div className="QueryPanel">
-          <Route exact path="/" render={() => (
-            substitute ? (
-              <Redirect to="/chat/:room_id"/>
-            ) : (
-              null
-            )
-          )}/>
-        </div>
-      </Router>
+        <div>
+	  <MuiThemeProvider>    
+	 <Typography color='inherit' variant='h4' align='center'>Message Queue</Typography><br/><br/>     
+	{this.state.queries.map((query, index) => {
+	 return(
+		<Paper key={index} className={classes.paper}>
+                <Grid container wrap="nowrap" spacing={16}>
+                <Grid item>
+                </Grid>
+                <Grid item xs zeroMinWidth>
+		<Link to={`/chatreppage/${query.uid}`} key={index}>
+                <Typography color='primary' variant='h5' align='center' noWrap key={index}>Customer Question:{query.summary}</Typography>
+		 </Link>
+                </Grid>
+                </Grid>
+                </Paper>
+
+	 )	 
+  
+    	})
+	}
+	</MuiThemeProvider>      
+	</div>
 
     );
   }
+	      
+
 }
 
-const LiveFeedComponent = withRouter(withFirebase(LiveFeedFormBase));
+LiveFeedFormBase.propTypes = {     
+  classes: PropTypes.object.isRequired,
+};
+
+const LiveFeedComponent = withStyles(styles)(withRouter(withFirebase(LiveFeedFormBase)));
 
 export default LiveFeedPage;
 
 export {LiveFeedComponent};
 
+//ChatRepPage.propTypes = {
+//  classes: PropTypes.object.isRequired,
+//};
 
+//export default withStyles(styles)(ChatRepPage);
