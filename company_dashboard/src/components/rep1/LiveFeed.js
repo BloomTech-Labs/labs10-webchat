@@ -41,8 +41,8 @@ class LiveFeed extends Component {
     let queries = this.state.queries.map((element, index) => {
       return (
         <div className="Query">
-          <Link to key={index}>
-            <Query query={"LOL"} />
+          <Link to={element.uid} key={index}>
+            <Query query={"drop query props here"} />
           </Link>
         </div>
       );
@@ -56,7 +56,7 @@ class LiveFeed extends Component {
         </div>
         <div className="QueryPanel">
           <Route exact path="/" render={() => (
-            loggedIn ? (
+            substitute ? (
               <Redirect to="/chat/:room_id"/>
             ) : (
               null
