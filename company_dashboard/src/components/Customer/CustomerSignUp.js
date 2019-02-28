@@ -9,7 +9,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import io from 'socket.io-client';
 
 
 const CustomerSignUpPage = () => (
