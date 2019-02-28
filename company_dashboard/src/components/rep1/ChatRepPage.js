@@ -81,16 +81,15 @@ onChange = event => {
                 return(
                 <div>
                  <MuiThemeProvider>
-                <div className="container">
-                <div className="row">
-                <div className="col-12">
-                <div className="card">
-                <div className="card-body">
-                <div className="card-title">
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
                 </div>
-                <hr/>
                 <AppBar
-                title="Chat"
+                title="Employee Chat Panel"
                 />
                 <br/>
                 <br/>
