@@ -53,19 +53,22 @@ router.get('/', (req, res) => {
 
 router.get('/company/:id', (req, res) => {
 	const id = req.params.id;    //rep_id
+	
+	console.log('rep_is id', id);
 
-        const request = dbrep.getById(id);
+        const request = dbrep.getById(id);   //make a call to teh re db to get company_id
         
 	request.then(response=> { 
 		console.log('company_id',response.company_id);
+
         	const company_id = response.company_id;
 		
 
 		//get all the customers that belong to the same compnay
 		const req_all = db.getByCompanyId(company_id);
 
-		request.then(response_data=> { 
-                	console.log('all customers taht belong to the same compnay',response_data);
+		req_all.then(response_data=> { 
+                	console.log('all customers that belong to the same compnay',response_data);
 			res.status(200).json(response_data);
 		})
 		.catch(error => {
