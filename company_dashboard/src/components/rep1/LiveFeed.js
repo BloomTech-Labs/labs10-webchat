@@ -43,8 +43,8 @@ class LiveFeed extends Component {
         <Link key={index}>
           <Query query={"LOL"} />
         </Link>
-      )
-    })
+      );
+    });
     return(
       <Router>
         <div className="LiveFeed">
