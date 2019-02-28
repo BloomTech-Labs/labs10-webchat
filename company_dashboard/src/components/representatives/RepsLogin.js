@@ -40,7 +40,27 @@ class RepLoginFormBase extends React.Component {
         .then(idToken => {
           axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
           this.setState({email: "", password: ""});
-          this.props.history.push(ROUTES.LIVE_FEED);
+
+		//const uid = authUser.user.uid;
+
+		const data ={uid: authUser.user.uid};
+               const request = axios.post('/api/reps/getbyUID', data);
+  
+                  request.then(response => {
+                          console.log('rep_id is :', response.data.id);
+ 				
+			  this.props.history.push({
+                        	pathname: ROUTES.LIVE_FEED,
+                        	state: {
+                        	rep_id: response.data.id       // authUser returned from Firebase
+                        	}
+                        	});
+ 
+                  })
+		  .catch(err =>{
+		  	console.log(err.message);
+		  })
+
         })
         .catch(error => {                 // if Firebase getIdToken throws an error
           console.log(error.message);

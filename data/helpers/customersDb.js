@@ -23,7 +23,7 @@ function getById(id) {
 
 
 function getByCompanyId(id) { 
-const query = db('customers').where('id', id);
+const query = db('customers').where('company_id', id);
 
     return query.then(customers => {
             return customers;

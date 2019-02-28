@@ -59,11 +59,12 @@ const request = axios.post('/api/reps/admin', data);
     request
       .then(response => {
 		    console.log(response.data);
+
 		    //this.setState({logged:true});
 	
         this.props.history.push({
           pathname: '/livefeed',
-          state: { rep_id: response.data, uid:this.state.uid}
+          state: { rep_id: response.data, uid:this.state.uid }
         });		
 		
 	    })
