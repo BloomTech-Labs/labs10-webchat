@@ -22,10 +22,11 @@ class UpdatePasswordFormBase extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-          oldPassword: "",
-          newPassword1: "",
-          newPassword2: "",
-          error: null,	    
+            email: "",
+            oldPassword: "",
+            newPassword1: "",
+            newPassword2: "",
+            error: null,	    
         }
       }
 
@@ -33,16 +34,39 @@ class UpdatePasswordFormBase extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    onSubmit = event => {
+        const { email, oldPassword, newPassword1 } = this.state;
+        this.props.firebase
+            .doPasswordUpdate(email, oldPassword, newPassword1)
+            .then(response => {
+                console.log("Password updated with response: ", response);
+                this.setState({
+                    email: "",
+                    oldPassword: "",
+                    newPassword1: "",
+                    newPassword2: ""
+                });
+            })
+            .catch(error => {
+                console.log(error.message);
+                this.setState({
+                    error: error
+                });
+            })
+    };
+
     render() {
         const {oldPassword, newPassword1, newPassword2, error} = this.state;
         
-        const condition = oldPassword === '' || newPassword1 === '' ||  newPassword2 === '';
+        const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
                 <MuiThemeProvider>
                     <AppBar
                         title="Update Password"
                     />
+
+                    <Link href=""
                     <form onSubmit={this.onSubmit}>
                         <TextField
                             hintText="Old password"

@@ -18,6 +18,7 @@ import ApprovedRepRegisterForm from './components/representatives/ApprovedRepReg
 import CustomerChat from './components/chat/CustomerChat';
 import ChatPage from './components/chat/ChatPage';
 import DummyWebsite from './components/DummyWebsite/DummyWebsite';
+import UpdatePassword from './components/settings/UpdatePassword';
 import LiveFeed from './components/rep1/LiveFeed';
 import ChatRepPage from './components/rep1/ChatRepPage';
 
@@ -57,10 +58,16 @@ class App extends Component {
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
           <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
+<<<<<<< HEAD
+	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+          <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
+          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
+=======
 	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} /> 
 	  <Route path={ROUTES.CHAT_REP_PAGE} component={ChatRepPage} />  
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
 	     <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+>>>>>>> 1ad3cef229f815ea1bd096627cc845b98c974acf
         </div>
       </Router>
     );
