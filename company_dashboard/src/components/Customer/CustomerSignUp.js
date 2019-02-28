@@ -29,6 +29,7 @@ class CustomerSignUpFormBase extends Component {
     	email:"",
 	password:"",
 	password1:"",
+	company_id:13,     
 	name:"",
 	uid:"",     
 	summary:"",     
@@ -52,8 +53,9 @@ class CustomerSignUpFormBase extends Component {
           .then(idToken => {
             console.log("idToken from curentUser: ", idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
-	 	
-	    const data ={name: this.state.name, email: this.state.email, summary: this.state.summary, uid:authUser.user.uid}	
+		
+	    console.log('company is: ', this.state.company_id);		  
+	    const data ={company_id: this.state.company_id, name: this.state.name, email: this.state.email, summary: this.state.summary, uid:authUser.user.uid}	
 		
 	    	//add customer details to customer table
 		const request = axios.post('/api/customers', data);
