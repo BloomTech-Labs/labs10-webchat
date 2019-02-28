@@ -39,7 +39,7 @@ class UpdatePasswordFormBase extends React.Component {
         this.props.firebase
             .doPasswordUpdate(email, oldPassword, newPassword1)
             .then(response => {
-                console.log(response);
+                console.log("Password updated with response: ", response);
                 this.setState({
                     email: "",
                     oldPassword: "",
@@ -65,6 +65,8 @@ class UpdatePasswordFormBase extends React.Component {
                     <AppBar
                         title="Update Password"
                     />
+
+                    <Link href=""
                     <form onSubmit={this.onSubmit}>
                         <TextField
                             hintText="Old password"

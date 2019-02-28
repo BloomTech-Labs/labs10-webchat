@@ -18,7 +18,7 @@ import ApprovedRepRegisterForm from './components/representatives/ApprovedRepReg
 import CustomerChat from './components/chat/CustomerChat';
 import ChatPage from './components/chat/ChatPage';
 import DummyWebsite from './components/DummyWebsite/DummyWebsite';
-
+import UpdatePassword from './components/settings/UpdatePassword';
 
 class App extends Component {
   constructor(props) {
@@ -54,8 +54,9 @@ class App extends Component {
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
           <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
-	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
+          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
         </div>
       </Router>
     );
