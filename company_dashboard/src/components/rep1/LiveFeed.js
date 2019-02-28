@@ -40,15 +40,17 @@ class LiveFeed extends Component {
   render() {
     let queries = this.state.queries.map((element, index) => {
       return (
-        <Link key={index}>
-          <Query query={"LOL"} />
-        </Link>
+        <div className="Query">
+          <Link to key={index}>
+            <Query query={"LOL"} />
+          </Link>
+        </div>
       );
     });
     return(
       <Router>
         <div className="LiveFeed">
-          <div className="Query">
+          <div className="Queries">
             {queries}
           </div>
         </div>
