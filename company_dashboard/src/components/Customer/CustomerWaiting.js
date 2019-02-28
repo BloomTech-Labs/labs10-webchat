@@ -9,6 +9,8 @@ const styles = {
   root: {
     width: '100%',
     maxWidth: 500,
+    margin: 'auto',
+    marginTop: 40,
   },
   company: {
     display: 'flex',
@@ -46,6 +48,10 @@ const styles = {
     display: 'flex',
     textAlign: 'justify',
     fontSize: 13,
+  }, 
+  button: {
+    display: 'flex',
+    margin: 15,
   }
 };
 
