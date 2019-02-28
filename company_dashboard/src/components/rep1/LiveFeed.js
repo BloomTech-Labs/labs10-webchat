@@ -3,6 +3,8 @@ import io from 'socket.io-client';
 import { withFirebase } from "../Firebase";
 import { Link, withRouter, Route} from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
+import socket from 'socket.io-client';
 import Query from './Query';
 import QueryPanel from './QueryPanel';
 import ChatRepPage from './ChatRepPage';
@@ -26,7 +28,6 @@ class LiveFeedFormBase extends Component {
     super(props)
     this.state = {
       rep_id: props.history.location.state.rep_id,	    
-      clickedQuery: false,
       currentQuery: null,
       error: null,	    
       queries: [1, 2, 3],
@@ -71,21 +72,31 @@ class LiveFeedFormBase extends Component {
   render() {
     let queries = this.state.queries.map((element, index) => {
       return (
-        <Query key={index} uuid={element} openQuery={this.openQuery} />
+        <div className="Query">
+          <Link to={element.uid} key={index}>
+            <Query query={"drop query props here"} />
+          </Link>
+        </div>
       );
     });
-
     return(
-      <div className="LiveFeed">
-        <div className="Query">
-          {queries}
+      <Router>
+        <div className="LiveFeed">
+          <div className="Queries">
+            {queries}
+          </div>
         </div>
         <div className="QueryPanel">
-        {/* How do i make this querypanel dynamic? I need to add the states uuid here */}
-          {/* { this.state.clickedQuery ? <QueryPanel uuid={this.state.currentQuery}/> : null } */}
-          { this.state.clickedQuery ? <ChatRepPage /> : null }
+          <Route exact path="/" render={() => (
+            substitute ? (
+              <Redirect to="/chat/:room_id"/>
+            ) : (
+              null
+            )
+          )}/>
         </div>
-      </div>
+      </Router>
+
     );
   }
 }

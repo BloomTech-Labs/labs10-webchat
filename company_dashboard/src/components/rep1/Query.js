@@ -5,9 +5,9 @@ class Query extends Component {
 
   render() {
     return(
-      <div className="Query" onClick={() => this.props.openQuery(this.props.uuid)}>
-        Room ID: {this.props.uuid}
-      </div>
+      <tag>
+        Customer Name: {this.props.query.customerName} | Customer Email: {this.props.query.customerEmail} | Customer Question: {this.props.query.question}
+      </tag>
     );
   }
 }
