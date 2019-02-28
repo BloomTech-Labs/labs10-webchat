@@ -53,7 +53,13 @@ class LiveFeed extends Component {
           </div>
         </div>
         <div className="QueryPanel">
-          {/* <Route /> */}
+          <Route exact path="/" render={() => (
+            loggedIn ? (
+              <Chatroom to="/chat/:room_id"/>
+            ) : (
+              null
+            )
+          )}/>
         </div>
       </Router>
 
