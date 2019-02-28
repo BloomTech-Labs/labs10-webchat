@@ -102,7 +102,7 @@ onChange = event => {
                 <Paper key={index} className={classes.paper}>
 		<Grid container wrap="nowrap" spacing={16}>
                 <Grid item>
-                <Avatar>C</Avatar>
+                <Avatar>R</Avatar>
                 </Grid>
                 <Grid item xs zeroMinWidth>
                   <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
