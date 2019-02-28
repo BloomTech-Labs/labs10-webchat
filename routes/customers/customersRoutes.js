@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const firebase = require("firebase/app");
+const db = require('../../data/helpers/customersDb');
+const dbrep = require('../../data/helpers/repDb');
+
+
 
 if(process.env.NODE_ENV !== 'production'){
  require('dotenv').load();
@@ -21,8 +25,6 @@ admin.initializeApp({
   }),
   databaseURL: process.env.FIREBASE_DB_URL
 });
-
-const db = require('../../data/helpers/customersDb');
 
 
 const config = {
@@ -49,6 +51,35 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/company/:id', (req, res) => {
+	const id = req.params.id;    //rep_id
+
+        const request = dbrep.getById(id);
+        
+	request.then(response=> { 
+		console.log('company_id',response.company_id);
+        	const company_id = response.company_id;
+		
+
+		//get all the customers that belong to the same compnay
+		const req_all = db.getByCompanyId(company_id);
+
+		request.then(response_data=> { 
+                	console.log('all customers taht belong to the same compnay',response_data);
+			res.status(200).json(response_data);
+		})
+		.catch(error => {
+                	res.status(500).json({ err: error.message });
+        	})
+
+	})
+        .catch(err => {
+                res.status(500).json({ err: err.message });
+        })	
+
+})
+
+
 router.get('/:id', (req, res) => {
         const id = req.params.id;
         const request = db.getById(id);
@@ -66,25 +97,6 @@ router.get('/:id', (req, res) => {
                 res.status(500).json({ err: "Failed to retrieve the user" });
         })
 })
-
-
-//verify firebase token
-/*router.post('/verifyregistration', (req,res) =>{
-
-	const idToken = req.headers.authorization;
-
-	admin.auth().verifyIdToken(idToken)
-                .then(decodedToken =>{
-                        console.log(decodedToken);
-                        const uid = decodedToken.uid;
-                        res.status(200).json(uid);
-
-                 })
-                .catch(err =>{
-                        res.status(500).json(err.message);
-               })
-
-})*/
 
 
 

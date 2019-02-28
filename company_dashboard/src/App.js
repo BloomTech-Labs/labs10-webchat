@@ -19,6 +19,11 @@ import CustomerChat from './components/chat/CustomerChat';
 import ChatPage from './components/chat/ChatPage';
 import DummyWebsite from './components/DummyWebsite/DummyWebsite';
 import UpdatePassword from './components/settings/UpdatePassword';
+import LiveFeed from './components/rep1/LiveFeed';
+import ChatRepPage from './components/rep1/ChatRepPage';
+
+
+
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +50,6 @@ class App extends Component {
           <Route path={ROUTES.REPS_LOGIN} component={RepsLogin} />
           <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
           <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
-          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
           <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
           <Route path={ROUTES.REP_REGISTER} component={RepRegister} />
           <Route path={ROUTES.APPROVED_REP_REGISTER} component={ApprovedRepRegisterForm} />
@@ -54,8 +58,20 @@ class App extends Component {
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
           <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
+<<<<<<< HEAD
+	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+=======
+<<<<<<< HEAD
 	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
+          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
+=======
+	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} /> 
+	  <Route path={ROUTES.CHAT_REP_PAGE} component={ChatRepPage} />  
+>>>>>>> 2ce6e40b17d21b2f298e5b9420adf3e10f4fed71
+          <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
+	     <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+>>>>>>> 1ad3cef229f815ea1bd096627cc845b98c974acf
         </div>
       </Router>
     );
