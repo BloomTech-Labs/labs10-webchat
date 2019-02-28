@@ -28,8 +28,17 @@ class UpdatePasswordFormBase extends React.Component {
             newPassword2: "",
             error: null,	    
         }
-      }
-
+    }
+    componentDidMount() {
+        const request = axios.get(`/api/reps/getbyUID`);
+        request
+            .then(response => {
+                this.setState({ email: response.data.email });
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
@@ -56,7 +65,7 @@ class UpdatePasswordFormBase extends React.Component {
     };
 
     render() {
-        const {oldPassword, newPassword1, newPassword2, error} = this.state;
+        const {email, oldPassword, newPassword1, newPassword2, error} = this.state;
         
         const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
@@ -71,7 +80,7 @@ class UpdatePasswordFormBase extends React.Component {
                         <TextField
                             hintText="Old password"
                             floatingLabelText="Old Password"
-                            name="old_password"
+                            name="oldPassword"
                             type="password"
                             required={true}
                             value={this.state.oldPassword}

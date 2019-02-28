@@ -19,8 +19,8 @@ import CustomerChat from './components/chat/CustomerChat';
 import ChatPage from './components/chat/ChatPage';
 import DummyWebsite from './components/DummyWebsite/DummyWebsite';
 import UpdatePassword from './components/settings/UpdatePassword';
-import LiveFeed from './components/rep1/LiveFeed';
-import ChatRepPage from './components/rep1/ChatRepPage';
+// import LiveFeed from './components/rep1/LiveFeed';
+// import ChatRepPage from './components/rep1/ChatRepPage';
 
 
 
@@ -59,9 +59,9 @@ class App extends Component {
           <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
 	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} /> 
-	  <Route path={ROUTES.CHAT_REP_PAGE} component={ChatRepPage} />  
+	  {/* <Route path={ROUTES.CHAT_REP_PAGE} component={ChatRepPage} />   */}
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
-	     <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+	     {/* <Route path={ROUTES.LIVE_FEED} component={LiveFeed} /> */}
        <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
         </div>
       </Router>

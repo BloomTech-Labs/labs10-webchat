@@ -145,6 +145,7 @@ class AccountSettings extends React.Component {
             <Button variant="outlined" color="primary" className="save-button">
               Save
             </Button>
+            <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">
