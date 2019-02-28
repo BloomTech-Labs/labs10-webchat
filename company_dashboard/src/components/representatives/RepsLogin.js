@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withFirebase } from "../Firebase";
 import { Link, withRouter, Route} from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
@@ -20,13 +20,13 @@ const RepLoginPage = () => (
 
 
 class RepLoginFormBase extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-    email: "",
-    password: "",
-    error: "",
-    logged: false,	    
+      email: "",
+      password: "",
+      error: "",
+      logged: false,	    
     }
   }
 
@@ -40,7 +40,27 @@ class RepLoginFormBase extends React.Component {
         .then(idToken => {
           axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
           this.setState({email: "", password: ""});
-          this.props.history.push(ROUTES.ADMIN_SETTINGS);
+
+		//const uid = authUser.user.uid;
+
+		const data ={uid: authUser.user.uid};
+               const request = axios.post('/api/reps/getbyUID', data);
+  
+                  request.then(response => {
+                          console.log('rep_id is :', response.data.id);
+ 				
+			  this.props.history.push({
+                        	pathname: ROUTES.LIVE_FEED,
+                        	state: {
+                        	rep_id: response.data.id       // authUser returned from Firebase
+                        	}
+                        	});
+ 
+                  })
+		  .catch(err =>{
+		  	console.log(err.message);
+		  })
+
         })
         .catch(error => {                 // if Firebase getIdToken throws an error
           console.log(error.message);
@@ -61,54 +81,55 @@ class RepLoginFormBase extends React.Component {
   };
   
   render() {
-	const {email, password, error} = this.state;
+    const {email, password, error} = this.state;
 
-        //checking if all the required fields are non-empty  
-        const condition = password === '' || email === '';
+    //checking if all the required fields are non-empty  
+    const condition = password === '' || email === '';
 
     return (
-	<div>
-       	 <MuiThemeProvider>
-        	{this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
-        	Successfully Logged In
-        	</Typography>):(
-       	<div>
-       	<AppBar
-            title="Sign In"
-       	/>
-	  <form onSubmit={this.onSubmit}>  
-          <TextField
-            hintText="Enter your Email"
-            floatingLabelText="Email"
-	    required={true}
-            name="email"			
-            value={this.state.email}
-            onChange={this.handleChange}
+      <div>
+        <MuiThemeProvider>
+          {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
+            Successfully Logged In
+          </Typography>):(
+          <div>
+            <AppBar
+              title="Sign In"
             />
-          <br/>
-            <TextField
-              type="password"
-              hintText="Enter your Password"
-              floatingLabelText="Password"
-	      required={true}
-	      name="password"		
-              value={this.state.password}
-              onChange={this.handleChange}
+            <form onSubmit={this.onSubmit}>  
+              <TextField
+                hintText="Enter your Email"
+                floatingLabelText="Email"
+                required={true}
+                name="email"			
+                value={this.state.email}
+                onChange={this.handleChange}
               />
-            <br/>
-	
-	    <RaisedButton
-              label="Login"
-              primary={true}
-              type="submit"
-              disabled={condition}
-        />
+              <br/>
+              <TextField
+                type="password"
+                hintText="Enter your Password"
+                floatingLabelText="Password"
+                required={true}
+                name="password"		
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <br/>
+      
+              <RaisedButton
+                label="Login"
+                primary={true}
+                type="submit"
+                disabled={condition}
+              />
 
-        {error && <p>{error.message}</p>}
-      </form>
-      </div>)}
-   </MuiThemeProvider>
-</div>);
+              {error && <p>{error.message}</p>}
+            </form>
+          </div>)}
+        </MuiThemeProvider>
+      </div>
+    );
   }
 }
 

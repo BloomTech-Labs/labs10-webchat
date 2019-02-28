@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const firebase = require("firebase/app");
+const db = require('../../data/helpers/customersDb');
+const dbrep = require('../../data/helpers/repDb');
+
+
 
 if(process.env.NODE_ENV !== 'production'){
  require('dotenv').load();
@@ -21,8 +25,6 @@ admin.initializeApp({
   }),
   databaseURL: process.env.FIREBASE_DB_URL
 });
-
-const db = require('../../data/helpers/customersDb');
 
 
 const config = {
@@ -49,6 +51,38 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/company/:id', (req, res) => {
+	const id = req.params.id;    //rep_id
+	
+	console.log('rep_is id', id);
+
+        const request = dbrep.getById(id);   //make a call to teh re db to get company_id
+        
+	request.then(response=> { 
+		console.log('company_id',response.company_id);
+
+        	const company_id = response.company_id;
+		
+
+		//get all the customers that belong to the same compnay
+		const req_all = db.getByCompanyId(company_id);
+
+		req_all.then(response_data=> { 
+                	console.log('all customers that belong to the same compnay',response_data);
+			res.status(200).json(response_data);
+		})
+		.catch(error => {
+                	res.status(500).json({ err: error.message });
+        	})
+
+	})
+        .catch(err => {
+                res.status(500).json({ err: err.message });
+        })	
+
+})
+
+
 router.get('/:id', (req, res) => {
         const id = req.params.id;
         const request = db.getById(id);
@@ -68,58 +102,23 @@ router.get('/:id', (req, res) => {
 })
 
 
-//verify firebase token
-/*router.post('/verifyregistration', (req,res) =>{
-
-	const idToken = req.headers.authorization;
-
-	admin.auth().verifyIdToken(idToken)
-                .then(decodedToken =>{
-                        console.log(decodedToken);
-                        const uid = decodedToken.uid;
-                        res.status(200).json(uid);
-
-                 })
-                .catch(err =>{
-                        res.status(500).json(err.message);
-               })
-
-})*/
-
-
 
 router.post('/', (req, res) => {         // POST to '/api/customers/'
-    let { name, email, summary } = req.body;
-    // Some error checking; could be eliminated if more efficient method is found
-    if (!name) {
-        res.status(400).json({message: 'Please provide your name.'});
-        return;
-    }
-    if (!email) {
-        res.status(400).json({message: 'Please provide an email address.'});
-        return;
-    }
-    if (!summary) {
-        res.status(400).json({message: 'Please provide a summary of your inquiry.'});
-        return;
-	}
-	let newCustomer = { name, email, summary };
-    db
-        .insert(newCustomer)
-        .then(customer => {
-            console.log("customer inside .then: ", customer);
-            res.status(200).json(customer);
+
+    	let { name, email, summary, company_id, uid } = req.body;
+	
+	let newCustomer = { name, email, summary, company_id, uid };
+    	
+	const request = db.insert(newCustomer);
+
+        request.then(response => {
+            console.log("customer inside .then: ", response);
+            res.status(200).json(response);
         })
         .catch(err => {
-            const request = db.getByEmail(email);
-            request.then(response_data => {
-                console.log(response_data);
-		        if (response_data) {
-			        res.status(400).json({ error: 'The provided email is already associated with an account.' });
-                } 
-            });
+		res.status(400).json({ error: err.message });
         })
-})
+});
 
 
 router.delete('/:id', (req, res) => {

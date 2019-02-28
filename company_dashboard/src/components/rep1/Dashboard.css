@@ -1,0 +1,7 @@
+.Dashboard {
+  margin-top: 160px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}

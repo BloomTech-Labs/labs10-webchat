@@ -15,13 +15,12 @@ if (process.env.ENVIRONMENT == 'development') {
   require('dotenv').config();
 }
 
-
-
 cloudinary.config({ 
   cloud_name:"dvgfmipda",
   api_key:"682433638449357",
   api_secret:"XCwRt4rmt3a6-Jc06bzwSRhv3ns"
 });
+
 
 router.get('/', (req, res) => {
 	db.get()
@@ -33,7 +32,7 @@ router.get('/', (req, res) => {
 		})
 });
 
-router.get('/getbyUID', (req, res) => {
+router.post('/getbyUID', (req, res) => {
 	console.log(req.body.uid);
 	const uid  = req.body.uid;
 	console.log('uid is', uid);
@@ -73,6 +72,66 @@ router.get('/:id', (req, res) => {
 		res.status(500).json({ err: "Failed to retrieve represenative details" });
 	})
 });
+
+router.get('/adminpanel/:id', (req,res) => {
+	const id = req.params.id;
+        console.log('id is', id);
+
+	const request = db.getDetails(id);
+	request.then(details => {
+                       res.status(200).json(details);	
+                })
+                .catch(err => {
+                        res.status(500).json(err.message);
+                })
+});
+
+
+
+router.get('/company/:id', (req, res)=>{
+	const company_id = req.params.id;         
+        console.log('company_id is', company_id);
+
+        const request = db.getByCompanyId(company_id);
+	
+	request.then(response => {
+
+                console.log('all the reps that belong to a company', response);
+		res.status(200).json(response);
+        })
+        .catch(error => {
+        	res.status(500).json(error.message);
+        })
+});
+
+
+router.get('/allreps/:id', (req,res) =>{
+	const id = req.params.id;           //later modify it to get by uid if required
+	console.log('rep_id is', id);
+
+        const request = db.getById(id);
+
+	request.then(response => {
+                       
+		let company_id = response.company_id;
+		console.log('company_id', company_id);
+
+			const repsall_req = db.getByCompanyId(company_id);	
+			
+			repsall_req.then(response_data => {
+				console.log('all the reps that belong to a company', response_data);
+		
+				res.status(200).json(response_data);	
+			})
+			.catch(error => {
+                        	res.status(500).json(error.message);
+                	})
+                })
+                .catch(err => {
+                        res.status(500).json(err.message);
+                })
+});
+
 
 
 

@@ -29,6 +29,7 @@ class PersonalSignUpFormBase extends Component {
 	motto:"",
 	phonenumber:"",     
         error:null,
+	uid:props.history.location.state.uid,     
         logged:true,  
     };
 
@@ -52,7 +53,7 @@ class PersonalSignUpFormBase extends Component {
     return (
       <div>
         <MuiThemeProvider>
-        {this.state.logged ? (<div>Success, rep id is: {this.props.history.location.state.rep_id}</div>):(
+        {this.state.logged ? (<div>Success, uid is: {this.props.history.location.state.uid}</div>):(
        <div>
        <AppBar
             title="Sign Up"

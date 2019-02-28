@@ -4,6 +4,7 @@ module.exports = {
   get,
   getById,
   getByEmail,
+  getByCompanyId,	
   insert,
   update,	
   remove,	
@@ -18,6 +19,15 @@ function getById(id) {
   return query.then(customers => {
     return customers[0];
   });
+};
+
+
+function getByCompanyId(id) { 
+const query = db('customers').where('company_id', id);
+
+    return query.then(customers => {
+            return customers;
+    })
 };
 
 
