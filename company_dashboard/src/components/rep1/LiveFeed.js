@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 import socket from 'socket.io-client';
 import Query from './Query';
 import QueryPanel from './QueryPanel';
@@ -29,8 +30,7 @@ class LiveFeed extends Component {
   componentDidMount() {
   const id = this.props.history.location.state.rep_id;	  
     const request = axios.get('/api/customers/company/:id');
-        	
-	       request.then(response => {
+	    request.then(response => {
 			console.log('query: ', response.data);
                 })
                 .catch(error =>{
@@ -40,30 +40,32 @@ class LiveFeed extends Component {
   
   
 
-  openQuery = (query) => {
-    this.setState({ clickedQuery: !this.state.clickedQuery });
-    console.log('clickedQuery State: ', this.state.clickedQuery);
-    this.setState({ currentQuery: query});
-  }
+  // openQuery = (query) => {
+  //   this.setState({ clickedQuery: !this.state.clickedQuery });
+  //   console.log('clickedQuery State: ', this.state.clickedQuery);
+  //   this.setState({ currentQuery: query});
+  // }
 
   render() {
     let queries = this.state.queries.map((element, index) => {
       return (
-        <Query key={index} uuid={element} openQuery={this.openQuery} />
-      );
-    });
-
+        <Link key={index}>
+          <Query query={"LOL"} />
+        </Link>
+      )
+    })
     return(
-      <div className="LiveFeed">
-        <div className="Query">
-          {queries}
+      <Router>
+        <div className="LiveFeed">
+          <div className="Query">
+            {queries}
+          </div>
         </div>
         <div className="QueryPanel">
-        {/* How do i make this querypanel dynamic? I need to add the states uuid here */}
-          {/* { this.state.clickedQuery ? <QueryPanel uuid={this.state.currentQuery}/> : null } */}
-          { this.state.clickedQuery ? <ChatRepPage /> : null }
+          {/* <Route /> */}
         </div>
-      </div>
+      </Router>
+
     );
   }
 }
