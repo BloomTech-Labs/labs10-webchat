@@ -31,7 +31,7 @@ class ChatRepPage extends Component {
         constructor(props) {
                 super(props);
                 this.state = {
-                        uid:props.history.location.state.uid,
+                        uid:props.match.params.id,
                         message:'',
                         messages:[],
                 };
