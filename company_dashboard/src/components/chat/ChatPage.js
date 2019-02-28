@@ -94,7 +94,7 @@ onChange = event => {
                 </div>
                 <hr/>
 		<AppBar 
-                title="Chat"
+                title="Customer Chat Panel"
                 />
 		<br/>
 		<br/>

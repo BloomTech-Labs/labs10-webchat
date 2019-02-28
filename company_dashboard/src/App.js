@@ -58,13 +58,14 @@ class App extends Component {
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
           <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
-	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
           <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
-          <Route path={ROUTES.CHAT_PAGE} component={ChatPage} /> 
-	        <Route path={ROUTES.CHAT_REP_PAGE} component={ChatRepPage} /> 
-          <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
-	        <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+	  <Route path="/chatreppage/:id" render ={(props) => < ChatRepPage {...props} />} />
+	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
+	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
         </div>
       </Router>
     );

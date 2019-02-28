@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./DummyWebsite.css";
-
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
 import Button from "@material-ui/core/Button";
 
 class DummyWebsite extends Component {
@@ -29,7 +30,7 @@ class DummyWebsite extends Component {
                         <li>Courtous, Uniformed Professionals</li>
                     </ul>
                     <Button variant="contained" color="secondary" className="upload-button">
-                        REQUEST AN APPOINTMENT
+                          <Link to={ROUTES.CUSTOMER_SIGN_UP}>Chat with a Rep</Link>
           </Button>
                 </div>
             </div>

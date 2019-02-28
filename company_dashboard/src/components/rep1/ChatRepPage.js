@@ -31,7 +31,7 @@ class ChatRepPage extends Component {
         constructor(props) {
                 super(props);
                 this.state = {
-                        uid:props.history.location.state.uid,
+                        uid:props.match.params.id,
                         message:'',
                         messages:[],
                 };
@@ -81,16 +81,15 @@ onChange = event => {
                 return(
                 <div>
                  <MuiThemeProvider>
-                <div className="container">
-                <div className="row">
-                <div className="col-12">
-                <div className="card">
-                <div className="card-body">
-                <div className="card-title">
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
                 </div>
-                <hr/>
                 <AppBar
-                title="Chat"
+                title="Employee Chat Panel"
                 />
                 <br/>
                 <br/>
@@ -102,7 +101,7 @@ onChange = event => {
                 <Paper key={index} className={classes.paper}>
 		<Grid container wrap="nowrap" spacing={16}>
                 <Grid item>
-                <Avatar>C</Avatar>
+                <Avatar>R</Avatar>
                 </Grid>
                 <Grid item xs zeroMinWidth>
                   <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
