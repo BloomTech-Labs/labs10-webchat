@@ -50,7 +50,7 @@ class RepLoginFormBase extends React.Component {
                           console.log('rep_id is :', response.data.id);
  				
 			  this.props.history.push({
-                        	pathname: ROUTES.LIVE_FEED,
+                        	pathname: '/adminsettings',
                         	state: {
                         	rep_id: response.data.id       // authUser returned from Firebase
                         	}

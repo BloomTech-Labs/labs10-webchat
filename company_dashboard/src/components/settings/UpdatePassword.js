@@ -30,14 +30,16 @@ class UpdatePasswordFormBase extends React.Component {
         }
     }
     componentDidMount() {
-        const request = axios.get(`/api/reps/getbyUID`);
-        request
-            .then(response => {
-                this.setState({ email: response.data.email });
-            })
-            .catch(error => {
-                console.log(error.message);
-            })
+        let user = this.props.firebase.auth.currentUser;
+        console.log("updatepassword user: ", user);
+        // const request = axios.get(`/api/reps/getbyUID`);
+        // request
+        //     .then(response => {
+        //         this.setState({ email: response.data.email });
+        //     })
+        //     .catch(error => {
+        //         console.log(error.message);
+        //     })
     }
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -67,7 +69,7 @@ class UpdatePasswordFormBase extends React.Component {
     render() {
         const {oldPassword, newPassword1, newPassword2, error, email} = this.state;
         
-        const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
+        const condition = oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
                 <MuiThemeProvider>
@@ -84,7 +86,7 @@ class UpdatePasswordFormBase extends React.Component {
                             required={true}
                             value={this.state.oldPassword}
                             onChange={this.onChange}
-                      />
+                        />
 	
                         <br/>
 
