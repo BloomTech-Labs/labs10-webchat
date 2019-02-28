@@ -1,6 +1,6 @@
 import React from 'react';
 import { withFirebase } from "../Firebase";
-import { Link, withRouter, Route} from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -66,7 +66,7 @@ class UpdatePasswordFormBase extends React.Component {
                         title="Update Password"
                     />
 
-                    <Link href=""
+                    {/* <Link href="" */}
                     <form onSubmit={this.onSubmit}>
                         <TextField
                             hintText="Old password"
