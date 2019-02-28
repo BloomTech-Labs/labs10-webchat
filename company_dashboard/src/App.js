@@ -19,8 +19,8 @@ import CustomerChat from './components/chat/CustomerChat';
 import ChatPage from './components/chat/ChatPage';
 import DummyWebsite from './components/DummyWebsite/DummyWebsite';
 import UpdatePassword from './components/settings/UpdatePassword';
-// import LiveFeed from './components/rep1/LiveFeed';
-// import ChatRepPage from './components/rep1/ChatRepPage';
+import LiveFeed from './components/rep1/LiveFeed';
+import ChatRepPage from './components/rep1/ChatRepPage';
 
 
 
