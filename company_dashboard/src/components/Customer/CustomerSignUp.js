@@ -29,7 +29,7 @@ class CustomerSignUpFormBase extends Component {
     	email:"",
 	password:"",
 	password1:"",
-	company_id:13,     
+	company_id:18,     
 	name:"",
 	uid:"",     
 	summary:"",     
