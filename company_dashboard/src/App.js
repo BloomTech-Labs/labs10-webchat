@@ -60,11 +60,15 @@ class App extends Component {
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
 <<<<<<< HEAD
 	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+=======
+<<<<<<< HEAD
+	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
           <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
 =======
 	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} /> 
 	  <Route path={ROUTES.CHAT_REP_PAGE} component={ChatRepPage} />  
+>>>>>>> 2ce6e40b17d21b2f298e5b9420adf3e10f4fed71
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
 	     <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
 >>>>>>> 1ad3cef229f815ea1bd096627cc845b98c974acf
