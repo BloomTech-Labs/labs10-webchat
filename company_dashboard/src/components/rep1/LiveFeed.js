@@ -13,7 +13,6 @@ class LiveFeed extends Component {
     super(props)
     this.state = {
       rep_id: props.history.location.state.rep_id,	    
-      clickedQuery: false,
       currentQuery: null,
       queries: [1, 2, 3],
     }
@@ -37,14 +36,6 @@ class LiveFeed extends Component {
                         console.log(error.message);
                 })	  
   }
-  
-  
-
-  // openQuery = (query) => {
-  //   this.setState({ clickedQuery: !this.state.clickedQuery });
-  //   console.log('clickedQuery State: ', this.state.clickedQuery);
-  //   this.setState({ currentQuery: query});
-  // }
 
   render() {
     let queries = this.state.queries.map((element, index) => {
