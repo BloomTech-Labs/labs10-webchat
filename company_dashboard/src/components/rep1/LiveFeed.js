@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
 import socket from 'socket.io-client';
 import Query from './Query';
 import QueryPanel from './QueryPanel';
@@ -40,22 +40,24 @@ class LiveFeed extends Component {
   render() {
     let queries = this.state.queries.map((element, index) => {
       return (
-        <Link key={index}>
-          <Query query={"LOL"} />
-        </Link>
+        <div className="Query">
+          <Link to={element.uid} key={index}>
+            <Query query={"drop query props here"} />
+          </Link>
+        </div>
       );
     });
     return(
       <Router>
         <div className="LiveFeed">
-          <div className="Query">
+          <div className="Queries">
             {queries}
           </div>
         </div>
         <div className="QueryPanel">
           <Route exact path="/" render={() => (
-            loggedIn ? (
-              <Chatroom to="/chat/:room_id"/>
+            substitute ? (
+              <Redirect to="/chat/:room_id"/>
             ) : (
               null
             )
