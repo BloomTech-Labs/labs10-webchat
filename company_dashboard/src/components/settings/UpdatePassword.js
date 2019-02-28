@@ -56,7 +56,7 @@ class UpdatePasswordFormBase extends React.Component {
     };
 
     render() {
-        const {oldPassword, newPassword1, newPassword2, error} = this.state;
+        const {oldPassword, newPassword1, newPassword2, error, email} = this.state;
         
         const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
@@ -66,7 +66,6 @@ class UpdatePasswordFormBase extends React.Component {
                         title="Update Password"
                     />
 
-                    <Link href=""
                     <form onSubmit={this.onSubmit}>
                         <TextField
                             hintText="Old password"
@@ -76,7 +75,8 @@ class UpdatePasswordFormBase extends React.Component {
                             required={true}
                             value={this.state.oldPassword}
                             onChange={this.onChange}
-                        />
+                      />
+	
                         <br/>
 
                         <TextField
