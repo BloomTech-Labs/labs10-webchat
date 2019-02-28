@@ -30,7 +30,7 @@ class LiveFeedFormBase extends Component {
       rep_id: props.history.location.state.rep_id,	    
       currentQuery: null,
       error: null,	    
-      queries: [1, 2, 3],
+      queries: [],
     }
    
 	  
@@ -45,11 +45,14 @@ class LiveFeedFormBase extends Component {
 	    axios.defaults.headers.common['Authorization'] = idToken; 
 
 	    console.log('rep_is is', this.props.history.location.state.rep_id);	
-	     const id = this.props.history.location.state.rep_id;	  
+	     const id = this.props.history.location.state.rep_id;
+
+		//axios call to get all the customer questions to display on representative dashboard		  
 	     const request = axios.get(`/api/customers/company/${id}`);
 
                 request.then(response => {
                         console.log('query: ', response.data);
+			this.setState({queries: response.data});
                 })
                 .catch(err =>{
                         console.log(err.message);
