@@ -39,7 +39,7 @@ class AccountSettings extends React.Component {
     email: "",
     phone_number: "",
     motto: "",
-    selectedFile: null
+    selectedFile: null,
   };
 
   componentDidMount() {
@@ -78,12 +78,13 @@ class AccountSettings extends React.Component {
     console.log(this.state.selectedFile);
   };
 
+
   render() {
     const { classes } = this.props;
 
     return (
       <div className="account-settings">
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
             <TextField
               id="outlined-name"
@@ -142,6 +143,7 @@ class AccountSettings extends React.Component {
               margin="normal"
               variant="outlined"
             />
+
             <Button variant="outlined" color="primary" className="save-button">
               Save
             </Button>
