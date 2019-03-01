@@ -124,24 +124,7 @@ class AccountSettings extends React.Component {
               margin="normal"
               variant="outlined"
             />
-
-            <TextField
-              id="outlined-old-password-input"
-              label="Old Password"
-              className={classes.textField}
-              type="password"
-              margin="normal"
-              variant="outlined"
-            />
-
-            <TextField
-              id="outlined-new-password-input"
-              label="New Password"
-              className={classes.textField}
-              type="password"
-              margin="normal"
-              variant="outlined"
-            />
+            
             <Button variant="outlined" color="primary" className="save-button">
               Save
             </Button>
