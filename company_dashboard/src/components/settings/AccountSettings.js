@@ -46,8 +46,8 @@ class AccountSettings extends React.Component {
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
-      console.log(response);
-      console.log(response.data);
+      console.log("Account Settings CDM getByUID response: ", response);
+      // console.log(response.data);
 
       this.setState({ 
         name: response.data.name,
