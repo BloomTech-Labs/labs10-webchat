@@ -62,9 +62,7 @@ class App extends Component {
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
 	  <Route path="/chatreppage/:id" render ={(props) => < ChatRepPage {...props} />} />
 	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
-	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
           <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
-	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
         </div>
       </Router>
     );
