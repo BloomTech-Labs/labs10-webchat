@@ -1,7 +1,7 @@
 import React from "react";
 import { withFirebase } from "../Firebase";
 import { FirebaseContext } from '../Firebase';
-import { withRouter } from "react-router-dom"
+import { Link } from "react-router-dom"
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -147,6 +147,7 @@ class AccountSettings extends React.Component {
             <Button variant="outlined" color="primary" className="save-button">
               Save
             </Button>
+            <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">

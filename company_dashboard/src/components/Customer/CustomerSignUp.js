@@ -9,7 +9,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import io from 'socket.io-client';
 
 
 const CustomerSignUpPage = () => (
@@ -29,7 +28,7 @@ class CustomerSignUpFormBase extends Component {
     	email:"",
 	password:"",
 	password1:"",
-	company_id:18,     
+	company_id:2,     
 	name:"",
 	uid:"",     
 	summary:"",     
