@@ -47,10 +47,10 @@ class RepLoginFormBase extends React.Component {
                const request = axios.post('/api/reps/getbyUID', data);
   
                   request.then(response => {
-                          console.log('rep_id is :', response.data.id);
+                          // console.log('rep_id is :', response.data.id);
  				
 			  this.props.history.push({
-                        	pathname: ROUTES.LIVE_FEED,
+                        	pathname: '/adminsettings',
                         	state: {
                         	rep_id: response.data.id       // authUser returned from Firebase
                         	}
