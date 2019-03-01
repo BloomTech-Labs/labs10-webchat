@@ -54,8 +54,6 @@ onSubmit = event =>{
           console.log('room_uid inside onSubmit is', this.state.uid);
           console.log('messages array', this.state.messages);
 
-          //var newArr = this.state.messages.slice();
-          //newArr.push(this.state.message);
 
           let data = {};
           data.uid = this.state.uid;
