@@ -75,7 +75,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/adminpanel/:id', (req,res) => {
 	const id = req.params.id;
-        console.log('GET req at /adminpanel/:id -- id is', id);
+        console.log('GET req at /adminpanel/:id -- id is ', id);
 
 	const request = db.getDetails(id);
 	request.then(details => {

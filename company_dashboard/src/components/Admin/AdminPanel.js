@@ -85,6 +85,7 @@ class AdminPanelBaseForm extends React.Component {
     super(props);  
 	  this.state = {
       companyname: '',
+      name: '',
       motto: '',
       image_id: '',
       url: '',
@@ -189,8 +190,6 @@ class AdminPanelBaseForm extends React.Component {
   
   render() {
     const { classes } = this.props;
-
-    
       
     return (
       <div className='admin-panel'>
@@ -285,7 +284,7 @@ class AdminPanelBaseForm extends React.Component {
                 );
               })}
             </TableBody>
-            
+
           </Table>
         </Paper>
 
