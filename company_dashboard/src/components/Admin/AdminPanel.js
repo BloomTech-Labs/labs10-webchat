@@ -143,7 +143,6 @@ class AdminPanelBaseForm extends React.Component {
                 console.log(error.message);
                 this.setState({error:error});
               });
-
           })
           .catch(error => {        // get(`/api/reps/adminpanel/${id}`) throws error
             console.log(error.message);
@@ -157,38 +156,32 @@ class AdminPanelBaseForm extends React.Component {
   }
   
   handleClick = () => {
+    // console.log(id);
+    const id = this.state.rep_id;
+    const request = axios.delete(`/api/reps/${id}`);
+    request
+      .then(response => {
+        // console.log('delete response', response.data);
 
-      console.log(id);
-        const id = this.state.rep_id;
-       const request = axios.delete(`/api/reps/${id}`);
-
-        request.then(response => {
-                console.log('delete resposne', response.data);
-
-                //get all reps that belong to the same company as admin
-
-                const comp_id = this.state.company_id;
-
-                console.log('comp_id', comp_id);
-                const app_req = axios.get(`/api/reps/company/${comp_id}`);
-
-                app_req.then(r => {
-                        console.log('all reps are:', r.data);
-                        this.setState({allreps: r.data});
-
-                })
-                .catch(error =>{
-                        console.log(error.message);
-                        this.setState({error:error});
-                });
+        // get all reps that belong to the same company as admin:
+        const comp_id = this.state.company_id;
+        // console.log('comp_id', comp_id);
+        const app_req = axios.get(`/api/reps/company/${comp_id}`);
+        app_req
+          .then(r => {
+            // console.log('all reps are:', r.data);
+            this.setState({allreps: r.data});
+          })
+          .catch(error => {
+            console.log(error.message);
+            this.setState({error:error});
+          });
 
         })
-        .catch(err =>{
-                console.log(err.message);
+        .catch(error => {
+          console.log(error.message);
         })
   };
-
-
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
