@@ -198,21 +198,21 @@ class AdminPanelBaseForm extends React.Component {
           Admin Panel
         </Typography>
 
-		{this.state.logged ?(<UserImage url={this.state.url} />):(<p>Image</p>)}
+		    {this.state.logged ? (<UserImage url={this.state.url} />):(<p>Image</p>)}
 
         <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
 	
-	   <p>Company Name</p>
-	   <TextField
-	    id='outlined-codeSnippet'
-	    margin='normal'
-	    rowsMax={Infinity}
-            fullWidth
-            className={classes.TextField}
-	    value={this.state.companyname}
-	    />
-		
+            <p>Company Name</p>
+            <TextField
+              id='outlined-codeSnippet'
+              margin='normal'
+              rowsMax={Infinity}
+              fullWidth
+              className={classes.TextField}
+              value={this.state.companyname}
+            />
+        
             <p>Name</p>
             <TextField
               id='outlined-codeSnippet'
@@ -222,7 +222,7 @@ class AdminPanelBaseForm extends React.Component {
               className={classes.TextField}
               value={this.state.name}
             />
-      
+          
             <p>Motto</p>
             <TextField
               id='outlined-codeSnippet'
@@ -244,9 +244,10 @@ class AdminPanelBaseForm extends React.Component {
             />
           </div>
         </form>
-	
-	    <Paper className={classes.root}>
+      
+        <Paper className={classes.root}>
           <Table className={classes.table}>
+
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
@@ -255,83 +256,88 @@ class AdminPanelBaseForm extends React.Component {
                 <TableCell>Remove</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {this.state.allreps.map(reps => {
                 return (
                   <TableRow key={reps.id}>
+
                     <TableCell component="th" scope="row">
                       {reps.name}
                     </TableCell>
+
                     <TableCell>{reps.email}</TableCell>
+
                     <TableCell>
                       <Checkbox
                         checked={this.state.admin}
                         onChange={this.handleChange}
                       />
                     </TableCell>
-                    <TableCell>
 
-		<IconButton onClick={this.handleClick}>
-   			<DeleteIcon/>
-		</IconButton>	
-			
-		 </TableCell>
+                    <TableCell>
+                      <IconButton onClick={this.handleClick}>
+                          <DeleteIcon/>
+                      </IconButton>	
+                    </TableCell>
+
                   </TableRow>
                 );
               })}
             </TableBody>
+            
           </Table>
         </Paper>
 
-        <Button
-          variant="outlined"
-          color="primary"
-          className="add-button"
-          onClick={this.handleOpen}
-        >
-          Add Team Member
-        </Button>
-
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.open}
-          onClose={this.handleClose}
-        >
-          <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="h6" id="modal-title">
+            <Button
+              variant="outlined"
+              color="primary"
+              className="add-button"
+              onClick={this.handleOpen}
+            >
               Add Team Member
-            </Typography>
-            
-            <form onSubmit={this.onSubmit}>  
-              <TextField
-                hintText="Enter your Name"
-                floatingLabelText="Name"
-                required={true}
-                name="name"			
-                value={this.state.name}
-                onChange={this.handleChange}
-              />
-              <br/>
-              <TextField
-                hintText="Enter your Email"
-                floatingLabelText="Email"
-                required={true}
-                name="email"		
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-              <br/>
-      
-              <Button
-                variant='outlined'
-                className={classes.button}
-              >
-                Add Team Member
-              </Button>
-            </form>
-          </div>
-        </Modal>
+            </Button>
+
+            <Modal
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+              open={this.state.open}
+              onClose={this.handleClose}
+            >
+              <div style={getModalStyle()} className={classes.paper}>
+                <Typography variant="h6" id="modal-title">
+                  Add Team Member
+                </Typography>
+                
+                <form onSubmit={this.onSubmit}>  
+                  <TextField
+                    hintText="Enter your Name"
+                    floatingLabelText="Name"
+                    required={true}
+                    name="name"			
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                  />
+                  <br/>
+                  <TextField
+                    hintText="Enter your Email"
+                    floatingLabelText="Email"
+                    required={true}
+                    name="email"		
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                  <br/>
+          
+                  <Button
+                    variant='outlined'
+                    className={classes.button}
+                  >
+                    Add Team Member
+                  </Button>
+                </form>
+              </div>
+            </Modal>
       </div>
     );
   }
