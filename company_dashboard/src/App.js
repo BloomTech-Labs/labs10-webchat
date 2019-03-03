@@ -47,22 +47,28 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
-          <Route path={ROUTES.REPS_LOGIN} component={RepsLogin} />
+
           <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
-          <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
-          <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
+
           <Route path={ROUTES.REP_REGISTER} component={RepRegister} />
           <Route path={ROUTES.APPROVED_REP_REGISTER} component={ApprovedRepRegisterForm} />
           <Route path={ROUTES.COMPANY_REGISTER} component={CompanyRegister} />
-          <Route path={ROUTES.PERSONAL_INFO} component={PersonalInfo} />
+          <Route path={ROUTES.REPS_LOGIN} component={RepsLogin} />
+
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
+          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
+
+	        <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+
+          {/* Below Routes are currently not being used */}
+          <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
+          <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
+          <Route path={ROUTES.PERSONAL_INFO} component={PersonalInfo} />
           <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
-	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
-	  <Route path="/chatreppage/:id" render ={(props) => < ChatRepPage {...props} />} />
-	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
-          <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
+	        <Route path="/chatreppage/:id" render ={(props) => < ChatRepPage {...props} />} />
         </div>
       </Router>
     );

@@ -65,69 +65,66 @@ class LiveFeedFormBase extends Component {
 
   componentDidMount() {
     	
-	this.props.firebase.auth.currentUser.getIdToken()
-          .then(idToken => {
-            console.log("idToken in livefeed page: ", idToken);
+	  this.props.firebase.auth.currentUser.getIdToken()
+      .then(idToken => {
+        console.log("idToken in livefeed page: ", idToken);
             
-	    axios.defaults.headers.common['Authorization'] = idToken; 
+	      axios.defaults.headers.common['Authorization'] = idToken; 
 
-	    console.log('rep_is is', this.props.history.location.state.rep_id);	
-	     const id = this.props.history.location.state.rep_id;
+	      console.log('rep_is is', this.props.history.location.state.rep_id);	
+	      const id = this.props.history.location.state.rep_id;
 
-	     //axios call to get all the customer questions to display on representative dashboard		  
-	     const request = axios.get(`/api/customers/company/${id}`);
-
-                request.then(response => {
-                        console.log('query: ', response.data);
-			this.setState({queries: response.data, logged: true});
-
-			
-                })
-                .catch(err =>{
-                        console.log(err.message);
-                })
-
-	  })
-	  .catch(error => {
-	    console.log(error.message);	  
-            this.setState({ error:error });
+	      //axios call to get all the customer questions to display on representative dashboard		  
+	      const request = axios.get(`/api/customers/company/${id}`);
+        request
+          .then(response => {
+            console.log('query: ', response.data);
+			      this.setState({queries: response.data, logged: true});
           })
+            .catch(error => {  // if error from get customer queries for company
+            console.log(error.message);
+          })
+      })
+	    .catch(error => {   // if error from getIdToken
+	      console.log(error.message);	  
+        this.setState({ error:error });
+      })
 	  
-}  
-
-
+  }  
 
   render() {
-	  const { classes } = this.props;
-      return (
-        <div>
-	  <MuiThemeProvider>    
-	 <Typography color='inherit' variant='h4' align='center'>Message Queue</Typography><br/><br/>     
-	{this.state.queries.map((query, index) => {
-	 return(
-		<Paper key={index} className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={16}>
-                <Grid item>
-                </Grid>
-                <Grid item xs zeroMinWidth>
-		<Link to={`/chatreppage/${query.uid}`} key={index}>
-                <Typography color='primary' variant='h5' align='center' noWrap key={index}>Customer Question:{query.summary}</Typography>
-		 </Link>
-                </Grid>
-                </Grid>
+    const { classes } = this.props;
+    return (
+      <div>
+        <MuiThemeProvider>    
+          <Typography color='inherit' variant='h4' align='center'>Message Queue</Typography><br/><br/>     
+            {this.state.queries.map((query, index) => {
+              return(
+                <Paper key={index} className={classes.paper}>
+                  <Grid container wrap="nowrap" spacing={16}>
+                    <Grid item>
+                    </Grid>
+                    <Grid item xs zeroMinWidth>
+                      <Link to={`/chatreppage/${query.uid}`} key={index}>
+                        <Typography 
+                          color='primary' 
+                          variant='h5' 
+                          align='center' 
+                          noWrap 
+                          key={index}
+                        >
+                          Customer Question:{query.summary}
+                        </Typography>
+                      </Link>
+                    </Grid>
+                  </Grid>
                 </Paper>
-
-	 )	 
-  
-    	})
-	}
-	</MuiThemeProvider>      
-	</div>
-
+              )	 
+            })}
+        </MuiThemeProvider>      
+      </div>
     );
   }
-	      
-
 }
 
 LiveFeedFormBase.propTypes = {     

@@ -27,9 +27,9 @@ class LandingPage extends Component {
           <p>
             Welcome to Chattr, the new way to chat with your customers.
           </p>
-          {/* <Button variant="outlined" color="primary" className="upload-button">
+          <Button variant="outlined" color="primary" className="upload-button">
             Get Started
-          </Button> */}
+          </Button>
         </div>
       </div>
     );
