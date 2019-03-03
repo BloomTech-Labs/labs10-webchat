@@ -290,7 +290,7 @@ class AdminPanelBaseForm extends React.Component {
           </Table>
         </Paper>
         <br/>
-        <AddRepForm/>
+        <AddRepForm company_id={this.state.company_id}/>
 
             {/* <Button
               variant="outlined"

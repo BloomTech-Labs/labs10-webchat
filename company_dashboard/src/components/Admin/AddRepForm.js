@@ -25,7 +25,7 @@ class AddRepForm extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   onSubmit = () => {
-
+    console.log('AddRepForm company_id: ', this.props.company_id);
   };
 
   render() {
