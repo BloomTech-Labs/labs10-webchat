@@ -54,10 +54,11 @@ const query = db('representatives').where('company_id', company_id);
 function getDetails(id){
 const query = db
         .select([
+                "representatives.name as name",
                 "representatives.motto",
                 "representatives.company_id",
                 "representatives.image_id", 
-                "companies.name", 
+                "companies.name as company_name", 
                 "images.url"
         ])
         .from('representatives')
