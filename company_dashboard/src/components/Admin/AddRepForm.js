@@ -54,7 +54,7 @@ class AddRepForm extends React.Component {
           <DialogTitle id="form-dialog-title">Add a Team Member</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Enter the email address of a team member below to invite them to join.
+              Enter the email address of a team member below to invite them to join. They will be sent an email with a link to sign up.
             </DialogContentText>
             <TextField
               autoFocus
