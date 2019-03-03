@@ -84,7 +84,7 @@ class AdminPanelBaseForm extends React.Component {
   constructor(props){
     super(props);  
 	  this.state = {
-      companyname: '',
+      companyName: '',
       name: '',
       motto: '',
       image_id: '',
@@ -132,16 +132,16 @@ class AdminPanelBaseForm extends React.Component {
                 // console.log('compnay_id is', response.data.company_id);	
                 this.setState({
                   image_id: response.data.image_id, 
-                  company_id:response.data.company_id, 
-                  companyname: response.data.company_name, 
+                  company_id: response.data.company_id, 
+                  companyName: response.data.company_name, 
                   name: response.data.name,
                   motto: response.data.motto, 
-                  url:response.data.url, 
-                  logged:true, 
+                  url: response.data.url, 
+                  logged: true, 
                   allreps: reps.data
                 });  	
               })
-              .catch(error => {  // if get(`/api/reps/allreps/${id}`) throws error
+              .catch(error => {     // if get(`/api/reps/allreps/${id}`) throws error
                 console.log(error.message);
                 this.setState({error:error});
               });
@@ -210,7 +210,7 @@ class AdminPanelBaseForm extends React.Component {
               rowsMax={Infinity}
               fullWidth
               className={classes.TextField}
-              value={this.state.companyname}
+              value={this.state.companyName}
             />
         
             <p>Name</p>
