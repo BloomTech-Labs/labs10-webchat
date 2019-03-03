@@ -44,7 +44,7 @@ class RepLoginFormBase extends React.Component {
 		//const uid = authUser.user.uid;
 
 		const data ={uid: authUser.user.uid};
-               const request = axios.post('/api/reps/getbyUID', data);
+              	const request = axios.get('/api/reps/getbyUID');
   
                   request.then(response => {
                           console.log('rep_id is :', response.data.id);
