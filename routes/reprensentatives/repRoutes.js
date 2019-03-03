@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 		})
 });
 
-router.post('/getbyUID', (req, res) => {
+router.get('/getbyUID', (req, res) => {
 	console.log(req.body.uid);
 	const uid  = req.body.uid;
 	console.log('uid is', uid);
