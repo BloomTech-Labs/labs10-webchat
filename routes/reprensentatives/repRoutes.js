@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 		})
 });
 
-router.post('/getbyUID', (req, res) => {
+router.get('/getbyUID', (req, res) => {
 	console.log(req.body.uid);
 	const uid  = req.body.uid;
 	console.log('uid is', uid);
@@ -75,7 +75,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/adminpanel/:id', (req,res) => {
 	const id = req.params.id;
-        console.log('id is', id);
+        console.log('GET req at /adminpanel/:id -- id is ', id);
 
 	const request = db.getDetails(id);
 	request.then(details => {

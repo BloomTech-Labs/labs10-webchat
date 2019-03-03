@@ -52,11 +52,22 @@ const query = db('representatives').where('company_id', company_id);
 
 
 function getDetails(id){
-const query = db.select(["representatives.motto","representatives.company_id","representatives.image_id", "companies.name", "images.url"]).from
-('representatives').innerJoin('companies', 'representatives.company_id', 'companies.id').innerJoin('images', 'representatives.image_id','images.id').where('representatives.id', id);
+const query = db
+        .select([
+                "representatives.name as name",
+                "representatives.motto",
+                "representatives.company_id",
+                "representatives.image_id", 
+                "companies.name as company_name", 
+                "images.url"
+        ])
+        .from('representatives')
+        .innerJoin('companies', 'representatives.company_id', 'companies.id')
+        .innerJoin('images', 'representatives.image_id','images.id')
+        .where('representatives.id', id);
 
 	return query.then(details =>{
-		return details[0];
+	        return details[0];
 	});
 }
 

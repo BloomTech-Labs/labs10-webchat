@@ -15,13 +15,13 @@ class CustomerRequest extends Component {
     render() {
         return(
             <div>
-                <form onSubmit={this.sendData}}>
+                <form onSubmit={this.sendData}>
                     <input type="text" placeholder="What is your name"></input>
                     <input type="text" placeholder="Enter your email"></input>
                     <input type="text" placeholder="Enter your question"></input>
                 </form>
             </div>
-        );
+        )
     }
 };
 

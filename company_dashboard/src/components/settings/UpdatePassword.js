@@ -30,18 +30,7 @@ class UpdatePasswordFormBase extends React.Component {
             status: "Enter current credentials and new password."	    
         }
     }
-    componentDidMount() {
-        // let user = this.props.firebase.auth.currentUser;
-        // console.log("updatepassword user: ", user);
-        // const request = axios.get(`/api/reps/getbyUID`);
-        // request
-        //     .then(response => {
-        //         this.setState({ email: response.data.email });
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //     })
-    }
+    
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
@@ -143,6 +132,7 @@ class UpdatePasswordFormBase extends React.Component {
                             disabled={condition}
                         />
                         {error && <p>{error.message}</p>}
+                        <Link to="/adminsettings">Back to Account Settings</Link>
                     </form>
                 </div>
                 </MuiThemeProvider>
