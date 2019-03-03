@@ -133,7 +133,8 @@ class AdminPanelBaseForm extends React.Component {
                 this.setState({
                   image_id: response.data.image_id, 
                   company_id:response.data.company_id, 
-                  companyname: response.data.name, 
+                  companyname: response.data.company_name, 
+                  name: response.data.name,
                   motto: response.data.motto, 
                   url:response.data.url, 
                   logged:true, 
