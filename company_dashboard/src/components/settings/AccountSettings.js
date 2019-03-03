@@ -85,6 +85,10 @@ class AccountSettings extends React.Component {
       <div className="account-settings">
         <form noValidate autoComplete="off">
           <div className="left-container">
+
+            <Link to="/chatdashboard">Chat Dashboard</Link>
+            <br/>
+
             <TextField
               id="outlined-name"
               label="Name"
