@@ -316,7 +316,8 @@ router.post('/verifyemail', (req, res) => {
 		if (response_data) {
 			res.status(200).json(response_data.company_id);
 		} else {
-			res.status(400).json({ message: 'You are not approved to join this company.' });
+			console.log('Email not approved.');
+			return;
 		}
 	});
 
