@@ -19,6 +19,7 @@ import Modal from '@material-ui/core/Modal';
 import axios from 'axios';
 import UserImage from '../company/UserImage';
 import IconButton from '@material-ui/core/IconButton';
+import AddRepForm from './AddRepForm';
 import './AdminPanel.css';
 
 function rand() {
@@ -288,17 +289,19 @@ class AdminPanelBaseForm extends React.Component {
 
           </Table>
         </Paper>
+        <br/>
+        <AddRepForm/>
 
-            <Button
+            {/* <Button
               variant="outlined"
               color="primary"
               className="add-button"
               onClick={this.handleOpen}
             >
               Add Team Member
-            </Button>
+            </Button> */}
 
-            <Modal
+            {/* <Modal
               aria-labelledby="simple-modal-title"
               aria-describedby="simple-modal-description"
               open={this.state.open}
@@ -337,7 +340,7 @@ class AdminPanelBaseForm extends React.Component {
                   </Button>
                 </form>
               </div>
-            </Modal>
+            </Modal> */}
       </div>
     );
   }
