@@ -44,10 +44,11 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
         const {email, company_id} = req.body;
         const user = {email, company_id};
-
+        console.log("POST to /approvedemails, user: ", user);
         const request = db.insert(user);
 
         request.then(response =>{
+                console.log("email inserted into approved_emails");
                 const msg = {
                         to: email,
                         from: 'webchat@test.com',

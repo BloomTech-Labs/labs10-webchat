@@ -6,11 +6,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios';
 
 class AddRepForm extends React.Component {
   state = {
     open: false,
     email: '',
+    error: null
   };
 
   handleClickOpen = () => {
@@ -23,9 +25,19 @@ class AddRepForm extends React.Component {
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
+
   onSubmit = () => {
-    console.log('AddRepForm company_id: ', this.props.company_id);
+      const email = this.state.email;
+      const company_id = this.props.company_id;
+      const rep = { email, company_id };
+      axios.post('/api/approvedemails', rep)
+        .then(id => {
+            this.handleClose();
+        })
+        .catch(error => {
+            this.setState({ error: error.message });
+        })
   };
 
   render() {
@@ -66,6 +78,7 @@ class AddRepForm extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
+        {this.state.error && <p>{this.state.error}</p>}
       </div>
     );
   }
