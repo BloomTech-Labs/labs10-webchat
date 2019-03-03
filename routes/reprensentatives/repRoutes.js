@@ -132,10 +132,6 @@ router.get('/allreps/:id', (req,res) =>{
                 })
 });
 
-
-
-
-
 router.post('/admin', upload.single('file'),(req, res) => {
 
 	let {companyname, motto, phone_number, email, is_admin, uid} = req.body;
@@ -316,8 +312,7 @@ router.post('/verifyemail', (req, res) => {
 		if (response_data) {
 			res.status(200).json(response_data.company_id);
 		} else {
-			console.log('Email not approved.');
-			return;
+			res.status(400).json({ message: "Not an approved email. Register a new company or check with admin of existing company." });
 		}
 	});
 
