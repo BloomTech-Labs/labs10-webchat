@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 		})
 });
 
-router.post('/getbyUID', (req, res) => {
+router.get('/getbyUID', (req, res) => {
 	console.log(req.body.uid);
 	const uid  = req.body.uid;
 	console.log('uid is', uid);
@@ -75,7 +75,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/adminpanel/:id', (req,res) => {
 	const id = req.params.id;
-        console.log('id is', id);
+        console.log('GET req at /adminpanel/:id -- id is ', id);
 
 	const request = db.getDetails(id);
 	request.then(details => {
@@ -131,10 +131,6 @@ router.get('/allreps/:id', (req,res) =>{
                         res.status(500).json(err.message);
                 })
 });
-
-
-
-
 
 router.post('/admin', upload.single('file'),(req, res) => {
 
@@ -316,7 +312,7 @@ router.post('/verifyemail', (req, res) => {
 		if (response_data) {
 			res.status(200).json(response_data.company_id);
 		} else {
-			res.status(400).json({ message: 'You are not approved to join this company.' });
+			res.status(400).json({ message: "Not an approved email. Register a new company or check with admin of existing company." });
 		}
 	});
 

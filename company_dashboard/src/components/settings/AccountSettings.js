@@ -46,8 +46,8 @@ class AccountSettings extends React.Component {
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
-      console.log(response);
-      console.log(response.data);
+      console.log("Account Settings CDM getByUID response: ", response);
+      // console.log(response.data);
 
       this.setState({ 
         name: response.data.name,
@@ -125,6 +125,7 @@ class AccountSettings extends React.Component {
               margin="normal"
               variant="outlined"
             />
+<<<<<<< HEAD
 
             <TextField
               id="outlined-old-password-input"
@@ -144,6 +145,9 @@ class AccountSettings extends React.Component {
               variant="outlined"
             />
 
+=======
+            
+>>>>>>> be7250b83f18da70ac87d40ec324e02d1ebae293
             <Button variant="outlined" color="primary" className="save-button">
               Save
             </Button>
