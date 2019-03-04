@@ -96,7 +96,7 @@ class AdminPanelBaseForm extends React.Component {
       deleted: false,		
       logged: false,		
       codeSnippet: '',
-      allreps:[ ],		
+      allreps:[ ],		  
       team: {
         name: '',
         email: '',
@@ -188,7 +188,24 @@ class AdminPanelBaseForm extends React.Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    
+    // **** TESTING ****
+    console.log("Testing waters", event.target);
   };
+  // **** TESTING ****
+  changeToAdmin = () => {
+    console.log("changeToAdmin function", this.state.rep_id);
+    // Changing admin status in state, before grabbing admin status then sending request to change in database
+    // this.setState({ admin: !admin });
+    // Axios call to change admin status in database
+    const rep_id = this.state.rep_id;
+    // const request = axios.put(`/adminstatus/${rep_id}`);
+    // request
+    //  .then(response => {
+    // 
+    // })
+    // 
+  }
   
   render() {
     const { classes } = this.props;
@@ -273,6 +290,7 @@ class AdminPanelBaseForm extends React.Component {
                       <Checkbox
                         checked={this.state.admin}
                         onChange={this.handleChange}
+                        onClick={this.changeToAdmin}
                       />
                     </TableCell>
 
