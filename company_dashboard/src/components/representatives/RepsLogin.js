@@ -41,6 +41,7 @@ class RepLoginFormBase extends React.Component {
           axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
           this.setState({email: "", password: ""});
 
+
 		      //const uid = authUser.user.uid;
           // const data ={uid: authUser.user.uid};
           const request = axios.get('/api/reps/getbyUID');
