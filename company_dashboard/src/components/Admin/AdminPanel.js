@@ -194,8 +194,8 @@ class AdminPanelBaseForm extends React.Component {
 
   
   // **** TESTING ****
-  changeToAdmin = () => {
-    console.log("changeToAdmin function", this.state.rep_id);
+  changeAdminStatus = () => {
+    console.log("changeAdminStatus function", this.state.rep_id);
     // Changing admin status in state, before grabbing admin status then sending request to change in database
     // this.setState({ admin: !admin });
     // Axios call to change admin status in database
@@ -303,7 +303,7 @@ class AdminPanelBaseForm extends React.Component {
                       <Checkbox
                         checked={this.state.admin}
                         onChange={this.handleChange}
-                        onClick={this.changeToAdmin}
+                        onClick={this.changeAdminStatus}
                       />
                     </TableCell>
 
