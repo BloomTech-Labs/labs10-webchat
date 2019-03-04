@@ -10,6 +10,10 @@ class Queue extends React.Component {
         }
     }
 
+    componentDidMount() {
+        
+    }
+
     render() {
         return (
             <div>Queue</div>
