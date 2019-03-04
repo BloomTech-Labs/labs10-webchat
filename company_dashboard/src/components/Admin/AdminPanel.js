@@ -85,6 +85,7 @@ class AdminPanelBaseForm extends React.Component {
   constructor(props){
     super(props);  
 	  this.state = {
+      is_admin: '',
       companyName: '',
       name: '',
       motto: '',
@@ -199,12 +200,15 @@ class AdminPanelBaseForm extends React.Component {
     // this.setState({ admin: !admin });
     // Axios call to change admin status in database
     const rep_id = this.state.rep_id;
-    // const request = axios.put(`/adminstatus/${rep_id}`);
-    // request
-    //  .then(response => {
-    // 
-    // })
-    // 
+    const request = axios.put(`/adminstatus/${rep_id}`);
+    request
+     .then(response => {
+
+    })
+    .catch(error => {
+     console.log(error.message);
+     this.setState({ error: error });
+    });
   }
   
   render() {
