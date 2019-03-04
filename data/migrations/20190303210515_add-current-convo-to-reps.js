@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
         knex.schema.table('representatives', table => {
             table.integer('current_convo_id')
                 .references('id')
-                inTable('conversations');
+                .inTable('conversations');
         })
     ])
 };
