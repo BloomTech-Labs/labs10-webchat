@@ -3,8 +3,8 @@ import { Link, withRouter} from "react-router-dom"
 import axios from 'axios';
 
 class Queue extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             conversations: []
         }
@@ -14,6 +14,7 @@ class Queue extends React.Component {
         const getQueue = axios.get('/api/chat/queue')
         getQueue 
             .then(q => {
+                console.log("getQueue request success");
                 this.setState({ 
                     conversations: q.data  // q.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
                 });
@@ -32,7 +33,7 @@ class Queue extends React.Component {
                         <div 
                             className="convo-list-item" 
                             key={index}
-                            onClick={this.props.handleQeueConvoSelect(convo.convo_id)}
+                            onClick={() => this.props.handleQueueConvoSelect(convo.convo_id)}
                         >
                             <p>Customer: {convo.customer_name}</p>
                             

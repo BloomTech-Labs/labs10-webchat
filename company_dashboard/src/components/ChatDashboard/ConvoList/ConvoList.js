@@ -28,9 +28,13 @@ const styles = {
 };
 
 class ConvoList extends React.Component {
-    state = {
-      value: 1,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: 0,
+        };
+    }
+    
   
     handleTabChange = (event, value) => {
       this.setState({ value });
@@ -56,7 +60,7 @@ class ConvoList extends React.Component {
             </Paper>
 
             {/* {value === 0 && <TabContainer><ActiveConvos /></TabContainer>} */}
-            {value === 1 && <TabContainer><Queue handleQeueConvoSelect={this.props.handleQeueConvoSelect}/></TabContainer>}
+            {this.state.value === 0 && <TabContainer><Queue handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
         </NoSsr>
       );
     }

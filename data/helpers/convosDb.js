@@ -28,7 +28,7 @@ function getByRepUid(uid) {
 	});
 }
 
-// Remove a conversation from the Queue by changing in_queue boolean
+// Remove a conversation from the Queue by changing in_queue boolean to false
 function deQueue(id) {
     return db('conversations')
         .where('id', id)

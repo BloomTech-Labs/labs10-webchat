@@ -16,4 +16,16 @@ router.get('/queue', (req, res) => {
         })
 })
 
+router.put('./dequeue', (req, res) => {
+    const id = req.body.id
+    const request = convosDb.deQueue(id)
+    request
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json({ message: error.message });
+        })
+})
+
 module.exports = router;

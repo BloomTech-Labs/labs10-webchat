@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import axios from 'axios';
 
 import ConvoList from './ConvoList/ConvoList';
 import ChatView from './ChatView';
@@ -12,15 +13,24 @@ class ChatDashboard extends React.Component {
         this.state = {
             currentConvoId: null
         }
+        this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
     }
 
-    handleQeueConvoSelect(convo_id) {
+    handleQueueConvoSelect(convo_id) {
         // set rep current convo to selected convo:
         this.setState({
             currentConvoId: convo_id
         })
         // change convo in_q from true to false:
-        
+        const data = { id: convo_id };
+        const deQueueRequest = axios.put('/api/chat/dequeue', data);
+        deQueueRequest
+            .then(response => {
+                console.log("Conversation removed from Queue.")
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
 
     }
 
@@ -28,7 +38,7 @@ class ChatDashboard extends React.Component {
         return (
             <div className="chat-dashboard-container">
                 <div className="chat-dash-left-container">
-                    <ConvoList handleQeueConvoSelect={this.handleQeueConvoSelect}/>
+                    <ConvoList handleQueueConvoSelect={this.handleQueueConvoSelect}/>
                 </div>
                     
                 <div className="chat-dash-right-container">
