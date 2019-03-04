@@ -21,6 +21,7 @@ class ChatDashboard extends React.Component {
         this.setState({
             currentConvoId: convo_id
         })
+        console.log("ChatDashboard state.currentConvoId: ", this.state.currentConvoId);
         // change convo in_q from true to false:
         const data = { id: convo_id };
         const deQueueRequest = axios.put('/api/chat/dequeue', data);

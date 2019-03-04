@@ -16,9 +16,10 @@ router.get('/queue', (req, res) => {
         })
 })
 
-router.put('./dequeue', (req, res) => {
-    const id = req.body.id
-    const request = convosDb.deQueue(id)
+router.put('/dequeue', (req, res) => {
+    const id = req.body.id;
+    console.log("id in /dequeue endpoint: ", id);
+    const request = convosDb.deQueue(id);
     request
         .then(response => {
             res.status(200).json(response);

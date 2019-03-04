@@ -38,6 +38,8 @@ class Queue extends React.Component {
                             <p>Customer: {convo.customer_name}</p>
                             
                             <p>Summary: {convo.summary}</p>
+
+                            <p>Convo ID: {convo.convo_id}</p>
                         </div>
                     )
                 })}
