@@ -33,7 +33,7 @@ class Queue extends React.Component {
                         <div 
                             className="convo-list-item" 
                             key={index}
-                            onClick={() => this.props.handleQueueConvoSelect(convo.convo_id)}
+                            onClick={() => this.props.handleQueueConvoSelect(convo.convo_id, convo.customer_uid)}
                         >
                             <p>Customer: {convo.customer_name}</p>
                             

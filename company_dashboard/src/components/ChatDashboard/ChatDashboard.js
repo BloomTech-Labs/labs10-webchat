@@ -11,15 +11,17 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            currentConvoId: null
+            currentConvoId: null,
+            currentConvoSocket: null
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
     }
 
-    handleQueueConvoSelect(convo_id) {
+    handleQueueConvoSelect(convo_id, customer_uid) {
         // set rep current convo to selected convo:
         this.setState({
-            currentConvoId: convo_id
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid
         })
         console.log("ChatDashboard state.currentConvoId: ", this.state.currentConvoId);
         // change convo in_q from true to false:
@@ -43,7 +45,7 @@ class ChatDashboard extends React.Component {
                 </div>
                     
                 <div className="chat-dash-right-container">
-                    {/* <ChatView /> */}
+                    {/* <ChatView currentConvoId={this.sate.currentConvoId}/> */}
                     Chatview
                 </div> 
             </div>
