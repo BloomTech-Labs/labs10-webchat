@@ -191,24 +191,32 @@ class AdminPanelBaseForm extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
     
     // **** TESTING ****
-    console.log("Testing waters", event.target);
+    console.log("Testing waters", this.props);
   };
+
+  
   // **** TESTING ****
   changeToAdmin = () => {
     console.log("changeToAdmin function", this.state.rep_id);
     // Changing admin status in state, before grabbing admin status then sending request to change in database
     // this.setState({ admin: !admin });
     // Axios call to change admin status in database
+    const is_admin = this.state.is_admin;
     const rep_id = this.state.rep_id;
-    const request = axios.put(`/adminstatus/${rep_id}`);
+    const request = axios.put(`/adminstatus/${rep_id}`, {
+      is_admin: !is_admin
+    });
     request
      .then(response => {
-
+      console.log("Before Put Request", this.state.is_admin);
+      this.setState({ is_admin: response.data})
     })
     .catch(error => {
      console.log(error.message);
      this.setState({ error: error });
     });
+
+    console.log("After Put Request:", this.state.is_admin);
   }
   
   render() {
