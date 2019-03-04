@@ -9,11 +9,16 @@ const upload = multer({ dest: __dirname + '/files/' });
 const fs = require('fs');
 const cloudinary = require('cloudinary');
 
-
-
 if (process.env.ENVIRONMENT == 'development') {
   require('dotenv').config();
 }
+
+
+//redis setup
+var client = require('redis').createClient(process.env.REDIS_URL);
+var Redis = require('ioredis');
+var redis = new Redis(process.env.REDIS_URL);
+
 
 cloudinary.config({ 
   cloud_name:"dvgfmipda",
@@ -33,24 +38,55 @@ router.get('/', (req, res) => {
 });
 
 router.get('/getbyUID', (req, res) => {
-	console.log(req.body.uid);
 	const uid  = req.body.uid;
 	console.log('uid is', uid);
 	
-	const request = db.getByUid(uid);
-	request.then(response_data => { 
-		console.log(response_data);
-
-		if(response_data.length == 0) {
-			res.status(400).json({ error: "The representative with the specified id does not exist" });
-		} else {
-			console.log(response_data);
-			res.status(200).json(response_data);
+	
+	//using redis to cache representative details using uid, if a rep with incoming uid is present in redis storage, it will be read from redis instead of database to improve performance  
+	client.get(req.body.uid, (error, rep)=> {
+		if(error){
+			console.log(error);
+			res.status(500).json({error: error});
+			return;
 		}
-	})
-	.catch(err => {
-		res.status(500).json({ err: "Failed to retrieve representative details" });
-	})
+
+		if(rep){
+			console.log('inside client.get', JSON.parse(rep));   //redis stores values as key and value, does not store JSON objects, hence JSON objects need to be parsed after reading from redis since it is stringified while storing in redis
+			res.status(200).json(JSON.parse(rep));
+		
+		}
+		else{
+		const request = db.getByUid(uid);
+        	
+		request.then(response_data => { 
+                	console.log(response_data);
+
+                	if(response_data.length == 0) {
+                        	res.status(400).json({ error: "The representative with the specified id does not exist" });
+                	} 	
+			else {
+                        	console.log(response_data);	
+                        	res.status(200).json(response_data);
+
+		console.log('before client.set');
+		//if the requested rep with the specified uid is not present in redis, client.set() stores the rep details in redis using the uid as key and the rep details as the value associated with the key, it is stringified before being stored in redis 
+
+		client.set(req.body.uid, JSON.stringify(response_data), function(error) {
+		if(error){
+			console.log(error);
+			 res.status(500).json({ error: error });
+			}
+		});
+
+		}
+			
+        	})
+        	.catch(err => {
+                	res.status(500).json({ err: "Failed to retrieve representative details" });
+        	})
+
+	}
+})
 });
 
 router.get('/:id', (req, res) => {
