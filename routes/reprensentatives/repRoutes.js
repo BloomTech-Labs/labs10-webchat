@@ -307,7 +307,7 @@ router.put('/adminstatus/:id', (req, res) => {
         const user = {is_admin};
 
         console.log(user);
-        console.log(req.body);
+        // console.log(req.body);
 
 
         const request= db.update(id, user);

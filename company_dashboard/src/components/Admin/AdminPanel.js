@@ -21,6 +21,7 @@ import UserImage from '../company/UserImage';
 import IconButton from '@material-ui/core/IconButton';
 import AddRepForm from './AddRepForm';
 import './AdminPanel.css';
+import RepRecord from "./RepRecord";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -195,29 +196,33 @@ class AdminPanelBaseForm extends React.Component {
   
   // **** TESTING ****
   changeAdminStatus = () => {
-    console.log("changeAdminStatus function", this.state.rep_id);
     // Changing admin status in state, before grabbing admin status then sending request to change in database
     // this.setState({ admin: !admin });
     // Axios call to change admin status in database
-    const is_admin = this.state.is_admin;
     const rep_id = this.state.rep_id;
-    console.log("Testing", );
-    const data = {
-      is_admin: !this.state.allreps[0].is_admin
-    };
-    const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
-    console.log(this.state.allreps);
-    request
-     .then(response => {
-      console.log("Before Put Request", this.state.is_admin);
-      this.setState({ is_admin: response.data})
-    })
-    .catch(error => {
-     console.log(error.message);
-     this.setState({ error: error });
-    });
+    const is_admin = this.state.is_admin;
+    // const data = {
+    //   is_admin: !this.state.allreps[0].is_admin
+    // };
+    const updatedRep = this.state.allreps[0]
+    updatedRep.is_admin = !this.state.allreps[0].is_admin;
+    // this.setState({
+    //   allreps: updatedRep
+    // });
+    console.log(this.state.allreps[0].is_admin);
+    // const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
 
-    console.log("After Put Request:", this.state.is_admin);
+    // request
+    //  .then(response => {
+    //   console.log("Before Put Request", this.state.is_admin);
+    //   this.setState({ is_admin: response.data})
+    //   console.log("After Put Request:", this.state.is_admin);
+    // })
+    // .catch(error => {
+    //  console.log(error.message);
+    //  this.setState({ error: error });
+    // });
+
   }
   
   render() {
@@ -291,29 +296,7 @@ class AdminPanelBaseForm extends React.Component {
             <TableBody>
               {this.state.allreps.map(reps => {
                 return (
-                  <TableRow key={reps.id}>
-
-                    <TableCell component="th" scope="row">
-                      {reps.name}
-                    </TableCell>
-
-                    <TableCell>{reps.email}</TableCell>
-
-                    <TableCell>
-                      <Checkbox
-                        checked={this.state.admin}
-                        onChange={this.handleChange}
-                        onClick={this.changeAdminStatus}
-                      />
-                    </TableCell>
-
-                    <TableCell>
-                      <IconButton onClick={this.handleClick}>
-                          <DeleteIcon/>
-                      </IconButton>	
-                    </TableCell>
-
-                  </TableRow>
+                  <RepRecord />
                 );
               })}
             </TableBody>
