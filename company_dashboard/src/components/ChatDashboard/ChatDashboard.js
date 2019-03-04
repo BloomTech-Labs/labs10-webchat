@@ -14,11 +14,16 @@ class ChatDashboard extends React.Component {
         }
     }
 
+    handleQeueConvoSelect() {
+        // change convo in_q from true to false
+        // set rep current convo to selected convo
+    }
+
     render() {
         return (
             <div className="chat-dashboard-container">
                 <div className="chat-dash-left-container">
-                    <ConvoList />
+                    <ConvoList handleQeueConvoSelect={this.handleQeueConvoSelect}/>
                 </div>
                     
                 <div className="chat-dash-right-container">

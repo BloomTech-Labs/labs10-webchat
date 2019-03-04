@@ -32,7 +32,7 @@ class ConvoList extends React.Component {
       value: 1,
     };
   
-    handleChange = (event, value) => {
+    handleTabChange = (event, value) => {
       this.setState({ value });
     };
   
@@ -45,7 +45,7 @@ class ConvoList extends React.Component {
             <Paper className={classes.root}>
                 <Tabs
                     value={this.state.value}
-                    onChange={this.handleChange}
+                    onChange={this.handleTabChange}
                     indicatorColor="primary"
                     textColor="primary"
                     centered
@@ -56,7 +56,7 @@ class ConvoList extends React.Component {
             </Paper>
 
             {/* {value === 0 && <TabContainer><ActiveConvos /></TabContainer>} */}
-            {value === 1 && <TabContainer><Queue /></TabContainer>}
+            {value === 1 && <TabContainer><Queue handleQeueConvoSelect={this.props.handleQeueConvoSelect}/></TabContainer>}
         </NoSsr>
       );
     }
