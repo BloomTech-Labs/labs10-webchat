@@ -58,6 +58,7 @@ app.get('/',(req, res) => {
   res.send("Welcome to Webchat app....");
 });
 
+app.use('/api/chat', chatRoutes);
 // Any req coming into the server has to go through this verification:
 app.use(async(req,res) => {                         
   console.log(req.headers.authorization);

@@ -13,9 +13,15 @@ function getByRepUid(uid) {
             "representatives.company_id as rep_company_id",
             "conversations.customer_uid",
             "conversations.summary",
+            "customers.name as customer_name"
         ])
         .from("representatives")
         .innerJoin("conversations", "representatives.company_id", "conversations.company_id")
+        .innerJoin("customers", "conversations.customer_uid", "customers.uid")
         .where("representatives.uid", uid)
-        .where("conversations.in_q", true;
+        .where("conversations.in_q", true);
+
+    return query.then(details =>{
+	    return details;
+	});
 }
