@@ -1,7 +1,7 @@
 import React from "react";
 import { withFirebase } from "../Firebase";
 import { FirebaseContext } from '../Firebase';
-import { withRouter } from "react-router-dom"
+import { Link } from "react-router-dom"
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -46,8 +46,8 @@ class AccountSettings extends React.Component {
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
-      console.log(response);
-      console.log(response.data);
+      console.log("Account Settings CDM getByUID response: ", response);
+      // console.log(response.data);
 
       this.setState({ 
         name: response.data.name,
@@ -124,27 +124,11 @@ class AccountSettings extends React.Component {
               margin="normal"
               variant="outlined"
             />
-
-            <TextField
-              id="outlined-old-password-input"
-              label="Old Password"
-              className={classes.textField}
-              type="password"
-              margin="normal"
-              variant="outlined"
-            />
-
-            <TextField
-              id="outlined-new-password-input"
-              label="New Password"
-              className={classes.textField}
-              type="password"
-              margin="normal"
-              variant="outlined"
-            />
+            
             <Button variant="outlined" color="primary" className="save-button">
               Save
             </Button>
+            <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">

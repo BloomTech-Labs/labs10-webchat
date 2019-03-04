@@ -58,7 +58,7 @@ const request = axios.post('/api/reps/admin', data);
     
     request
       .then(response => {
-		    console.log(response.data);
+		    // console.log(response.data);
 
 		    //this.setState({logged:true});
 	
