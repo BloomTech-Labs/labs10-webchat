@@ -51,7 +51,6 @@ router.post('/', (req, res) => {
 
         request.then(response =>{
         //after the email is added to approved email table, an email is sent to the team member using sendgrid
-		const msg = {
                 console.log("email inserted into approved_emails");
                 const msg = {
                         to: email,
