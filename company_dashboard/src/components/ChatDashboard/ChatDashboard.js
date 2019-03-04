@@ -10,13 +10,18 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-
+            currentConvoId: null
         }
     }
 
-    handleQeueConvoSelect() {
-        // change convo in_q from true to false
-        // set rep current convo to selected convo
+    handleQeueConvoSelect(convo_id) {
+        // set rep current convo to selected convo:
+        this.setState({
+            currentConvoId: convo_id
+        })
+        // change convo in_q from true to false:
+        
+
     }
 
     render() {

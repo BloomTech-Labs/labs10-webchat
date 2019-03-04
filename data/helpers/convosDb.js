@@ -1,7 +1,8 @@
 const db = require('../db.js');
 
 module.exports = {
-    getByRepUid
+    getByRepUid,
+    deQueue
 }
 
 // Get conversation info to poppulate Queue using signed-in rep's uid
@@ -11,6 +12,7 @@ function getByRepUid(uid) {
         .select([
             "representatives.name as rep_name",
             "representatives.company_id as rep_company_id",
+            "conversations.id as convo_id",
             "conversations.customer_uid",
             "conversations.summary",
             "customers.name as customer_name"
@@ -25,3 +27,10 @@ function getByRepUid(uid) {
 	    return details;    // return full array of objects returned by query
 	});
 }
+
+// Remove a conversation from the Queue by changing in_queue boolean
+function deQueue(id) {
+    return db('conversations')
+        .where('id', id)
+        .update({ in_q: false });
+};
