@@ -7,6 +7,8 @@ if (process.env.ENVIRONMENT == 'development') {
   require('dotenv').config();
 }
 
+
+//sengrid 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
@@ -48,14 +50,16 @@ router.post('/', (req, res) => {
         const request = db.insert(user);
 
         request.then(response =>{
-                const msg = {
+        //after the email is added to approved email table, an email is sent to the team member using sendgrid
+		const msg = {
                         to: email,
                         from: 'webchat@test.com',
                         subject: 'Added as a team member by admin',
                         text: 'You have been  added to as a team member',
                         html: '<strong>Welcome to the team, go ahead and create an account at this link https://labs10-webchat.netlify.com</strong>',
                 };
-
+		
+		//using sendgrid to send the email
                 sgMail.send(msg);
                 console.log('success sending email');
                 res.status(200).json(response);
