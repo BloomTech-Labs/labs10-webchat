@@ -6,7 +6,7 @@ module.exports = {
 
 // Get conversation info to poppulate Queue using signed-in rep's uid
 // * Potential To-Do: get customer's name to display for the rep
-function getByRepUid() {
+function getByRepUid(uid) {
     const query = db
         .select([
             "representatives.name as rep_name",
