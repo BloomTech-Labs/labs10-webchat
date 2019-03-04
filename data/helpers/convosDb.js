@@ -21,7 +21,7 @@ function getByRepUid(uid) {
         .where("representatives.uid", uid)
         .where("conversations.in_q", true);
 
-    return query.then(details =>{
-	    return details;
+    return query.then(details => {
+	    return details;    // return full array of objects returned by query
 	});
 }

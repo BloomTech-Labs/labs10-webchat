@@ -3,12 +3,12 @@
     justify-content: space-between;
 }
 
-.left-container {
+.chat-dash-left-container {
     border: 1px solid black;
     width: 40%;
 }
 
-.right-container {
+.chat-dash-right-container {
     border: 1px solid black;
     width: 60%;
 }

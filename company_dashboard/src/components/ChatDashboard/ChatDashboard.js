@@ -17,11 +17,11 @@ class ChatDashboard extends React.Component {
     render() {
         return (
             <div className="chat-dashboard-container">
-                <div className="left-container">
+                <div className="chat-dash-left-container">
                     <ConvoList />
                 </div>
                     
-                <div className="right-container">
+                <div className="chat-dash-right-container">
                     {/* <ChatView /> */}
                     Chatview
                 </div> 
