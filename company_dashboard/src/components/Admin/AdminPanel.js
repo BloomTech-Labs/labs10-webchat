@@ -207,7 +207,6 @@ class AdminPanelBaseForm extends React.Component {
     };
     const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
     console.log(this.state.allreps);
-    console.log
     request
      .then(response => {
       console.log("Before Put Request", this.state.is_admin);
