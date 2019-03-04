@@ -296,7 +296,7 @@ class AdminPanelBaseForm extends React.Component {
             <TableBody>
               {this.state.allreps.map(reps => {
                 return (
-                  <RepRecord />
+                  <RepRecord key={reps.id} />
                 );
               })}
             </TableBody>
