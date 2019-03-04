@@ -85,7 +85,7 @@ class AdminPanelBaseForm extends React.Component {
   constructor(props){
     super(props);  
 	  this.state = {
-      is_admin: '',
+      is_admin: false,
       companyName: '',
       name: '',
       motto: '',
@@ -107,6 +107,7 @@ class AdminPanelBaseForm extends React.Component {
       open: false,
     }
   };
+  // All reps in a company
 
   
   componentDidMount() {
@@ -189,9 +190,6 @@ class AdminPanelBaseForm extends React.Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    
-    // **** TESTING ****
-    console.log("Testing waters", this.props);
   };
 
   
@@ -203,9 +201,13 @@ class AdminPanelBaseForm extends React.Component {
     // Axios call to change admin status in database
     const is_admin = this.state.is_admin;
     const rep_id = this.state.rep_id;
-    const request = axios.put(`/adminstatus/${rep_id}`, {
-      is_admin: !is_admin
-    });
+    console.log("Testing", );
+    const data = {
+      is_admin: !this.state.allreps[0].is_admin
+    };
+    const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
+    console.log(this.state.allreps);
+    console.log
     request
      .then(response => {
       console.log("Before Put Request", this.state.is_admin);
