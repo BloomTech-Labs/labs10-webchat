@@ -46,12 +46,14 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
         const {email, company_id} = req.body;
         const user = {email, company_id};
-
+        console.log("POST to /approvedemails, user: ", user);
         const request = db.insert(user);
 
         request.then(response =>{
         //after the email is added to approved email table, an email is sent to the team member using sendgrid
 		const msg = {
+                console.log("email inserted into approved_emails");
+                const msg = {
                         to: email,
                         from: 'webchat@test.com',
                         subject: 'Added as a team member by admin',

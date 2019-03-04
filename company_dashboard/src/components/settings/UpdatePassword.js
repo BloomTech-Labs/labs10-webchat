@@ -1,6 +1,6 @@
 import React from 'react';
 import { withFirebase } from "../Firebase";
-import { Link, withRouter, Route} from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -26,10 +26,11 @@ class UpdatePasswordFormBase extends React.Component {
             oldPassword: "",
             newPassword1: "",
             newPassword2: "",
-            error: null,	    
+            error: null,
+            status: "Enter current credentials and new password."	    
         }
-      }
-
+    }
+    
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
@@ -37,46 +38,70 @@ class UpdatePasswordFormBase extends React.Component {
     onSubmit = event => {
         const { email, oldPassword, newPassword1 } = this.state;
         this.props.firebase
-            .doPasswordUpdate(email, oldPassword, newPassword1)
-            .then(response => {
-                console.log("Password updated with response: ", response);
-                this.setState({
-                    email: "",
-                    oldPassword: "",
-                    newPassword1: "",
-                    newPassword2: ""
-                });
+            .doSignInWithEmailAndPassword(email, oldPassword)
+            .then(signInResponse => {
+                console.log('Sign in response: ', signInResponse);
+                this.props.firebase.doPasswordUpdate(newPassword1)
+                .then(updateResponse => {
+                    console.log("Update response: ", updateResponse);
+                    this.setState({
+                        email: "",
+                        oldPassword: "",
+                        newPassword1: "",
+                        newPassword2: "",
+                        status: "Your password was updated."
+                    });
+                })
+                .catch(error => {   // if updatePassword throws error
+                    console.log(error.message);
+                    this.setState({
+                        error: error
+                    });
+                })
             })
-            .catch(error => {
+            .catch(error => {      // if signIn throws error
                 console.log(error.message);
                 this.setState({
                     error: error
                 });
             })
+        event.preventDefault();
     };
 
     render() {
-        const {oldPassword, newPassword1, newPassword2, error, email} = this.state;
+        const { email, oldPassword, newPassword1, newPassword2, error } = this.state;
         
         const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
                 <MuiThemeProvider>
+                    <div>
                     <AppBar
                         title="Update Password"
                     />
-
+                    <br/>
+                    <div>{this.state.status}</div>
                     <form onSubmit={this.onSubmit}>
+                        <TextField
+                            hintText="Email"
+                            floatingLabelText="Email"
+                            name="email"
+                            type="text"
+                            required={true}
+                            value={this.state.email}
+                            onChange={this.onChange}
+                        />
+                        <br/>
+
                         <TextField
                             hintText="Old password"
                             floatingLabelText="Old Password"
-                            name="old_password"
+                            name="oldPassword"
                             type="password"
                             required={true}
                             value={this.state.oldPassword}
                             onChange={this.onChange}
-                      />
-	
+                        />
                         <br/>
 
                         <TextField
@@ -107,7 +132,9 @@ class UpdatePasswordFormBase extends React.Component {
                             disabled={condition}
                         />
                         {error && <p>{error.message}</p>}
+                        <Link to="/adminsettings">Back to Account Settings</Link>
                     </form>
+                </div>
                 </MuiThemeProvider>
             </div>
         )
