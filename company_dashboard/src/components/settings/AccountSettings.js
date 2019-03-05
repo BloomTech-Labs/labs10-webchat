@@ -40,6 +40,7 @@ class AccountSettings extends React.Component {
     phone_number: "",
     motto: "",
     selectedFile: null,
+    id: ""
   };
 
   componentDidMount() {
@@ -47,13 +48,14 @@ class AccountSettings extends React.Component {
 
     request.then(response => {
       console.log("Account Settings CDM getByUID response: ", response);
-      // console.log(response.data);
+      console.log(response.data);
 
       this.setState({ 
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
         motto: response.data.motto,
+        id: response.data.id
        });
        console.log(this.state.motto);
     })
@@ -74,6 +76,17 @@ class AccountSettings extends React.Component {
     event.preventDefault();
     const user = { ...this.state };
     console.log(user);
+
+    let id = this.state.id;
+
+    axios
+      .post(`/api/reps/update/${id}`, user)
+      .then(response => {
+        console.log("User info updated");
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
   }
 
   //Sets selectedFile in state after selecting an image
