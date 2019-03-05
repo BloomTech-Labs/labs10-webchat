@@ -68,6 +68,18 @@ const styles = theme => ({
   benefits: {
     width: 200,
     height: 150,
+  },
+  developers: {
+    fontSize: 20,
+  },
+  pic: {
+    width: 250,
+    height: 250,
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  icon: {
+    marginBottom: 25,
   }
 })
 
@@ -129,21 +141,101 @@ class LandingPage extends Component {
             </Typography>
           
             <div className={classes.columns}>
+              {/* <Grid item xs={12} sm={4}>
+                <Paper className={classes.benefits}>Track Conversations
+                  <br/>
+                  <p>Chattr lets you keep track and assign conversations so that the conversations doesn't get lost.</p>
+                </Paper>
+              </Grid> */}
               <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Fast response</Paper>
+                <Paper className={classes.benefits}>Quick response
+                  <br/>
+                  <p>With live chat, companies can quickly connect customers to customer service reps who can manage
+                  conversations with multiple customers.</p>
+                </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Quick response</Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Receive response</Paper>
+                <Paper className={classes.benefits}>Engage customers
+                  <br/>
+                  <p>Chattr are also used by sales and marketing teams to engage with interested potential customers.</p>
+                </Paper>
               </Grid>
             </div>
           </Grid>
         </Grid>  
 
         <Grid container spacing={24}>
-
+          <Grid item xs={12}>
+            <Typography className={classes.heading} variant='h3' gutterBottom>
+              Our Developers
+            </Typography>
+          </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.developers}>Sukhada Gholba
+                <br/>
+                
+                <br/>
+                <a href='https://github.com/sukhadagholba' className={classes.icon} target='_blank'>
+                  <i class="fab fa-github fa-lg"></i>
+                </a>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.developers}>Cameron Ray
+                <br/>
+                <img
+                  className={classes.pic}
+                  src={require("./images/Cameron.png")}
+                  alt="profilePic"
+                />
+                <br/>
+                <a href='https://github.com/upsmancsr' className={classes.icon} target='_blank'>
+                  <i class="fab fa-github fa-lg"></i>
+                </a>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Paper className={classes.developers}>Linda Yang
+                <br/>
+                <img
+                  className={classes.pic}
+                  src={require("./images/Linda.png")}
+                  alt="profilePic"
+                />
+                <br/>
+                <a href='https://github.com/lyang9' className={classes.icon} target='_blank'>
+                  <i class="fab fa-github fa-lg"></i>
+                </a>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Paper className={classes.developers}>Wonjae Hwang
+                <br/>
+                <img
+                  className={classes.pic}
+                  src={require("./images/Wonjae.png")}
+                  alt="profilePic"
+                />
+                <br/>
+                <a href='https://github.com/verydecent' className={classes.icon} target='_blank'>
+                  <i class="fab fa-github fa-lg"></i>
+                </a>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Paper className={classes.developers}>Jennifer Player
+                <br/>
+                <img
+                  className={classes.pic}
+                  src={require("./images/Jennifer.jpg")}
+                  alt="profilePic"
+                />
+                <br/>
+                <a href='https://github.com/chainchompa' className={classes.icon} target='_blank'>
+                  <i class="fab fa-github fa-lg"></i>
+                </a>
+              </Paper>
+            </Grid>
         </Grid>
       </div>
       
