@@ -3,7 +3,8 @@ const db = require('../db.js');
 module.exports = {
     getQueue,
     deQueue,
-    getActive
+    getActive,
+    close
 }
 
 // Get conversation info to poppulate Queue using signed-in rep's uid
@@ -58,3 +59,8 @@ function getActive(uid) {
 	});
 }
 
+function close(id) {
+    return db('conversations')
+        .where('id', id)
+        .update({ is_open: false });
+};

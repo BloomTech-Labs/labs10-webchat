@@ -19,7 +19,6 @@ router.get('/queue', (req, res) => {
 // Remove conversation from Queue by changing in_q to false
 router.put('/dequeue', (req, res) => {
     const id = req.body.id;
-    console.log("id in /dequeue endpoint: ", id);
     const request = convosDb.deQueue(id);
     request
         .then(response => {
@@ -34,6 +33,19 @@ router.put('/dequeue', (req, res) => {
 router.get('/active', (req, res) => {
     const uid  = req.body.uid;      // uid should come from server auth sequence based on rep's idToken
     const request = convosDb.getActive(uid);
+    request
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json({ message: error.message });
+        })
+})
+
+// Close a conversation
+router.put('/close', (req, res) => {
+    const id = req.body.id;
+    const request = convosDb.close(id);
     request
         .then(response => {
             res.status(200).json(response);
