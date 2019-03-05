@@ -58,7 +58,8 @@ class RepRecord extends React.Component {
         console.log(error.message);
       });
 
-    this.props.reloadRecords()
+      // Dynamic reloader hold off for now
+    // this.props.reloadRecords()
   }
 
   render() {
