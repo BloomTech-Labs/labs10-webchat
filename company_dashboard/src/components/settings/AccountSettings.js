@@ -37,7 +37,7 @@ class AccountSettings extends React.Component {
   state = {
     name: "",
     email: "",
-    phone_number: "",
+    phone_number: 0,
     motto: "",
     selectedFile: null,
     id: ""
@@ -74,13 +74,17 @@ class AccountSettings extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const user = { ...this.state };
+    const user = {
+      name: this.state.name,
+      phone_number: this.state.phone_number,
+      motto: this.state.motto,
+      email: this.state.email,
+      id: this.state.id  
+    };
     console.log(user);
 
-    let id = this.state.id;
-
     axios
-      .post(`/api/reps/update/${id}`, user)
+      .put(`/api/reps/updaterepinfo`, user)
       .then(response => {
         console.log("User info updated");
       })
@@ -141,7 +145,7 @@ class AccountSettings extends React.Component {
               label="Phone Number"
               className={classes.textField}
               value={this.state.phone_number}
-              onChange={this.handleChange("phone")}
+              onChange={this.handleChange("phone_number")}
               margin="normal"
               variant="outlined"
             />
