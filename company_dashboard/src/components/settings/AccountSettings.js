@@ -69,6 +69,13 @@ class AccountSettings extends React.Component {
       [name]: event.target.value
     });
   };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const user = { ...this.state };
+    console.log(user);
+  }
+
   //Sets selectedFile in state after selecting an image
   fileChangedHandler = (event) => {
     this.setState({ selectedFile: event.target.file });
@@ -126,7 +133,7 @@ class AccountSettings extends React.Component {
               variant="outlined"
             />
             
-            <Button variant="outlined" color="primary" className="save-button">
+            <Button variant="outlined" color="primary" className="save-button" onClick={this.handleSubmit} >
               Save
             </Button>
             <Link to="/updatepassword">Update Password</Link>
