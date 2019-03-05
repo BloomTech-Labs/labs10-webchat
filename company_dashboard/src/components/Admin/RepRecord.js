@@ -19,28 +19,46 @@ class RepRecord extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      is_admin: false,
+      is_admin: this.props.rep.is_admin,
     }
   }
 
   componentDidMount() {
-    this.setState({
-      is_admin: this.props.rep.is_admin
-    });
+    // this.setState({
+    //   is_admin: this.props.rep.is_admin
+    // });
     console.log(this.state.is_admin);
   }
 
   changeAdminStatus = () => {
     /*
     [x] Change state is_admin
+    [x] Put request to change is_admin in database
     [x] Reload records in Admin Panel from where this was initialized
-    [] Put request to change is_admin in database
     [] Async await for clean render transitioning
     */
+
     this.setState({
       is_admin: !this.state.is_admin
     });
-    this.state.reloadRecords()
+
+    const data = {
+      is_admin: !this.state.is_admin
+    }
+    console.log("Put request data", data);
+    const rep_id = this.props.rep.id;
+
+    const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
+
+    request
+      .then(response => {
+        console.log("Admin status updated", response);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+
+    this.props.reloadRecords()
   }
 
   render() {
