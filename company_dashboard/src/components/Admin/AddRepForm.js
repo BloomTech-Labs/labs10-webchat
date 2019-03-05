@@ -28,11 +28,13 @@ class AddRepForm extends React.Component {
   };
 
   onSubmit = () => {
+      console.log("Submitting Add a team member");
       const email = this.state.email;
       const company_id = this.props.company_id;
       const rep = { email, company_id };
       axios.post('/api/approvedemails', rep)
         .then(id => {
+            console.log(id);
             this.handleClose();
         })
         .catch(error => {

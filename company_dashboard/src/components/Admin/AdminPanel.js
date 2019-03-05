@@ -20,8 +20,8 @@ import axios from 'axios';
 import UserImage from '../company/UserImage';
 import IconButton from '@material-ui/core/IconButton';
 import AddRepForm from './AddRepForm';
+import RepRecord from './RepRecord';
 import './AdminPanel.css';
-import RepRecord from "./RepRecord";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -162,7 +162,6 @@ class AdminPanelBaseForm extends React.Component {
   }
   
   handleClick = () => {
-    // console.log(id);
     const id = this.state.rep_id;
     const request = axios.delete(`/api/reps/${id}`);
     request
@@ -196,20 +195,21 @@ class AdminPanelBaseForm extends React.Component {
   
   // **** TESTING ****
   changeAdminStatus = () => {
+    console.log(this.props.history)
     // Changing admin status in state, before grabbing admin status then sending request to change in database
     // this.setState({ admin: !admin });
     // Axios call to change admin status in database
-    const rep_id = this.state.rep_id;
-    const is_admin = this.state.is_admin;
+    // const rep_id = this.state.rep_id;
+    // const is_admin = this.state.is_admin;
     // const data = {
     //   is_admin: !this.state.allreps[0].is_admin
     // };
-    const updatedRep = this.state.allreps[0]
-    updatedRep.is_admin = !this.state.allreps[0].is_admin;
+    // const updatedRep = this.state.allreps[0]
+    // updatedRep.is_admin = !this.state.allreps[0].is_admin;
     // this.setState({
     //   allreps: updatedRep
     // });
-    console.log(this.state.allreps[0].is_admin);
+    // console.log(this.state.allreps[0].is_admin);
     // const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
 
     // request
@@ -230,9 +230,9 @@ class AdminPanelBaseForm extends React.Component {
       
     return (
       <div className='admin-panel'>
-        <Typography variant='display1' align='center' gutterBottom>
+        {/* <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
-        </Typography>
+        </Typography> */}
 
 		    {this.state.logged ? (<UserImage url={this.state.url} />):(<p>Image</p>)}
 
@@ -294,9 +294,9 @@ class AdminPanelBaseForm extends React.Component {
             </TableHead>
 
             <TableBody>
-              {this.state.allreps.map(reps => {
+              {this.state.allreps.map((rep, index) => {
                 return (
-                  <RepRecord key={reps.id} />
+                  <RepRecord key={index} fields={rep}/>
                 );
               })}
             </TableBody>

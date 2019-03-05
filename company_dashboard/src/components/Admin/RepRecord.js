@@ -15,8 +15,8 @@ import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
 
 class RepRecord extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       test: ''
     }
@@ -24,33 +24,31 @@ class RepRecord extends React.Component {
 
   render() {
     return (
-      <div className="Rep-Record">
-        <TableRow>
+      <TableRow>
 
-          <TableCell component="th" scope="row">
-            {/* {reps.name} */}
-          </TableCell>
+        <TableCell component="th" scope="row">
+          {this.props.fields.name}
+        </TableCell>
 
-          <TableCell>
-            {/* {reps.email} */}
-          </TableCell>
+        <TableCell>
+          {this.props.fields.email}
+        </TableCell>
 
-          <TableCell>
-            <Checkbox
-            checked={this.state.admin}
-            onChange={this.handleChange}
-            onClick={this.changeAdminStatus}
-            />
-          </TableCell>
+        <TableCell>
+          <Checkbox
+          // checked={this.state.admin}
+          onChange={this.handleChange}
+          onClick={this.changeAdminStatus}
+          />
+        </TableCell>
 
-          <TableCell>
-            <IconButton onClick={this.handleClick}>
-              <DeleteIcon/>
-            </IconButton>	
-          </TableCell>
+        <TableCell>
+          <IconButton onClick={this.handleClick}>
+            <DeleteIcon/>
+          </IconButton>	
+        </TableCell>
 
-        </TableRow>
-      </div>
+      </TableRow>
     )
   }
 }
