@@ -25,6 +25,10 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
+  logo: {
+    width: 80,
+    height: 55,
+  },
   home: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
@@ -95,7 +99,11 @@ class LandingPage extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Chattr
+              <img
+                className={classes.logo}
+                src={require("./images/logo.png")}
+                alt="logo"
+              />
             </Typography>
             <Button size="large" color="primary"> 
               <Link to={ROUTES.BILLING}>Billing</Link>
