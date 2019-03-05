@@ -188,9 +188,9 @@ class AdminPanelBaseForm extends React.Component {
         })
   };
 
-  reloadRecords = () => {
+  reloadRecords = (company_id) => {
     console.log("reloadRecords");
-    const app_req = axios.get(`/api/reps/company/${comp_id}`);
+    const app_req = axios.get(`/api/reps/company/${company_id}`);
     app_req
       .then(r => {
         // console.log('all reps are:', r.data);
@@ -224,7 +224,7 @@ class AdminPanelBaseForm extends React.Component {
     //   allreps: updatedRep
     // });
     // console.log(this.state.allreps[0].is_admin);
-    const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
+    // const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
 
     // request
     //  .then(response => {
