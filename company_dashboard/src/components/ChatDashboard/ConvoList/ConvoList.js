@@ -59,7 +59,7 @@ class ConvoList extends React.Component {
                 </Tabs>
             </Paper>
 
-            {/* {value === 0 && <TabContainer><ActiveConvos /></TabContainer>} */}
+            {/* {value === 0 && <TabContainer><ActiveConvos handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>} */}
             {this.state.value === 0 && <TabContainer><Queue handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
         </NoSsr>
       );

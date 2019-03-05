@@ -16,7 +16,10 @@ class ChatDashboard extends React.Component {
             currentConvoSummary: null
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
+        this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
+
     }
+
 
     handleQueueConvoSelect(convo_id, customer_uid, summary) {
         // set rep current convo to selected convo:
@@ -37,6 +40,15 @@ class ChatDashboard extends React.Component {
                 console.log(error.message);
             })
 
+    }
+
+    handleActiveConvoSelect(convo_id, customer_uid, summary) {
+        this.setState({
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid,
+            currentConvoSummary: summary
+        })
+        console.log("ChatDashboard state.currentConvoId: ", this.state.currentConvoId);
     }
 
     render() {

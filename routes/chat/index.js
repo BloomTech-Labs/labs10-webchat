@@ -6,7 +6,7 @@ const messagesDb = require('../../data/helpers/messagesDb');
 // Get all conversations in queue using uid of signed-in rep:
 router.get('/queue', (req, res) => {
     const uid  = req.body.uid;      // uid should come from server auth sequence based on rep's idToken
-    const request = convosDb.getByRepUid(uid);
+    const request = convosDb.getQueue(uid);
     request
         .then(response => {
             res.status(200).json(response);
@@ -28,5 +28,7 @@ router.put('/dequeue', (req, res) => {
             res.status(500).json({ message: error.message });
         })
 })
+
+
 
 module.exports = router;
