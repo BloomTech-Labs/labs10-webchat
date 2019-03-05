@@ -188,19 +188,19 @@ class AdminPanelBaseForm extends React.Component {
         })
   };
 
-  reloadRecords = (company_id) => {
-    console.log("reloadRecords");
-    const app_req = axios.get(`/api/reps/company/${company_id}`);
-    app_req
-      .then(r => {
-        // console.log('all reps are:', r.data);
-        this.setState({allreps: r.data});
-      })
-      .catch(error => {
-        console.log(error.message);
-        this.setState({error:error});
-      });
-  }
+  // reloadRecords = (company_id) => {
+  //   console.log("reloadRecords");
+  //   const app_req = axios.get(`/api/reps/company/${company_id}`);
+  //   app_req
+  //     .then(r => {
+  //       // console.log('all reps are:', r.data);
+  //       this.setState({allreps: r.data});
+  //     })
+  //     .catch(error => {
+  //       console.log(error.message);
+  //       this.setState({error:error});
+  //     });
+  // }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
