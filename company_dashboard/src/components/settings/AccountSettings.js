@@ -125,29 +125,7 @@ class AccountSettings extends React.Component {
               margin="normal"
               variant="outlined"
             />
-<<<<<<< HEAD
-
-            <TextField
-              id="outlined-old-password-input"
-              label="Old Password"
-              className={classes.textField}
-              type="password"
-              margin="normal"
-              variant="outlined"
-            />
-
-            <TextField
-              id="outlined-new-password-input"
-              label="New Password"
-              className={classes.textField}
-              type="password"
-              margin="normal"
-              variant="outlined"
-            />
-
-=======
             
->>>>>>> be7250b83f18da70ac87d40ec324e02d1ebae293
             <Button variant="outlined" color="primary" className="save-button">
               Save
             </Button>
@@ -157,7 +135,7 @@ class AccountSettings extends React.Component {
             <div className="profile-picture">
               <img
                 src="https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzYwMjg2MjIw/nicolas-cage-9234498-1-402.jpg"
-                alt="profile picture"
+                alt="profilePicture"
               />
               <h2>Your Profile Photo</h2>
               <input
