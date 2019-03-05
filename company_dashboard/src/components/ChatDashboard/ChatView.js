@@ -14,7 +14,17 @@ class ChatView extends React.Component {
 
     componentDidMount() {
         // subscribe to socket room
-        // TO-DO: get all messages in the convo
+        // get all messages in the convo
+    }
+
+    render() {
+        const summary = this.props.summary;
+        return (
+            <div>
+                
+                {summary ? (<p>{summary}</p>) : (<p>No summary yet</p>)}
+            </div>
+        );
     }
 
 }
