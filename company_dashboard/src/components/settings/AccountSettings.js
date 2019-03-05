@@ -39,23 +39,19 @@ class AccountSettings extends React.Component {
     email: "",
     phone_number: "",
     motto: "",
-    selectedFile: null
+    selectedFile: null,
   };
 
   componentDidMount() {
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
-      console.log("Account Settings CDM getByUID response: ", response);
-      // console.log(response.data);
-
       this.setState({ 
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
         motto: response.data.motto,
        });
-       console.log(this.state.motto);
     })
     .catch(err => {
       console.log(err.message);
@@ -78,13 +74,18 @@ class AccountSettings extends React.Component {
     console.log(this.state.selectedFile);
   };
 
+
   render() {
     const { classes } = this.props;
 
     return (
       <div className="account-settings">
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
+
+            <Link to="/chatdashboard">Chat Dashboard</Link>
+            <br/>
+
             <TextField
               id="outlined-name"
               label="Name"
@@ -134,7 +135,7 @@ class AccountSettings extends React.Component {
             <div className="profile-picture">
               <img
                 src="https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzYwMjg2MjIw/nicolas-cage-9234498-1-402.jpg"
-                alt="profile picture"
+                alt="profilePicture"
               />
               <h2>Your Profile Photo</h2>
               <input

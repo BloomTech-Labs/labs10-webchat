@@ -17,3 +17,5 @@ export const DUMMY_PAGE = '/plumbing';
 export const UPDATE_PASSWORD = '/updatepassword';
 export const CHAT_REP_PAGE = '/chatreppage';
 export const LIVE_FEED = '/livefeed';
+export const CHAT_DASHBOARD = '/chatdashboard';
+export const BILLING = '/billing';
