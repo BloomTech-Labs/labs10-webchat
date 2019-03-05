@@ -188,6 +188,11 @@ class AdminPanelBaseForm extends React.Component {
         })
   };
 
+  reloadRecords = () => {
+    console.log("reloadRecords");
+    
+  }
+
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -195,11 +200,11 @@ class AdminPanelBaseForm extends React.Component {
   
   // **** TESTING ****
   changeAdminStatus = () => {
-    console.log(this.props.history)
+    console.log(this.props.rep)
     // Changing admin status in state, before grabbing admin status then sending request to change in database
     // this.setState({ admin: !admin });
     // Axios call to change admin status in database
-    // const rep_id = this.state.rep_id;
+    const rep_id = this.state.rep_id;
     // const is_admin = this.state.is_admin;
     // const data = {
     //   is_admin: !this.state.allreps[0].is_admin
@@ -210,7 +215,7 @@ class AdminPanelBaseForm extends React.Component {
     //   allreps: updatedRep
     // });
     // console.log(this.state.allreps[0].is_admin);
-    // const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
+    const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
 
     // request
     //  .then(response => {
@@ -295,6 +300,7 @@ class AdminPanelBaseForm extends React.Component {
 
             <TableBody>
               {this.state.allreps.map((rep, index) => {
+                console.log("representative", rep)
                 return (
                   <RepRecord 
                   key={index} 
