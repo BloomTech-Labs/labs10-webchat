@@ -34,7 +34,8 @@ function LinkTab(props) {
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    user: null
   }
 };
 
@@ -56,7 +57,7 @@ class SettingsNavigation extends React.Component {
         phone_number: response.data.phone_number,
         motto: response.data.motto,
        });
-       console.log(this.state.motto);
+       console.log(this.state);
     })
     .catch(err => {
       console.log(err.message);
