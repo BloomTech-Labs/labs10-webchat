@@ -36,6 +36,7 @@ class ChatView extends React.Component {
         super(props);
         this.state = {
             uid: this.props.currentConvoSocket,
+            currentConvoId: this.props.currentConvoId,
             message: '',
             messages: []
         };
@@ -52,9 +53,6 @@ class ChatView extends React.Component {
                 messages: [...this.state.messages, data]
             });
         }  
-    
-        // this.onSubmit = this.onSubmit.bind(this);
-        // this.addMessage = this.addMessage.bind(this);
     }
 
     
@@ -78,8 +76,6 @@ class ChatView extends React.Component {
         // console.log("ChatView onChange new state: ", this.state.message);
     };
 
-      
-
     render() {
         const { classes } = this.props;
             return(
@@ -93,13 +89,13 @@ class ChatView extends React.Component {
                         <div>
                         </div>
                         <AppBar
-                            title="Employee Chat Panel"
+                            title="Current Conversation"
                         />
                         <br/>
                         <br/>
                         <div className={classes.root}>
                         <div className="messages">
-                            {this.props.summary ? (<p>{this.props.summary}</p>) : (<p>No Summary</p>)}
+                            {this.props.summary ? (<p>{this.props.summary}</p>) : (<p>No Active Conversation</p>)}
                             {this.state.messages.map((message, index) => {
                                 return(
                                     <Paper key={index} className={classes.paper}>
@@ -143,6 +139,13 @@ class ChatView extends React.Component {
                             />
 
                         </form>
+                        <br/>
+                        <RaisedButton
+                                label="End Conversation"
+                                secondary={true}
+                                onClick={this.props.closeConvo}
+                        />
+                        
                 </div>
                 </div>
                 </div>

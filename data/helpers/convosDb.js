@@ -4,10 +4,10 @@ module.exports = {
     getQueue,
     deQueue,
     getActive,
-    close
+    closeConvo
 }
 
-// Get conversation info to poppulate Queue using signed-in rep's uid
+// Get conversation info to populate Queue using signed-in rep's uid
 function getQueue(uid) {
     const query = db
         .select([
@@ -59,7 +59,7 @@ function getActive(uid) {
 	});
 }
 
-function close(id) {
+function closeConvo(id) {
     return db('conversations')
         .where('id', id)
         .update({ is_open: false });

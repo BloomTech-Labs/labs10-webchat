@@ -17,7 +17,7 @@ class ChatDashboard extends React.Component {
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
         this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
-
+        this.closeConvo = this.closeConvo.bind(this);
     }
 
 
@@ -29,7 +29,6 @@ class ChatDashboard extends React.Component {
             currentConvoSummary: summary
         })
         console.log("ChatDashboard state.currentConvoId: ", this.state.currentConvoId);
-        // change convo in_q from true to false:
         const data = { id: convo_id };
         const deQueueRequest = axios.put('/api/chat/dequeue', data);
         deQueueRequest
@@ -55,6 +54,17 @@ class ChatDashboard extends React.Component {
 
     }
 
+    closeConvo() {
+        const data = { id: this.state.currentConvoId };
+        console.log("close convo data: ", data);
+        axios.put('/api/chat/close', data)
+        .then(response => {
+            console.log("Conversation closed.")
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }
 
     render() {
         return (
@@ -68,11 +78,11 @@ class ChatDashboard extends React.Component {
                     
                 <div className="chat-dash-right-container">
                     <ChatView 
-                        convoId={this.state.currentConvoId}
+                        currentConvoId={this.state.currentConvoId}
                         currentConvoSocket={this.state.currentConvoSocket}
                         summary={this.state.currentConvoSummary}
+                        closeConvo={this.closeConvo}
                     />  
-                    Chatview
                 </div> 
             </div>
         );

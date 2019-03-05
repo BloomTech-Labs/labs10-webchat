@@ -45,7 +45,7 @@ router.get('/active', (req, res) => {
 // Close a conversation
 router.put('/close', (req, res) => {
     const id = req.body.id;
-    const request = convosDb.close(id);
+    const request = convosDb.closeConvo(id);
     request
         .then(response => {
             res.status(200).json(response);
