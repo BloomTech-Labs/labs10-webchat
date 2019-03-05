@@ -31,7 +31,7 @@ class ConvoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0,
+            value: 1,
         };
     }
     
@@ -54,13 +54,13 @@ class ConvoList extends React.Component {
                     textColor="primary"
                     centered
                 >
-                    {/* <Tab label="Active" /> */}
+                    <Tab label="Active" />
                     <Tab label="Queue" />
                 </Tabs>
             </Paper>
 
-            {/* {value === 0 && <TabContainer><ActiveConvos handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>} */}
-            {this.state.value === 0 && <TabContainer><Queue handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
+            {value === 0 && <TabContainer><ActiveConvos handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
+            {this.state.value === 1 && <TabContainer><Queue handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
         </NoSsr>
       );
     }
