@@ -42,26 +42,26 @@ class AccountSettings extends React.Component {
     selectedFile: null
   };
 
-  componentDidMount() {
-    const request = axios.get(`/api/reps/getbyUID`);
+  // componentDidMount() {
+  //   const request = axios.get(`/api/reps/getbyUID`);
 
-    request.then(response => {
-      console.log("Account Settings CDM getByUID response: ", response);
-      // console.log(response.data);
+  //   request.then(response => {
+  //     console.log("Account Settings CDM getByUID response: ", response);
+  //     // console.log(response.data);
 
-      this.setState({ 
-        name: response.data.name,
-        email: response.data.email,
-        phone_number: response.data.phone_number,
-        motto: response.data.motto,
-       });
-       console.log(this.state.motto);
-    })
-    .catch(err => {
-      console.log(err.message);
-      this.setState({ error: err });
-    })
-  }
+  //     this.setState({ 
+  //       name: response.data.name,
+  //       email: response.data.email,
+  //       phone_number: response.data.phone_number,
+  //       motto: response.data.motto,
+  //      });
+  //      console.log(this.state.motto);
+  //   })
+  //   .catch(err => {
+  //     console.log(err.message);
+  //     this.setState({ error: err });
+  //   })
+  // }
 
   //Sets Input to state
   handleChange = name => event => {
