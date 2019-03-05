@@ -42,7 +42,7 @@ const styles = {
 class SettingsNavigation extends React.Component {
   state = {
     value: 1,
-    user: null
+    is_admin: null
   };
 
   componentDidMount() {
@@ -53,14 +53,18 @@ class SettingsNavigation extends React.Component {
       // console.log(response.data);
 
       this.setState({ 
-        user: response.data
+        is_admin: response.data.is_admin
        });
-       console.log(this.state);
+
     })
     .catch(err => {
       console.log(err.message);
       this.setState({ error: err });
     })
+    setTimeout(() => {
+      console.log(this.state.is_admin);
+
+    }, 5000)
   }
 
   handleChange = (event, value) => {
@@ -70,9 +74,10 @@ class SettingsNavigation extends React.Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-
-    return (
-      <NoSsr>
+    const adminStatus = this.state.is_admin;
+    if(adminStatus) {
+      return (
+        <NoSsr>
         <Paper className={classes.root}>
           <Tabs
             value={this.state.value}
@@ -80,17 +85,36 @@ class SettingsNavigation extends React.Component {
             indicatorColor="primary"
             textColor="primary"
             centered
-          >
-            <LinkTab label="Team Billing" />
-            <LinkTab label="Account Settings" />
-            <LinkTab label="Admin Panel"/>
+            >
+              <LinkTab label="Team Billing" />
+              <LinkTab label="Admin Panel"/>
           </Tabs>
         </Paper>
         {value === 0 && <TabContainer><Billing /></TabContainer>}
         {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
         {value === 2 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
       </NoSsr>
-    );
+      )
+    } else {
+      return (
+        <NoSsr>
+          <Paper className={classes.root}>
+            <Tabs
+              value={this.state.value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+              >
+                <LinkTab label="Account Settings" />
+            </Tabs>
+          </Paper>
+          {value === 0 && <TabContainer><Billing /></TabContainer>}
+          {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
+          {value === 2 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
+        </NoSsr>
+      )
+    }
   }
 }
 
