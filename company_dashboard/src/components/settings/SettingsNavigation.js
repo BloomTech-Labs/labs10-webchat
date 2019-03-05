@@ -41,7 +41,7 @@ const styles = {
 
 class SettingsNavigation extends React.Component {
   state = {
-    value: 1,
+    value: 0,
     is_admin: null
   };
 
@@ -76,7 +76,8 @@ class SettingsNavigation extends React.Component {
     const { value } = this.state;
     const adminStatus = this.state.is_admin;
     if(adminStatus) {
-      return (
+      if(adminStatus){
+        return (
         <NoSsr>
         <Paper className={classes.root}>
           <Tabs
@@ -90,13 +91,12 @@ class SettingsNavigation extends React.Component {
               <LinkTab label="Admin Panel"/>
           </Tabs>
         </Paper>
-        {value === 0 && <TabContainer><Billing /></TabContainer>}
-        {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
-        {value === 2 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
+        {value === 0 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
+        {value === 1 && <TabContainer><Billing /></TabContainer>}
       </NoSsr>
-      )
-    } else {
-      return (
+        )
+      } else {
+        return (
         <NoSsr>
           <Paper className={classes.root}>
             <Tabs
@@ -109,10 +109,15 @@ class SettingsNavigation extends React.Component {
                 <LinkTab label="Account Settings" />
             </Tabs>
           </Paper>
-          {value === 0 && <TabContainer><Billing /></TabContainer>}
-          {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
-          {value === 2 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
+          {value === 0 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
         </NoSsr>
+        )
+      }
+    } else {
+      return (
+        <div>
+          ...Loading...
+        </div>
       )
     }
   }
