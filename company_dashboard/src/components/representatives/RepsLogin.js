@@ -90,9 +90,7 @@ class RepLoginFormBase extends React.Component {
             Successfully Logged In
           </Typography>):(
           <div>
-            <AppBar
-              title="Sign In"
-            />
+                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo"/>
             <form onSubmit={this.onSubmit}>  
               <TextField
                 hintText="Enter your Email"
