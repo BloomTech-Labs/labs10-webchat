@@ -230,9 +230,9 @@ class AdminPanelBaseForm extends React.Component {
       
     return (
       <div className='admin-panel'>
-        {/* <Typography variant='display1' align='center' gutterBottom>
+        <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
-        </Typography> */}
+        </Typography>
 
 		    {this.state.logged ? (<UserImage url={this.state.url} />):(<p>Image</p>)}
 
@@ -296,7 +296,11 @@ class AdminPanelBaseForm extends React.Component {
             <TableBody>
               {this.state.allreps.map((rep, index) => {
                 return (
-                  <RepRecord key={index} fields={rep}/>
+                  <RepRecord 
+                  key={index} 
+                  rep={rep}
+                  changeAdminStatus={this.changeAdminStatus}
+                  />
                 );
               })}
             </TableBody>
