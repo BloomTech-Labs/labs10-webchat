@@ -4,11 +4,12 @@ import { Link, withRouter, Route} from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import Button from "@material-ui/core/Button";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import "./RepsLogin.css";
 
 const RepLoginPage = () => (
   <div>
@@ -84,16 +85,20 @@ class RepLoginFormBase extends React.Component {
     const condition = password === '' || email === '';
 
     return (
-      <div>
+      <div className="login">
         <MuiThemeProvider>
           {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
             Successfully Logged In
           </Typography>):(
           <div>
-            <AppBar
-              title="Sign In"
-            />
-            <form onSubmit={this.onSubmit}>  
+            <div className="login-top-bar">
+                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+                  <Button size="large" variant="outlined">
+                  <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
+                </Button>
+            </div>
+            <form onSubmit={this.onSubmit}> 
+              <h4>Log into your account</h4> 
               <TextField
                 hintText="Enter your Email"
                 floatingLabelText="Email"
@@ -123,16 +128,13 @@ class RepLoginFormBase extends React.Component {
 
               {error && <p>{error.message}</p>}
             </form>
+            <Link to={ROUTES.REP_REGISTER}>Create an Account</Link>
           </div>)}
         </MuiThemeProvider>
       </div>
     );
   }
 }
-
-const style = {
- margin: 15,
-};
 
 
 //wrapping the react component with firebase higher order component withFirebase to access all firebase functions
