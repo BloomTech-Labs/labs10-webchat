@@ -87,8 +87,8 @@ class SettingsNavigation extends React.Component {
           </Tabs>
         </Paper>
         {value === 0 && <TabContainer><Billing /></TabContainer>}
-        {value === 1 && <TabContainer><AccountSettings /></TabContainer>}
-        {value === 2 && <TabContainer><AdminPanel /></TabContainer>}
+        {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
+        {value === 2 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
       </NoSsr>
     );
   }
