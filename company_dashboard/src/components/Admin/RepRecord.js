@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -18,8 +19,28 @@ class RepRecord extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: ''
+      is_admin: false,
     }
+  }
+
+  componentDidMount() {
+    this.setState({
+      is_admin: this.props.rep.is_admin
+    });
+    console.log(this.state.is_admin);
+  }
+
+  changeAdminStatus = () => {
+    this.setState({
+      is_admin: !this.state.is_admin
+    });
+    setInterval(() => {
+      
+      console.log(this.state);
+    }, 2000);
+    // put
+    // reset state from here
+    // async await
   }
 
   render() {
@@ -36,9 +57,9 @@ class RepRecord extends React.Component {
 
         <TableCell>
           <Checkbox
-          // checked={this.state.admin}
+          checked={this.state.is_admin}
           onChange={this.handleChange}
-          onClick={this.props.changeAdminStatus}
+          onClick={this.changeAdminStatus}
           />
         </TableCell>
 
