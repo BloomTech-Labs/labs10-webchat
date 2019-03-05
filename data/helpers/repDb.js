@@ -7,6 +7,7 @@ module.exports = {
   getByCompanyId,	
   getDetails,
   insert,
+  updateByUid,	
   update,
   remove,
   getByUid,
@@ -57,6 +58,7 @@ const query = db
         .select([
                 "representatives.name as name",
                 "representatives.motto",
+		"representatives.uid",
 		"representatives.email",
 		"representatives.phone_number",
                 "representatives.company_id",
@@ -78,6 +80,13 @@ const query = db
 function insert(user) {
   return db('representatives')
     .insert(user).returning('id').then(ids => ids[0]);
+}
+
+
+function updateByUid(uid, user){
+        return db('representatives')
+               .where({uid: uid})
+               .update(user);
 }
 
 
