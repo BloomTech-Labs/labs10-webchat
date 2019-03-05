@@ -25,20 +25,20 @@ class RepRecord extends React.Component {
   render() {
     return (
       <TableRow>
-
+        
         <TableCell component="th" scope="row">
-          {this.props.fields.name}
+          {this.props.rep.name}
         </TableCell>
 
         <TableCell>
-          {this.props.fields.email}
+          {this.props.rep.email}
         </TableCell>
 
         <TableCell>
           <Checkbox
           // checked={this.state.admin}
           onChange={this.handleChange}
-          onClick={this.changeAdminStatus}
+          onClick={this.props.changeAdminStatus}
           />
         </TableCell>
 
