@@ -8,6 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import NoSsr from "@material-ui/core/NoSsr";
 import Typography from "@material-ui/core/Typography";
+import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 
 import AccountSettings from "./AccountSettings";
@@ -115,9 +116,9 @@ class SettingsNavigation extends React.Component {
       }
     } else {
       return (
-        <div>
+        <Typography variant='display1' align='center' gutterBottom>
           ...Loading...
-        </div>
+        </Typography>
       )
     }
   }
