@@ -8,6 +8,7 @@ module.exports = {
 }
 
 // Get conversation info to populate Queue using signed-in rep's uid
+// Should return all convos for rep's company that are open and in the queue
 function getQueue(uid) {
     const query = db
         .select([
@@ -37,6 +38,7 @@ function deQueue(id) {
 };
 
 // Get conversation info to poppulate ActiveConvos using signed-in rep's uid
+// Should return all conversations that are open, not in the queue, and have the rep's uid
 function getActive(uid) {
     const query = db
         .select([
@@ -52,7 +54,8 @@ function getActive(uid) {
         .innerJoin("customers", "conversations.customer_uid", "customers.uid")
         .where("representatives.uid", uid)
         .where("conversations.in_q", false)
-        .where("conversations.is_open", true);
+        .where("conversations.is_open", true)
+        .where("conversations.rep_uid", uid);
 
     return query.then(details => {
 	    return details;    // return full array of objects returned by query
