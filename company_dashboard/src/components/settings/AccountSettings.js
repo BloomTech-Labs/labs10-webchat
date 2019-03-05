@@ -39,11 +39,17 @@ class AccountSettings extends React.Component {
     email: "",
     phone_number: "",
     motto: "",
+    image_url:"",	  
+    image_id:"",	  
     selectedFile: null
   };
 
   componentDidMount() {
-    const request = axios.get(`/api/reps/getbyUID`);
+    //const request = axios.get(`/api/reps/getbyUID`);
+	 
+    //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
+
+    const request = axios.get("/api/reps/alldetails");	  
 
     request.then(response => {
       console.log("Account Settings CDM getByUID response: ", response);
@@ -54,6 +60,8 @@ class AccountSettings extends React.Component {
         email: response.data.email,
         phone_number: response.data.phone_number,
         motto: response.data.motto,
+	image_id:response.data.image_id,
+	image_url: response.data.url      
        });
        console.log(this.state.motto);
     })
@@ -133,7 +141,7 @@ class AccountSettings extends React.Component {
           <div className="right-container">
             <div className="profile-picture">
               <img
-                src="https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzYwMjg2MjIw/nicolas-cage-9234498-1-402.jpg"
+                src={this.state.image_url}
                 alt="profile picture"
               />
               <h2>Your Profile Photo</h2>
