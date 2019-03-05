@@ -31,16 +31,16 @@ class RepRecord extends React.Component {
   }
 
   changeAdminStatus = () => {
+    /*
+    [x] Change state is_admin
+    [x] Reload records in Admin Panel from where this was initialized
+    [] Put request to change is_admin in database
+    [] Async await for clean render transitioning
+    */
     this.setState({
       is_admin: !this.state.is_admin
     });
-    setInterval(() => {
-      
-      console.log(this.state);
-    }, 2000);
-    // put
-    // reset state from here
-    // async await
+    this.state.reloadRecords()
   }
 
   render() {
