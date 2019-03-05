@@ -47,21 +47,29 @@ class ChatDashboard extends React.Component {
             currentConvoId: convo_id,
             currentConvoSocket: customer_uid,
             currentConvoSummary: summary
-        })
-        console.log("ChatDashboard state.currentConvoId: ", this.state.currentConvoId);
+        }, () => {
+            console.log("\nActive Convo Selected");
+            console.log("ChatDashboard state.currentConvoId: ", this.state.currentConvoId);
+            console.log("ChatDashboard state.currentConvoSocket: ", this.state.currentConvoSocket);
+        });
+
     }
+
 
     render() {
         return (
             <div className="chat-dashboard-container">
                 <div className="chat-dash-left-container">
-                    <ConvoList handleQueueConvoSelect={this.handleQueueConvoSelect}/>
+                    <ConvoList 
+                        handleQueueConvoSelect={this.handleQueueConvoSelect}
+                        handleActiveConvoSelect={this.handleActiveConvoSelect}
+                    />
                 </div>
                     
                 <div className="chat-dash-right-container">
                     <ChatView 
                         convoId={this.state.currentConvoId}
-                        convoSocket={this.state.currentConvoSocket}
+                        currentConvoSocket={this.state.currentConvoSocket}
                         summary={this.state.currentConvoSummary}
                     />  
                     Chatview
