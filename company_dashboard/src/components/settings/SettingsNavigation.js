@@ -35,14 +35,14 @@ function LinkTab(props) {
 
 const styles = {
   root: {
-    flexGrow: 1,
-    user: NavigationFullscreenExit
+    flexGrow: 1
   }
 };
 
 class SettingsNavigation extends React.Component {
   state = {
-    value: 1
+    value: 1,
+    user: null
   };
 
   componentDidMount() {
