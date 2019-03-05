@@ -1,0 +1,16 @@
+.login .login-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    margin: auto;
+    margin-top: 2%;
+}
+
+.login .login-top-bar button {
+    height: 50%;
+}
+
+.login .login-top-bar img {
+    width: 5%;
+}
