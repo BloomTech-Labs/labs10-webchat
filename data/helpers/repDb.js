@@ -51,20 +51,23 @@ const query = db('representatives').where('company_id', company_id);
 }
 
 
-function getDetails(id){
+function getDetails(uid){
+
 const query = db
         .select([
                 "representatives.name as name",
                 "representatives.motto",
+		"representatives.email",
+		"representatives.phone_number",
                 "representatives.company_id",
-                "representatives.image_id", 
+                "representatives.image_id",
                 "companies.name as company_name", 
                 "images.url"
         ])
         .from('representatives')
         .innerJoin('companies', 'representatives.company_id', 'companies.id')
         .innerJoin('images', 'representatives.image_id','images.id')
-        .where('representatives.id', id);
+        .where('representatives.uid', uid);
 
 	return query.then(details =>{
 	        return details[0];
