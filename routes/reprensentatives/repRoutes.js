@@ -111,8 +111,10 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/adminpanel/:id', (req,res) => {
-	const id = req.params.id;
+	const id = req.params.id;   //req.params.id is rep id
         console.log('GET req at /adminpanel/:id -- id is ', id);
+
+	//geDetails() helper function uses inner join to join representative, companies and images table to get all the details required for admin panel from 3 different tables
 
 	const request = db.getDetails(id);
 	request.then(details => {
