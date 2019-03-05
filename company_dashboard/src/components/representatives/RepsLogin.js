@@ -128,6 +128,7 @@ class RepLoginFormBase extends React.Component {
 
               {error && <p>{error.message}</p>}
             </form>
+            <Link to={ROUTES.REP_REGISTER}>Create an Account</Link>
           </div>)}
         </MuiThemeProvider>
       </div>

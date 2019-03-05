@@ -5,6 +5,7 @@
     width: 75%;
     margin: auto;
     margin-top: 2%;
+    margin-bottom: 10%;
 }
 
 .login .login-top-bar button {
@@ -13,4 +14,11 @@
 
 .login .login-top-bar img {
     width: 5%;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
 }
