@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "./CheckoutForm";
 
-class App extends Component {
+class Billing extends Component {
   render() {
     return (
       <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
@@ -17,4 +17,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Billing;

@@ -39,7 +39,7 @@ class AccountSettings extends React.Component {
     email: "",
     phone_number: "",
     motto: "",
-    selectedFile: null
+    selectedFile: null,
   };
 
   componentDidMount() {
@@ -78,12 +78,13 @@ class AccountSettings extends React.Component {
     console.log(this.state.selectedFile);
   };
 
+
   render() {
     const { classes } = this.props;
 
     return (
       <div className="account-settings">
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
             <TextField
               id="outlined-name"
@@ -134,7 +135,7 @@ class AccountSettings extends React.Component {
             <div className="profile-picture">
               <img
                 src="https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzYwMjg2MjIw/nicolas-cage-9234498-1-402.jpg"
-                alt="profile picture"
+                alt="profilePicture"
               />
               <h2>Your Profile Photo</h2>
               <input
