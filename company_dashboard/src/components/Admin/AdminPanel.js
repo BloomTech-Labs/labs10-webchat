@@ -314,7 +314,7 @@ class AdminPanelBaseForm extends React.Component {
                   <RepRecord 
                   key={index} 
                   rep={rep}
-                  changeAdminStatus={this.changeAdminStatus}
+                  reloadRecords={this.reloadRecords}
                   />
                 );
               })}
