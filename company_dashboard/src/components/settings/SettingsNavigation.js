@@ -13,6 +13,7 @@ import axios from 'axios';
 import AccountSettings from "./AccountSettings";
 import Billing from "./Billing";
 import AdminPanel from "../Admin/AdminPanel";
+import { NavigationFullscreenExit } from "material-ui/svg-icons";
 
 function TabContainer(props) {
   return (
@@ -35,7 +36,7 @@ function LinkTab(props) {
 const styles = {
   root: {
     flexGrow: 1,
-    user: null
+    user: NavigationFullscreenExit
   }
 };
 
@@ -52,10 +53,7 @@ class SettingsNavigation extends React.Component {
       // console.log(response.data);
 
       this.setState({ 
-        name: response.data.name,
-        email: response.data.email,
-        phone_number: response.data.phone_number,
-        motto: response.data.motto,
+        user: response.data
        });
        console.log(this.state);
     })
