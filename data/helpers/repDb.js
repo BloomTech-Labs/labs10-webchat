@@ -8,6 +8,7 @@ module.exports = {
   getDetails,
   insert,
   update,
+  updaterepinfo,
   remove,
   getByUid,
 };
@@ -75,6 +76,12 @@ const query = db
 function insert(user) {
   return db('representatives')
     .insert(user).returning('id').then(ids => ids[0]);
+}
+
+function updaterepinfo(id, user) {
+        return db('representatives')
+                .where('representatives.id', id)
+                .update({name: user.name}, {phone_number: user.phone_number}, {motto: user.motto}, {email: user.email});
 }
 
 
