@@ -35,34 +35,35 @@ class ChatView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            uid: this.props.currentConvoSocket,
             message: '',
             messages: []
-        }
+        };
         
         this.socket = io('http://localhost:5000');
-
-        this.socket.on(this.props.currentConvoSocket, function(message) {
+        const room = 
+        this.socket.on(this.state.uid, function(message) {
             console.log('ChatView incoming message: ', message);
             addMessage(message);
-        })
+        });
 
-        const addMessage = (message) => {
+        const addMessage = (data) => {
             this.setState({ 
-                messages: [...this.state.messages, message] 
+                messages: [...this.state.messages, data]
             });
         }  
+    
+        // this.onSubmit = this.onSubmit.bind(this);
+        // this.addMessage = this.addMessage.bind(this);
     }
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
-
+    
     onSubmit = event => {
         console.log('socket room (uid) inside onSubmit is', this.props.currentConvoSocket);
         console.log('messages array', this.state.messages);
 
         let data = {};
-        data.uid = this.props.currentConvoSocket;
+        data.uid = this.state.uid;
         data.message = this.state.message;
 
         this.socket.emit('join', data);
@@ -70,11 +71,13 @@ class ChatView extends React.Component {
 
         console.log('messages after onSubmit', this.state.messages);
         event.preventDefault();
-}
-
-    componentDidMount() {
-        console.log("ChatView CDM props: ", this.props);
     }
+
+    onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+        // console.log("ChatView onChange new state: ", this.state.message);
+    };
+
       
 
     render() {
