@@ -285,21 +285,19 @@ router.put('/updaterepinfo', (req, res) => {
 		motto: req.body.motto,
 		email: req.body.email,
 	};
-	const phone_number = user.phone_number;
+
+	const name = user.name;
 
 	const request = db.updaterepinfo(id, user);
 
-
 	request.then(response_data => {
 		res.status(200).json(response_data);
-		console.log(user.motto);
 	})
 
 	.catch(error => {
 		res.status(500).json({ error: "Failed to update account information" });
+		console.log(error.message);
 	})
-
-	
 })
 
 

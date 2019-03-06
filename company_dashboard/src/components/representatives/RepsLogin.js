@@ -93,7 +93,7 @@ class RepLoginFormBase extends React.Component {
           <div>
             <div className="login-top-bar">
                 <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
-                    <p>Send me back to the <Link to={ROUTES.REP_REGISTER}>home page</Link></p>
+                  <p>Send me back to the <Link to={ROUTES.LANDING}>home page</Link></p>
             </div>
             <p className="header">Member Login</p> 
             <form onSubmit={this.onSubmit}> 

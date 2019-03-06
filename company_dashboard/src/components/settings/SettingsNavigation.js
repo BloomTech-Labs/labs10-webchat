@@ -13,6 +13,8 @@ import axios from 'axios';
 import AccountSettings from "./AccountSettings";
 import Billing from "./Billing";
 import AdminPanel from "../Admin/AdminPanel";
+import Navigation from "../Navigation";
+import '../Navigation.css'
 import { NavigationFullscreenExit } from "material-ui/svg-icons";
 
 function TabContainer(props) {
@@ -70,8 +72,35 @@ class SettingsNavigation extends React.Component {
     const { value } = this.state;
     const adminStatus = this.state.is_admin;
     if(adminStatus) {
-      return (
+      if(adminStatus){
+        return (
         <NoSsr>
+        <Navigation />
+        <div className="settings-navigation">
+        <Paper className={classes.root}>
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+            >
+              <LinkTab label="Admin Panel"/>
+              <LinkTab label="Account Settings" />
+              <LinkTab label="Team Billing" />
+          </Tabs>
+        </Paper>
+        {value === 0 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
+        {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
+        {value === 2 && <TabContainer><Billing /></TabContainer>}
+      </div>
+      </NoSsr>
+        )
+      } else {
+        return (
+        <NoSsr>
+          <Navigation />
+          <div className="settings-navigation">
           <Paper className={classes.root}>
             <Tabs
               value={this.state.value}
@@ -107,6 +136,17 @@ class SettingsNavigation extends React.Component {
           </NoSsr>
         )
       }
+    } else {
+      return (
+        <div>
+          <Navigation />
+          <div className="settings-navigation" style={{ marginTop: '60px' }}>
+            <Typography variant='display1' align='center' gutterBottom>
+              Loading...
+        </Typography>
+          </div>
+        </div>
+      )
     }
 }
 
