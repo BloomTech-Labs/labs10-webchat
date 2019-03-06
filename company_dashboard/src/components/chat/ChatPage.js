@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -48,32 +49,54 @@ class ChatPage extends Component {
         }
 
 
-        
-onSubmit = event =>{
-          console.log('room_uid inside onSubmit is', this.state.uid);
-          console.log('messages array', this.state.messages);
+        // Join conversation and send initial message
+        onSubmit = event => {
+                console.log('room_uid inside onSubmit is', this.state.uid);
+                console.log('messages array', this.state.messages);
 
-          //var newArr = this.state.messages.slice();
-          //newArr.push(this.state.message);
+                //var newArr = this.state.messages.slice();
+                //newArr.push(this.state.message);
 
-          let data = {};
-          data.uid = this.state.uid;
-          data.message = this.state.message;
+                let data = {};
+                data.uid = this.state.uid;
+                data.message = this.state.message;
+
+                this.socket.emit('join', data);
+
+                let convo = {
+                        customer_uid: this.state.uid,
+                        summary: this.state.message
+                };
+
+                axios.post('/api/chat/newconvo', convo)
+                .then(response => {
+                        console.log("Conversation created.")
+                })
+                .catch(error => {
+                        console.log(error.message);
+                });
+
+                this.setState({message:""});
 
 
-          this.socket.emit('join', data);
-          this.setState({message:""});
+                console.log('messages', this.state.messages);
+                event.preventDefault();
+        }
+
+        // Send a message after joining conversation
+        onSend = event => {
+                let data = {};
+                data.uid = this.state.uid;
+                data.message = this.state.message;
+
+                this.socket.emit('join', data);
+                this.setState({ message: ""});
+        }
 
 
-          console.log('messages', this.state.messages);
-          event.preventDefault();
-}
-
-
-onChange = event => {
-	this.setState({ [event.target.name]: event.target.value });
-};
-
+        onChange = event => {
+                this.setState({ [event.target.name]: event.target.value });
+        };
 
 
 	render() {

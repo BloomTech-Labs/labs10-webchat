@@ -104,7 +104,7 @@ render() {
       	</Typography>):(
        <div>
        <AppBar
-            title="Sign Up"
+            title="Customer Sign Up"
        />	      
 	<form onSubmit={this.onSubmit}>
 	<TextField

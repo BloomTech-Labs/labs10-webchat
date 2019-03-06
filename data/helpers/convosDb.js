@@ -1,10 +1,17 @@
 const db = require('../db.js');
 
 module.exports = {
+    insert,
     getQueue,
     deQueue,
     getActive,
     closeConvo
+}
+
+// Create a new conversation:
+function insert(convo) {
+    return db('conversations')
+    .insert(convo).returning('id').then(ids => ids[0]);
 }
 
 // Get conversation info to populate Queue using signed-in rep's uid
