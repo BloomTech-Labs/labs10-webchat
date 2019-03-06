@@ -46,27 +46,21 @@ class SettingsNavigation extends React.Component {
     value: 0,
     is_admin: null
   };
-
   componentDidMount() {
+    console.log("State Before loading Page:", this.state.is_admin);
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
-      console.log("Account Settings CDM getByUID response: ", response);
-      // console.log(response.data);
-
+      console.log("Settings Navigation response: ", response);
       this.setState({ 
         is_admin: response.data.is_admin
-       });
-
+      }, () => {
+        console.log("State After loading Page:", this.state.is_admin);
+      });
     })
     .catch(err => {
       console.log(err.message);
-      this.setState({ error: err });
     })
-    setTimeout(() => {
-      console.log(this.state.is_admin);
-
-    }, 5000)
   }
 
   handleChange = (event, value) => {
@@ -116,11 +110,30 @@ class SettingsNavigation extends React.Component {
               centered
               >
                 <LinkTab label="Account Settings" />
+                <LinkTab label="Admin Panel"/>
+                <LinkTab label="Team Billing" />
             </Tabs>
           </Paper>
           {value === 0 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
-          </div>
+          {value === 1 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
+          {value === 2 && <TabContainer><Billing /></TabContainer>}
         </NoSsr>
+      )} else {
+        return (
+          <NoSsr>
+            <Paper className={classes.root}>
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+                >
+                  <LinkTab label="Account Settings" />
+              </Tabs>
+            </Paper>
+            {value === 0 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
+          </NoSsr>
         )
       }
     } else {
@@ -135,7 +148,6 @@ class SettingsNavigation extends React.Component {
         </div>
       )
     }
-  }
 }
 
 SettingsNavigation.propTypes = {
