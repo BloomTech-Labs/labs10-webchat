@@ -13,6 +13,8 @@ import axios from 'axios';
 import AccountSettings from "./AccountSettings";
 import Billing from "./Billing";
 import AdminPanel from "../Admin/AdminPanel";
+import Navigation from "../Navigation";
+import '../Navigation.css'
 import { NavigationFullscreenExit } from "material-ui/svg-icons";
 
 function TabContainer(props) {
@@ -79,6 +81,8 @@ class SettingsNavigation extends React.Component {
       if(adminStatus){
         return (
         <NoSsr>
+        <Navigation />
+        <div className="settings-navigation">
         <Paper className={classes.root}>
           <Tabs
             value={this.state.value}
@@ -95,11 +99,14 @@ class SettingsNavigation extends React.Component {
         {value === 0 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
         {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
         {value === 2 && <TabContainer><Billing /></TabContainer>}
+      </div>
       </NoSsr>
         )
       } else {
         return (
         <NoSsr>
+          <Navigation />
+          <div className="settings-navigation">
           <Paper className={classes.root}>
             <Tabs
               value={this.state.value}
@@ -112,15 +119,19 @@ class SettingsNavigation extends React.Component {
             </Tabs>
           </Paper>
           {value === 0 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
+          </div>
         </NoSsr>
         )
       }
     } else {
       return (
-        <div style={{marginTop: '60px'}}>
-        <Typography variant='display1' align='center' gutterBottom>
-          Loading...
+        <div>
+          <Navigation />
+          <div className="settings-navigation" style={{ marginTop: '60px' }}>
+            <Typography variant='display1' align='center' gutterBottom>
+              Loading...
         </Typography>
+          </div>
         </div>
       )
     }
