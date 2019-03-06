@@ -87,12 +87,14 @@ class SettingsNavigation extends React.Component {
             textColor="primary"
             centered
             >
-              <LinkTab label="Team Billing" />
               <LinkTab label="Admin Panel"/>
+              <LinkTab label="Account Settings" />
+              <LinkTab label="Team Billing" />
           </Tabs>
         </Paper>
         {value === 0 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
-        {value === 1 && <TabContainer><Billing /></TabContainer>}
+        {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
+        {value === 2 && <TabContainer><Billing /></TabContainer>}
       </NoSsr>
         )
       } else {
