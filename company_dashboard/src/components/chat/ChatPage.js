@@ -108,15 +108,14 @@ class ChatPage extends Component {
 		const { classes } = this.props;
                 return(
                 <div>
-		 <MuiThemeProvider>	
-                <div className="container">
-                <div className="row">
-                <div className="col-12">
-                <div className="card">
-                <div className="card-body">
-                <div className="card-title">
+		<MuiThemeProvider>	
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
                 </div>
-                <hr/>
 		<AppBar 
                 title="Customer Chat Panel"
                 />
