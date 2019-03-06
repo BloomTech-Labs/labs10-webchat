@@ -86,7 +86,6 @@ class AdminPanelBaseForm extends React.Component {
   constructor(props){
     super(props);  
 	  this.state = {
-      is_admin: false,
       companyName: '',
       name: '',
       motto: '',
