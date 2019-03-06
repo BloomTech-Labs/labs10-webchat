@@ -10,10 +10,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
+import axios from 'axios';
 
 
 const styles = theme => ({
+ avatar: {
+    margin: 10,
+  },
   root: {
     flexGrow: 1,
     overflow: 'hidden',
@@ -21,7 +24,7 @@ const styles = theme => ({
   },
   paper: {
     maxWidth: 400,
-    margin: `${theme.spacing.unit}px auto`,
+    margin: `${theme.spacing.unit*2}px auto`,
     padding: theme.spacing.unit * 2,
   },
 });
@@ -34,6 +37,9 @@ class ChatRepPage extends Component {
                         uid:props.match.params.id,
                         message:'',
                         messages:[],
+			image_id:"",
+			url:"",
+			rep_name:""
                 };
 
         //this.socket = io();
@@ -50,6 +56,28 @@ class ChatRepPage extends Component {
                 this.setState({messages: [...this.state.messages, data]});
         }
         }
+
+
+componentDidMount(){
+	const request = axios.get("/api/reps/alldetails");
+            
+             request.then(rep => {
+                console.log('rep details', rep)
+	      this.setState({
+           	image_id: rep.data.image_id,
+                url: rep.data.url,
+		rep_name: rep.data.name      
+                });
+
+              })
+              .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+              });
+
+}
+
+
 
 onSubmit = event =>{
           console.log('room_uid inside onSubmit is', this.state.uid);
@@ -100,10 +128,10 @@ onChange = event => {
                                                         <Paper key={index} className={classes.paper}>
                                                         <Grid container wrap="nowrap" spacing={16}>
                                                         <Grid item>
-                                                        <Avatar>R</Avatar>
+                                   			<Avatar alt="Rep image" src={this.state.url} className={classes.avatar}/>
                                                         </Grid>
                                                         <Grid item xs zeroMinWidth>
-                                                        <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
+                                                        <Typography color='inherit' variant='h6' align='center' noWrap key={index}>{message}</Typography>
                                                         </Grid>
                                                         </Grid>
                                                         </Paper>
