@@ -55,7 +55,7 @@ const styles = theme => ({
     width: 500,
     marginTop: 20,
   },
-  reason: {
+  reasons: {
     display: 'flex',
     flexDirection: 'column',
 		alignItems: 'center',
@@ -63,7 +63,7 @@ const styles = theme => ({
 		backgroundColor: 'blue',
   },
   heading: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: 'bold',
 		letterSpacing: 2,
 		marginTop: 25,
@@ -71,12 +71,22 @@ const styles = theme => ({
   columns: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+		justifyContent: 'space-between',
     marginTop: 25,
   },
   benefits: {
-    width: 200,
-    height: 150,
+    width: 300,
+		height: 175,
+	},
+	reason: {
+		fontSize: 20,
+		fontWeight: 'bold',
+		textDecoration: 'underline',
+	},
+	description: {
+		fontSize: 16,
+		fontWeight: 'normal',
+		textDecoration: 'none',
 	},
 	pricing: {
 		width: '100%',
@@ -172,7 +182,7 @@ class LandingPage extends Component {
         </Grid>
 
         <Grid container spacing={24}>
-          <Grid item xs={12} className={classes.reason}>
+          <Grid item xs={12} className={classes.reasons}>
             <Typography className={classes.heading} variant='h3' gutterBottom>
               Why Use Chattr?
             </Typography>
@@ -185,16 +195,16 @@ class LandingPage extends Component {
                 </Paper>
               </Grid> */}
               <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Quick response
-                  <br/>
-                  <p>With live chat, companies can quickly connect customers to customer service reps who can manage
+                <Paper className={classes.benefits}>
+									<h3 className={classes.reason}>Quick Response</h3>
+                  <p className={classes.description}>With live chat, companies can quickly connect customers to customer service reps who can manage
                   conversations with multiple customers.</p>
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Engage customers
-                  <br/>
-                  <p>Chattr are also used by sales and marketing teams to engage with interested potential customers.</p>
+                <Paper className={classes.benefits}>
+                  <h3 className={classes.reason}>Engage customers</h3>
+                  <p className={classes.description}>Chattr are also used by sales and marketing teams to engage with interested potential customers.</p>
                 </Paper>
               </Grid>
             </div>
