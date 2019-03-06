@@ -36,7 +36,7 @@ class ChatRepPage extends Component {
                         messages:[],
                 };
 
-        this.socket = io('https://webchatlabs10.herokuapp.com');
+        this.socket = io();
 
 
         this.socket.on(this.state.uid, function(message) {
@@ -77,69 +77,69 @@ onChange = event => {
         render() {
                 const { classes } = this.props;
                 return(
-                <div>
-                 <MuiThemeProvider>
-                <div>
-                <div>
-                <div>
-                <div>
-                <div>
-                <div>
-                </div>
-                <AppBar
-                title="Employee Chat Panel"
-                />
-                <br/>
-                <br/>
+                        <div>
+                        <MuiThemeProvider>
+                        <div>
+                        <div>
+                        <div>
+                        <div>
+                        <div>
+                                <div>
+                                </div>
+                                <AppBar
+                                title="Employee Chat Panel"
+                                />
+                                <br/>
+                                <br/>
 
-                <div className={classes.root}>
-                <div className="messages">
-                {this.state.messages.map((message, index) => {
-                return(
-                <Paper key={index} className={classes.paper}>
-		<Grid container wrap="nowrap" spacing={16}>
-                <Grid item>
-                <Avatar>R</Avatar>
-                </Grid>
-                <Grid item xs zeroMinWidth>
-                  <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
-                </Grid>
-                </Grid>
-                </Paper>
-                );
-                })}
-                </div>
-                <div className="footer">
+                                <div className={classes.root}>
+                                <div className="messages">
+                                        {this.state.messages.map((message, index) => {
+                                                return(
+                                                        <Paper key={index} className={classes.paper}>
+                                                        <Grid container wrap="nowrap" spacing={16}>
+                                                        <Grid item>
+                                                        <Avatar>R</Avatar>
+                                                        </Grid>
+                                                        <Grid item xs zeroMinWidth>
+                                                        <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
+                                                        </Grid>
+                                                        </Grid>
+                                                        </Paper>
+                                                );
+                                        })}
+                                </div>
+                                <div className="footer">
 
-                <form onSubmit={this.onSubmit}>
-                <br/>
-                <br/>
-                <br/>
-                <TextField
-                hintText="message"
-                name="message"
-                type="text"
-                value={this.state.message}
-                onChange={this.onChange}
-		/>
-                <br/>
+                                <form onSubmit={this.onSubmit}>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <TextField
+                                                hintText="message"
+                                                name="message"
+                                                type="text"
+                                                value={this.state.message}
+                                                onChange={this.onChange}
+                                        />
+                                        <br/>
 
-                <RaisedButton
-                label="send"
-                primary={true}
-                type="submit"
-                />
+                                        <RaisedButton
+                                                label="send"
+                                                primary={true}
+                                                type="submit"
+                                        />
 
-                </form>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </MuiThemeProvider>
-                </div>
+                                </form>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </MuiThemeProvider>
+                        </div>
                 );
         }
 }

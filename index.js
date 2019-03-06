@@ -29,15 +29,40 @@ io.on('connection', (socket) => {
   	console.log("user connected inside join"); 
   	console.log('room_uid', data.uid);	  
    	console.log('message is', data.message); 
-	socket.join(data.uid);
-
-
-  io.sockets.in(data.uid).emit(data.uid, data.message);
-});	
+	  socket.join(data.uid);
+    io.sockets.in(data.uid).emit(data.uid, data.message);
+    // socket.on(`${data.uid}`, function(data) {
+    //   console.log("data in on-uid: ", data);
+    //   socket.broadcast.emit(`${data.uid}`, data);
+    // })
+  });	
   
 	socket.on('disconnect', () => console.log('Client disconnected'));
 });
+
+// io.on('connection', (socket) => {
+//   console.log('New user connected');
   
+// 	socket.on('join', function(data) => {
+
+// 		console.log('room_uid', data.uid);	  
+//     console.log('message is', data.message); 
+// 		socket.join(data.uid);
+		
+// 		io.to(data.uid).emit('newMessage', data.message);
+// 		socket.broadcast.to(data.uid).emit('newMessage', data.message);
+		
+// 	});
+
+// 	socket.on('createMessage', function(data) =>  {
+//     console.log('room_uid', data.uid);	  
+//     console.log('new message is', data.message); 
+    
+//     io.to(data.uid).emit('newMessage', data.message);
+//     socket.broadcast.to(data.uid).emit('newMessage', data.message);
+
+// 	});
+// }
 
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');
@@ -46,6 +71,7 @@ const companiesRoutes = require('./routes/companies/companiesRoutes');
 const billingRoutes = require('./routes/billing/billingRoutes');
 const imageRoutes = require('./routes/images/imageRoutes');
 const approvedemailRoutes = require('./routes/approvedemails/approvedemails');
+const chatRoutes = require('./routes/chat');
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -83,6 +109,7 @@ app.use('/api/companies', companiesRoutes);
 app.use('/api/billing', billingRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/approvedemails', approvedemailRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.use(function(req, res) {
   res.status(404).send("Wrong URL. This page does not exist");

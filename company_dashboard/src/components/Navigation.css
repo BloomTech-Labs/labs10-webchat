@@ -1,8 +1,43 @@
-.navigation-container {
+.navigation {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 1%;
-    margin-bottom: 2%;
-    margin-right: 2%; 
+    flex-direction: column;
+    width: 15.5%;
+    position: fixed;
+    background-color: #323439;
+    height: 100%;
+    top: 0;
+    margin-right: 20%;
+}
 
+.navigation img {
+    width: 35%;
+    margin: auto;
+    margin-top: 15%;
+}
+.navigation-links {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin: auto;
+    margin-bottom: 170%;
+    align-items: flex-start;
+    font-size: 1.2em;
+    height: 20%;
+    justify-content: space-evenly;
+}
+
+.navigation-links a {
+    color: #C3C3C3;
+}
+
+.navigation-links a:hover {
+    color: #FAFAFA;
+}
+
+.settings-navigation {
+    margin-left: 15.5%;
+}
+
+.chat-dashboard-container {
+    margin-left: 15.5%;
 }
