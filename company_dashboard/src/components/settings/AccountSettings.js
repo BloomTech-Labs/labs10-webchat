@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
 import "./AccountSettings.css";
 
@@ -36,23 +38,36 @@ const styles = theme => ({
 class AccountSettings extends React.Component {
   state = {
     name: "",
+    uid:"",	  
     email: "",
     phone_number: 0,
     motto: "",
+    image_url:"",	  
+    image_id:"",	  
     selectedFile: null,
     id: ""
   };
 
   componentDidMount() {
-    const request = axios.get(`/api/reps/getbyUID`);
+    //const request = axios.get(`/api/reps/getbyUID`);
+	 
+    //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
+
+    const request = axios.get("/api/reps/alldetails");	  
 
     request.then(response => {
+      console.log("Account Settings CDM getByUID response: ", response);
+      // console.log(response.data);
+
       this.setState({ 
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
         motto: response.data.motto,
-        id: response.data.id
+        id: response.data.id,
+        image_id:response.data.image_id,
+	      image_url: response.data.url,
+	      uid: response.data.uid       
        });
     })
     .catch(err => {
@@ -90,14 +105,40 @@ class AccountSettings extends React.Component {
         console.log(err.message);
       });
   }
-
+  
   //Sets selectedFile in state after selecting an image
-  fileChangedHandler = (event) => {
-    this.setState({ selectedFile: event.target.file });
+  
+ fileChangedHandler = (event) => {
+    this.setState({selectedFile: event.target.files[0]});
   };
-  //In the future will upload to file to the database
-  uploadHandler = () => {
-    console.log(this.state.selectedFile);
+
+  
+  onSubmit = event => {
+
+    console.log('inside onSubmit');	  
+    console.log('inside onSubmit file is', this.state.selectedFile);
+	  
+    let data = new FormData();
+     data.append('uid', this.state.uid);	  
+     data.append('file', this.state.selectedFile);
+	 
+	  
+
+    const id = this.state.image_id;   //image_id to update an existing image to a new one
+
+    const request = axios.put(`/api/images/${id}`, data);
+
+    request
+      .then(response => {
+                  console.log('response after image update', response.data);
+                  this.setState({image_url:response.data.url});
+      })
+      .catch(err => {
+                console.log(err.message);
+                //this.setState({error:err});
+      })
+
+         event.preventDefault();
   };
 
 
@@ -160,21 +201,21 @@ class AccountSettings extends React.Component {
           <div className="right-container">
             <div className="profile-picture">
               <img
-                src="https://www.biography.com/.image/t_share/MTIwNjA4NjMzNzYwMjg2MjIw/nicolas-cage-9234498-1-402.jpg"
-                alt="profilePicture"
+                src={this.state.image_url}
+                alt="profile picture"
               />
               <h2>Your Profile Photo</h2>
+	
+	    <form  onSubmit={this.onSubmit}>
               <input
-                accept="image/*"
-                id="raised-button-file"
                 type="file"
                 onChange={this.fileChangedHandler}
               />
-              <label>
-                <Button raised component="span" onClick={this.uploadHandler}>
-                  Upload
-                </Button>
-              </label>
+	
+	    <Button type="submit" variant="outlined" color="primary" className="save-button">
+              Save Image
+            </Button>
+	  </form>
             </div>
           </div>
         </form>

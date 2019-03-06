@@ -71,18 +71,6 @@ render() {
                 alt="profile picture"
               />
               <h2>Your Profile Photo</h2>
-              <input
-                type="file"
-                onChange={this.fileChangedHandler}
-              />
-              <label>
-                <Button
-          	variant="outlined"
-          	color="primary"
-        	>  
-	    	Update
-                </Button>
-              </label>
             </div>
           </div>
         </form> 	    

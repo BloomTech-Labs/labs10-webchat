@@ -10,8 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
-
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -26,15 +25,15 @@ const styles = theme => ({
   },
 });
 
-
-
 class ChatPage extends Component {
         constructor(props) {
                 super(props);
                 this.state = {
-			uid:props.history.location.state.uid,
-                        message:'',
-                        messages:[],
+                        uid: props.history.location.state.uid,
+                        company_id: props.history.location.state.company_id,
+                        message: '',
+                        messages: [],
+                        started: false
         	};
 
         this.socket = io('https://webchatlabs10.herokuapp.com');
@@ -52,47 +51,71 @@ class ChatPage extends Component {
         }
 
 
-        
-onSubmit = event =>{
-          console.log('room_uid inside onSubmit is', this.state.uid);
-          console.log('messages array', this.state.messages);
+        // Join conversation and send initial message
+        onStart = event => {
+                console.log('room_uid inside onSubmit is', this.state.uid);
+                console.log('messages array', this.state.messages);
 
-          //var newArr = this.state.messages.slice();
-          //newArr.push(this.state.message);
+                //var newArr = this.state.messages.slice();
+                //newArr.push(this.state.message);
 
-          let data = {};
-          data.uid = this.state.uid;
-          data.message = this.state.message;
+                let data = {};
+                data.uid = this.state.uid;
+                data.message = this.state.message;
+
+                this.socket.emit('join', data);
+
+                let convo = {
+                        customer_uid: this.state.uid,
+                        summary: this.state.message,
+                        company_id: this.state.company_id
+                };
+
+                axios.post('/api/chat/newconvo', convo)
+                .then(response => {
+                        console.log("Conversation created.")
+                        this.setState({
+                                started: true
+                        })
+                })
+                .catch(error => {
+                        console.log(error.message);
+                });
+
+                this.setState({message:""});
+
+                console.log('Messages after Customer onSubmit', this.state.messages);
+                event.preventDefault();
+        }
+
+        // Send a message after joining conversation
+        onSend = event => {
+                let data = {};
+                data.uid = this.state.uid;
+                data.message = this.state.message;
+
+                this.socket.emit('join', data);
+                this.setState({ message: ""});
+        }
 
 
-          this.socket.emit('join', data);
-          this.setState({message:""});
-
-
-          console.log('messages', this.state.messages);
-          event.preventDefault();
-}
-
-
-onChange = event => {
-	this.setState({ [event.target.name]: event.target.value });
-};
-
+        onChange = event => {
+                this.setState({ [event.target.name]: event.target.value });
+        };
 
 
 	render() {
 		const { classes } = this.props;
                 return(
                 <div>
-		 <MuiThemeProvider>	
-                <div className="container">
-                <div className="row">
-                <div className="col-12">
-                <div className="card">
-                <div className="card-body">
-                <div className="card-title">
+		<MuiThemeProvider>	
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
+                <div>
                 </div>
-                <hr/>
 		<AppBar 
                 title="Customer Chat Panel"
                 />
@@ -118,7 +141,7 @@ onChange = event => {
                 </div>
                 <div className="footer">
 		
-		<form onSubmit={this.onSubmit}>	
+		<form onSubmit={this.onSend}>	
                	<br/>
 		<br/>
                 <br/>
@@ -130,12 +153,20 @@ onChange = event => {
             	onChange={this.onChange}
            	/>
           	<br/>
+		{this.state.started ? (
+                        <RaisedButton
+                        label="send"
+                        primary={true}
+                        type="submit"
+                        />
+                ) : (
+                        <RaisedButton
+                        label="Start a conversation"
+                        secondary={true}
+                        onClick={this.onStart}
+                        />
+                )}
 		
-		<RaisedButton
-              	label="send"
-              	primary={true}
-              	type="submit"
-        	/>
 
 		</form>
                 </div>
