@@ -32,6 +32,7 @@ class ChatPage extends Component {
 			uid:props.history.location.state.uid,
                         message:'',
                         messages:[],
+                        started: false
         	};
 
         this.socket = io('https://webchatlabs10.herokuapp.com');
@@ -50,7 +51,7 @@ class ChatPage extends Component {
 
 
         // Join conversation and send initial message
-        onSubmit = event => {
+        onStart = event => {
                 console.log('room_uid inside onSubmit is', this.state.uid);
                 console.log('messages array', this.state.messages);
 
@@ -71,6 +72,9 @@ class ChatPage extends Component {
                 axios.post('/api/chat/newconvo', convo)
                 .then(response => {
                         console.log("Conversation created.")
+                        this.setState({
+                                started: true
+                        })
                 })
                 .catch(error => {
                         console.log(error.message);
@@ -78,8 +82,7 @@ class ChatPage extends Component {
 
                 this.setState({message:""});
 
-
-                console.log('messages', this.state.messages);
+                console.log('Messages after Customer onSubmit', this.state.messages);
                 event.preventDefault();
         }
 
@@ -137,7 +140,7 @@ class ChatPage extends Component {
                 </div>
                 <div className="footer">
 		
-		<form onSubmit={this.onSubmit}>	
+		<form onSubmit={this.onSend}>	
                	<br/>
 		<br/>
                 <br/>
@@ -149,12 +152,20 @@ class ChatPage extends Component {
             	onChange={this.onChange}
            	/>
           	<br/>
+		{this.state.started ? (
+                        <RaisedButton
+                        label="send"
+                        primary={true}
+                        type="submit"
+                        />
+                ) : (
+                        <RaisedButton
+                        label="Start a conversation"
+                        secondary={true}
+                        onClick={this.onStart}
+                        />
+                )}
 		
-		<RaisedButton
-              	label="send"
-              	primary={true}
-              	type="submit"
-        	/>
 
 		</form>
                 </div>
