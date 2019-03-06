@@ -22,10 +22,9 @@ const NavigationAuth = () => (
 
 const NavigationNonAuth = () => (
       <div>
-	<Link to={ROUTES.LANDING}>Home</Link>
+        <Link to={ROUTES.LANDING}>Home</Link>
       	<Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
      </div>		
 );
 
 export default Navigation;
-
