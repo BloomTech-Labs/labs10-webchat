@@ -80,8 +80,9 @@ function insert(user) {
 
 function updaterepinfo(id, user) {
         return db('representatives')
-                .where('representatives.id', id)
-                .update({name: user.name}, {phone_number: user.phone_number}, {motto: user.motto}, {email: user.email});
+                .where('id', Number(id))
+                .update(user);
+                // .update({name: user.name}, {phone_number: user.phone_number}, {motto: user.motto}, {email: user.email});
 }
 
 
