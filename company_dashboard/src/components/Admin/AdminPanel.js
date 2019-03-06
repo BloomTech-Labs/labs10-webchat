@@ -195,7 +195,7 @@ class AdminPanelBaseForm extends React.Component {
     const app_req = axios.get(`/api/reps/company/${comp_id}`);
     app_req
       .then(r => {
-        // console.log('all reps are:', r.data);
+        console.log('all reps are:', r.data);
         this.setState({allreps: r.data});
       })
       .catch(error => {
