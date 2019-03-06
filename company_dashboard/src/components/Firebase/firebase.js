@@ -25,7 +25,6 @@ class Firebase {
 
   doSignOut = () => {
     this.auth.signOut();
-    console.log("Sign out successful");
   }
 
   doPasswordUpdate = password =>

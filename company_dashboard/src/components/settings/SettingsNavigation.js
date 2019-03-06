@@ -78,7 +78,6 @@ class SettingsNavigation extends React.Component {
     const { value } = this.state;
     const adminStatus = this.state.is_admin;
     if (adminStatus) {
-      if (adminStatus) {
         return (
           <NoSsr>
             <Navigation />
@@ -123,19 +122,7 @@ class SettingsNavigation extends React.Component {
           </NoSsr>
         )
       }
-    } else {
-      return (
-        <div>
-          <Navigation />
-          <div className="settings-navigation" style={{ marginTop: '60px' }}>
-            <Typography variant='display1' align='center' gutterBottom>
-              Loading...
-        </Typography>
-          </div>
-        </div>
-      )
     }
-  }
 }
 
 SettingsNavigation.propTypes = {
