@@ -35,46 +35,57 @@ class ChatView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid: this.props.currentConvoSocket,
-            currentConvoId: this.props.currentConvoId,
+            uid: props.currentConvoSocket,
+            currentConvoId: props.currentConvoId,
             message: '',
             messages: []
         };
         
         this.socket = io('http://localhost:5000');
-        const room = 
-        this.socket.on(this.state.uid, function(message) {
+        
+        // this.socket.emit("join", {uid: props.currentConvoSocket});
+
+        // this.socket.on(props.currentConvoSocket, function(message) {
+        //     console.log('ChatView incoming message: ', message);
+        //     addMessage(message);
+        // });
+        this.socket.on('newMessage', function(message) {
             console.log('ChatView incoming message: ', message);
             addMessage(message);
         });
-
+    
         const addMessage = (data) => {
             this.setState({ 
-                messages: [...this.state.messages, data]
+                messages: [...this.state.messages, data.message]
             });
         }  
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     
     onSubmit = event => {
-        console.log('socket room (uid) inside onSubmit is', this.props.currentConvoSocket);
+        console.log('socket room (uid) inside onSubmit is ', this.props.currentConvoSocket);
         console.log('messages array', this.state.messages);
-
+        console.log("context on submit", this);
         let data = {};
-        data.uid = this.state.uid;
+        data.uid = this.props.currentConvoSocket;
         data.message = this.state.message;
-
+        console.log("data in onSubmit before emit: ", data);
         this.socket.emit('join', data);
+        // this.io.to(data.uid).emit('join', data.message);
+        // this.socket.broadcast.to(data.uid).emit('newMessage', data.message);
         this.setState({ message: "" });
 
         console.log('messages after onSubmit', this.state.messages);
         event.preventDefault();
     }
 
-    onChange = event => {
+    onChange(event) {
         this.setState({ [event.target.name]: event.target.value });
         // console.log("ChatView onChange new state: ", this.state.message);
     };
+    
 
     render() {
         const { classes } = this.props;
