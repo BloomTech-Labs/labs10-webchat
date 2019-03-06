@@ -36,7 +36,7 @@ class ChatRepPage extends Component {
                         messages:[],
                 };
 
-        this.socket = io();
+        this.socket = io('localhost:5000');
 
 
         this.socket.on(this.state.uid, function(message) {
