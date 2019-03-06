@@ -140,7 +140,7 @@ class LandingPage extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               <img
                 className={classes.logo}
-                src={require("./images/logo.png")}
+                src={require("../images/logo.png")}
                 alt="logo"
               />
             </Typography>

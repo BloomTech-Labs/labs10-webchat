@@ -21,8 +21,8 @@ import DummyWebsite from './components/DummyWebsite/DummyWebsite';
 import UpdatePassword from './components/settings/UpdatePassword';
 import LiveFeed from './components/rep1/LiveFeed';
 import ChatRepPage from './components/rep1/ChatRepPage';
+import ChatDashboard from './components/ChatDashboard/ChatDashboard';
 import Billing from './components/settings/Billing';
-
 
 
 class App extends Component {
@@ -58,19 +58,19 @@ class App extends Component {
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
           <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
 
-	        <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+	  <Route path={ROUTES.CHAT_DASHBOARD} component={ChatDashboard} />
 
           <Route path={ROUTES.BILLING} component={Billing} />
 
-          {/* Below Routes are currently not being used */}
           <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
           <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
           <Route path={ROUTES.PERSONAL_INFO} component={PersonalInfo} />
           <Route path={ROUTES.CUSTOMER_WAITING} component={CustomerWaiting} />
           <Route path={ROUTES.CUSTOMER_CHAT} component={CustomerChat} />
-	        <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
+	  <Route path={ROUTES.CHAT_PAGE} component={ChatPage} />  
           <Route path={ROUTES.DUMMY_PAGE} component={DummyWebsite} />
-	        <Route path="/chatreppage/:id" render ={(props) => < ChatRepPage {...props} />} />
+	  <Route path="/chatreppage/:id" render ={(props) => < ChatRepPage {...props} />} />
         </div>
       </Router>
     );

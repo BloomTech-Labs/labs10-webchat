@@ -29,9 +29,7 @@ class DummyWebsite extends Component {
                         <li>Never an Overtime Charge</li>
                         <li>Courtous, Uniformed Professionals</li>
                     </ul>
-                    <Button variant="contained" color="secondary" className="upload-button">
-                          <Link to={ROUTES.CUSTOMER_SIGN_UP}>Chat with a Rep</Link>
-          </Button>
+		<Button className="webChatAppBtn">Chat!</Button> <iframe className="wcaIFRAME"></iframe>
                 </div>
             </div>
         );

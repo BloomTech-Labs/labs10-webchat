@@ -28,7 +28,7 @@ class CustomerSignUpFormBase extends Component {
     	email:"",
 	password:"",
 	password1:"",
-	company_id:2,     
+	company_id: 2,     
 	name:"",
 	uid:"",     
 	summary:"",     
@@ -67,7 +67,10 @@ class CustomerSignUpFormBase extends Component {
            		this.props.history.push({
                   	pathname: ROUTES.CHAT_PAGE,
                   	state: {
-                    	uid: authUser.user.uid        // authUser returned from Firebase
+                      uid: authUser.user.uid,     // authUser returned from Firebase
+                      // ****
+                      company_id: this.state.company_id   // ***This will need to change once company_id is dynamic
+                      // ****
                   	}
                 	});
                 })
@@ -104,7 +107,7 @@ render() {
       	</Typography>):(
        <div>
        <AppBar
-            title="Sign Up"
+            title="Customer Sign Up"
        />	      
 	<form onSubmit={this.onSubmit}>
 	<TextField
