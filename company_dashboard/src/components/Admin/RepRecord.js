@@ -43,13 +43,13 @@ class RepRecord extends React.Component {
       request
         .then(response => {
           console.log("Admin status updated", response);
+          this.props.reloadRecords();
         })
         .catch(error => {
           console.log(error.message);
         });
   
       // Dynamic reloader hold off for now
-      this.props.reloadRecords()
     });
   }
 
