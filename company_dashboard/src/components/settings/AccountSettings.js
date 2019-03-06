@@ -79,8 +79,9 @@ class AccountSettings extends React.Component {
     };
     console.log(user);
 
-    axios
-      .put(`/api/reps/updaterepinfo`, user)
+    const request = axios.put('/api/reps/updaterepinfo', user);
+
+    request
       .then(response => {
         console.log("User info updated");
         console.log(response);
