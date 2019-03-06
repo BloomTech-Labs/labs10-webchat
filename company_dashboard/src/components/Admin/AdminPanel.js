@@ -221,7 +221,8 @@ class AdminPanelBaseForm extends React.Component {
 
         <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
-	
+          <Link to="/chatdashboard">Chat Dashboard</Link>
+
             <p>Company Name</p>
             <TextField
               id='outlined-codeSnippet'
