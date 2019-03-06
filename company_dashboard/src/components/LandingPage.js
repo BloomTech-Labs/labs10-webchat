@@ -13,7 +13,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
-import { blue } from "@material-ui/core/colors";
 
 const styles = theme => ({
   root: {
@@ -107,7 +106,14 @@ const styles = theme => ({
   },
   icon: {
     marginBottom: 25,
-  }
+	},
+	footer: {
+		height: 100,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'skyblue',
+	},
 })
 
 class LandingPage extends Component {
@@ -284,33 +290,13 @@ class LandingPage extends Component {
               </Paper>
             </Grid>
         </Grid>
+
+				<Grid container spacing={24}>
+					<Grid item xs={12} className={classes.footer}>
+						<span className={classes.copyright} class='copyright'>&copy; Copyright 2019 Labs10 Lambda School - All rights reserved</span>
+					</Grid>
+				</Grid>
       </div>
-      
-      
-      // <div className="landing-page">
-      //   <div className="navigation-container">
-      //     <Button size="large">
-      //       <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
-      //     </Button>
-      //     <Button size="large">
-      //       <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-      //     </Button>
-      //     <img
-      //       className="netlify-logo"
-      //       src={require("./images/logomark.png")}
-      //       alt="Netlify logo"
-      //     />
-      //   </div>
-      //   <div className="landing-info">
-      //     <h1>Chattr</h1>
-      //     <p>
-      //       Welcome to Chattr, the new way to chat with your customers.
-      //     </p>
-      //     <Button variant="outlined" color="primary" className="upload-button">
-      //       Get Started
-      //     </Button>
-      //   </div>
-      // </div>
     );
   }
 }
