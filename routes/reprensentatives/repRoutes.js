@@ -37,6 +37,7 @@ router.get('/', (req, res) => {
 		})
 });
 
+
 router.get('/getbyUID', (req, res) => {
 	console.log(req.body.uid);
 	const uid  = req.body.uid;
@@ -303,6 +304,30 @@ router.post('/admin', upload.single('file'),(req, res) => {
 	}		
 });
 
+router.put('/updaterepinfo', (req, res) => {
+	const id = req.body.id;
+	const user = {
+		name: req.body.name,
+		phone_number: req.body.phone_number,
+		motto: req.body.motto,
+		email: req.body.email,
+	};
+	const phone_number = user.phone_number;
+
+	const request = db.updaterepinfo(id, user);
+
+
+	request.then(response_data => {
+		res.status(200).json(response_data);
+		console.log(user.motto);
+	})
+
+	.catch(error => {
+		res.status(500).json({ error: "Failed to update account information" });
+	})
+
+	
+})
 
 
 //update a representative's admin status

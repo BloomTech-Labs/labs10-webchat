@@ -93,13 +93,12 @@ class RepLoginFormBase extends React.Component {
           <div>
             <div className="login-top-bar">
                 <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
-                  <Button size="large" variant="outlined">
-                  <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-                </Button>
+                    <p>Send me back to the <Link to={ROUTES.REP_REGISTER}>home page</Link></p>
             </div>
+            <p className="header">Member Login</p> 
             <form onSubmit={this.onSubmit}> 
-              <h4>Log into your account</h4> 
               <TextField
+                autoComplete='off'
                 hintText="Enter your Email"
                 floatingLabelText="Email"
                 required={true}
@@ -109,6 +108,7 @@ class RepLoginFormBase extends React.Component {
               />
               <br/>
               <TextField
+                autoComplete='off'
                 type="password"
                 hintText="Enter your Password"
                 floatingLabelText="Password"
@@ -120,15 +120,17 @@ class RepLoginFormBase extends React.Component {
               <br/>
       
               <RaisedButton
+                className="login-button"
                 label="Login"
                 primary={true}
                 type="submit"
                 disabled={condition}
               />
-
+              <p>By logging in, you agree to the Terms and Conditions and Privacy Policy.</p>
+    
               {error && <p>{error.message}</p>}
+              <Link to={ROUTES.REP_REGISTER}>Create an Account</Link>
             </form>
-            <Link to={ROUTES.REP_REGISTER}>Create an Account</Link>
           </div>)}
         </MuiThemeProvider>
       </div>
