@@ -13,6 +13,8 @@ import axios from 'axios';
 import AccountSettings from "./AccountSettings";
 import Billing from "./Billing";
 import AdminPanel from "../Admin/AdminPanel";
+import Navigation from "../Navigation";
+import '../Navigation.css'
 import { NavigationFullscreenExit } from "material-ui/svg-icons";
 
 function TabContainer(props) {
@@ -49,7 +51,9 @@ class SettingsNavigation extends React.Component {
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
-      console.log("Settings Navigation response: ", response);
+      console.log("Account Settings CDM getByUID response: ", response);
+      // console.log(response.data);
+
       this.setState({
         is_admin: response.data.is_admin
       });
@@ -73,9 +77,33 @@ class SettingsNavigation extends React.Component {
     const { classes } = this.props;
     const { value } = this.state;
     const adminStatus = this.state.is_admin;
-    if(adminStatus) {
-      return (
-        <div>
+    if (adminStatus) {
+      if (adminStatus) {
+        return (
+          <NoSsr>
+            <Navigation />
+            <div className="settings-navigation">
+              <Paper className={classes.root}>
+                <Tabs
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  centered
+                >
+                  <LinkTab label="Admin Panel" />
+                  <LinkTab label="Account Settings" />
+                  <LinkTab label="Team Billing" />
+                </Tabs>
+              </Paper>
+              {value === 0 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
+              {value === 1 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
+              {value === 2 && <TabContainer><Billing /></TabContainer>}
+            </div>
+          </NoSsr>
+        )
+      } else {
+        return (
           <NoSsr>
             <Navigation />
             <div className="settings-navigation">
@@ -88,35 +116,24 @@ class SettingsNavigation extends React.Component {
                   centered
                 >
                   <LinkTab label="Account Settings" />
-                  <LinkTab label="Admin Panel"/>
-                  <LinkTab label="Team Billing" />
-              </Tabs>
-            </Paper>
-            {value === 0 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
-            {value === 1 && <TabContainer><AdminPanel user={this.state.user} /></TabContainer>}
-            {value === 2 && <TabContainer><Billing /></TabContainer>}
-          </NoSsr>
-        </div>
-      )} else {
-        return (
-          <div>
-            <NoSsr>
-              <Paper className={classes.root}>
-                <Tabs
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                  indicatorColor="primary"
-                  textColor="primary"
-                  centered
-                  >
-                    <LinkTab label="Account Settings" />
                 </Tabs>
               </Paper>
               {value === 0 && <TabContainer><AccountSettings user={this.state.user} /></TabContainer>}
-            </NoSsr>
-          </div>
+            </div>
+          </NoSsr>
         )
       }
+    } else {
+      return (
+        <div>
+          <Navigation />
+          <div className="settings-navigation" style={{ marginTop: '60px' }}>
+            <Typography variant='display1' align='center' gutterBottom>
+              Loading...
+        </Typography>
+          </div>
+        </div>
+      )
     }
   }
 }
