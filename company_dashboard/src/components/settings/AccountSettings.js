@@ -58,7 +58,7 @@ class AccountSettings extends React.Component {
       console.log("Account Settings CDM getByUID response: ", response);
       // console.log(response.data);
 
-      this.setState({      
+      this.setState({ 
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
@@ -67,7 +67,6 @@ class AccountSettings extends React.Component {
 	image_url: response.data.url,
 	uid: response.data.uid       
        });
-       console.log(this.state.motto);
     })
     .catch(err => {
       console.log(err.message);
@@ -123,8 +122,12 @@ class AccountSettings extends React.Component {
 
     return (
       <div className="account-settings">
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
+
+            <Link to="/chatdashboard">Chat Dashboard</Link>
+            <br/>
+
             <TextField
               id="outlined-name"
               label="Name"
