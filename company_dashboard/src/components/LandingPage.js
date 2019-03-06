@@ -13,6 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
+import { blue } from "@material-ui/core/colors";
 
 const styles = theme => ({
   root: {
@@ -25,12 +26,18 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
+  logo: {
+    width: 80,
+    height: 55,
+  },
   home: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    justifyContent: 'space-around'
+		justifyContent: 'space-around',
+		height: 425,
+		backgroundColor: 'red',
   },
   info: {
     width: 480,
@@ -52,12 +59,15 @@ const styles = theme => ({
   reason: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+		alignItems: 'center',
+		height: 400,
+		backgroundColor: 'blue',
   },
   heading: {
     fontSize: 30,
     fontWeight: 'bold',
-    letterSpacing: 2,
+		letterSpacing: 2,
+		marginTop: 25,
   },
   columns: {
     display: 'flex',
@@ -68,8 +78,25 @@ const styles = theme => ({
   benefits: {
     width: 200,
     height: 150,
-  },
-  developers: {
+	},
+	pricing: {
+		width: '100%',
+		height: 200,
+		display: 'flex',
+		justifyContent: 'space-around',
+		backgroundColor: 'purple',
+	},
+	subscribe: {
+		marginTop: 45,
+	},
+	signup: {
+		marginTop: 55,
+		height: 50,
+	},
+	developers: {
+		backgroundColor: 'green',
+	},
+  developer: {
     fontSize: 20,
   },
   pic: {
@@ -95,10 +122,14 @@ class LandingPage extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Chattr
+              <img
+                className={classes.logo}
+                src={require("./images/logo.png")}
+                alt="logo"
+              />
             </Typography>
             <Button size="large" color="primary"> 
-              <Link to={ROUTES.BILLING}>Billing</Link>
+              <Link to={ROUTES.BILLING}>Pricing</Link>
             </Button>
             <Button size="large" color="primary">
               <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
@@ -121,7 +152,7 @@ class LandingPage extends Component {
                 <Typography className={classes.main} component='h2' variant='h3' gutterBottom>
                   Welcome to Chattr, the new way to chat with your customers
                 </Typography>
-                <Button variant="outlined" color="primary" className={classes.upload}>
+                <Button variant="outlined" color="primary" className={classes.signup}>
                   <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
                 </Button>
               </div>
@@ -165,13 +196,29 @@ class LandingPage extends Component {
         </Grid>  
 
         <Grid container spacing={24}>
+			    <div className={classes.pricing}>
+						<div className={classes.subscribe}>
+							<Typography variant='h4' gutterBottom>
+								Subscribe to Chattr
+							</Typography>
+							<Typography variant='body1' gutterBottom>
+								All companies get our features for just one payment of $30
+							</Typography>
+						</div>
+						<Button variant="outlined" color="primary" className={classes.signup}>
+							<Link to={ROUTES.REP_REGISTER}>Get Started</Link>
+						</Button>
+					</div>
+        </Grid>
+
+        <Grid container spacing={24} className={classes.developers}>
           <Grid item xs={12}>
             <Typography className={classes.heading} variant='h3' gutterBottom>
               Our Developers
             </Typography>
           </Grid>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.developers}>Sukhada Gholba
+              <Paper className={classes.developer}>Sukhada Gholba
                 <br/>
                 
                 <br/>
@@ -181,7 +228,7 @@ class LandingPage extends Component {
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.developers}>Cameron Ray
+              <Paper className={classes.developer}>Cameron Ray
                 <br/>
                 <img
                   className={classes.pic}
@@ -195,7 +242,7 @@ class LandingPage extends Component {
               </Paper>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Paper className={classes.developers}>Linda Yang
+              <Paper className={classes.developer}>Linda Yang
                 <br/>
                 <img
                   className={classes.pic}
@@ -209,7 +256,7 @@ class LandingPage extends Component {
               </Paper>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Paper className={classes.developers}>Wonjae Hwang
+              <Paper className={classes.developer}>Wonjae Hwang
                 <br/>
                 <img
                   className={classes.pic}
@@ -223,7 +270,7 @@ class LandingPage extends Component {
               </Paper>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Paper className={classes.developers}>Jennifer Player
+              <Paper className={classes.developer}>Jennifer Player
                 <br/>
                 <img
                   className={classes.pic}
