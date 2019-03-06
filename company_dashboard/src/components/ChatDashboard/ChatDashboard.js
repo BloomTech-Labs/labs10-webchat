@@ -6,6 +6,8 @@ import ConvoList from './ConvoList/ConvoList';
 import ChatView from './ChatView';
 import './ChatDashboard.css';
 import './ConvoList/ConvoList.css';
+import Navigation from '../Navigation';
+import '../Navigation.css'
 
 class ChatDashboard extends React.Component {
     constructor() {
@@ -68,6 +70,8 @@ class ChatDashboard extends React.Component {
 
     render() {
         return (
+            <div>
+            <Navigation />
             <div className="chat-dashboard-container">
                 <div className="chat-dash-left-container">
                     <ConvoList 
@@ -84,6 +88,7 @@ class ChatDashboard extends React.Component {
                         closeConvo={this.closeConvo}
                     />  
                 </div> 
+            </div>
             </div>
         );
     }

@@ -40,11 +40,12 @@ class AccountSettings extends React.Component {
     name: "",
     uid:"",	  
     email: "",
-    phone_number: "",
+    phone_number: 0,
     motto: "",
     image_url:"",	  
     image_id:"",	  
-    selectedFile: null
+    selectedFile: null,
+    id: ""
   };
 
   componentDidMount() {
@@ -63,9 +64,10 @@ class AccountSettings extends React.Component {
         email: response.data.email,
         phone_number: response.data.phone_number,
         motto: response.data.motto,
-	image_id:response.data.image_id,
-	image_url: response.data.url,
-	uid: response.data.uid       
+        id: response.data.id,
+        image_id:response.data.image_id,
+	      image_url: response.data.url,
+	      uid: response.data.uid       
        });
     })
     .catch(err => {
@@ -80,6 +82,29 @@ class AccountSettings extends React.Component {
       [name]: event.target.value
     });
   };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const user = {
+      name: this.state.name,
+      phone_number: this.state.phone_number,
+      motto: this.state.motto,
+      email: this.state.email,
+      id: this.state.id  
+    };
+    console.log(user);
+
+    const request = axios.put('/api/reps/updaterepinfo', user);
+
+    request
+      .then(response => {
+        console.log("User info updated");
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  }
   
   //Sets selectedFile in state after selecting an image
   
@@ -163,12 +188,12 @@ class AccountSettings extends React.Component {
               label="Phone Number"
               className={classes.textField}
               value={this.state.phone_number}
-              onChange={this.handleChange("phone")}
+              onChange={this.handleChange("phone_number")}
               margin="normal"
               variant="outlined"
             />
             
-            <Button variant="outlined" color="primary" className="save-button">
+            <Button variant="outlined" color="primary" className="save-button" onClick={this.handleSubmit} >
               Save
             </Button>
             <Link to="/updatepassword">Update Password</Link>
