@@ -64,7 +64,7 @@ class ApprovedRepRegisterForm extends Component {
             //this.setState({logged:true});
       
             this.props.history.push({              // send the user to account settings page
-                  pathname: '/accountsettings',
+                  pathname: '/adminsettings',
                   state: { rep_id: response.data }  // response.data should be the id returned by addRepRequest
             });		
           

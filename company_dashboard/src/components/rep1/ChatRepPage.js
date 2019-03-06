@@ -36,7 +36,7 @@ class ChatRepPage extends Component {
                         messages:[],
                 };
 
-        this.socket = io('https://webchatlabs10.herokuapp.com');
+        this.socket = io();
 
 
         this.socket.on(this.state.uid, function(message) {

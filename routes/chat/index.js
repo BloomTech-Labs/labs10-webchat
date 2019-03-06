@@ -7,7 +7,8 @@ const messagesDb = require('../../data/helpers/messagesDb');
 router.post('/newconvo', (req, res) => {
     const convo  = {
         customer_uid: req.body.customer_uid,
-        summary: req.body.summary
+        summary: req.body.summary,
+        company_id: req.body.company_id
     }
     convosDb.insert(convo)
         .then(response => {

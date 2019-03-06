@@ -44,21 +44,25 @@ class SettingsNavigation extends React.Component {
     value: 0,
     is_admin: null
   };
+
   componentDidMount() {
-    console.log("State Before loading Page:", this.state.is_admin);
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
       console.log("Settings Navigation response: ", response);
       this.setState({
         is_admin: response.data.is_admin
-      }, () => {
-        console.log("State After loading Page:", this.state.is_admin);
       });
+
     })
-    .catch(err => {
-      console.log(err.message);
-    })
+      .catch(err => {
+        console.log(err.message);
+        this.setState({ error: err });
+      })
+    setTimeout(() => {
+      console.log(this.state.is_admin);
+
+    }, 5000)
   }
 
   handleChange = (event, value) => {
@@ -73,13 +77,15 @@ class SettingsNavigation extends React.Component {
       return (
         <div>
           <NoSsr>
-            <Paper className={classes.root}>
-              <Tabs
-                value={this.state.value}
-                onChange={this.handleChange}
-                indicatorColor="primary"
-                textColor="primary"
-                centered
+            <Navigation />
+            <div className="settings-navigation">
+              <Paper className={classes.root}>
+                <Tabs
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  centered
                 >
                   <LinkTab label="Account Settings" />
                   <LinkTab label="Admin Panel"/>
@@ -112,6 +118,7 @@ class SettingsNavigation extends React.Component {
         )
       }
     }
+  }
 }
 
 SettingsNavigation.propTypes = {
