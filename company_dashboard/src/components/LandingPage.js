@@ -106,7 +106,14 @@ const styles = theme => ({
   },
   icon: {
     marginBottom: 25,
-  }
+	},
+	footer: {
+		height: 100,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'skyblue',
+	},
 })
 
 class LandingPage extends Component {
@@ -283,6 +290,12 @@ class LandingPage extends Component {
               </Paper>
             </Grid>
         </Grid>
+
+				<Grid container spacing={24}>
+					<Grid item xs={12} className={classes.footer}>
+						<span className={classes.copyright} class='copyright'>&copy; Copyright 2019 Labs10 Lambda School - All rights reserved</span>
+					</Grid>
+				</Grid>
       </div>
     );
   }
