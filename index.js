@@ -30,12 +30,39 @@ io.on('connection', (socket) => {
   	console.log('room_uid', data.uid);	  
    	console.log('message is', data.message); 
 	  socket.join(data.uid);
-    io.sockets.in(`${data.uid}`).emit(data.uid, data.message);
+    io.sockets.in(data.uid).emit(data.uid, data.message);
+    // socket.on(`${data.uid}`, function(data) {
+    //   console.log("data in on-uid: ", data);
+    //   socket.broadcast.emit(`${data.uid}`, data);
+    // })
   });	
   
 	socket.on('disconnect', () => console.log('Client disconnected'));
 });
+
+// io.on('connection', (socket) => {
+//   console.log('New user connected');
   
+// 	socket.on('join', function(data) => {
+
+// 		console.log('room_uid', data.uid);	  
+//     console.log('message is', data.message); 
+// 		socket.join(data.uid);
+		
+// 		io.to(data.uid).emit('newMessage', data.message);
+// 		socket.broadcast.to(data.uid).emit('newMessage', data.message);
+		
+// 	});
+
+// 	socket.on('createMessage', function(data) =>  {
+//     console.log('room_uid', data.uid);	  
+//     console.log('new message is', data.message); 
+    
+//     io.to(data.uid).emit('newMessage', data.message);
+//     socket.broadcast.to(data.uid).emit('newMessage', data.message);
+
+// 	});
+// }
 
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');

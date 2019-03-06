@@ -28,6 +28,7 @@ const styles = theme => ({
 class ChatPage extends Component {
         constructor(props) {
                 super(props);
+                console.log("props after super: ", props);
                 this.state = {
                         uid: props.history.location.state.uid,
                         company_id: props.history.location.state.company_id,
@@ -36,13 +37,17 @@ class ChatPage extends Component {
                         started: false
         	};
 
-        this.socket = io('https://webchatlabs10.herokuapp.com');
+        this.socket = io();
 	
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
 		addMessage(message);
         });
+        // this.socket.on('newMessage', function(message) {
+        //         console.log('Incoming message:', message);
+	// 	addMessage(message);
+        // });
 
 
         const addMessage = (data) => {
@@ -70,7 +75,7 @@ class ChatPage extends Component {
                         summary: this.state.message,
                         company_id: this.state.company_id
                 };
-
+                console.log("new convo: ", convo);
                 axios.post('/api/chat/newconvo', convo)
                 .then(response => {
                         console.log("Conversation created.")
@@ -96,6 +101,7 @@ class ChatPage extends Component {
 
                 this.socket.emit('join', data);
                 this.setState({ message: ""});
+                event.preventDefault();
         }
 
 
@@ -105,6 +111,7 @@ class ChatPage extends Component {
 
 
 	render() {
+                console.log("ChatPage state on render: ", this.state);
 		const { classes } = this.props;
                 return(
                 <div>
