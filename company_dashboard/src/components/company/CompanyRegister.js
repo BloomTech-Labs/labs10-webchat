@@ -63,8 +63,8 @@ const request = axios.post('/api/reps/admin', data);
 		    //this.setState({logged:true});
 	
         this.props.history.push({
-          pathname: '/livefeed',
-          state: { rep_id: response.data, uid:this.state.uid }
+          pathname: '/adminsettings',
+          // state: { rep_id: response.data, uid:this.state.uid }
         });		
 		
 	    })

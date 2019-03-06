@@ -50,7 +50,8 @@ class Queue extends React.Component {
         const { classes } = this.props;
         return (
         <div>
-            <MuiThemeProvider>    
+            <MuiThemeProvider>   
+            <div> 
             <Typography color='inherit' variant='h4' align='center'>Message Queue</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
@@ -78,6 +79,7 @@ class Queue extends React.Component {
                     </Paper>
                 )	 
                 })}
+            </div>
             </MuiThemeProvider>      
         </div>
         );
