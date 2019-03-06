@@ -4,16 +4,16 @@ import { withFirebase } from "../Firebase";
 import { withRouter} from "react-router-dom"
 import { FirebaseContext } from '../Firebase';
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
-import socket from 'socket.io-client';
-import Query from './Query';
-import QueryPanel from './QueryPanel';
-import ChatRepPage from './ChatRepPage';
+// import socket from 'socket.io-client';
+// import Query from './Query';
+// import QueryPanel from './QueryPanel';
+// import ChatRepPage from './ChatRepPage';
 import './Query.css';
 import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+// import AppBar from 'material-ui/AppBar';
+// import RaisedButton from 'material-ui/RaisedButton';
+// import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -34,12 +34,6 @@ const styles = theme => ({
   },
 });
 
-
-
-
-
-
-
 const LiveFeedPage = () => (
   <div>
     <FirebaseContext.Consumer>
@@ -47,8 +41,6 @@ const LiveFeedPage = () => (
     </FirebaseContext.Consumer>
   </div>
 );
-
-
 
 class LiveFeedFormBase extends Component {
   constructor(props) {
@@ -60,7 +52,6 @@ class LiveFeedFormBase extends Component {
       queries: ["hello"],
       logged: false,	    
     }
-  
   }
 
   componentDidMount() {
@@ -89,7 +80,6 @@ class LiveFeedFormBase extends Component {
 	      console.log(error.message);	  
         this.setState({ error:error });
       })
-	  
   }  
 
   render() {

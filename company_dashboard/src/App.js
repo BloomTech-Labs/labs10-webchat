@@ -21,6 +21,7 @@ import DummyWebsite from './components/DummyWebsite/DummyWebsite';
 import UpdatePassword from './components/settings/UpdatePassword';
 import LiveFeed from './components/rep1/LiveFeed';
 import ChatRepPage from './components/rep1/ChatRepPage';
+import ChatDashboard from './components/ChatDashboard/ChatDashboard';
 import Billing from './components/settings/Billing';
 
 
@@ -58,6 +59,7 @@ class App extends Component {
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
           <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
 
+	        <Route path={ROUTES.CHAT_DASHBOARD} component={ChatDashboard} />
 	        <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
 
           <Route path={ROUTES.BILLING} component={Billing} />
