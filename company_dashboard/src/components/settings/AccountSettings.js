@@ -83,6 +83,7 @@ class AccountSettings extends React.Component {
       .put(`/api/reps/updaterepinfo`, user)
       .then(response => {
         console.log("User info updated");
+        console.log(response);
       })
       .catch(err => {
         console.log(err.message);
