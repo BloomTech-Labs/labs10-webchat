@@ -23,13 +23,6 @@ class RepRecord extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // this.setState({
-    //   is_admin: this.props.rep.is_admin
-    // });
-    console.log(this.state.is_admin);
-  }
-
   changeAdminStatus = () => {
     /*
     [x] Change state is_admin
@@ -40,26 +33,24 @@ class RepRecord extends React.Component {
 
     this.setState({
       is_admin: !this.state.is_admin
-    });
-
-    const data = {
-      is_admin: !this.state.is_admin
-    }
-    console.log("Put request data", data);
-    const rep_id = this.props.rep.id;
-
-    const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
-
-    request
-      .then(response => {
-        console.log("Admin status updated", response);
-      })
-      .catch(error => {
-        console.log(error.message);
-      });
-
+    }, () => {
+      const data = {
+        is_admin: this.state.is_admin
+      }
+      const rep_id = this.props.rep.id
+      console.log("Put request data", data);
+      const request = axios.put(`/api/reps/adminstatus/${rep_id}`, data);
+      request
+        .then(response => {
+          console.log("Admin status updated", response);
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+  
       // Dynamic reloader hold off for now
-    this.props.reloadRecords()
+      this.props.reloadRecords()
+    });
   }
 
   render() {
