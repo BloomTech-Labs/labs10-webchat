@@ -29,9 +29,10 @@ class ChatPage extends Component {
         constructor(props) {
                 super(props);
                 this.state = {
-			uid:props.history.location.state.uid,
-                        message:'',
-                        messages:[],
+                        uid: props.history.location.state.uid,
+                        company_id: props.history.location.state.company_id,
+                        message: '',
+                        messages: [],
                         started: false
         	};
 
@@ -66,7 +67,8 @@ class ChatPage extends Component {
 
                 let convo = {
                         customer_uid: this.state.uid,
-                        summary: this.state.message
+                        summary: this.state.message,
+                        company_id: this.state.company_id
                 };
 
                 axios.post('/api/chat/newconvo', convo)

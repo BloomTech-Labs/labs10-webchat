@@ -38,10 +38,10 @@ function getQueue(uid) {
 }
 
 // Remove a conversation from the Queue by changing in_queue boolean to false
-function deQueue(id) {
+function deQueue(id, rep_uid) {
     return db('conversations')
         .where('id', id)
-        .update({ in_q: false });
+        .update({ in_q: false, rep_uid: rep_uid });
 };
 
 // Get conversation info to poppulate ActiveConvos using signed-in rep's uid

@@ -67,7 +67,10 @@ class CustomerSignUpFormBase extends Component {
            		this.props.history.push({
                   	pathname: ROUTES.CHAT_PAGE,
                   	state: {
-                    	uid: authUser.user.uid        // authUser returned from Firebase
+                      uid: authUser.user.uid,     // authUser returned from Firebase
+                      // ****
+                      company_id: this.state.company_id   // ***This will need to change once company_id is dynamic
+                      // ****
                   	}
                 	});
                 })

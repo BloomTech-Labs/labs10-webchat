@@ -7,7 +7,7 @@ const messagesDb = require('../../data/helpers/messagesDb');
 router.post('/newconvo', (req, res) => {
     const convo  = {
         customer_uid: req.body.customer_uid,
-        summary: req.body.customer_uid
+        summary: req.body.summary
     }
     convosDb.insert(convo)
         .then(response => {
@@ -35,7 +35,8 @@ router.get('/queue', (req, res) => {
 // Remove conversation from Queue by changing in_q to false
 router.put('/dequeue', (req, res) => {
     const id = req.body.id;
-    const request = convosDb.deQueue(id);
+    const rep_uid = req.body.uid;
+    const request = convosDb.deQueue(id, rep_uid);
     request
         .then(response => {
             res.status(200).json(response);
