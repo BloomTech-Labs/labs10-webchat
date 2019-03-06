@@ -24,7 +24,6 @@ import ChatRepPage from './components/rep1/ChatRepPage';
 
 
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +57,7 @@ class App extends Component {
           <Route path={ROUTES.ADMIN_SETTINGS} component={SettingsNavigation} />
           <Route path={ROUTES.UPDATE_PASSWORD} component={UpdatePassword} />
 
-	        <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
+	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
 
           {/* Below Routes are currently not being used */}
           <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
