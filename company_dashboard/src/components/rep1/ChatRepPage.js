@@ -38,6 +38,7 @@ class ChatRepPage extends Component {
                         uid:props.match.params.id,
                         message:'',
                         messages:[],
+                        is_closed: false
 			image_id:"",
 			url:"",
 			rep_name:""
@@ -55,6 +56,8 @@ class ChatRepPage extends Component {
         const addMessage = (data) => {
                 this.setState({messages: [...this.state.messages, data]});
         }
+
+        this.closeConvo = this.closeConvo.bind(this);
         }
 
 componentDidMount(){
@@ -102,21 +105,28 @@ onChange = event => {
 };
 
 closeConvo() {
-        const uid = this.state.uid;
-        const data = { uid: uid };
+        const customer_uid = this.state.uid;
+        const data = { customer_uid: customer_uid };
         console.log("close convo data: ", data);
         axios.put('/api/chat/closefromchatreppage', data)
         .then(response => {
             console.log("Conversation closed.")
+            this.setState({
+                is_closed: true
+            })
         })
         .catch(error => {
             console.log(error.message);
         })
+        // this.props.history.push({
+        //         pathname: '/adminsettings',
+        // });		
     }
 
 
 
         render() {
+                const is_closed = this.state.is_closed;
                 const { classes } = this.props;
                 return(
                         <div>
@@ -172,11 +182,16 @@ closeConvo() {
                                                 type="submit"
                                         />
                                 </form>
-                                <RaisedButton
+                                {is_closed ? (
+                                        <p>This conversation is closed.</p>
+                                ) : (
+                                        <RaisedButton
                                         label="End Conversation"
                                         secondary={true}
                                         onClick={this.closeConvo}
-                                />
+                                        />
+                                )}
+                                
                         </div>
                         </div>
                         </div>
