@@ -38,7 +38,7 @@ class ChatRepPage extends Component {
                         uid:props.match.params.id,
                         message:'',
                         messages:[],
-                        is_closed: false
+                        is_closed: false,
 			image_id:"",
 			url:"",
 			rep_name:""
