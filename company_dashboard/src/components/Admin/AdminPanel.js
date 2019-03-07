@@ -112,8 +112,7 @@ class AdminPanelBaseForm extends React.Component {
   
   componentDidMount() {
     //using rep_id to get representative details to display on Admin panel  
-    // axios.get('/api/reps/getbyUID')
-    // .then(rep => {
+    
     const id = this.state.rep_id;
       this.props.firebase.auth.currentUser.getIdToken()
       .then(idToken => {
@@ -159,15 +158,7 @@ class AdminPanelBaseForm extends React.Component {
       .catch(error => {            // if Firebase getIdToken throws an error
         console.log(error.message);
 	      this.setState({ error:error });
-      })		  
-    //   this.setState({
-    //     rep_id: rep.data.id
-    //   });
-    // })
-    // .catch(error => {
-    //   console.log(error.message);
-    // });
-  	 
+      })		 
   }
   
   handleClick = () => {
