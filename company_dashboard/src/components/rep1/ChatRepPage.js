@@ -41,11 +41,11 @@ class ChatRepPage extends Component {
                         is_closed: false,
 			image_id:"",
 			url:"",
-			rep_name:""
+			rep_name:"",
                 };
 
-	  this.socket = io('localhost:5000');
-	//   this.socket = io('https://webchatlabs10.herokuapp.com');
+	  //this.socket = io('localhost:5000');
+	   this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
