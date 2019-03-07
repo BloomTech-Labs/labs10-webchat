@@ -34,7 +34,7 @@
   justify-content: space-evenly;
   align-items: center;
   border: 1px lightgray solid;
-  width: 320px;
+  width: 225px;
   margin: auto;
   background-color: white;
   padding-top: 1%;
@@ -61,8 +61,4 @@
 .customer-signup form a {
   color: #4C7AF1;
   padding-bottom: 5%;
-}
-
-.customer-signup form input {
-  width: 70%;
 }
