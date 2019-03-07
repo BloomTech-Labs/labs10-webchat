@@ -39,7 +39,7 @@ class ChatRepPage extends Component {
                         message:'',
                         messages:[],
                         is_closed: false,
-			image_id:"",
+			image_id:null,
 			url:"",
 			rep_name:"",
                 };
