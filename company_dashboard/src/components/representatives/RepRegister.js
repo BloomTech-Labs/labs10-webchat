@@ -137,6 +137,7 @@ class RepSignUpFormBase extends Component {
                 <p className="header">Register an Account</p> 
             <form onSubmit={this.onSubmit}>
               <TextField
+                style = {{width: '65%'}}
                 hintText="Enter your Email"
                 floatingLabelText="Email"
                 name="email"
@@ -148,6 +149,7 @@ class RepSignUpFormBase extends Component {
               <br/>
 
               <TextField
+                style = {{width: '65%'}}
                 hintText="Enter your password"
                 floatingLabelText="Password"
                 required={true}
@@ -159,6 +161,7 @@ class RepSignUpFormBase extends Component {
               <br/>
 
               <TextField
+                style = {{width: '65%'}}
                 hintText="Re-enter your password"
                 floatingLabelText="Re-enter password"
                 name="password1"
