@@ -109,11 +109,6 @@ render() {
             <div>
               <div className="customer-signup-top-bar">
                 <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
-                <Link to={ROUTES.LANDING}>
-                  <RaisedButton 
-                    label="Home"
-                  />
-                </Link>
               </div>
               <p className="header">Please sign up before getting help</p> 
 	            <form onSubmit={this.onSubmit}>
