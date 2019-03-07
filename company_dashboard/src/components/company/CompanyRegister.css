@@ -1,0 +1,64 @@
+.company-detail {
+  background-color: #F9FAFF;
+  height: 100%;
+}
+
+.company-detail-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+  padding-top: 2%;
+  margin-bottom: 2%;
+}
+
+
+.company-detail .company-detail-top-bar a {
+  color: #4C7AF1;
+}
+
+.company-detail .company-detail-top-bar img {
+  height: 75px;
+  width: 75px;
+}
+
+.company-detail .header {
+  font-size: 2em;
+  margin-bottom: 3%;
+}
+
+.company-detail form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px lightgray solid;
+  width: 25%;
+  margin: auto;
+  background-color: white;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-bottom: 15%;
+}
+
+.company-detail form .company-register-button {
+  margin-top: 5%;
+}
+
+.company-detail form p {
+  color: gray;
+  font-size: .8em;
+  padding: 5% 25% 3% 25%;
+}
+
+.company-detail form p:last-child {
+  color: gray;
+  font-size: .9em;
+  padding: 5% 25% 3% 25%;
+}
+
+.company-detail form a {
+  color: #4C7AF1;
+  padding-bottom: 5%;
+}
