@@ -10,7 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-imprt axios from 'axios';
+import axios from 'axios';
 
 
 const styles = theme => ({
@@ -74,7 +74,8 @@ onChange = event => {
 };
 
 closeConvo() {
-        const data = { uid: this.state.uid };
+        const uid = this.state.uid;
+        const data = { uid: uid };
         console.log("close convo data: ", data);
         axios.put('/api/chat/closefromchatreppage', data)
         .then(response => {
