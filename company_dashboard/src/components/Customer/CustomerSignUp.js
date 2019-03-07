@@ -8,6 +8,7 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
+import './CustomerSignUp.css';
 import axios from 'axios';
 
 
@@ -100,83 +101,94 @@ render() {
 
 
     return (
-      <div> 
+      <div className="customer-signup"> 
       	<MuiThemeProvider> 
-	{this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
-        Successfully Logged In
-      	</Typography>):(
-       <div>
-       <AppBar
-            title="Customer Sign Up"
-       />	      
-	<form onSubmit={this.onSubmit}>
-	<TextField
-            hintText="Enter your Email"
-            floatingLabelText="Email"
-	    name="email"
-	    type="text"   
-            required={true}
-	    value={this.state.email}
-            onChange={this.onChange}
-           />
-          <br/>       
-	
-	<TextField
-            hintText="Enter your password"
-            floatingLabelText="Password"
-            required={true}
-	    name="password"
-            type="password"  
-            value={this.state.password}
-            onChange={this.onChange}
-           />
-          <br/>
-	      
-	 <TextField
-            hintText="Re-enter your password"
-            floatingLabelText="Re-enter password"
-            name="password1"
-            type="password"
-	    required={true}  
-            value={this.state.password1}
-            onChange={this.onChange}
-           />
-          <br/>
-	
-	<TextField
-            hintText="Enter your name"
-            floatingLabelText="Name"
-            required={true}
-            name="name"
-            type="text" 
-            value={this.state.name}
-            onChange={this.onChange}
-           />
-          <br/>
+          {this.state.logged ? 
+            (<Typography variant='display1' align='center' gutterBottom>
+              Successfully Logged In</Typography>):(
+            <div>
+              <div className="customer-signup-top-bar">
+                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+                <Link to={ROUTES.LANDING}>
+                  <RaisedButton 
+                    label="Home"
+                  />
+                </Link>
+              </div>
+              <p className="header">Please sign up before getting help</p> 
+	            <form onSubmit={this.onSubmit}>
+	              <TextField
+                  style = {{width: '65%'}}
+                  hintText="Enter your Email"
+                  floatingLabelText="Email"
+                  name="email"
+                  type="text"   
+                  required={true}
+                  value={this.state.email}
+                  onChange={this.onChange}
+                />
+                <br/>       
+        
+                <TextField
+                  style = {{width: '65%'}}
+                  hintText="Enter your password"
+                  floatingLabelText="Password"
+                  required={true}
+                  name="password"
+                  type="password"  
+                  value={this.state.password}
+                  onChange={this.onChange}
+                />
+                <br/>
+              
+                <TextField
+                  style = {{width: '65%'}}
+                  hintText="Re-enter your password"
+                  floatingLabelText="Re-enter password"
+                  name="password1"
+                  type="password"
+                  required={true}  
+                  value={this.state.password1}
+                  onChange={this.onChange}
+                />
+                <br/>
+        
+                <TextField
+                  style = {{width: '65%'}}
+                  hintText="Enter your name"
+                  floatingLabelText="Name"
+                  required={true}
+                  name="name"
+                  type="text" 
+                  value={this.state.name}
+                  onChange={this.onChange}
+                />
+                <br/>
 
-        <TextField
-            hintText="summary"
-            floatingLabelText="What can we help you with?"
-            required={true}
-            name="summary"
-            type="text"   
-            value={this.state.summary}
-            onChange={this.onChange}
-           />
-          <br/>	
+                <TextField
+                  style = {{width: '65%'}}
+                  hintText="summary"
+                  floatingLabelText="What can we help you with?"
+                  required={true}
+                  name="summary"
+                  type="text"   
+                  value={this.state.summary}
+                  onChange={this.onChange}
+                />
+                <br/>	
 
-	<RaisedButton 
-              label="SignUp" 
-              primary={true} 
-              type="submit"
-	      disabled={condition} 
-        />       
-	       
-	{error && <p>{error.message}</p>}    
-      </form>
-      </div>)}
-   </MuiThemeProvider>
-</div>);
+                <RaisedButton
+                    label="SignUp" 
+                    primary={true} 
+                    type="submit"
+                    disabled={condition} 
+              />       
+              
+        {error && <p>{error.message}</p>}    
+            </form>
+            </div>)}
+        </MuiThemeProvider>
+      </div>);
   }
 }
 
