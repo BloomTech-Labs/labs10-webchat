@@ -11,7 +11,7 @@ function enableChattr() {
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
 	wcaIFRAME.style.display = "none";
 	wcaIFRAME.style.width = "450px"; 
-	wcaIFRAME.style.height = "650px"; 
+	wcaIFRAME.style.height = "600px"; 
 	wcaBtn.style.width = "40px"; 
 	wcaBtn.style.height = "40px";
 	wcaBtn.style.backgroundColor = "rgb(0, 188, 212)";
