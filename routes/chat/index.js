@@ -87,7 +87,7 @@ router.get('/closed', (req, res) => {
 
 router.put('/closefromchatreppage', (req, res) => {
     const id = req.body.uid;
-    const request = convosDb.closeConvo(id);
+    const request = convosDb.closeConvoFromChatRepPage(id);
     request
         .then(response => {
             res.status(200).json(response);

@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
 
 const styles = theme => ({
   root: {
@@ -32,13 +33,15 @@ class ChatPage extends Component {
                 this.state = {
                         uid: props.history.location.state.uid,
                         company_id: props.history.location.state.company_id,
-                        message: '',
+			name:"",
+                        url:"https://res.cloudinary.com/dvgfmipda/image/upload/v1551906652/zmqjmzk60yjbwgieun4i.png",
+			message: '',
                         messages: [],
                         started: false
         	};
 
-        //this.socket = io();
-	  this.socket = io('localhost:5000');
+	//this.socket = io('localhost:5000');
+         this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -55,6 +58,22 @@ class ChatPage extends Component {
         }
         }
 
+componentDidMount(){
+        const request = axios.get("/api/customers/getbyUID");
+
+             request.then(response => {
+                console.log('customer details', response);
+              this.setState({
+                name: response.data.name
+                });
+
+              })
+              .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+              });
+
+}
 
         // Join conversation and send initial message
         onStart = event => {
@@ -67,6 +86,8 @@ class ChatPage extends Component {
                 let data = {};
                 data.uid = this.state.uid;
                 data.message = this.state.message;
+		data.name= this.state.name;
+		data.url = this.state.url;
 
                 this.socket.emit('join', data);
 
@@ -98,6 +119,8 @@ class ChatPage extends Component {
                 let data = {};
                 data.uid = this.state.uid;
                 data.message = this.state.message;
+		data.name= this.state.name;
+		data.url = this.state.url;
 
                 this.socket.emit('join', data);
                 this.setState({ message: ""});
@@ -116,6 +139,7 @@ class ChatPage extends Component {
                 return(
                 <div>
 		<MuiThemeProvider>	
+		<ThemeProvider>	
                 <div>
                 <div>
                 <div>
@@ -134,15 +158,14 @@ class ChatPage extends Component {
                 {this.state.messages.map((message, index) => {
                 return(
 		<Paper key={index} className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={16}>
-                <Grid item>
-                <Avatar>C</Avatar>
-                </Grid>
-                <Grid item xs zeroMinWidth>
-                  <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
-		</Grid>
-                </Grid>
-                </Paper>
+                <AgentBar>
+                <Avatar src={message.url} />
+                <Column>
+                <Title>{message.name}</Title>
+                <Subtitle>{message.message}</Subtitle>
+                </Column>
+                </AgentBar>
+		</Paper>
                 );
 		})}
                 </div>
@@ -165,11 +188,15 @@ class ChatPage extends Component {
                         label="send"
                         primary={true}
                         type="submit"
+                        onSubmit={this.onSend}
+                        onClick={this.onSend}
                         />
                 ) : (
                         <RaisedButton
                         label="Start a conversation"
                         secondary={true}
+                        type="submit"
+                        onSubmit={this.onStart}
                         onClick={this.onStart}
                         />
                 )}
@@ -183,6 +210,7 @@ class ChatPage extends Component {
                 </div>
                 </div>
 		</div>	
+		</ThemeProvider>	
 		</MuiThemeProvider>	
                 </div>
                 );

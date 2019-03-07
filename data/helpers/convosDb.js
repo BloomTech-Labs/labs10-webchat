@@ -6,7 +6,8 @@ module.exports = {
     deQueue,
     getActive,
     closeConvo,
-    getClosed
+    getClosed,
+    closeConvoFromChatRepPage
 }
 
 // Create a new conversation:
@@ -73,6 +74,12 @@ function getActive(uid) {
 function closeConvo(id) {
     return db('conversations')
         .where('id', id)
+        .update({ is_open: false });
+};
+
+function closeConvoFromChatRepPage(uid) {
+    return db('conversations')
+        .where('customer_uid', uid)
         .update({ is_open: false });
 };
 
