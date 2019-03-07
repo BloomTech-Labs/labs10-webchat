@@ -40,8 +40,8 @@ class ChatPage extends Component {
                         started: false
         	};
 
-	//this.socket = io('localhost:5000');
-        this.socket = io('https://webchatlabs10.herokuapp.com');
+	this.socket = io('localhost:5000');
+        // this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -195,6 +195,7 @@ componentDidMount(){
                         <RaisedButton
                         label="Start a conversation"
                         secondary={true}
+                        type="submit"
                         onSubmit={this.onStart}
                         onClick={this.onStart}
                         />
