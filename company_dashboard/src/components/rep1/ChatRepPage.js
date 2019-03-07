@@ -11,6 +11,10 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
+
+
+
 
 
 const styles = theme => ({
@@ -58,25 +62,6 @@ class ChatRepPage extends Component {
         }
 
 
-componentDidMount(){
-	const request = axios.get("/api/reps/alldetails");
-            
-             request.then(rep => {
-                console.log('rep details', rep)
-	      this.setState({
-           	image_id: rep.data.image_id,
-                url: rep.data.url,
-		rep_name: rep.data.name      
-                });
-
-              })
-              .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-              });
-
-}
-
 
 
 onSubmit = event =>{
@@ -87,6 +72,8 @@ onSubmit = event =>{
           let data = {};
           data.uid = this.state.uid;
           data.message = this.state.message;
+	  data.name = this.state.rep_name;
+	  data.url = this.state.url;
 
 
           this.socket.emit('join', data);
@@ -107,7 +94,8 @@ onChange = event => {
                 const { classes } = this.props;
                 return(
                         <div>
-                        <MuiThemeProvider>
+                        <ThemeProvider>
+			<MuiThemeProvider>
                         <div>
                         <div>
                         <div>
@@ -125,16 +113,15 @@ onChange = event => {
                                 <div className="messages">
                                         {this.state.messages.map((message, index) => {
                                                 return(
-                                                        <Paper key={index} className={classes.paper}>
-                                                        <Grid container wrap="nowrap" spacing={16}>
-                                                        <Grid item>
-                                   			<Avatar alt="Rep image" src={this.state.url} className={classes.avatar}/>
-                                                        </Grid>
-                                                        <Grid item xs zeroMinWidth>
-                                                        <Typography color='inherit' variant='h6' align='center' noWrap key={index}>{message}</Typography>
-                                                        </Grid>
-                                                        </Grid>
-                                                        </Paper>
+                                                <Paper key={index} className={classes.paper}>
+                                                <AgentBar>
+  						<Avatar src={message.url} />
+  						<Column>
+    						<Title>{message.name}</Title>
+    						<Subtitle>{message.message}</Subtitle>
+  						</Column>
+						</AgentBar>        	
+						</Paper>
                                                 );
                                         })}
                                 </div>
@@ -167,7 +154,8 @@ onChange = event => {
                         </div>
                         </div>
                         </div>
-                        </MuiThemeProvider>
+			</MuiThemeProvider>
+			</ThemeProvider>
                         </div>
                 );
         }
