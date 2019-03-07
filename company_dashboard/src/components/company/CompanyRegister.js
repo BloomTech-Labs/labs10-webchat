@@ -66,7 +66,7 @@ const request = axios.post('/api/reps/admin', data);
 	
         this.props.history.push({
           pathname: '/adminsettings',
-          // state: { rep_id: response.data, uid:this.state.uid }
+          state: { rep_id: response.data, uid:this.state.uid }
         });		
 		
 	    })
