@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 
 import ActiveConvos from './ActiveConvos';
 import Queue from './Queue';
+import ClosedConvos from './ClosedConvos';
+
 
 function TabContainer(props) {
     return (
@@ -56,11 +58,13 @@ class ConvoList extends React.Component {
                 >
                     <Tab label="Active" />
                     <Tab label="Queue" />
+                    <Tab label="Closed" />
                 </Tabs>
             </Paper>
 
-            {value === 0 && <TabContainer><ActiveConvos handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
+            {this.state.value === 0 && <TabContainer><ActiveConvos handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
             {this.state.value === 1 && <TabContainer><Queue handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
+            {this.state.value === 2 && <TabContainer><ClosedConvos /></TabContainer>}
         </NoSsr>
       );
     }

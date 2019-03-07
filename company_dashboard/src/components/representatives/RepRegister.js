@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import "./RepRegister.css";
 
 
 
@@ -123,18 +124,24 @@ class RepSignUpFormBase extends Component {
     const condition = password !== password1 || password1 === '' || email === '';	    
 	
 	  return (  
-	    <div>
+	    <div className="register">
         <MuiThemeProvider>
           {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
             Successfully Logged In
             </Typography>):(
             <div>
-            <AppBar
-              title="Sign Up"
-            />
+              <div className="register-top-bar">
+                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+                <Link to={ROUTES.LANDING}>
+                    <RaisedButton 
+                      label="Home"
+                    />
+                  </Link>
+              </div>
+                <p className="header">Register an Account</p> 
             <form onSubmit={this.onSubmit}>
-
               <TextField
+                style = {{width: '65%'}}
                 hintText="Enter your Email"
                 floatingLabelText="Email"
                 name="email"
@@ -146,6 +153,7 @@ class RepSignUpFormBase extends Component {
               <br/>
 
               <TextField
+                style = {{width: '65%'}}
                 hintText="Enter your password"
                 floatingLabelText="Password"
                 required={true}
@@ -157,6 +165,7 @@ class RepSignUpFormBase extends Component {
               <br/>
 
               <TextField
+                style = {{width: '65%'}}
                 hintText="Re-enter your password"
                 floatingLabelText="Re-enter password"
                 name="password1"
@@ -168,13 +177,16 @@ class RepSignUpFormBase extends Component {
               <br/>
 
               <RaisedButton
+                className="register-button"
                 label="SignUp"
                 primary={true}
                 type="submit"
                 disabled={condition}
               />
-
+              <p>By signing up, you agree to the Terms and Conditions and Privacy Policy.</p>
+    
               {error && <p>{error.message}</p>}
+                  <p>Already have an account? <Link to={ROUTES.REPS_LOGIN}>Login Here</Link></p>
             </form>
           </div>)}
         </MuiThemeProvider>

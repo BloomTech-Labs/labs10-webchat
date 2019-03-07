@@ -20,6 +20,7 @@ import axios from 'axios';
 import UserImage from '../company/UserImage';
 import IconButton from '@material-ui/core/IconButton';
 import AddRepForm from './AddRepForm';
+import RepRecord from './RepRecord';
 import './AdminPanel.css';
 
 function rand() {
@@ -96,7 +97,7 @@ class AdminPanelBaseForm extends React.Component {
       deleted: false,		
       logged: false,		
       codeSnippet: '',
-      allreps:[ ],		
+      allreps:[ ],		  
       team: {
         name: '',
         email: '',
@@ -106,19 +107,22 @@ class AdminPanelBaseForm extends React.Component {
       open: false,
     }
   };
+  // All reps in a company
 
   
   componentDidMount() {
-	  //using rep_id to get representative details to display on Admin panel  
-  	const id = this.props.history.location.state.rep_id; 
- 
-	  this.props.firebase.auth.currentUser.getIdToken()
+    //using rep_id to get representative details to display on Admin panel  
+    // axios.get('/api/reps/getbyUID')
+    // .then(rep => {
+    const id = this.state.rep_id;
+      this.props.firebase.auth.currentUser.getIdToken()
       .then(idToken => {
         console.log("idToken after in Admin panel: ", idToken);
         axios.defaults.headers.common['Authorization'] = idToken;
 
-	      //get  details like componay name, motto, image url	  
-	      const request = axios.get(`/api/reps/adminpanel/${id}`);  
+	      //get  details like componay name, motto, image url
+	      //const request = axios.get(`/api/reps/adminpanel/${id}`);
+	      const request = axios.get("/api/reps/alldetails");  
         request
           .then(response => {
             // console.log('respnse.data is:', response.data);
@@ -156,10 +160,17 @@ class AdminPanelBaseForm extends React.Component {
         console.log(error.message);
 	      this.setState({ error:error });
       })		  
+    //   this.setState({
+    //     rep_id: rep.data.id
+    //   });
+    // })
+    // .catch(error => {
+    //   console.log(error.message);
+    // });
+  	 
   }
   
   handleClick = () => {
-    // console.log(id);
     const id = this.state.rep_id;
     const request = axios.delete(`/api/reps/${id}`);
     request
@@ -186,6 +197,21 @@ class AdminPanelBaseForm extends React.Component {
         })
   };
 
+  reloadRecords = () => {
+    const comp_id = this.state.company_id;
+    console.log("reloadRecords");
+    const app_req = axios.get(`/api/reps/company/${comp_id}`);
+    app_req
+      .then(r => {
+        console.log('all reps are:', r.data);
+        this.setState({allreps: r.data});
+      })
+      .catch(error => {
+        console.log(error.message);
+        this.setState({error:error});
+      });
+  }
+
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -203,11 +229,13 @@ class AdminPanelBaseForm extends React.Component {
 
         <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
-	
+          <Link to="/chatdashboard">Chat Dashboard</Link>
+
             <p>Company Name</p>
             <TextField
               id='outlined-codeSnippet'
               margin='normal'
+	      variant="outlined"
               rowsMax={Infinity}
               fullWidth
               className={classes.TextField}
@@ -218,6 +246,7 @@ class AdminPanelBaseForm extends React.Component {
             <TextField
               id='outlined-codeSnippet'
               margin='normal'
+	      variant="outlined"
               rowsMax={Infinity}
               fullWidth
               className={classes.TextField}
@@ -228,6 +257,7 @@ class AdminPanelBaseForm extends React.Component {
             <TextField
               id='outlined-codeSnippet'
               margin='normal'
+	      variant="outlined"
               value={this.state.motto}
             />
 
@@ -239,7 +269,7 @@ class AdminPanelBaseForm extends React.Component {
               rowsMax={Infinity}
               fullWidth
               className={classes.TextField}
-              value={this.state.email}
+              value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
               margin='normal'
               variant='outlined'
             />
@@ -259,30 +289,13 @@ class AdminPanelBaseForm extends React.Component {
             </TableHead>
 
             <TableBody>
-              {this.state.allreps.map(reps => {
+              {this.state.allreps.map((rep, index) => {
                 return (
-                  <TableRow key={reps.id}>
-
-                    <TableCell component="th" scope="row">
-                      {reps.name}
-                    </TableCell>
-
-                    <TableCell>{reps.email}</TableCell>
-
-                    <TableCell>
-                      <Checkbox
-                        checked={this.state.admin}
-                        onChange={this.handleChange}
-                      />
-                    </TableCell>
-
-                    <TableCell>
-                      <IconButton onClick={this.handleClick}>
-                          <DeleteIcon/>
-                      </IconButton>	
-                    </TableCell>
-
-                  </TableRow>
+                  <RepRecord 
+                  key={index} 
+                  rep={rep}
+                  reloadRecords={this.reloadRecords}
+                  />
                 );
               })}
             </TableBody>

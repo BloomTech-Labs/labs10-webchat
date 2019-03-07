@@ -1,8 +1,9 @@
-.login {
+.register {
     background-color: #F9FAFF;
     height: 100%;
 }
-.login .login-top-bar {
+
+.register .register-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,22 +13,21 @@
     margin-bottom: 2%;
 }
 
-.login .login-top-bar a {
+.register .register-top-bar a {
     color: #4C7AF1;
 }
 
-.login .login-top-bar img {
+.register .register-top-bar img {
     height: 75px;
     width: 75px;
 }
 
-.login .header {
+.register .header {
     font-size: 2em;
     margin-bottom: 3%;
 }
 
-
-.login form {
+.register form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -41,17 +41,23 @@
     margin-bottom: 15%;
 }
 
-.login form .login-button {
+.register form .register-button {
     margin-top: 5%;
 }
 
-.login form p {
+.register form p {
     color: gray;
     font-size: .8em;
-    padding: 5% 25% 5% 25%;
+    padding: 5% 25% 3% 25%;
 }
-.login form a {
-    color: #4C7AF1;
+
+.register form p:last-child {
+    color: gray;
     font-size: .9em;
+    padding: 5% 25% 3% 25%;
+}
+
+.register form a {
+    color: #4C7AF1;
     padding-bottom: 5%;
 }

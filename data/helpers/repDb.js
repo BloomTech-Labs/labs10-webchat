@@ -7,7 +7,9 @@ module.exports = {
   getByCompanyId,	
   getDetails,
   insert,
+  updateByUid,	
   update,
+  updaterepinfo,
   remove,
   getByUid,
 };
@@ -51,20 +53,24 @@ const query = db('representatives').where('company_id', company_id);
 }
 
 
-function getDetails(id){
+function getDetails(uid){
+
 const query = db
         .select([
                 "representatives.name as name",
                 "representatives.motto",
+		"representatives.uid",
+		"representatives.email",
+		"representatives.phone_number",
                 "representatives.company_id",
-                "representatives.image_id", 
+                "representatives.image_id",
                 "companies.name as company_name", 
                 "images.url"
         ])
         .from('representatives')
         .innerJoin('companies', 'representatives.company_id', 'companies.id')
         .innerJoin('images', 'representatives.image_id','images.id')
-        .where('representatives.id', id);
+        .where('representatives.uid', uid);
 
 	return query.then(details =>{
 	        return details[0];
@@ -75,6 +81,20 @@ const query = db
 function insert(user) {
   return db('representatives')
     .insert(user).returning('id').then(ids => ids[0]);
+}
+
+function updaterepinfo(id, user) {
+        return db('representatives')
+                .where('id', Number(id))
+                .update(user);
+                // .update({name: user.name}, {phone_number: user.phone_number}, {motto: user.motto}, {email: user.email});
+}
+
+
+function updateByUid(uid, user){
+        return db('representatives')
+               .where({uid: uid})
+               .update(user);
 }
 
 

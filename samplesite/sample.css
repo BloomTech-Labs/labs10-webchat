@@ -1,0 +1,35 @@
+.dummy-website {
+    background-image: lightblue;
+}
+.dummy-top-info {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dummy-navigation-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+    background-color: #2775B1;
+    width: 60%;
+    justify-content: space-around;
+    font-weight: bold;
+    color: white;
+}
+
+.dummy-navigation-container:last-child {
+    background-color: #E1444B;
+}
+
+.dummy-info {
+    margin-top: 10%;
+    margin-right: 35%;
+    padding-bottom: 20%;
+}
+
+.dummy-info ul {
+    list-style-type: none;
+}

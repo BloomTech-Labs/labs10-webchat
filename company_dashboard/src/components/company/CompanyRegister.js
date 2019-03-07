@@ -8,6 +8,8 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
+import "./CompanyRegister.css";
+
 import axios from 'axios';
 //import PersonalInfo from '../representatives/PersonalInfo';
 
@@ -63,8 +65,8 @@ const request = axios.post('/api/reps/admin', data);
 		    //this.setState({logged:true});
 	
         this.props.history.push({
-          pathname: '/livefeed',
-          state: { rep_id: response.data, uid:this.state.uid }
+          pathname: '/adminsettings',
+          // state: { rep_id: response.data, uid:this.state.uid }
         });		
 		
 	    })
@@ -91,20 +93,25 @@ const request = axios.post('/api/reps/admin', data);
 
 
     return (
-      <div>
+      <div className="company-detail">
         <MuiThemeProvider>
           {this.state.logged ? 
           (<Typography variant='display1' align='center' gutterBottom>
-          Successfully Logged In
-          </Typography>):(
-        
+            Successfully Logged In
+            </Typography>):(
           <div>
-            <AppBar
-              title="Register Details"
-            />
-          
+            <div className="company-detail-top-bar">
+              <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+              <Link to={ROUTES.LANDING}>
+                  <RaisedButton 
+                    label="Home"
+                  />
+                </Link>
+            </div>
+            <p className="header">Enter your Company details</p> 
             <form onSubmit={this.onSubmit}>
               <TextField
+                style = {{width: '65%'}}
                 hintText="Enter your company name"
                 floatingLabelText="Company Name"
                 name="companyname"
@@ -116,6 +123,7 @@ const request = axios.post('/api/reps/admin', data);
               <br/>
 
               <TextField
+                  style = {{width: '65%'}}
                   hintText="Enter Your name"
                   floatingLabelText="Name"
                   name="name"
@@ -127,6 +135,7 @@ const request = axios.post('/api/reps/admin', data);
                 <br/>
         
               <TextField
+                  style = {{width: '65%'}}
                   hintText="Enter your email"
                   floatingLabelText="Email"
                   name="email"
@@ -138,6 +147,7 @@ const request = axios.post('/api/reps/admin', data);
                 <br/>
     
                 <TextField
+                  style = {{width: '65%'}}
                   hintText="Enter your phone number"
                   floatingLabelText="Phone Number"
                   name="phone"
@@ -148,6 +158,7 @@ const request = axios.post('/api/reps/admin', data);
                 <br/>	
 
                 <TextField
+                  style = {{width: '65%'}}
                   hintText="Enter your motto"
                   floatingLabelText="Motto"
                   name="motto"
@@ -164,6 +175,7 @@ const request = axios.post('/api/reps/admin', data);
                 <br/><br/>		
 
                 <RaisedButton
+                  className="company-register-button"
                   label="Register"
                   primary={true}
                   type="submit"

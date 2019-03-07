@@ -18,6 +18,9 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  toolbar: {
+    height: 90,
+  },
   grow: {
     flexGrow: 1,
   },
@@ -25,12 +28,25 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
+  logo: {
+    width: 80,
+    height: 55,
+    marginTop: -15,
+  },
+  netlify: {
+    width: 70,
+    height: 70,
+    marginTop: -15,
+  },
   home: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    width: '100%',
+		height: 425,
+		// backgroundColor: 'red',
   },
   info: {
     width: 480,
@@ -49,28 +65,67 @@ const styles = theme => ({
     width: 500,
     marginTop: 20,
   },
-  reason: {
+  reasons: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    width: '100%',
+    height: 500,
+    // backgroundColor: 'blue',
   },
   heading: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: 'bold',
-    letterSpacing: 2,
+		letterSpacing: 2,
+		marginTop: 25,
+  },
+  comment: {
+    color: 'green',
   },
   columns: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+		justifyContent: 'space-between',
     marginTop: 25,
   },
   benefits: {
-    width: 200,
-    height: 150,
-  },
-  developers: {
+    width: 290,
+		height: 200,
+	},
+	reason: {
+		fontSize: 20,
+		fontWeight: 'bold',
+		textDecoration: 'underline',
+	},
+	description: {
+		fontSize: 16,
+		fontWeight: 'normal',
+    textDecoration: 'none',
+    textAlign: 'center',
+	},
+	pricing: {
+		width: '100%',
+		height: 200,
+		display: 'flex',
+		justifyContent: 'space-around',
+		// backgroundColor: 'purple',
+	},
+	subscribe: {
+		marginTop: 45,
+	},
+	signup: {
+		marginTop: 55,
+		height: 50,
+	},
+	developers: {
+    width: '100%',
+    height: '100%',
+		// backgroundColor: 'green',
+	},
+  developer: {
     fontSize: 20,
+    fontWeight: 'bold',
+    width: 300,
   },
   pic: {
     width: 250,
@@ -80,7 +135,17 @@ const styles = theme => ({
   },
   icon: {
     marginBottom: 25,
-  }
+	},
+	footer: {
+		height: 100,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+    backgroundColor: 'black',
+    color: 'white',
+    marginTop: 30,
+    // fontWeight: 'bold',
+	},
 })
 
 class LandingPage extends Component {
@@ -90,15 +155,24 @@ class LandingPage extends Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
+              {/* <MenuIcon /> */}
+              <img
+                className={classes.logo}
+                src={require("../images/logo.png")}
+                alt="logo"
+              />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Chattr
+              {/* <img
+                className={classes.logo}
+                src={require("../images/logo.png")}
+                alt="logo"
+              /> */}
             </Typography>
             <Button size="large" color="primary"> 
-              <Link to={ROUTES.BILLING}>Billing</Link>
+              <Link to={ROUTES.BILLING}>Pricing</Link>
             </Button>
             <Button size="large" color="primary">
               <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
@@ -107,7 +181,7 @@ class LandingPage extends Component {
               <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
             </Button>
             <img
-              className="netlify-logo"
+              className={classes.netlify}
               src={require("./images/logomark.png")}
               alt="Netlify logo"
             />
@@ -115,13 +189,13 @@ class LandingPage extends Component {
         </AppBar>
         
         <Grid container spacing={24}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}> */}
             <Paper className={classes.home}>
               <div className={classes.info}>
                 <Typography className={classes.main} component='h2' variant='h3' gutterBottom>
                   Welcome to Chattr, the new way to chat with your customers
                 </Typography>
-                <Button variant="outlined" color="primary" className={classes.upload}>
+                <Button variant="outlined" color="primary" className={classes.signup}>
                   <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
                 </Button>
               </div>
@@ -131,139 +205,150 @@ class LandingPage extends Component {
                   alt="landingImage"
                 />
             </Paper>
-          </Grid>
+          {/* </Grid> */}
         </Grid>
 
         <Grid container spacing={24}>
-          <Grid item xs={12} className={classes.reason}>
-            <Typography className={classes.heading} variant='h3' gutterBottom>
-              Why Use Chattr?
-            </Typography>
+          {/* <Grid item xs={12}> */}
+            <Paper className={classes.reasons}>
+              <Typography className={classes.heading} variant='h3' gutterBottom>
+                Why Use Chattr?
+                <i class="far fa-comments fa-2x" style={{color: '#64b5f6'}}></i>
+              </Typography>
           
-            <div className={classes.columns}>
-              {/* <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Track Conversations
-                  <br/>
-                  <p>Chattr lets you keep track and assign conversations so that the conversations doesn't get lost.</p>
-                </Paper>
-              </Grid> */}
-              <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Quick response
-                  <br/>
-                  <p>With live chat, companies can quickly connect customers to customer service reps who can manage
-                  conversations with multiple customers.</p>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper className={classes.benefits}>Engage customers
-                  <br/>
-                  <p>Chattr are also used by sales and marketing teams to engage with interested potential customers.</p>
-                </Paper>
-              </Grid>
-            </div>
-          </Grid>
+              <div className={classes.columns}>
+                {/* <Grid item xs={12} sm={4}>
+                  <Paper className={classes.benefits}>Track Conversations
+                    <br/>
+                    <p>Chattr lets you keep track and assign conversations so that the conversations doesn't get lost.</p>
+                  </Paper>
+                </Grid> */}
+                <Grid item xs={12} sm={4}>
+                  <div className={classes.benefits}>
+                    <i class="fab fa-rocketchat fa-7x" style={{color: '#b71c1c'}}></i>
+                    <h3 className={classes.reason}>Quick Response</h3>
+                    <p className={classes.description}>With live chat, companies can quickly connect customers to customer service reps who can manage
+                    conversations with multiple customers.</p>
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <div className={classes.benefits}>
+                    <i class="fas fa-users fa-7x" style={{color: '#607d8b'}}></i>
+                    <h3 className={classes.reason}>Engage customers</h3>
+                    <p className={classes.description}>Chattr are also used by sales and marketing teams to engage with interested potential customers.</p>
+                  </div>
+                </Grid>
+              </div>
+            </Paper>
+          {/* </Grid> */}
         </Grid>  
 
         <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <Typography className={classes.heading} variant='h3' gutterBottom>
-              Our Developers
-            </Typography>
-          </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper className={classes.developers}>Sukhada Gholba
-                <br/>
-                
-                <br/>
-                <a href='https://github.com/sukhadagholba' className={classes.icon} target='_blank'>
-                  <i class="fab fa-github fa-lg"></i>
-                </a>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper className={classes.developers}>Cameron Ray
-                <br/>
-                <img
-                  className={classes.pic}
-                  src={require("./images/Cameron.png")}
-                  alt="profilePic"
-                />
-                <br/>
-                <a href='https://github.com/upsmancsr' className={classes.icon} target='_blank'>
-                  <i class="fab fa-github fa-lg"></i>
-                </a>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Paper className={classes.developers}>Linda Yang
-                <br/>
-                <img
-                  className={classes.pic}
-                  src={require("./images/Linda.png")}
-                  alt="profilePic"
-                />
-                <br/>
-                <a href='https://github.com/lyang9' className={classes.icon} target='_blank'>
-                  <i class="fab fa-github fa-lg"></i>
-                </a>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Paper className={classes.developers}>Wonjae Hwang
-                <br/>
-                <img
-                  className={classes.pic}
-                  src={require("./images/Wonjae.png")}
-                  alt="profilePic"
-                />
-                <br/>
-                <a href='https://github.com/verydecent' className={classes.icon} target='_blank'>
-                  <i class="fab fa-github fa-lg"></i>
-                </a>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Paper className={classes.developers}>Jennifer Player
-                <br/>
-                <img
-                  className={classes.pic}
-                  src={require("./images/Jennifer.jpg")}
-                  alt="profilePic"
-                />
-                <br/>
-                <a href='https://github.com/chainchompa' className={classes.icon} target='_blank'>
-                  <i class="fab fa-github fa-lg"></i>
-                </a>
-              </Paper>
-            </Grid>
+          {/* <Grid item xs={12}> */}
+            <Paper className={classes.pricing}>
+              <div className={classes.subscribe}>
+                <Typography variant='h4' gutterBottom>
+                  Subscribe to Chattr
+                </Typography>
+                <Typography variant='body1' gutterBottom>
+                  All companies get our features for just one payment of $30
+                </Typography>
+              </div>
+              <Button variant="outlined" color="primary" className={classes.signup}>
+                <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
+              </Button>
+            </Paper>
+          {/* </Grid> */}
         </Grid>
+
+        <Grid container spacing={24} className={classes.developers}>
+          <Grid item xs={12}>
+            <div>
+              <Typography className={classes.heading} variant='h3' gutterBottom>
+                Our Developers
+              </Typography>
+            </div>
+          </Grid>
+              <Grid item xs={12} sm={6}>
+                <div className={classes.developer}>Sukhada Gholba
+                  <br/>
+                  {/* <img
+                    className={classes.pic}
+                    src={require("./images/Sukhada.jpg")}
+                    alt="profilePic"
+                  /> */}
+                  <br/>
+                  <a href='https://github.com/sukhadagholba' className={classes.icon} target='_blank'>
+                    <i class="fab fa-github fa-lg"></i>
+                  </a>
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <div className={classes.developer}>Cameron Ray
+                  <br/>
+                  <img
+                    className={classes.pic}
+                    src={require("./images/Cameron.png")}
+                    alt="profilePic"
+                  />
+                  <br/>
+                  <a href='https://github.com/upsmancsr' className={classes.icon} target='_blank'>
+                    <i class="fab fa-github fa-lg"></i>
+                  </a>
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <div className={classes.developer}>Linda Yang
+                  <br/>
+                  <img
+                    className={classes.pic}
+                    src={require("./images/Linda.png")}
+                    alt="profilePic"
+                  />
+                  <br/>
+                  <a href='https://github.com/lyang9' className={classes.icon} target='_blank'>
+                    <i class="fab fa-github fa-lg"></i>
+                  </a>
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <div className={classes.developer}>Wonjae Hwang
+                  <br/>
+                  <img
+                    className={classes.pic}
+                    src={require("./images/Wonjae.png")}
+                    alt="profilePic"
+                  />
+                  <br/>
+                  <a href='https://github.com/verydecent' className={classes.icon} target='_blank'>
+                    <i class="fab fa-github fa-lg"></i>
+                  </a>
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <div className={classes.developer}>Jennifer Player
+                  <br/>
+                  <img
+                    className={classes.pic}
+                    src={require("./images/Jennifer.jpg")}
+                    alt="profilePic"
+                  />
+                  <br/>
+                  <a href='https://github.com/chainchompa' className={classes.icon} target='_blank'>
+                    <i class="fab fa-github fa-lg"></i>
+                  </a>
+                </div>
+              </Grid>
+            {/* </Paper> */}
+          {/* </Grid> */}
+        </Grid>
+
+				<Grid container spacing={24}>
+					<Grid item xs={12} className={classes.footer}>
+						<Paper className={classes.copyright} class='copyright'>&copy; Copyright 2019 Labs10 Lambda School - All rights reserved</Paper>
+					</Grid>
+				</Grid>
       </div>
-      
-      
-      // <div className="landing-page">
-      //   <div className="navigation-container">
-      //     <Button size="large">
-      //       <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
-      //     </Button>
-      //     <Button size="large">
-      //       <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-      //     </Button>
-      //     <img
-      //       className="netlify-logo"
-      //       src={require("./images/logomark.png")}
-      //       alt="Netlify logo"
-      //     />
-      //   </div>
-      //   <div className="landing-info">
-      //     <h1>Chattr</h1>
-      //     <p>
-      //       Welcome to Chattr, the new way to chat with your customers.
-      //     </p>
-      //     <Button variant="outlined" color="primary" className="upload-button">
-      //       Get Started
-      //     </Button>
-      //   </div>
-      // </div>
     );
   }
 }

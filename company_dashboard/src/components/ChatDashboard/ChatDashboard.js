@@ -6,6 +6,8 @@ import ConvoList from './ConvoList/ConvoList';
 import ChatView from './ChatView';
 import './ChatDashboard.css';
 import './ConvoList/ConvoList.css';
+import Navigation from '../Navigation';
+import '../Navigation.css'
 
 class ChatDashboard extends React.Component {
     constructor() {
@@ -68,22 +70,32 @@ class ChatDashboard extends React.Component {
 
     render() {
         return (
+            <div>
+            <Navigation />
             <div className="chat-dashboard-container">
-                <div className="chat-dash-left-container">
+                {/* <div className="chat-dash-left-container">
                     <ConvoList 
                         handleQueueConvoSelect={this.handleQueueConvoSelect}
                         handleActiveConvoSelect={this.handleActiveConvoSelect}
                     />
-                </div>
+                </div> */}
                     
-                <div className="chat-dash-right-container">
+                {/* <div className="chat-dash-right-container">
                     <ChatView 
                         currentConvoId={this.state.currentConvoId}
                         currentConvoSocket={this.state.currentConvoSocket}
                         summary={this.state.currentConvoSummary}
                         closeConvo={this.closeConvo}
                     />  
-                </div> 
+                </div>  */}
+
+                <div className="chat-dash-middle-container">
+                    <ConvoList 
+                        handleQueueConvoSelect={this.handleQueueConvoSelect}
+                        handleActiveConvoSelect={this.handleActiveConvoSelect}
+                    />
+                </div>
+            </div>
             </div>
         );
     }
