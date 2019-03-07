@@ -17,8 +17,8 @@
 }
 
 .login .login-top-bar img {
-    height: 85px;
-    width: 85px;
+    height: 75px;
+    width: 75px;
 }
 
 .login .header {
@@ -54,8 +54,4 @@
     color: #4C7AF1;
     font-size: .9em;
     padding-bottom: 5%;
-}
-
-input {
-    width: 100%;
 }
