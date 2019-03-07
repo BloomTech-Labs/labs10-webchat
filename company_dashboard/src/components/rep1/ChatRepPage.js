@@ -61,7 +61,24 @@ class ChatRepPage extends Component {
         }
         }
 
+componentDidMount(){
+        const request = axios.get("/api/reps/alldetails");
 
+             request.then(rep => {
+                console.log('rep details', rep)
+              this.setState({
+                image_id: rep.data.image_id,
+                url: rep.data.url,
+                rep_name: rep.data.name,
+                });
+
+              })
+              .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+              });
+
+}
 
 
 onSubmit = event =>{
