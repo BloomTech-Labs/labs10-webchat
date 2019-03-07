@@ -145,30 +145,7 @@ class LiveFeedFormBase extends Component {
 
   componentDidMount() {
     	
-	//   this.props.firebase.auth.currentUser.getIdToken()
-    //   .then(idToken => {
-    //     console.log("idToken in livefeed page: ", idToken);
-            
-	//       axios.defaults.headers.common['Authorization'] = idToken; 
-
-	//       console.log('rep_is is', this.props.history.location.state.rep_id);	
-	//       const id = this.props.history.location.state.rep_id;
-
-	//       //axios call to get all the customer questions to display on representative dashboard		  
-	//       const request = axios.get(`/api/customers/company/${id}`);
-    //     request
-    //       .then(response => {
-    //         console.log('query: ', response.data);
-	// 		      this.setState({queries: response.data, logged: true});
-    //       })
-    //         .catch(error => {  // if error from get customer queries for company
-    //         console.log(error.message);
-    //       })
-    //   })
-	//     .catch(error => {   // if error from getIdToken
-	//       console.log(error.message);	  
-    //     this.setState({ error:error });
-    //   })
+	
     const getQueue = axios.get('/api/chat/queue')
         getQueue 
             .then(q => {
