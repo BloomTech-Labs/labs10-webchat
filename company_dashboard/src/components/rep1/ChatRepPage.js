@@ -117,10 +117,7 @@ closeConvo() {
         })
         .catch(error => {
             console.log(error.message);
-        })
-        // this.props.history.push({
-        //         pathname: '/adminsettings',
-        // });		
+        })	
     }
 
 
@@ -175,22 +172,22 @@ closeConvo() {
                                                 onChange={this.onChange}
                                         />
                                         <br/>
-
+                                        {is_closed ? (
+                                                <p>This conversation is closed.</p>
+                                        ) : (
+                                                <RaisedButton
+                                                label="End Conversation"
+                                                secondary={true}
+                                                onClick={this.closeConvo}
+                                                />
+                                        )}
                                         <RaisedButton
                                                 label="send"
                                                 primary={true}
                                                 type="submit"
                                         />
                                 </form>
-                                {is_closed ? (
-                                        <p>This conversation is closed.</p>
-                                ) : (
-                                        <RaisedButton
-                                        label="End Conversation"
-                                        secondary={true}
-                                        onClick={this.closeConvo}
-                                        />
-                                )}
+                                
                                 
                         </div>
                         </div>

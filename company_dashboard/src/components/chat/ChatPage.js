@@ -188,11 +188,14 @@ componentDidMount(){
                         label="send"
                         primary={true}
                         type="submit"
+                        onSubmit={this.onSend}
+                        onClick={this.onSend}
                         />
                 ) : (
                         <RaisedButton
                         label="Start a conversation"
                         secondary={true}
+                        onSubmit={this.onStart}
                         onClick={this.onStart}
                         />
                 )}
