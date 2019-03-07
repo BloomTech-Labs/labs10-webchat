@@ -6,10 +6,11 @@ import { withFirebase } from './Firebase';
 import { Divider } from '@material-ui/core';
 
 const SignOutButton = ({ firebase }) => (
-  // <Link to={ROUTES.LANDING}>
+  <Link to={ROUTES.LANDING}>
     <div type="button" onClick={firebase.doSignOut}>
       Sign Out
     </div>
+  </Link>
 
 );
 

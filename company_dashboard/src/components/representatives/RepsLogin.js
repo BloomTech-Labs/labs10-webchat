@@ -102,15 +102,15 @@ class RepLoginFormBase extends React.Component {
                   </Link>
                   
             </div>
-            <p className="header">Member Login</p> 
-            <form onSubmit={this.onSubmit}> 
+            <p className="header">Member Login</p>
+            <form onSubmit={this.onSubmit}>
               <TextField
                 style = {{width: '65%'}}
                 autoComplete='off'
                 hintText="Enter your Email"
                 floatingLabelText="Email"
                 required={true}
-                name="email"			
+                name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
               />
