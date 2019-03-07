@@ -5,7 +5,9 @@ module.exports = {
     getQueue,
     deQueue,
     getActive,
-    closeConvo
+    closeConvo,
+    getClosed,
+    closeConvoFromChatRepPage
 }
 
 // Create a new conversation:
@@ -74,3 +76,32 @@ function closeConvo(id) {
         .where('id', id)
         .update({ is_open: false });
 };
+
+function closeConvoFromChatRepPage(uid) {
+    return db('conversations')
+        .where('customer_uid', uid)
+        .update({ is_open: false });
+};
+
+function getClosed(uid) {
+    const query = db
+        .select([
+            "representatives.name as rep_name",
+            "representatives.company_id as rep_company_id",
+            "conversations.id as convo_id",
+            "conversations.customer_uid",
+            "conversations.summary",
+            "customers.name as customer_name"
+        ])
+        .from("representatives")
+        .innerJoin("conversations", "representatives.company_id", "conversations.company_id")
+        .innerJoin("customers", "conversations.customer_uid", "customers.uid")
+        .where("representatives.uid", uid)
+        .where("conversations.in_q", false)
+        .where("conversations.is_open", false)
+        .where("conversations.rep_uid", uid);
+
+    return query.then(details => {
+	    return details;    // return full array of objects returned by query
+	});
+}
