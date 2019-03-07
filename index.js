@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
   	console.log('room_uid', data.uid);	  
    	console.log('message is', data.message); 
 	  socket.join(data.uid);
-    io.sockets.in(data.uid).emit(data.uid, data.message);
+    io.sockets.in(data.uid).emit(data.uid, data);
     // socket.on(`${data.uid}`, function(data) {
     //   console.log("data in on-uid: ", data);
     //   socket.broadcast.emit(`${data.uid}`, data);

@@ -11,9 +11,13 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
 
 
 const styles = theme => ({
+ avatar: {
+    margin: 10,
+  },
   root: {
     flexGrow: 1,
     overflow: 'hidden',
@@ -21,7 +25,7 @@ const styles = theme => ({
   },
   paper: {
     maxWidth: 400,
-    margin: `${theme.spacing.unit}px auto`,
+    margin: `${theme.spacing.unit*2}px auto`,
     padding: theme.spacing.unit * 2,
   },
 });
@@ -35,11 +39,13 @@ class ChatRepPage extends Component {
                         message:'',
                         messages:[],
                         is_closed: false
+			image_id:"",
+			url:"",
+			rep_name:""
                 };
 
-        //this.socket = io();
-	  this.socket = io('localhost:5000');
-
+	  //this.socket = io('localhost:5000');
+	  this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -54,6 +60,26 @@ class ChatRepPage extends Component {
         this.closeConvo = this.closeConvo.bind(this);
         }
 
+componentDidMount(){
+        const request = axios.get("/api/reps/alldetails");
+
+             request.then(rep => {
+                console.log('rep details', rep)
+              this.setState({
+                image_id: rep.data.image_id,
+                url: rep.data.url,
+                rep_name: rep.data.name,
+                });
+
+              })
+              .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+              });
+
+}
+
+
 onSubmit = event =>{
           console.log('room_uid inside onSubmit is', this.state.uid);
           console.log('messages array', this.state.messages);
@@ -62,6 +88,8 @@ onSubmit = event =>{
           let data = {};
           data.uid = this.state.uid;
           data.message = this.state.message;
+	  data.name = this.state.rep_name;
+	  data.url = this.state.url;
 
 
           this.socket.emit('join', data);
@@ -102,7 +130,8 @@ closeConvo() {
                 const { classes } = this.props;
                 return(
                         <div>
-                        <MuiThemeProvider>
+                        <ThemeProvider>
+			<MuiThemeProvider>
                         <div>
                         <div>
                         <div>
@@ -120,16 +149,15 @@ closeConvo() {
                                 <div className="messages">
                                         {this.state.messages.map((message, index) => {
                                                 return(
-                                                        <Paper key={index} className={classes.paper}>
-                                                        <Grid container wrap="nowrap" spacing={16}>
-                                                        <Grid item>
-                                                        <Avatar>R</Avatar>
-                                                        </Grid>
-                                                        <Grid item xs zeroMinWidth>
-                                                        <Typography color='inherit' variant='h4' align='center' noWrap key={index}>{message}</Typography>
-                                                        </Grid>
-                                                        </Grid>
-                                                        </Paper>
+                                                <Paper key={index} className={classes.paper}>
+                                                <AgentBar>
+  						<Avatar src={message.url} />
+  						<Column>
+    						<Title>{message.name}</Title>
+    						<Subtitle>{message.message}</Subtitle>
+  						</Column>
+						</AgentBar>        	
+						</Paper>
                                                 );
                                         })}
                                 </div>
@@ -171,7 +199,8 @@ closeConvo() {
                         </div>
                         </div>
                         </div>
-                        </MuiThemeProvider>
+			</MuiThemeProvider>
+			</ThemeProvider>
                         </div>
                 );
         }

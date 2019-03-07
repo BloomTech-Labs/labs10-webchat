@@ -51,6 +51,32 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/getbyUID', (req, res) => {
+        const uid  = req.body.uid;
+        console.log('uid is', uid);
+
+
+                const request = db.getByUid(uid);
+
+                request.then(response_data => { 
+                        console.log(response_data);
+
+                        if(response_data.length == 0) {
+                                res.status(400).json({ error: "The customer with the specified id does not exist" });
+                        }
+                        else {
+                                console.log(response_data);
+                                res.status(200).json(response_data);
+
+                        }
+                })
+                .catch(err => {
+                        res.status(500).json({ err: err.message });
+                })
+
+});
+
+
 router.get('/company/:id', (req, res) => {
 	const id = req.params.id;    //rep_id
 	
