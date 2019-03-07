@@ -4,6 +4,7 @@ module.exports = {
   get,
   getById,
   getByEmail,
+  getByUid,	
   getByCompanyId,	
   insert,
   update,	
@@ -30,6 +31,13 @@ const query = db('customers').where('company_id', id);
     })
 };
 
+function getByUid(uid){
+        const query = db('customers').where('uid', uid);
+
+            return query.then(customers => {
+                return customers[0];
+            });
+}
 
 function getByEmail(email) {   // This is used when posting a customer to check if email is a duplicate
   // const query = db('customers').where('email', email);
