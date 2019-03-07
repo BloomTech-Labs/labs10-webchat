@@ -18,8 +18,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  appbar: {
+    position: 'fixed',
+  },
   toolbar: {
-    height: 90,
+    height: 80,
   },
   grow: {
     flexGrow: 1,
@@ -36,7 +39,6 @@ const styles = theme => ({
   netlify: {
     width: 70,
     height: 70,
-    marginTop: -15,
   },
   home: {
     padding: theme.spacing.unit * 2,
@@ -45,7 +47,8 @@ const styles = theme => ({
     alignItems: 'flex-start',
     justifyContent: 'space-around',
     width: '100%',
-		height: 425,
+    height: 425,
+    marginTop: 92,
 		// backgroundColor: 'red',
   },
   info: {
@@ -166,7 +169,7 @@ class LandingPage extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar className={classes.appbar}>
           <Toolbar className={classes.toolbar}>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               {/* <MenuIcon /> */}
