@@ -200,9 +200,8 @@ componentDidMount(){
                         onClick={this.onStart}
                         />
                 )}
-		
-
 		</form>
+
                 </div>
                 </div>
                 </div>
