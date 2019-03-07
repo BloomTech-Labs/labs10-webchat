@@ -18,6 +18,14 @@
     max-height: 65px;
 }
 
+.MuiToolbar-root-66 a {
+    color: white;
+}
+
+.MuiToolbar-root-66 a:visited {
+    color: white;
+}
+
 a { 
     text-decoration: none;
  }
