@@ -10,8 +10,8 @@ function enableChattr() {
 	
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
 	wcaIFRAME.style.display = "none";
-	wcaIFRAME.style.width = "400px"; 
-	wcaIFRAME.style.height = "500px"; 
+	wcaIFRAME.style.width = "450px"; 
+	wcaIFRAME.style.height = "600px"; 
 	wcaBtn.style.width = "40px"; 
 	wcaBtn.style.height = "40px";
 	wcaBtn.style.backgroundColor = "rgb(0, 188, 212)";
@@ -30,7 +30,7 @@ function enableChattr() {
 		if (wcaIFRAME.style.display == "none") { 
 			wcaIFRAME.style.display = "";
 			let company_id = window.location.search.replace("?company_id=","");
-			wcaIFRAME.src = `http://localhost:3000/customersignup/:`+company_id;
+			wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/:"+company_id;
 		} else {
 			wcaIFRAME.style.display = "none";
 		}

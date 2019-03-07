@@ -39,13 +39,18 @@ class ChatRepPage extends Component {
                         message:'',
                         messages:[],
                         is_closed: false,
-			image_id:"",
+			image_id:null,
 			url:"",
-			rep_name:""
+			rep_name:"",
                 };
 
+<<<<<<< HEAD
 	//   this.socket = io('localhost:5000');
 	  this.socket = io('https://webchatlabs10.herokuapp.com');
+=======
+	  //this.socket = io('localhost:5000');
+	   this.socket = io('https://webchatlabs10.herokuapp.com');
+>>>>>>> ff553a84921e8d4854bb5617d4e84ce2799120a0
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -172,20 +177,24 @@ closeConvo() {
                                                 onChange={this.onChange}
                                         />
                                         <br/>
-                                        {is_closed ? (
-                                                <p>This conversation is closed.</p>
-                                        ) : (
-                                                <RaisedButton
-                                                label="End Conversation"
-                                                secondary={true}
-                                                onClick={this.closeConvo}
-                                                />
-                                        )}
-                                        <RaisedButton
+					<br/>
+					<RaisedButton
                                                 label="send"
                                                 primary={true}
                                                 type="submit"
                                         />
+                                        {is_closed ? (
+                                                <p>This conversation is closed.</p>
+                                        ) : (
+						<div>
+						<br/>
+                                                <RaisedButton
+                                                label="End Conversation"
+                                                error={true}
+                                                onClick={this.closeConvo}
+                                                /><br/><br/>
+						</div>
+                                        )}
                                 </form>
                                 
                                 
