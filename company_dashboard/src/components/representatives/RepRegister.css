@@ -18,7 +18,8 @@
 }
 
 .register .register-top-bar img {
-    width: 5%;
+    height: 75px;
+    width: 75px;
 }
 
 .register .header {
