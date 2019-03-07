@@ -44,13 +44,8 @@ class ChatRepPage extends Component {
 			rep_name:"",
                 };
 
-<<<<<<< HEAD
-	//   this.socket = io('localhost:5000');
-	  this.socket = io('https://webchatlabs10.herokuapp.com');
-=======
 	  //this.socket = io('localhost:5000');
 	   this.socket = io('https://webchatlabs10.herokuapp.com');
->>>>>>> ff553a84921e8d4854bb5617d4e84ce2799120a0
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
