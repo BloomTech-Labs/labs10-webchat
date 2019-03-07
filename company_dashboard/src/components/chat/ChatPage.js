@@ -57,7 +57,22 @@ class ChatPage extends Component {
         }
         }
 
+componentDidMount(){
+        const request = axios.get("/api/customers/getbyUID");
 
+             request.then(response => {
+                console.log('customer details', response);
+              this.setState({
+                name: response.data.name
+                });
+
+              })
+              .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+              });
+
+}
 
         // Join conversation and send initial message
         onStart = event => {
