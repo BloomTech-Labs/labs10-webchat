@@ -1,6 +1,6 @@
 .chat-dashboard-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .chat-dash-left-container {
@@ -13,8 +13,13 @@
     width: 60%;
 }
 
+.chat-dash-middle-container {
+    border: 1px solid black;
+    width: 70%;
+}
+
 .convolist-container {
-    height: 600px;
+    
 
 }
 
