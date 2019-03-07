@@ -172,20 +172,24 @@ closeConvo() {
                                                 onChange={this.onChange}
                                         />
                                         <br/>
-                                        {is_closed ? (
-                                                <p>This conversation is closed.</p>
-                                        ) : (
-                                                <RaisedButton
-                                                label="End Conversation"
-                                                secondary={true}
-                                                onClick={this.closeConvo}
-                                                />
-                                        )}
-                                        <RaisedButton
+					<br/>
+					<RaisedButton
                                                 label="send"
                                                 primary={true}
                                                 type="submit"
                                         />
+                                        {is_closed ? (
+                                                <p>This conversation is closed.</p>
+                                        ) : (
+						<div>
+						<br/>
+                                                <RaisedButton
+                                                label="End Conversation"
+                                                error={true}
+                                                onClick={this.closeConvo}
+                                                /><br/><br/>
+						</div>
+                                        )}
                                 </form>
                                 
                                 
