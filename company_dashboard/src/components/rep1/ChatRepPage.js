@@ -10,7 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
+imprt axios from 'axios';
 
 
 const styles = theme => ({
@@ -73,6 +73,18 @@ onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
 };
 
+closeConvo() {
+        const data = { uid: this.state.uid };
+        console.log("close convo data: ", data);
+        axios.put('/api/chat/closefromchatreppage', data)
+        .then(response => {
+            console.log("Conversation closed.")
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }
+
 
 
         render() {
@@ -130,8 +142,12 @@ onChange = event => {
                                                 primary={true}
                                                 type="submit"
                                         />
-
                                 </form>
+                                <RaisedButton
+                                        label="End Conversation"
+                                        secondary={true}
+                                        onClick={this.closeConvo}
+                                />
                         </div>
                         </div>
                         </div>

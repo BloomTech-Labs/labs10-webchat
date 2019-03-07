@@ -85,5 +85,16 @@ router.get('/closed', (req, res) => {
         })
 })
 
+router.put('/closefromchatreppage', (req, res) => {
+    const id = req.body.uid;
+    const request = convosDb.closeConvo(id);
+    request
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json({ message: error.message });
+        })
+})
 
 module.exports = router;
