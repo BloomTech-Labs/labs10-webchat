@@ -1,4 +1,10 @@
 function enableChattr() {
+	// if (process.env.NODE_ENV === 'production') {
+	// 	const BASE_URL= 'https://labs10-webchat.netlify.com/customersignup/:';
+	// } else {
+	// 	const BASE_URL= 'http://localhost:3000/customersignup/:'
+	// }
+
 	let wcaBtn = document.querySelector(".webChatAppBtn");
 	if (wcaBtn === null) return;
 	

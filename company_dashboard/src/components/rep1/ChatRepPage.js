@@ -38,14 +38,14 @@ class ChatRepPage extends Component {
                         uid:props.match.params.id,
                         message:'',
                         messages:[],
-                        is_closed: false
-			image_id:"",
+                        is_closed: false,
+			image_id:null,
 			url:"",
-			rep_name:""
+			rep_name:"",
                 };
 
 	  //this.socket = io('localhost:5000');
-	  this.socket = io('https://webchatlabs10.herokuapp.com');
+	   this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -117,10 +117,7 @@ closeConvo() {
         })
         .catch(error => {
             console.log(error.message);
-        })
-        // this.props.history.push({
-        //         pathname: '/adminsettings',
-        // });		
+        })	
     }
 
 
@@ -175,22 +172,22 @@ closeConvo() {
                                                 onChange={this.onChange}
                                         />
                                         <br/>
-
+                                        {is_closed ? (
+                                                <p>This conversation is closed.</p>
+                                        ) : (
+                                                <RaisedButton
+                                                label="End Conversation"
+                                                secondary={true}
+                                                onClick={this.closeConvo}
+                                                />
+                                        )}
                                         <RaisedButton
                                                 label="send"
                                                 primary={true}
                                                 type="submit"
                                         />
                                 </form>
-                                {is_closed ? (
-                                        <p>This conversation is closed.</p>
-                                ) : (
-                                        <RaisedButton
-                                        label="End Conversation"
-                                        secondary={true}
-                                        onClick={this.closeConvo}
-                                        />
-                                )}
+                                
                                 
                         </div>
                         </div>
