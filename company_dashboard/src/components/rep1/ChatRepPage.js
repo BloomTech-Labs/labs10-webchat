@@ -14,9 +14,6 @@ import axios from 'axios';
 import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
 
 
-
-
-
 const styles = theme => ({
  avatar: {
     margin: 10,
@@ -104,6 +101,19 @@ onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
 };
 
+closeConvo() {
+        const uid = this.state.uid;
+        const data = { uid: uid };
+        console.log("close convo data: ", data);
+        axios.put('/api/chat/closefromchatreppage', data)
+        .then(response => {
+            console.log("Conversation closed.")
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }
+
 
 
         render() {
@@ -161,8 +171,12 @@ onChange = event => {
                                                 primary={true}
                                                 type="submit"
                                         />
-
                                 </form>
+                                <RaisedButton
+                                        label="End Conversation"
+                                        secondary={true}
+                                        onClick={this.closeConvo}
+                                />
                         </div>
                         </div>
                         </div>

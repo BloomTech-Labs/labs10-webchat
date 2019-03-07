@@ -77,12 +77,14 @@ class RepLoginFormBase extends React.Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+  // Media queries
   
   render() {
     const {email, password, error} = this.state;
-
+    
     //checking if all the required fields are non-empty  
     const condition = password === '' || email === '';
+  
 
     return (
       <div className="login">
@@ -93,21 +95,28 @@ class RepLoginFormBase extends React.Component {
           <div>
             <div className="login-top-bar">
                 <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
-                  <p>Send me back to the <Link to={ROUTES.LANDING}>home page</Link></p>
+                  <Link to={ROUTES.LANDING}>
+                    <RaisedButton 
+                      label="Home"
+                    />
+                  </Link>
+                  
             </div>
-            <p className="header">Member Login</p> 
-            <form onSubmit={this.onSubmit}> 
+            <p className="header">Member Login</p>
+            <form onSubmit={this.onSubmit}>
               <TextField
+                style = {{width: '65%'}}
                 autoComplete='off'
                 hintText="Enter your Email"
                 floatingLabelText="Email"
                 required={true}
-                name="email"			
+                name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
               />
               <br/>
               <TextField
+                style = {{width: '65%'}}
                 autoComplete='off'
                 type="password"
                 hintText="Enter your Password"

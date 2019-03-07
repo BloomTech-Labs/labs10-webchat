@@ -1,0 +1,68 @@
+.customer-signup {
+  background-color: #F9FAFF;
+  height: 100%;
+}
+
+.customer-signup-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+  padding-top: 2%;
+  margin-bottom: 2%;
+}
+
+
+.customer-signup .customer-signup-top-bar a {
+  color: #4C7AF1;
+}
+
+.customer-signup .customer-signup-top-bar img {
+  height: 75px;
+  width: 75px;
+}
+
+.customer-signup .header {
+  font-size: 2em;
+  margin-bottom: 3%;
+}
+
+.customer-signup form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px lightgray solid;
+  width: 320px;
+  margin: auto;
+  background-color: white;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-bottom: 15%;
+}
+
+.customer-signup form .company-register-button {
+  margin-top: 5%;
+}
+
+.customer-signup form p {
+  color: gray;
+  font-size: .8em;
+  padding: 5% 25% 3% 25%;
+}
+
+.customer-signup form p:last-child {
+  color: gray;
+  font-size: .9em;
+  padding: 5% 25% 3% 25%;
+}
+
+.customer-signup form a {
+  color: #4C7AF1;
+  padding-bottom: 5%;
+}
+
+.customer-signup form input {
+  width: 70%;
+}
