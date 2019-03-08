@@ -85,13 +85,13 @@ app.get('/',(req, res) => {
 
 // Any req coming into the server has to go through this verification:
 app.use(async(req,res) => {                         
-  console.log(req.headers.authorization);
+  // console.log(req.headers.authorization);
         const idToken = req.headers.authorization;  // get the idToken from Auth header of the incoming req
 	
   try {
     await admin.auth().verifyIdToken(idToken)       // verify the idToken with Firebase
       .then(decodedToken => {                       // get the decoded token back from Firebase
-        console.log(decodedToken);
+        // console.log(decodedToken);
         // const uid = decodedToken.uid;               // get the uid from the Firebase decoded token
         // res.status(200).json(uid);                  // send back res with the uid
         req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req

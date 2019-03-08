@@ -22,6 +22,11 @@ const styles = theme => ({
       margin: `${theme.spacing.unit}px auto`,
       padding: theme.spacing.unit * 2,
     },
+    listItem: {
+        '&:hover': {
+          cursor: 'pointer'
+        }
+    }
 });
 
 class ActiveConvos extends React.Component {
@@ -59,11 +64,14 @@ class ActiveConvos extends React.Component {
                     <Grid container wrap="nowrap" spacing={16}>
                         <Grid item>
                         </Grid>
-                        <Grid item xs zeroMinWidth>
-                            <div 
-                                key={index} 
-                                onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
-                            >
+                        <Grid item 
+                            xs 
+                            zeroMinWidth
+                            className={classes.listItem}
+                            key={index} 
+                            onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
+                        >
+                            
                             <Typography 
                                 color='primary' 
                                 variant='h5' 
@@ -73,7 +81,7 @@ class ActiveConvos extends React.Component {
                             >
                             Customer Question:{convo.summary}
                             </Typography>
-                            </div>
+                            
                         </Grid>
                     </Grid>
                     </Paper>
