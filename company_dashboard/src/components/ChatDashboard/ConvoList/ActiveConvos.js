@@ -69,7 +69,7 @@ class ActiveConvos extends React.Component {
                             zeroMinWidth
                             className={classes.listItem}
                             key={index} 
-                            onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
+                            onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
                         >
                             
                             <Typography 

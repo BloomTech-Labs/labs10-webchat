@@ -68,7 +68,7 @@ class Queue extends React.Component {
                           xs 
                           zeroMinWidth
                           key={index}
-                          onClick={() => this.props.handleQueueConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
+                          onClick={() => this.props.handleQueueConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                         >
                             {/* <Typography 
                                 color='primary' 

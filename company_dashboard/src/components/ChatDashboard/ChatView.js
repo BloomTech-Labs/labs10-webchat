@@ -117,6 +117,7 @@ class ChatView extends Component {
     render() {
         const is_closed = this.state.is_closed;
         const { classes } = this.props;
+        const title = `Chat with ${this.props.customerName}`;
         return(
             <div>
                 <ThemeProvider>
@@ -129,7 +130,7 @@ class ChatView extends Component {
                     <div>
                     </div>
                     <AppBar
-                        title="Employee Chat Panel"
+                        title={title}
                     />
                     <br/>
                     <br/>

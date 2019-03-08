@@ -16,6 +16,7 @@ class ChatDashboard extends React.Component {
             currentConvoId: null,
             currentConvoSocket: null,
             currentConvoSummary: null,
+            currentCustomerName: null,
             convoSelected: false
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
@@ -24,13 +25,14 @@ class ChatDashboard extends React.Component {
     }
 
 
-    handleQueueConvoSelect(convo_id, customer_uid, summary) {
+    handleQueueConvoSelect(convo_id, customer_uid, summary, customer_name) {
         // set rep current convo to selected convo:
         this.setState({
             convoSelected: true,
             currentConvoId: convo_id,
             currentConvoSocket: customer_uid,
-            currentConvoSummary: summary
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
         }, () => {
             console.log("ChatDashboard state: ", this.state);
         })
@@ -47,12 +49,13 @@ class ChatDashboard extends React.Component {
 
     }
 
-    handleActiveConvoSelect(convo_id, customer_uid, summary) {
+    handleActiveConvoSelect(convo_id, customer_uid, summary, customer_name) {
         this.setState({
             convoSelected: true,
             currentConvoId: convo_id,
             currentConvoSocket: customer_uid,
-            currentConvoSummary: summary
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
         }, () => {
             console.log("\nActive Convo Selected");
             console.log("ChatDashboard state.currentConvoId: ", this.state.currentConvoId);
@@ -92,6 +95,7 @@ class ChatDashboard extends React.Component {
                         currentConvoId={this.state.currentConvoId}
                         currentConvoSocket={this.state.currentConvoSocket}
                         summary={this.state.currentConvoSummary}
+                        customerName={this.state.currentCustomerName}
                         closeConvo={this.closeConvo}
                         />  
                         ) : (
