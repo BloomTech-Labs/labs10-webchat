@@ -1,10 +1,4 @@
-// This component is displayed on the right side of ChatDashboard
-// It shows the signed-in rep's current conversation
-// Props: receives currentConvoId from chatDashboard
-//        receives currentConvoSocket from chatDashboard
-
-import React from 'react';
-import axios from 'axios';
+import React, {Component} from 'react';
 import io from 'socket.io-client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -16,160 +10,200 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
+
 
 const styles = theme => ({
-    root: {
-      flexGrow: 1,
-      overflow: 'hidden',
-      padding: `0 ${theme.spacing.unit * 3}px`,
-    },
-    paper: {
-      maxWidth: 400,
-      margin: `${theme.spacing.unit}px auto`,
-      padding: theme.spacing.unit * 2,
-    },
+ avatar: {
+    margin: 10,
+  },
+  root: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    padding: `0 ${theme.spacing.unit * 3}px`,
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing.unit*2}px auto`,
+    padding: theme.spacing.unit * 2,
+  },
 });
 
 
-class ChatView extends React.Component {
+class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
             uid: props.currentConvoSocket,
-            currentConvoId: props.currentConvoId,
+            convo_id: props.currentConvoId,
+            rep_uid: null,
             message: '',
-            messages: []
+            messages: [],
+            is_closed: false,
+			image_id: null,
+			url: "",
+			rep_name: "",
         };
-        
-        this.socket = io('http://localhost:5000');
-        
-        // this.socket.emit("join", {uid: props.currentConvoSocket});
 
-        // this.socket.on(props.currentConvoSocket, function(message) {
-        //     console.log('ChatView incoming message: ', message);
-        //     addMessage(message);
-        // });
-        this.socket.on('newMessage', function(message) {
-            console.log('ChatView incoming message: ', message);
+	    this.socket = io('localhost:5000');
+	    // this.socket = io('https://webchatlabs10.herokuapp.com');
+
+        this.socket.on(this.state.uid, function(message) {
+            console.log('Incoming message:', message);
             addMessage(message);
         });
-    
+
+
         const addMessage = (data) => {
-            this.setState({ 
-                messages: [...this.state.messages, data.message]
-            });
-        }  
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+            this.setState({messages: [...this.state.messages, data]});
+        }
+
+        // this.closeConvo = this.closeConvo.bind(this);
     }
 
-    
-    onSubmit = event => {
-        console.log('socket room (uid) inside onSubmit is ', this.props.currentConvoSocket);
-        console.log('messages array', this.state.messages);
-        console.log("context on submit", this);
-        let data = {};
-        data.uid = this.props.currentConvoSocket;
-        data.message = this.state.message;
-        console.log("data in onSubmit before emit: ", data);
-        this.socket.emit('join', data);
-        // this.io.to(data.uid).emit('join', data.message);
-        // this.socket.broadcast.to(data.uid).emit('newMessage', data.message);
-        this.setState({ message: "" });
+    componentDidMount(){
+        const request = axios.get("/api/reps/alldetails");
 
-        console.log('messages after onSubmit', this.state.messages);
+        request.then(rep => {
+            console.log('rep details', rep)
+            this.setState({
+                rep_uid: rep.data.uid,
+                image_id: rep.data.image_id,
+                url: rep.data.url,
+                rep_name: rep.data.name,
+            });
+        })
+        .catch(error => {
+            console.log(error.message);
+            //this.setState({error:error});
+        });
+    }
+
+
+    onSubmit = event =>{
+        console.log('room_uid inside onSubmit is', this.state.uid);
+        console.log('messages array', this.state.messages);
+        // message needs to include:
+        // - author_id
+        // - conversation_id
+        // - body
+
+        let data = {
+            uid: this.state.uid,
+            message: this.state.message,
+            name: this.state.rep_name,
+            url: this.state.url,
+            conversation_id: this.state.convo_id,
+            author_uid: this.state.rep_uid,
+        };
+        // data.uid = this.state.uid;
+        // data.message = this.state.message;
+        // data.name = this.state.rep_name;
+        // data.url = this.state.url;
+
+        this.socket.emit('join', data);
+        this.setState({message:""});
+
+        console.log('messages', this.state.messages);
         event.preventDefault();
     }
 
-    onChange(event) {
+    onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
-        // console.log("ChatView onChange new state: ", this.state.message);
     };
-    
+
 
     render() {
+        const is_closed = this.state.is_closed;
         const { classes } = this.props;
-            return(
-                <div>
-                <MuiThemeProvider>
-                <div>
-                <div>
-                <div>
-                <div>
-                <div>
-                        <div>
-                        </div>
-                        <AppBar
-                            title="Current Conversation"
-                        />
-                        <br/>
-                        <br/>
-                        <div className={classes.root}>
-                        <div className="messages">
-                            {this.props.summary ? (<p>{this.props.summary}</p>) : (<p>No Active Conversation</p>)}
-                            {this.state.messages.map((message, index) => {
-                                return(
-                                    <Paper key={index} className={classes.paper}>
-                                        <Grid container wrap="nowrap" spacing={16}>
-                                            <Grid item>
-                                                <Avatar>R</Avatar>
-                                            </Grid>
-                                            <Grid item xs zeroMinWidth>
-                                                <Typography color='inherit' 
-                                                    variant='h4' 
-                                                    align='center' 
-                                                    noWrap key={index}
-                                                >
-                                                    {message}
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                );
-                            })}
-                        </div>
-                        <div className="footer">
+        const title = `Chat with ${this.props.customerName}`;
+        return(
+            <div>
+                <ThemeProvider>
+			    <MuiThemeProvider>
+                    <div>
+                    <div>
+                    <div>
+                    <div>
+                    <div>
+                    <div>
+                    </div>
+                    <AppBar
+                        title={title}
+                    />
+                    <br/>
+                    <br/>
+
+                    <div className={classes.root}>
+                    <div className="messages">
+                        {this.state.messages.map((message, index) => {
+                            return(
+                                <Paper key={index} className={classes.paper}>
+                                    <AgentBar>
+                                        <Avatar src={message.url} />
+                                        <Column>
+                                            <Title>{message.name}</Title>
+                                            <Subtitle>{message.message}</Subtitle>
+                                        </Column>
+						            </AgentBar>        	
+						        </Paper>
+                            );
+                        })}
+                    </div>
+                    <div className="footer">
 
                         <form onSubmit={this.onSubmit}>
                             <br/>
                             <br/>
                             <br/>
                             <TextField
-                                hintText="message"
-                                name="message"
-                                type="text"
-                                value={this.state.message}
-                                onChange={this.onChange}
+                                    hintText="message"
+                                    name="message"
+                                    type="text"
+                                    value={this.state.message}
+                                    onChange={this.onChange}
                             />
                             <br/>
-
-                            <RaisedButton
+					        <br/>
+					        <RaisedButton
                                 label="send"
                                 primary={true}
                                 type="submit"
                             />
-
+                            {is_closed ? (
+                                <p>This conversation is closed.</p>
+                                ) : (
+						        <div>
+						            <br/>
+                                    <RaisedButton
+                                    label="End Conversation"
+                                    error={true}
+                                    onClick={this.props.closeConvo}
+                                    />
+                                    <br/>
+                                    <br/>
+						        </div>
+                            )}
                         </form>
-                        <br/>
-                        <RaisedButton
-                                label="End Conversation"
-                                secondary={true}
-                                onClick={this.props.closeConvo}
-                        />
-                        
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
+                                 
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
                 </MuiThemeProvider>
-                </div>
-            );
+                </ThemeProvider>
+            </div>
+        );
     }
-
 }
 
 
-export default withStyles(styles)(ChatView);
+ChatView.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ChatView);	

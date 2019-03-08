@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./data/db.js');
+const messagesDb = require('./data/helpers/messagesDb');
 
 // Changed Express Variable from server to App for Socket.io
 const app = express();
@@ -28,13 +29,21 @@ io.on('connection', (socket) => {
   socket.on("join", function(data) {
   	console.log("user connected inside join"); 
   	console.log('room_uid', data.uid);	  
-   	console.log('message is', data.message); 
+   	console.log('message body is', data.message); 
 	  socket.join(data.uid);
     io.sockets.in(data.uid).emit(data.uid, data);
-    // socket.on(`${data.uid}`, function(data) {
-    //   console.log("data in on-uid: ", data);
-    //   socket.broadcast.emit(`${data.uid}`, data);
-    // })
+    let dbMessage = {
+      conversation_id: data.conversation_id,
+      author_uid: data.author_uid,
+      body: data.message,
+    }
+    messagesDb.insert(dbMessage)
+      .then(response => {
+        console.log('message added to db: ', dbMessage);
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
   });	
   
 	socket.on('disconnect', () => console.log('Client disconnected'));
@@ -85,13 +94,13 @@ app.get('/',(req, res) => {
 
 // Any req coming into the server has to go through this verification:
 app.use(async(req,res) => {                         
-  console.log(req.headers.authorization);
+  // console.log(req.headers.authorization);
         const idToken = req.headers.authorization;  // get the idToken from Auth header of the incoming req
 	
   try {
     await admin.auth().verifyIdToken(idToken)       // verify the idToken with Firebase
       .then(decodedToken => {                       // get the decoded token back from Firebase
-        console.log(decodedToken);
+        // console.log(decodedToken);
         // const uid = decodedToken.uid;               // get the uid from the Firebase decoded token
         // res.status(200).json(uid);                  // send back res with the uid
         req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req
