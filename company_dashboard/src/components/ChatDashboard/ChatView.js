@@ -36,6 +36,8 @@ class ChatView extends Component {
         super(props);
         this.state = {
             uid: props.currentConvoSocket,
+            convo_id: props.currentConvoId,
+            rep_uid: null,
             message: '',
             messages: [],
             is_closed: false,
@@ -66,6 +68,7 @@ class ChatView extends Component {
         request.then(rep => {
             console.log('rep details', rep)
             this.setState({
+                rep_uid: rep.data.uid,
                 image_id: rep.data.image_id,
                 url: rep.data.url,
                 rep_name: rep.data.name,
@@ -81,9 +84,21 @@ class ChatView extends Component {
     onSubmit = event =>{
         console.log('room_uid inside onSubmit is', this.state.uid);
         console.log('messages array', this.state.messages);
+        // message need to include:
+        // - author_id
+        // - conversation_id
+        // - body
 
-
-        let data = {};
+        let data = {
+            uid: this.state.uid,
+            message: {
+                conversation_id: this.state.convo_id,
+                author_uid: this.state.rep_uid,
+                body: this.state.message,
+                name: this.state.rep_name,
+                url: this.state.url
+            }
+        };
         data.uid = this.state.uid;
         data.message = this.state.message;
         data.name = this.state.rep_name;

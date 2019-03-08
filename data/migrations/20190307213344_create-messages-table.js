@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
             table.integer('conversation_id')
                 .references('id')
                 .inTable('conversations');  
-            table.integer('author_id');    // Ideally this would be a FK but leaving it free for first iteration because author could be customer or rep; 
+            table.string('author_uid');    // Ideally this would be a FK but leaving it free for first iteration because author could be customer or rep; 
             table.string('body')
                 .notNullable();  
         })

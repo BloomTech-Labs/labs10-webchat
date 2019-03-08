@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./data/db.js');
+const messagesDb = require('./data/helpers/messagesDb');
 
 // Changed Express Variable from server to App for Socket.io
 const app = express();
@@ -28,13 +29,21 @@ io.on('connection', (socket) => {
   socket.on("join", function(data) {
   	console.log("user connected inside join"); 
   	console.log('room_uid', data.uid);	  
-   	console.log('message is', data.message); 
+   	console.log('message body is', data.message.body); 
 	  socket.join(data.uid);
     io.sockets.in(data.uid).emit(data.uid, data);
-    // socket.on(`${data.uid}`, function(data) {
-    //   console.log("data in on-uid: ", data);
-    //   socket.broadcast.emit(`${data.uid}`, data);
-    // })
+    const dbMessage = {
+      conversation_id: data.message.conversation_id,
+      author_uid: data.message.author_uid,
+      body: data.message.body,
+    }
+    messagesDb.insert(dbMessage)
+      .then(response => {
+        console.log('message added to db: ', dbMessage);
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
   });	
   
 	socket.on('disconnect', () => console.log('Client disconnected'));
