@@ -84,25 +84,23 @@ class ChatView extends Component {
     onSubmit = event =>{
         console.log('room_uid inside onSubmit is', this.state.uid);
         console.log('messages array', this.state.messages);
-        // message need to include:
+        // message needs to include:
         // - author_id
         // - conversation_id
         // - body
 
         let data = {
             uid: this.state.uid,
-            message: {
-                conversation_id: this.state.convo_id,
-                author_uid: this.state.rep_uid,
-                body: this.state.message,
-                name: this.state.rep_name,
-                url: this.state.url
-            }
+            message: this.state.message,
+            name: this.state.rep_name,
+            url: this.state.url,
+            conversation_id: this.state.convo_id,
+            author_uid: this.state.rep_uid,
         };
-        data.uid = this.state.uid;
-        data.message = this.state.message;
-        data.name = this.state.rep_name;
-        data.url = this.state.url;
+        // data.uid = this.state.uid;
+        // data.message = this.state.message;
+        // data.name = this.state.rep_name;
+        // data.url = this.state.url;
 
         this.socket.emit('join', data);
         this.setState({message:""});
@@ -114,23 +112,6 @@ class ChatView extends Component {
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
-
-    // closeConvo() {
-    //     const customer_uid = this.state.uid;
-    //     const data = { customer_uid: customer_uid };
-    //     console.log("close convo data: ", data);
-    //     axios.put('/api/chat/closefromchatreppage', data)
-    //     .then(response => {
-    //         console.log("Conversation closed.")
-    //         this.setState({
-    //             is_closed: true
-    //         })
-    //     })
-    //     .catch(error => {
-    //         console.log(error.message);
-    //     })	
-    // }
-
 
 
     render() {

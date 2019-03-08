@@ -75,11 +75,13 @@ class ActiveConvos extends React.Component {
                             <Typography 
                                 color='primary' 
                                 variant='h5' 
-                                align='center' 
+                                align='left' 
                                 noWrap 
                                 key={index}
                             >
-                            Customer Question:{convo.summary}
+                              Customer: {convo.customer_name}
+                              <br/>
+                              Question: {convo.summary}
                             </Typography>
                             
                         </Grid>

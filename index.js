@@ -29,13 +29,13 @@ io.on('connection', (socket) => {
   socket.on("join", function(data) {
   	console.log("user connected inside join"); 
   	console.log('room_uid', data.uid);	  
-   	console.log('message body is', data.message.body); 
+   	console.log('message body is', data.message); 
 	  socket.join(data.uid);
     io.sockets.in(data.uid).emit(data.uid, data);
-    const dbMessage = {
-      conversation_id: data.message.conversation_id,
-      author_uid: data.message.author_uid,
-      body: data.message.body,
+    let dbMessage = {
+      conversation_id: data.conversation_id,
+      author_uid: data.author_uid,
+      body: data.message,
     }
     messagesDb.insert(dbMessage)
       .then(response => {

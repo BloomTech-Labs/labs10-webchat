@@ -70,20 +70,28 @@ class Queue extends React.Component {
                           key={index}
                           onClick={() => this.props.handleQueueConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
                         >
-                            {/* <div 
-                                key={index} 
-                                onClick={() => this.props.handleQueueConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
-                            > */}
-                              <Typography 
-                                  color='primary' 
-                                  variant='h5' 
-                                  align='center' 
-                                  noWrap 
-                                  key={index}
-                              >
-                                Customer Question:{convo.summary}
-                              </Typography>
-                            {/* </div> */}
+                            {/* <Typography 
+                                color='primary' 
+                                variant='h5' 
+                                align='left' 
+                                noWrap 
+                                key={index}
+                            >
+                              Customer: {convo.customer_name}
+                            </Typography> */}
+
+                            <Typography 
+                                color='primary' 
+                                variant='h5' 
+                                align='left' 
+                                noWrap 
+                                key={index}
+                            >
+                              Customer: {convo.customer_name}
+                              <br/>
+                              Question: {convo.summary}
+                            </Typography>
+
                         </Grid>
                     </Grid>
                     </Paper>
