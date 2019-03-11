@@ -56,7 +56,7 @@ class ConvoList extends React.Component {
                     textColor="primary"
                     centered
                 >
-                    <Tab label="Active" />
+                    <Tab label="Open" />
                     <Tab label="Queue" />
                     <Tab label="Closed" />
                 </Tabs>
