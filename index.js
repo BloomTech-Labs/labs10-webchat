@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
       author_uid: data.author_uid,
       author_name: data.author_name,
       image_url: data.image_url,
-      body: data.message,
+      body: data.body,
     };
     messagesDb.insert(dbMessage)
       .then(response => {
