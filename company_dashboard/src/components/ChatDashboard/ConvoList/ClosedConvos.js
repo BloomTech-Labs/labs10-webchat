@@ -22,6 +22,11 @@ const styles = theme => ({
       margin: `${theme.spacing.unit}px auto`,
       padding: theme.spacing.unit * 2,
     },
+    listItem: {
+        '&:hover': {
+          cursor: 'pointer'
+        }
+    }
 });
 
 class ClosedConvos extends React.Component {
@@ -62,9 +67,10 @@ class ClosedConvos extends React.Component {
                         <Grid item 
                             xs 
                             zeroMinWidth
+                            className={classes.listItem}
                             key={index} 
+                            onClick={() => this.props.handleClosedConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
                         >
-                            
                             <Typography 
                                 color='primary' 
                                 variant='h5' 

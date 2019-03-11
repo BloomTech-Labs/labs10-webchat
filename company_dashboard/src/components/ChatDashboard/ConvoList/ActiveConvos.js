@@ -71,7 +71,6 @@ class ActiveConvos extends React.Component {
                             key={index} 
                             onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
                         >
-                            
                             <Typography 
                                 color='primary' 
                                 variant='h5' 
