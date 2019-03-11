@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
-// import * as ROUTES from "../constants/routes";
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -34,7 +34,10 @@ const styles = theme => ({
     width: 80,
     height: 60,
     display: 'flex',
-
+  },
+  netlify: {
+    width: 70,
+    height: 70,
   },
   layout: {
     width: 'auto',
@@ -94,13 +97,15 @@ class Billing extends Component {
         <AppBar position="static" style={{color: '#303f9f'}} className={classes.appBar}>
           <Toolbar>
             <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-              <img
-                className={classes.logo}
-                src={require("../images/logo.png")}
-                alt="logo"
-              />
+              <Link to={ROUTES.LANDING}>
+                <img
+                  className={classes.logo}
+                  src={require("../images/logo.png")}
+                  alt="logo"
+                />
+              </Link>
             </Typography>
-            {/* <Button size="large" color="primary"> 
+            <Button size="large" color="primary"> 
               <Link to={ROUTES.BILLING}>Pricing</Link>
             </Button>
             <Button size="large" color="primary">
@@ -108,12 +113,12 @@ class Billing extends Component {
             </Button>
             <Button size="large" color="primary">
               <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-            </Button> */}
-            {/* <img
+            </Button>
+            <img
               className={classes.netlify}
-              src={require("./images/logomark.png")}
+              src={require("../images/logomark.png")}
               alt="Netlify logo"
-            /> */}
+            />
           </Toolbar>
         </AppBar>
         <main className={classes.layout}>

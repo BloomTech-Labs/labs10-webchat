@@ -76,6 +76,7 @@ componentDidMount(){
                 console.log(error.message);
                 //this.setState({error:error});
               });
+        
 
 }
 
@@ -160,7 +161,7 @@ closeConvo() {
                                 </div>
                                 <div className="footer">
 
-                                <form onSubmit={this.onSubmit}>
+                                        <form onSubmit={this.onSubmit}>
                                         <br/>
                                         <br/>
                                         <br/>
