@@ -27,16 +27,37 @@ class ChatDashboard extends React.Component {
 
 
     handleQueueConvoSelect(convo_id, customer_uid, summary, customer_name) {
-        // set rep current convo to selected convo:
-        this.setState({
-            convoSelected: true,
-            currentConvoId: convo_id,
-            currentConvoSocket: customer_uid,
-            currentConvoSummary: summary,
-            currentCustomerName: customer_name,
-        }, () => {
-            console.log("ChatDashboard state: ", this.state);
-        })
+        const id = convo_id;
+        const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        messageRequest
+            .then(response => {
+                console.log("Response from ChatDash GET messages: ", response);
+                this.setState({
+                    convoSelected: true,
+                    currentConvoId: convo_id,
+                    currentConvoSocket: customer_uid,
+                    currentConvoSummary: summary,
+                    currentCustomerName: customer_name,
+                    currentMessages: response.data
+                }, () => {
+                    console.log("\nActive Convo Selected");
+                    console.log("ChatDashboard state: ", this.state);
+                });
+            })
+            .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+            });
+        // // set rep current convo to selected convo:
+        // this.setState({
+        //     convoSelected: true,
+        //     currentConvoId: convo_id,
+        //     currentConvoSocket: customer_uid,
+        //     currentConvoSummary: summary,
+        //     currentCustomerName: customer_name,
+        // }, () => {
+        //     console.log("ChatDashboard state: ", this.state);
+        // })
        
         const data = { id: convo_id };
         const deQueueRequest = axios.put('/api/chat/dequeue', data);
@@ -51,8 +72,6 @@ class ChatDashboard extends React.Component {
     }
 
     handleActiveConvoSelect(convo_id, customer_uid, summary, customer_name) {
-        let data = { id: `${convo_id}` };
-        console.log('data for GET messages: ', data);
         const id = convo_id;
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
