@@ -33,6 +33,7 @@ class ChatPage extends Component {
                 this.state = {
                         uid: props.history.location.state.uid,
                         company_id: props.history.location.state.company_id,
+                        convo_id: null,
 			name:"",
                         url:"https://res.cloudinary.com/dvgfmipda/image/upload/v1551906652/zmqjmzk60yjbwgieun4i.png",
 			message: '',
@@ -47,68 +48,62 @@ class ChatPage extends Component {
                 console.log('Incoming message:', message);
 		addMessage(message);
         });
-        // this.socket.on('newMessage', function(message) {
-        //         console.log('Incoming message:', message);
-	// 	addMessage(message);
-        // });
-
 
         const addMessage = (data) => {
                 this.setState({messages: [...this.state.messages, data]});
         }
         }
 
-componentDidMount(){
-        const request = axios.get("/api/customers/getbyUID");
+        componentDidMount(){
+                const request = axios.get("/api/customers/getbyUID");
 
-             request.then(response => {
-                console.log('customer details', response);
-              this.setState({
-                name: response.data.name
+                request.then(response => {
+                        console.log('customer details', response);
+                        this.setState({
+                                name: response.data.name
+                        });
+                })
+                .catch(error => {
+                        console.log(error.message);
+                        //this.setState({error:error});
                 });
+        }
 
-              })
-              .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-              });
-
-}
-
-        // Join conversation and send initial message
+        // Join conversation and send initial message:
         onStart = event => {
                 console.log('room_uid inside onSubmit is', this.state.uid);
                 console.log('messages array', this.state.messages);
 
-                //var newArr = this.state.messages.slice();
-                //newArr.push(this.state.message);
-
-                let data = {};
-                data.uid = this.state.uid;
-                data.message = this.state.message;
-		data.name= this.state.name;
-		data.url = this.state.url;
-
-                this.socket.emit('join', data);
-
+                // Add new convo to db
                 let convo = {
                         customer_uid: this.state.uid,
                         summary: this.state.message,
                         company_id: this.state.company_id
                 };
-                console.log("new convo: ", convo);
+                // console.log("new convo: ", convo);
                 axios.post('/api/chat/newconvo', convo)
-                .then(response => {
-                        console.log("Conversation created.")
+                .then(convo_id => {
+                        console.log("Conversation added to db: ", convo)
                         this.setState({
-                                started: true
-                        })
+                                started: true,
+                                convo_id: convo_id
+                        }, () => {
+                                let data = {
+                                        socket_uid: this.state.uid,
+                                        conversation_id: this.state.convo_uid,
+                                        body: this.state.message,
+                                        author_name: this.state.name,
+                                        image_url: this.state.url
+                                };
+                
+                                this.socket.emit('join', data);
+                        });
                 })
                 .catch(error => {
                         console.log(error.message);
                 });
 
-                this.setState({message:""});
+                this.setState({message: ""});
 
                 console.log('Messages after Customer onSubmit', this.state.messages);
                 event.preventDefault();
@@ -116,11 +111,13 @@ componentDidMount(){
 
         // Send a message after joining conversation
         onSend = event => {
-                let data = {};
-                data.uid = this.state.uid;
-                data.message = this.state.message;
-		data.name= this.state.name;
-		data.url = this.state.url;
+                let data = {
+                        socket_uid: this.state.uid,
+                        conversation_id: this.state.convo_uid,
+                        body: this.state.message,
+                        author_name: this.state.name,
+                        image_url: this.state.url
+                };
 
                 this.socket.emit('join', data);
                 this.setState({ message: ""});
@@ -159,10 +156,10 @@ componentDidMount(){
                 return(
 		<Paper key={index} className={classes.paper}>
                 <AgentBar>
-                <Avatar src={message.url} />
+                <Avatar src={message.image_url} />
                 <Column>
-                <Title>{message.name}</Title>
-                <Subtitle>{message.message}</Subtitle>
+                <Title>{message.author_name}</Title>
+                <Subtitle>{message.body}</Subtitle>
                 </Column>
                 </AgentBar>
 		</Paper>
