@@ -93,8 +93,8 @@ class ChatView extends Component {
         });
     }
 
-    componentWillReceiveProps() {
-        this.setState({ messages: this.props.messages });
+    componentWillReceiveProps(newProps) {
+        this.setState({ messages: newProps.messages });
         // const id = this.props.currentConvoId;
         // const messageRequest = axios.get(`/api/chat/messages/${id}`);
         // messageRequest
@@ -107,6 +107,7 @@ class ChatView extends Component {
         //         //this.setState({error:error});
         //     });
     }
+
 
     onSubmit = event =>{
         console.log('room_uid inside onSubmit is', this.state.uid);

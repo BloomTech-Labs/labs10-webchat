@@ -132,26 +132,30 @@ class ChatDashboard extends React.Component {
                 </div> 
                     
                 <div className="chat-dash-right-container">
-                    {convoSelected ? (
-                        <ChatView 
-                        currentConvoId={this.state.currentConvoId}
-                        currentConvoSocket={this.state.currentConvoSocket}
-                        summary={this.state.currentConvoSummary}
-                        messages={this.state.currentMessages}
-                        customerName={this.state.currentCustomerName}
-                        closeConvo={this.closeConvo}
-                        />  
+                    {/* {!convoSelected ? (
+                        <p>No conversation selected.</p>
+                        
+                          
                         ) : (
-                        <p>No conversation selected.</p>)
-                    }
-                </div> 
-
-                {/* <div className="chat-dash-middle-container">
-                    <ConvoList 
-                        handleQueueConvoSelect={this.handleQueueConvoSelect}
-                        handleActiveConvoSelect={this.handleActiveConvoSelect}
+                            <ChatView 
+                            currentConvoId={this.state.currentConvoId}
+                            currentConvoSocket={this.state.currentConvoSocket}
+                            summary={this.state.currentConvoSummary}
+                            messages={this.state.currentMessages}
+                            customerName={this.state.currentCustomerName}
+                            closeConvo={this.closeConvo}
+                            />
+                        )
+                    } */}
+                    <ChatView 
+                            currentConvoId={this.state.currentConvoId}
+                            currentConvoSocket={this.state.currentConvoSocket}
+                            summary={this.state.currentConvoSummary}
+                            messages={this.state.currentMessages}
+                            customerName={this.state.currentCustomerName}
+                            closeConvo={this.closeConvo}
                     />
-                </div> */}
+                </div> 
             </div>
             </div>
         );
