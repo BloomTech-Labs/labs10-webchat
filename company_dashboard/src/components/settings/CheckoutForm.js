@@ -5,11 +5,13 @@ import Button from "@material-ui/core/Button";
 
 import "./AccountSettings.css";
 
+
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = { complete: false,
-                   company_id: null
+                   company_id: null,
+                   open: false,
                  };
     this.submit = this.submit.bind(this);
   }
@@ -46,6 +48,7 @@ class CheckoutForm extends Component {
         console.log(err);
       });
   }
+
 
   render() {
     if (this.state.complete) return <h1>Purchase Complete</h1>;
