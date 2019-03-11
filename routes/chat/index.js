@@ -98,8 +98,8 @@ router.put('/closefromchatreppage', (req, res) => {
 })
 
 router.get('/messages', (req, res) => {
-    const uid  = req.body.uid;      // uid should come from server auth sequence based on rep's idToken
-    const request = messagesDb.getMessages(uid);
+    const convo_id = req.body.conversations_id;
+    const request = messagesDb.getAllFromConvo(convo_id);
     request
         .then(response => {
             res.status(200).json(response);

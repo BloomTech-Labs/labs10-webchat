@@ -81,7 +81,7 @@ class ChatView extends Component {
         const messageRequest = axios.get('/api/chat/messages');
         messageRequest
             .then(messages => {
-
+                
             })
     }
 
@@ -91,17 +91,13 @@ class ChatView extends Component {
         console.log('messages array', this.state.messages);
 
         let data = {
-            uid: this.state.uid,  // socket room
+            socket_uid: this.state.uid,  // socket room
             conversation_id: this.state.convo_id,
             author_uid: this.state.rep_uid,
             author_name: this.state.rep_name,
             body: this.state.message,
             image_url: this.state.url,
         };
-        // data.uid = this.state.uid;
-        // data.message = this.state.message;
-        // data.name = this.state.rep_name;
-        // data.url = this.state.url;
 
         this.socket.emit('join', data);
         this.setState({ message: ""});
