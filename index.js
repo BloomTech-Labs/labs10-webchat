@@ -59,7 +59,7 @@ const companiesRoutes = require('./routes/companies/companiesRoutes');
 const billingRoutes = require('./routes/billing/billingRoutes');
 const imageRoutes = require('./routes/images/imageRoutes');
 const approvedemailRoutes = require('./routes/approvedemails/approvedemails');
-const chatRoutes = require('./routes/chat');
+const chatRoutes = require('./routes/chat/index');
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -74,7 +74,7 @@ app.get('/',(req, res) => {
 // Any req coming into the server has to go through this verification:
 app.use(async(req,res) => {                         
   // console.log(req.headers.authorization);
-        const idToken = req.headers.authorization;  // get the idToken from Auth header of the incoming req
+  const idToken = req.headers.authorization;  // get the idToken from Auth header of the incoming req
 	
   try {
     await admin.auth().verifyIdToken(idToken)       // verify the idToken with Firebase
@@ -82,7 +82,9 @@ app.use(async(req,res) => {
         // console.log(decodedToken);
         // const uid = decodedToken.uid;               // get the uid from the Firebase decoded token
         // res.status(200).json(uid);                  // send back res with the uid
+        // console.log('auth req.body before: ', req.body);
         req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req
+        // console.log('auth req.body after: ', req.body);
         return req.next();                          // return and move to the next (.then) part of the original req
       });
   }

@@ -12,6 +12,7 @@ function insert(message) {
 
 // Get messages for a convo using that convo's id: 
 function getAllFromConvo(convo_id) {
+    console.log("convo_id in get messages helper: ", convo_id);
     const query = db
         .select([
             "messages.author_name",
@@ -20,6 +21,7 @@ function getAllFromConvo(convo_id) {
         ])
         .from("messages")
         .where("messages.conversation_id", convo_id);
+
     return query.then(details => {
         return details;    // return full array of objects returned by query
     });

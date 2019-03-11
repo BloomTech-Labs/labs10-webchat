@@ -39,7 +39,7 @@ class ChatView extends Component {
             convo_id: props.currentConvoId,
             rep_uid: null,
             message: '',
-            messages: [],
+            messages: props.messages,
             is_closed: false,
 			image_id: null,
 			url: "",
@@ -59,35 +59,54 @@ class ChatView extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
-            console.log('rep details', rep)
+            // console.log('rep details', rep)
             this.setState({
                 rep_uid: rep.data.uid,
                 image_id: rep.data.image_id,
                 url: rep.data.url,
                 rep_name: rep.data.name,
-            });
+            }
+            // ,() => {
+            //     console.log("ChatView state after GET rep details: ", this.state);
+            //     // Get saved messages from database:
+            //     let data = { convo_id: this.state.convo_id };
+            //     const messageRequest = axios.get('/api/chat/messages', data);
+            //     messageRequest
+            //         .then(messages => {
+            //             console.log("Response from ChatView GET messages: ", messages);
+            //             this.setState({ messages });
+            //         })
+            //         .catch(error => {
+            //             console.log(error.message);
+            //             //this.setState({error:error});
+            //         });
+            // }
+            );
         })
         .catch(error => {
             console.log(error.message);
             //this.setState({error:error});
         });
-
-        // Get saved messages from database:
-        const messageRequest = axios.get('/api/chat/messages');
-        messageRequest
-            .then(messages => {
-                this.setState({ messages });
-            })
-            .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-            });
     }
 
+    componentWillReceiveProps() {
+        this.setState({ messages: this.props.messages });
+        // const id = this.props.currentConvoId;
+        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        // messageRequest
+        //     .then(response => {
+        //         console.log("Response from ChatView GET messages: ", response);
+        //         this.setState({ messages: response.data });
+        //     })
+        //     .catch(error => {
+        //         console.log(error.message);
+        //         //this.setState({error:error});
+        //     });
+    }
 
     onSubmit = event =>{
         console.log('room_uid inside onSubmit is', this.state.uid);
