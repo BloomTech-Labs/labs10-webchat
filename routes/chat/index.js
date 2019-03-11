@@ -97,4 +97,18 @@ router.put('/closefromchatreppage', (req, res) => {
         })
 })
 
+router.get('/messages/:id', (req, res) => {
+    console.log('req.params in get messages endpoint: ', req.params);
+    const id = req.params.id;
+    console.log("convo_id in get messages endpoint: ", id);
+    const request = messagesDb.getAllFromConvo(id);
+    request
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json({ message: error.message });
+        })
+})
+
 module.exports = router;

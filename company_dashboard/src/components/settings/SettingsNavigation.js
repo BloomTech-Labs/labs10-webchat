@@ -64,7 +64,7 @@ class SettingsNavigation extends React.Component {
         this.setState({ error: err });
       })
     setTimeout(() => {
-      console.log(this.state.is_admin);
+      console.log("SettingsNavigation is_admin: ", this.state.is_admin);
 
     }, 5000)
   }

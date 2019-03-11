@@ -5,9 +5,13 @@ exports.up = function(knex, Promise) {
             table.integer('conversation_id')
                 .references('id')
                 .inTable('conversations');  
-            table.string('author_uid');    // Ideally this would be a FK but leaving it free for first iteration because author could be customer or rep; 
-            table.string('body')
-                .notNullable();  
+            table.string('author_uid');    // Ideally these 3 would be a FK but leaving free for faster development
+            table.string('image_url');     // also for simplicity: 
+            table.string('author_name');   // - image url and author name are stored directly here rather than referencing tables 
+                                           // - because they're being emitted by socket.io before being stored in db and need all this info in the emmited message
+
+            table.string('body')           // message body
+                .notNullable();
         })
     ])
 };
