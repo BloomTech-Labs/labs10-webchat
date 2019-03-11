@@ -1,33 +1,52 @@
+.account-settings{
+    width: 70%;
+  }
+
 .account-settings form {
     display: flex;
     margin-top: 5%;
-
 }
 
 .account-settings .left-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
+}
+
+.account-settings .left-container button {
+    margin-top: 5%;
+    margin-right: 5%;
+    width: 10%;
+    height: 8%;
+    align-self: flex-end;
 }
 
 .account-settings .right-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
     margin-left: 10%;
-    margin-top: 2%;
+    width: 30%;
 }
 
 .account-settings .right-container img {
-    width: 50%;
+    min-width: 70%;
+    min-height: 70%;
+    max-width:70%;
+    max-height:70%;
     border-radius: 50%;
 }
 
-.account-settings .left-container button {
-    margin-top: 5%;
-    width: 10%;
-    height: 8%;
-    margin-left: 3%;
+.account-settings .image-upload {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-settings .image-upload input {
+  display: none;
+}
+.account-settings .image-upload button {
+  margin: auto;
+  margin-top: 5%;
 }
 
 .checkout {

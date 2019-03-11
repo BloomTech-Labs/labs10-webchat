@@ -38,28 +38,28 @@ const styles = theme => ({
 class AccountSettings extends React.Component {
   state = {
     name: "",
-    uid:"",	  
+    uid:"",
     email: "",
     phone_number: 0,
     motto: "",
-    image_url:"",	  
-    image_id:"",	  
+    image_url:"",
+    image_id:"",
     selectedFile: null,
     id: ""
   };
 
   componentDidMount() {
     //const request = axios.get(`/api/reps/getbyUID`);
-	 
+
     //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
 
-    const request = axios.get("/api/reps/alldetails");	  
+    const request = axios.get("/api/reps/alldetails");
 
     request.then(response => {
       console.log("Account Settings CDM getByUID response: ", response);
       // console.log(response.data);
 
-      this.setState({ 
+      this.setState({
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
@@ -67,7 +67,7 @@ class AccountSettings extends React.Component {
         id: response.data.id,
         image_id:response.data.image_id,
 	      image_url: response.data.url,
-	      uid: response.data.uid       
+	      uid: response.data.uid
        });
     })
     .catch(err => {
@@ -90,7 +90,7 @@ class AccountSettings extends React.Component {
       phone_number: this.state.phone_number,
       motto: this.state.motto,
       email: this.state.email,
-      id: this.state.id  
+      id: this.state.id
     };
     console.log(user);
 
@@ -105,24 +105,23 @@ class AccountSettings extends React.Component {
         console.log(err.message);
       });
   }
-  
+
   //Sets selectedFile in state after selecting an image
-  
+
  fileChangedHandler = (event) => {
     this.setState({selectedFile: event.target.files[0]});
   };
 
-  
-  onSubmit = event => {
 
-    console.log('inside onSubmit');	  
+  onSubmit = event => {
+    console.log('inside onSubmit');
     console.log('inside onSubmit file is', this.state.selectedFile);
-	  
+
     let data = new FormData();
-     data.append('uid', this.state.uid);	  
+     data.append('uid', this.state.uid);
      data.append('file', this.state.selectedFile);
-	 
-	  
+
+
 
     const id = this.state.image_id;   //image_id to update an existing image to a new one
 
@@ -147,10 +146,9 @@ class AccountSettings extends React.Component {
 
     return (
       <div className="account-settings">
+        <h2>Edit Account Information</h2>
         <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
-
-            <Link to="/chatdashboard">Chat Dashboard</Link>
             <br/>
 
             <TextField
@@ -181,6 +179,9 @@ class AccountSettings extends React.Component {
               onChange={this.handleChange("email")}
               margin="normal"
               variant="outlined"
+              InputProps={{
+            readOnly: true,
+          }}
             />
 
             <TextField
@@ -192,11 +193,10 @@ class AccountSettings extends React.Component {
               margin="normal"
               variant="outlined"
             />
-            
+
             <Button variant="outlined" color="primary" className="save-button" onClick={this.handleSubmit} >
               Save
             </Button>
-            <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">
@@ -205,20 +205,27 @@ class AccountSettings extends React.Component {
                 alt="profile picture"
               />
               <h2>Your Profile Photo</h2>
-	
-	    <form  onSubmit={this.onSubmit}>
-              <input
-                type="file"
-                onChange={this.fileChangedHandler}
-              />
-	
+
+	    <form className="image-upload" onSubmit={this.onSubmit}>
+        <input
+        accept="image/*"
+        id="outlined-button-file"
+        type="file"
+        onChange={this.fileChangedHandler}
+      />
+      <label htmlFor="outlined-button-file">
+        <Button type="submit" variant="outlined" component="span" color="primary" className={classes.button}>
+          Upload
+        </Button>
+      </label>
 	    <Button type="submit" variant="outlined" color="primary" className="save-button">
               Save Image
             </Button>
-	  </form>
+	         </form>
             </div>
           </div>
         </form>
+        <Link to="/updatepassword"><h2>Update Password</h2></Link>
       </div>
     );
   }
