@@ -112,9 +112,15 @@ class AdminPanelBaseForm extends React.Component {
   
   componentDidMount() {
     //using rep_id to get representative details to display on Admin panel  
-    
+	
     const id = this.state.rep_id;
-      this.props.firebase.auth.currentUser.getIdToken()
+
+  //onAuthStateChanged required before getIdToken() to ensure that the Auth object isn't in an intermediate state—such as initialization—when you get the current user.	Without onAuthStateChanged on refreshing currentUser.getIdToken() was null since it's async
+
+   this.props.firebase.auth.onAuthStateChanged(user => {	  
+  	if (user) {
+    	
+	this.props.firebase.auth.currentUser.getIdToken()
       .then(idToken => {
         console.log("idToken after in Admin panel: ", idToken);
         axios.defaults.headers.common['Authorization'] = idToken;
@@ -158,8 +164,13 @@ class AdminPanelBaseForm extends React.Component {
       .catch(error => {            // if Firebase getIdToken throws an error
         console.log(error.message);
 	      this.setState({ error:error });
-      })		 
-  }
+      })	
+}
+	else{
+		 this.props.history.push('/repslogin');	
+	}
+   });
+  };
   
   handleClick = () => {
     const id = this.state.rep_id;
