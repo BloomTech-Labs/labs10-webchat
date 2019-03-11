@@ -97,4 +97,16 @@ router.put('/closefromchatreppage', (req, res) => {
         })
 })
 
+router.get('/messages', (req, res) => {
+    const uid  = req.body.uid;      // uid should come from server auth sequence based on rep's idToken
+    const request = messagesDb.getMessages(uid);
+    request
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json({ message: error.message });
+        })
+})
+
 module.exports = router;

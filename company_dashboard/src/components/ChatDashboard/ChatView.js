@@ -46,8 +46,8 @@ class ChatView extends Component {
 			rep_name: "",
         };
 
-	    // this.socket = io('localhost:5000');
-	    this.socket = io('https://webchatlabs10.herokuapp.com');
+	    this.socket = io('localhost:5000');
+	    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
             console.log('Incoming message:', message);
@@ -63,9 +63,8 @@ class ChatView extends Component {
     }
 
     componentDidMount(){
-        const request = axios.get("/api/reps/alldetails");
-
-        request.then(rep => {
+        const repRequest = axios.get("/api/reps/alldetails");
+        repRequest.then(rep => {
             console.log('rep details', rep)
             this.setState({
                 rep_uid: rep.data.uid,
@@ -78,24 +77,26 @@ class ChatView extends Component {
             console.log(error.message);
             //this.setState({error:error});
         });
+
+        const messageRequest = axios.get('/api/chat/messages');
+        messageRequest
+            .then(messages => {
+
+            })
     }
 
 
     onSubmit = event =>{
         console.log('room_uid inside onSubmit is', this.state.uid);
         console.log('messages array', this.state.messages);
-        // message needs to include:
-        // - author_id
-        // - conversation_id
-        // - body
 
         let data = {
-            uid: this.state.uid,
-            message: this.state.message,
-            name: this.state.rep_name,
-            url: this.state.url,
+            uid: this.state.uid,  // socket room
             conversation_id: this.state.convo_id,
             author_uid: this.state.rep_uid,
+            author_name: this.state.rep_name,
+            body: this.state.message,
+            image_url: this.state.url,
         };
         // data.uid = this.state.uid;
         // data.message = this.state.message;
@@ -103,9 +104,9 @@ class ChatView extends Component {
         // data.url = this.state.url;
 
         this.socket.emit('join', data);
-        this.setState({message:""});
+        this.setState({ message: ""});
 
-        console.log('messages', this.state.messages);
+        console.log('messages after submit: ', this.state.messages);
         event.preventDefault();
     }
 

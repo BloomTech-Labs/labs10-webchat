@@ -29,21 +29,24 @@ io.on('connection', (socket) => {
   socket.on("join", function(data) {
   	console.log("user connected inside join"); 
   	console.log('room_uid', data.uid);	  
-   	console.log('message body is', data.message); 
+   	console.log('message body is', data.body); 
 	  socket.join(data.uid);
     io.sockets.in(data.uid).emit(data.uid, data);
-    let dbMessage = {
+
+    let dbMessage = {  // everything but the uid, which was only needed for socket room
       conversation_id: data.conversation_id,
       author_uid: data.author_uid,
+      author_name: data.author_name,
+      image_url: data.image_url,
       body: data.message,
-    }
+    };
     messagesDb.insert(dbMessage)
       .then(response => {
         console.log('message added to db: ', dbMessage);
       })
       .catch(error => {
         console.log(error.message);
-      })
+      });
   });	
   
 	socket.on('disconnect', () => console.log('Client disconnected'));
