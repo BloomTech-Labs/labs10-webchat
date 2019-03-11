@@ -54,15 +54,13 @@ class ChatView extends Component {
             addMessage(message);
         });
 
-
         const addMessage = (data) => {
             this.setState({messages: [...this.state.messages, data]});
         }
-
-        // this.closeConvo = this.closeConvo.bind(this);
     }
 
     componentDidMount(){
+        // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
             console.log('rep details', rep)
@@ -78,11 +76,16 @@ class ChatView extends Component {
             //this.setState({error:error});
         });
 
+        // Get saved messages from database:
         const messageRequest = axios.get('/api/chat/messages');
         messageRequest
             .then(messages => {
-                
+                this.setState({ messages });
             })
+            .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+            });
     }
 
 
@@ -138,10 +141,10 @@ class ChatView extends Component {
                             return(
                                 <Paper key={index} className={classes.paper}>
                                     <AgentBar>
-                                        <Avatar src={message.url} />
+                                        <Avatar src={message.image_url} />
                                         <Column>
-                                            <Title>{message.name}</Title>
-                                            <Subtitle>{message.message}</Subtitle>
+                                            <Title>{message.author_name}</Title>
+                                            <Subtitle>{message.body}</Subtitle>
                                         </Column>
 						            </AgentBar>        	
 						        </Paper>
