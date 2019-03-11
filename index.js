@@ -28,8 +28,8 @@ io.on('connection', (socket) => {
 
   socket.on("join", function(data) {
   	console.log("user connected inside join"); 
-  	console.log('room_uid', data.uid);	  
-   	console.log('message body is', data.body); 
+  	console.log('room_uid is ', data.socket_uid);	  
+   	console.log('message body is ', data.body); 
 	  socket.join(data.socket_uid);
     io.sockets.in(data.socket_uid).emit(data.socket_uid, data);
 

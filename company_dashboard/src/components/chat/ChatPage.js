@@ -34,7 +34,7 @@ class ChatPage extends Component {
                         uid: props.history.location.state.uid,
                         company_id: props.history.location.state.company_id,
                         convo_id: null,
-			name:"",
+			name: "",
                         url:"https://res.cloudinary.com/dvgfmipda/image/upload/v1551906652/zmqjmzk60yjbwgieun4i.png",
 			message: '',
                         messages: [],
@@ -82,18 +82,19 @@ class ChatPage extends Component {
                 };
                 // console.log("new convo: ", convo);
                 axios.post('/api/chat/newconvo', convo)
-                .then(convo_id => {
-                        console.log("Conversation added to db: ", convo)
+                .then(response => {
+                        console.log("response from POST to /newconvo ", response)
                         this.setState({
                                 started: true,
-                                convo_id: convo_id
+                                convo_id: response.data
                         }, () => {
                                 let data = {
                                         socket_uid: this.state.uid,
-                                        conversation_id: this.state.convo_uid,
-                                        body: this.state.message,
+                                        conversation_id: this.state.convo_id,
+                                        author_uid: this.state.uid,   // customer uid same as socket uid
                                         author_name: this.state.name,
-                                        image_url: this.state.url
+                                        image_url: this.state.url,
+                                        body: this.state.message,
                                 };
                 
                                 this.socket.emit('join', data);
@@ -109,14 +110,15 @@ class ChatPage extends Component {
                 event.preventDefault();
         }
 
-        // Send a message after joining conversation
+        // Send a message after joining conversation:
         onSend = event => {
                 let data = {
                         socket_uid: this.state.uid,
-                        conversation_id: this.state.convo_uid,
-                        body: this.state.message,
+                        conversation_id: this.state.convo_id,
+                        author_uid: this.state.uid,   // customer uid same as socket uid
                         author_name: this.state.name,
-                        image_url: this.state.url
+                        image_url: this.state.url,
+                        body: this.state.message,
                 };
 
                 this.socket.emit('join', data);
