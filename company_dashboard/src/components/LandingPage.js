@@ -156,8 +156,8 @@ const styles = theme => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-    backgroundColor: 'black',
-    color: 'white',
+    backgroundColor: '#fafafa',
+    color: '#616161',
     marginTop: 30,
     // fontWeight: 'bold',
 	},
@@ -364,7 +364,7 @@ class LandingPage extends Component {
 
 				<Grid container spacing={24}>
 					<Grid item xs={12} className={classes.footer}>
-						<Paper className={classes.copyright} class='copyright'>&copy; Copyright 2019 Labs10 Lambda School - All rights reserved</Paper>
+						<Paper className={classes.copyright} class='copyright'>&copy; Copyright 2019 Lambda School Lab10 Chattr - All rights reserved</Paper>
 					</Grid>
 				</Grid>
       </div>

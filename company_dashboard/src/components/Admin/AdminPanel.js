@@ -226,7 +226,7 @@ class AdminPanelBaseForm extends React.Component {
             <TextField
               id='outlined-codeSnippet'
               margin='normal'
-	      variant="outlined"
+	            variant="outlined"
               rowsMax={Infinity}
               fullWidth
               className={classes.TextField}
@@ -237,7 +237,7 @@ class AdminPanelBaseForm extends React.Component {
             <TextField
               id='outlined-codeSnippet'
               margin='normal'
-	      variant="outlined"
+	            variant="outlined"
               rowsMax={Infinity}
               fullWidth
               className={classes.TextField}
@@ -248,7 +248,7 @@ class AdminPanelBaseForm extends React.Component {
             <TextField
               id='outlined-codeSnippet'
               margin='normal'
-	      variant="outlined"
+	            variant="outlined"
               value={this.state.motto}
             />
 
