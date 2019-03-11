@@ -22,15 +22,37 @@ class UpdatePasswordFormBase extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            uid: "",
             email: "",
             oldPassword: "",
             newPassword1: "",
             newPassword2: "",
             error: null,
-            status: "Enter current credentials and new password."	    
+            status: ""
         }
     }
-    
+    componentDidMount() {
+      //const request = axios.get(`/api/reps/getbyUID`);
+
+      //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
+
+      const request = axios.get("/api/reps/alldetails");
+
+      request.then(response => {
+        console.log("Account Settings CDM getByUID response: ", response);
+        // console.log(response.data);
+
+        this.setState({
+          email: response.data.email,
+          uid: response.data.uid
+         });
+      })
+      .catch(err => {
+        console.log(err.message);
+        this.setState({ error: err });
+      })
+    }
+
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
@@ -49,7 +71,7 @@ class UpdatePasswordFormBase extends React.Component {
                         oldPassword: "",
                         newPassword1: "",
                         newPassword2: "",
-                        status: "Your password was updated."
+                        status: "Your password has been updated"
                     });
                 })
                 .catch(error => {   // if updatePassword throws error
@@ -70,29 +92,15 @@ class UpdatePasswordFormBase extends React.Component {
 
     render() {
         const { email, oldPassword, newPassword1, newPassword2, error } = this.state;
-        
-        const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
+
+        const condition = oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
                 <MuiThemeProvider>
                     <div>
-                    <AppBar
-                        title="Update Password"
-                    />
                     <br/>
                     <div>{this.state.status}</div>
                     <form onSubmit={this.onSubmit}>
-                        <TextField
-                            hintText="Email"
-                            floatingLabelText="Email"
-                            name="email"
-                            type="text"
-                            required={true}
-                            value={this.state.email}
-                            onChange={this.onChange}
-                        />
-                        <br/>
-
                         <TextField
                             hintText="Old password"
                             floatingLabelText="Old Password"
@@ -132,7 +140,6 @@ class UpdatePasswordFormBase extends React.Component {
                             disabled={condition}
                         />
                         {error && <p>{error.message}</p>}
-                        <Link to="/adminsettings">Back to Account Settings</Link>
                     </form>
                 </div>
                 </MuiThemeProvider>
