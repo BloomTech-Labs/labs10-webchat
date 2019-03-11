@@ -22,7 +22,7 @@ import UpdatePassword from './components/settings/UpdatePassword';
 import LiveFeed from './components/rep1/LiveFeed';
 import ChatRepPage from './components/rep1/ChatRepPage';
 import ChatDashboard from './components/ChatDashboard/ChatDashboard';
-import Billing from './components/settings/Billing';
+import Pricing from './components/settings/Pricing';
 
 
 class App extends Component {
@@ -61,7 +61,7 @@ class App extends Component {
 	  <Route path={ROUTES.LIVE_FEED} component={LiveFeed} />
 	  <Route path={ROUTES.CHAT_DASHBOARD} component={ChatDashboard} />
 
-          <Route path={ROUTES.BILLING} component={Billing} />
+          <Route path={ROUTES.PRICING} component={Pricing} />
 
           <Route path={ROUTES.ADMIN_PANEL} component={AdminPanel} />
           <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettings} />
