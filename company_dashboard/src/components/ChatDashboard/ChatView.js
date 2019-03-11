@@ -39,7 +39,7 @@ class ChatView extends Component {
             convo_id: props.currentConvoId,
             rep_uid: null,
             message: '',
-            messages: [],
+            messages: props.messages,
             is_closed: false,
 			image_id: null,
 			url: "",
@@ -54,25 +54,38 @@ class ChatView extends Component {
             addMessage(message);
         });
 
-
         const addMessage = (data) => {
             this.setState({messages: [...this.state.messages, data]});
         }
-
-        // this.closeConvo = this.closeConvo.bind(this);
     }
 
-    componentDidMount(){
-        const request = axios.get("/api/reps/alldetails");
-
-        request.then(rep => {
-            console.log('rep details', rep)
+    componentDidMount() {
+        // Get details on the current rep:
+        const repRequest = axios.get("/api/reps/alldetails");
+        repRequest.then(rep => {
+            // console.log('rep details', rep)
             this.setState({
                 rep_uid: rep.data.uid,
                 image_id: rep.data.image_id,
                 url: rep.data.url,
                 rep_name: rep.data.name,
-            });
+            }
+            // ,() => {
+            //     console.log("ChatView state after GET rep details: ", this.state);
+            //     // Get saved messages from database:
+            //     let data = { convo_id: this.state.convo_id };
+            //     const messageRequest = axios.get('/api/chat/messages', data);
+            //     messageRequest
+            //         .then(messages => {
+            //             console.log("Response from ChatView GET messages: ", messages);
+            //             this.setState({ messages });
+            //         })
+            //         .catch(error => {
+            //             console.log(error.message);
+            //             //this.setState({error:error});
+            //         });
+            // }
+            );
         })
         .catch(error => {
             console.log(error.message);
@@ -80,32 +93,39 @@ class ChatView extends Component {
         });
     }
 
+    componentWillReceiveProps(newProps) {
+        this.setState({ messages: newProps.messages });
+        // const id = this.props.currentConvoId;
+        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        // messageRequest
+        //     .then(response => {
+        //         console.log("Response from ChatView GET messages: ", response);
+        //         this.setState({ messages: response.data });
+        //     })
+        //     .catch(error => {
+        //         console.log(error.message);
+        //         //this.setState({error:error});
+        //     });
+    }
+
 
     onSubmit = event =>{
         console.log('room_uid inside onSubmit is', this.state.uid);
         console.log('messages array', this.state.messages);
-        // message needs to include:
-        // - author_id
-        // - conversation_id
-        // - body
 
         let data = {
-            uid: this.state.uid,
-            message: this.state.message,
-            name: this.state.rep_name,
-            url: this.state.url,
+            socket_uid: this.state.uid,  // socket room
             conversation_id: this.state.convo_id,
             author_uid: this.state.rep_uid,
+            author_name: this.state.rep_name,
+            body: this.state.message,
+            image_url: this.state.url,
         };
-        // data.uid = this.state.uid;
-        // data.message = this.state.message;
-        // data.name = this.state.rep_name;
-        // data.url = this.state.url;
 
         this.socket.emit('join', data);
-        this.setState({message:""});
+        this.setState({ message: ""});
 
-        console.log('messages', this.state.messages);
+        console.log('messages after submit: ', this.state.messages);
         event.preventDefault();
     }
 
@@ -141,10 +161,10 @@ class ChatView extends Component {
                             return(
                                 <Paper key={index} className={classes.paper}>
                                     <AgentBar>
-                                        <Avatar src={message.url} />
+                                        <Avatar src={message.image_url} />
                                         <Column>
-                                            <Title>{message.name}</Title>
-                                            <Subtitle>{message.message}</Subtitle>
+                                            <Title>{message.author_name}</Title>
+                                            <Subtitle>{message.body}</Subtitle>
                                         </Column>
 						            </AgentBar>        	
 						        </Paper>

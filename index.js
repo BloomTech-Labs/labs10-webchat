@@ -28,50 +28,29 @@ io.on('connection', (socket) => {
 
   socket.on("join", function(data) {
   	console.log("user connected inside join"); 
-  	console.log('room_uid', data.uid);	  
-   	console.log('message body is', data.message); 
-	  socket.join(data.uid);
-    io.sockets.in(data.uid).emit(data.uid, data);
-    let dbMessage = {
+  	console.log('room_uid is ', data.socket_uid);	  
+   	console.log('message body is ', data.body); 
+	  socket.join(data.socket_uid);
+    io.sockets.in(data.socket_uid).emit(data.socket_uid, data);
+
+    let dbMessage = {  // everything but the uid, which was only needed for socket room
       conversation_id: data.conversation_id,
       author_uid: data.author_uid,
-      body: data.message,
-    }
+      author_name: data.author_name,
+      image_url: data.image_url,
+      body: data.body,
+    };
     messagesDb.insert(dbMessage)
       .then(response => {
         console.log('message added to db: ', dbMessage);
       })
       .catch(error => {
         console.log(error.message);
-      })
+      });
   });	
   
 	socket.on('disconnect', () => console.log('Client disconnected'));
 });
-
-// io.on('connection', (socket) => {
-//   console.log('New user connected');
-  
-// 	socket.on('join', function(data) => {
-
-// 		console.log('room_uid', data.uid);	  
-//     console.log('message is', data.message); 
-// 		socket.join(data.uid);
-		
-// 		io.to(data.uid).emit('newMessage', data.message);
-// 		socket.broadcast.to(data.uid).emit('newMessage', data.message);
-		
-// 	});
-
-// 	socket.on('createMessage', function(data) =>  {
-//     console.log('room_uid', data.uid);	  
-//     console.log('new message is', data.message); 
-    
-//     io.to(data.uid).emit('newMessage', data.message);
-//     socket.broadcast.to(data.uid).emit('newMessage', data.message);
-
-// 	});
-// }
 
 
 const repRoutes = require('./routes/reprensentatives/repRoutes');
@@ -80,7 +59,7 @@ const companiesRoutes = require('./routes/companies/companiesRoutes');
 const billingRoutes = require('./routes/billing/billingRoutes');
 const imageRoutes = require('./routes/images/imageRoutes');
 const approvedemailRoutes = require('./routes/approvedemails/approvedemails');
-const chatRoutes = require('./routes/chat');
+const chatRoutes = require('./routes/chat/index');
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -95,7 +74,7 @@ app.get('/',(req, res) => {
 // Any req coming into the server has to go through this verification:
 app.use(async(req,res) => {                         
   // console.log(req.headers.authorization);
-        const idToken = req.headers.authorization;  // get the idToken from Auth header of the incoming req
+  const idToken = req.headers.authorization;  // get the idToken from Auth header of the incoming req
 	
   try {
     await admin.auth().verifyIdToken(idToken)       // verify the idToken with Firebase
@@ -103,7 +82,9 @@ app.use(async(req,res) => {
         // console.log(decodedToken);
         // const uid = decodedToken.uid;               // get the uid from the Firebase decoded token
         // res.status(200).json(uid);                  // send back res with the uid
+        // console.log('auth req.body before: ', req.body);
         req.body.uid = decodedToken.uid;            // add the uid from the decoded token the body of the original req
+        // console.log('auth req.body after: ', req.body);
         return req.next();                          // return and move to the next (.then) part of the original req
       });
   }
