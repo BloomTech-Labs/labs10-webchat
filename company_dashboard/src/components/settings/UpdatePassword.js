@@ -100,7 +100,8 @@ class UpdatePasswordFormBase extends React.Component {
                     <div>
                     <br/>
                     <div>{this.state.status}</div>
-                    <form onSubmit={this.onSubmit}>
+                    <form className="update-password" onSubmit={this.onSubmit}>
+                      <h2>Update Password</h2>
                         <TextField
                             hintText="Old password"
                             floatingLabelText="Old Password"
@@ -110,8 +111,6 @@ class UpdatePasswordFormBase extends React.Component {
                             value={this.state.oldPassword}
                             onChange={this.onChange}
                         />
-                        <br/>
-
                         <TextField
                             hintText="New password"
                             floatingLabelText="New password"
@@ -121,7 +120,6 @@ class UpdatePasswordFormBase extends React.Component {
                             value={this.state.newPassword1}
                             onChange={this.onChange}
                         />
-                        <br/>
 
                         <TextField
                             hintText="Confirm new password"
@@ -132,7 +130,6 @@ class UpdatePasswordFormBase extends React.Component {
                             value={this.state.newPassword2}
                             onChange={this.onChange}
                         />
-                        <br/>
                         <RaisedButton
                             label="Update"
                             primary={true}
