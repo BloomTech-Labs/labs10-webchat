@@ -26,7 +26,7 @@ class ChatDashboard extends React.Component {
     }
 
 
-    handleQueueConvoSelect(convo_id, customer_uid, summary, customer_name) {
+    handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
         const id = convo_id;
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
@@ -60,7 +60,7 @@ class ChatDashboard extends React.Component {
             })
     }
 
-    handleActiveConvoSelect(convo_id, customer_uid, summary, customer_name) {
+    handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
         const id = convo_id;
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
@@ -84,7 +84,7 @@ class ChatDashboard extends React.Component {
             });
     }
 
-    handleClosedConvoSelect(convo_id, customer_uid, summary, customer_name) {
+    handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
         const id = convo_id;
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest

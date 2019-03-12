@@ -35,11 +35,11 @@ class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid: props.currentConvoSocket,
-            convo_id: props.currentConvoId,
+            // uid: props.currentConvoSocket,
+            // convo_id: props.currentConvoId,
             rep_uid: null,
             message: '',
-            messages: props.messages,
+            // messages: props.messages,
             is_closed: false,
 			image_id: null,
 			url: "",
@@ -69,23 +69,7 @@ class ChatView extends Component {
                 image_id: rep.data.image_id,
                 url: rep.data.url,
                 rep_name: rep.data.name,
-            }
-            // ,() => {
-            //     console.log("ChatView state after GET rep details: ", this.state);
-            //     // Get saved messages from database:
-            //     let data = { convo_id: this.state.convo_id };
-            //     const messageRequest = axios.get('/api/chat/messages', data);
-            //     messageRequest
-            //         .then(messages => {
-            //             console.log("Response from ChatView GET messages: ", messages);
-            //             this.setState({ messages });
-            //         })
-            //         .catch(error => {
-            //             console.log(error.message);
-            //             //this.setState({error:error});
-            //         });
-            // }
-            );
+            });
         })
         .catch(error => {
             console.log(error.message);
@@ -93,39 +77,39 @@ class ChatView extends Component {
         });
     }
 
-    componentWillReceiveProps(newProps) {
-        this.setState({ messages: newProps.messages });
-        // const id = this.props.currentConvoId;
-        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        // messageRequest
-        //     .then(response => {
-        //         console.log("Response from ChatView GET messages: ", response);
-        //         this.setState({ messages: response.data });
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //         //this.setState({error:error});
-        //     });
-    }
+    // componentWillReceiveProps(newProps) {
+    //     this.setState({ messages: [...this.state.messages, newProps.messages] });
+    //     // this.setState({ messages: newProps.messages });
+        
+    // }
 
 
     onSubmit = event =>{
-        console.log('room_uid inside onSubmit is', this.state.uid);
-        console.log('messages array', this.state.messages);
+        console.log('room_uid inside onSubmit is', this.props.currentConvoSocket);
+        console.log('messages array', this.props.messages);
 
+        // let data = {
+        //     socket_uid: this.state.uid,  // socket room
+        //     conversation_id: this.state.convo_id,
+        //     author_uid: this.state.rep_uid,
+        //     author_name: this.state.rep_name,
+        //     body: this.state.message,
+        //     image_url: this.state.url,
+        // };
         let data = {
-            socket_uid: this.state.uid,  // socket room
-            conversation_id: this.state.convo_id,
+            socket_uid: this.props.currentConvoSocket,  // socket room
+            conversation_id: this.props.currentConvoId,
             author_uid: this.state.rep_uid,
             author_name: this.state.rep_name,
             body: this.state.message,
             image_url: this.state.url,
         };
 
+
         this.socket.emit('join', data);
         this.setState({ message: ""});
 
-        console.log('messages after submit: ', this.state.messages);
+        console.log('messages after submit: ', this.props.messages);
         event.preventDefault();
     }
 
@@ -157,7 +141,7 @@ class ChatView extends Component {
 
                     <div className={classes.root}>
                     <div className="messages">
-                        {this.state.messages.map((message, index) => {
+                        {this.props.messages.map((message, index) => {
                             return(
                                 <Paper key={index} className={classes.paper}>
                                     <AgentBar>
