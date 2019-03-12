@@ -1,7 +1,7 @@
 import React from "react";
 import { withFirebase } from "../Firebase";
 import { FirebaseContext } from '../Firebase';
-import { Link } from "react-router-dom"
+import { Link, withRouter, Route} from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -9,6 +9,9 @@ import Button from "@material-ui/core/Button";
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
+import Typography from "@material-ui/core/Typography";
+import Navigation from "../Navigation";
+import '../Navigation.css';
 import "./AccountSettings.css";
 
 const styles = theme => ({
@@ -27,15 +30,16 @@ const styles = theme => ({
   }
 });
 
-// const AccountSettingsPage = () => (
-//   <div>
-//     <FirebaseContext.Consumer>
-//       {firebase => <AccountSettings firebase={firebase} />}
-//     </FirebaseContext.Consumer>
-//   </div>
-// );
 
-class AccountSettings extends React.Component {
+const AccountSettings = () => (
+   <div>
+     <FirebaseContext.Consumer>
+       {firebase => <AccountSettingsComponent firebase={firebase} />}
+     </FirebaseContext.Consumer>
+   </div>
+ );
+
+class AccountSettingsBaseForm extends React.Component {
   state = {
     name: "",
     uid:"",	  
@@ -45,14 +49,24 @@ class AccountSettings extends React.Component {
     image_url:"",	  
     image_id:"",	  
     selectedFile: null,
-    id: ""
+    id: "",
+    error:null,	  
   };
 
   componentDidMount() {
     //const request = axios.get(`/api/reps/getbyUID`);
 	 
     //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
+	  
+    this.props.firebase.auth.onAuthStateChanged(user => {
+        if (user) {
 
+        this.props.firebase.auth.currentUser.getIdToken()
+        .then(idToken => {
+
+        console.log("idToken after in Admin panel: ", idToken);
+        axios.defaults.headers.common['Authorization'] = idToken;
+    	  
     const request = axios.get("/api/reps/alldetails");	  
 
     request.then(response => {
@@ -74,7 +88,17 @@ class AccountSettings extends React.Component {
       console.log(err.message);
       this.setState({ error: err });
     })
-  }
+})		
+   .catch(error => {            // if Firebase getIdToken throws an error
+        console.log(error.message);
+              this.setState({ error:error });
+      })
+} 
+  else{
+                 this.props.history.push('/repslogin');
+      }
+   })		
+  };
 
   //Sets Input to state
   handleChange = name => event => {
@@ -146,7 +170,14 @@ class AccountSettings extends React.Component {
     const { classes } = this.props;
 
     return (
+	    
       <div className="account-settings">
+	 <Navigation />
+	   <div className="settings-navigation">
+	
+	    <Typography variant='display1' align='center' gutterBottom>
+          Account Settings
+        </Typography>
         <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
 
@@ -219,24 +250,28 @@ class AccountSettings extends React.Component {
             </div>
           </div>
         </form>
+	 </div>   
       </div>
     );
   }
 }
 
-AccountSettings.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+//AccountSettings.propTypes = {
+ // classes: PropTypes.object.isRequired
+//};
 
 
-export default withStyles(styles)(AccountSettings);
+//export default withStyles(styles)(AccountSettings);
 
 // const AccountSettings = withFirebase(AccountSettingsBase);
 
-// AccountSettings.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
 
-// export default withStyles(styles)(AccountSettingsPage);
+AccountSettingsBaseForm.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
-// export { AccountSettings };
+const AccountSettingsComponent = withStyles (styles) (withRouter(withFirebase(AccountSettingsBaseForm)));
+
+export default AccountSettings;
+
+export { AccountSettingsComponent};

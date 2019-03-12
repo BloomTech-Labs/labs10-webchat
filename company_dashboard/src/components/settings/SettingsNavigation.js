@@ -48,6 +48,14 @@ class SettingsNavigation extends React.Component {
   };
 
   componentDidMount() {
+
+    const idToken = JSON.parse(localStorage.getItem('idToken'));
+
+    if(!idToken){
+         this.props.history.push('/repslogin');
+    }
+    	  
+    axios.defaults.headers.common['Authorization'] = idToken;	  
     const request = axios.get(`/api/reps/getbyUID`);
 
     request.then(response => {
