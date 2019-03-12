@@ -48,7 +48,7 @@ class ChatDashboard extends React.Component {
                 console.log(error.message);
                 //this.setState({error:error});
             });
-       
+        // Remove convo from the Queue by updating in_q to false in the convo's db entry 
         const data = { id: convo_id };
         const deQueueRequest = axios.put('/api/chat/dequeue', data);
         deQueueRequest
