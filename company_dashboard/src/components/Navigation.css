@@ -1,13 +1,13 @@
 .navigation {
     display: flex;
     flex-direction: column;
-    width: 15.5%;
+    width: 15%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     background-color: #323439;
     height: 100%;
-    top: 20;
-    margin-right: 30%;
+    top: 0;
+    margin-right: 35%;
 }
 
 .navigation img {
