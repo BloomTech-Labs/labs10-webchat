@@ -246,6 +246,9 @@ class AccountSettingsBaseForm extends React.Component {
           Upload
         </Button>
       </label>
+	     <Button type="submit" variant="outlined" color="primary" className="save-button">
+              Save Image
+            </Button>
 	         </form>
             </div>
           </div>
