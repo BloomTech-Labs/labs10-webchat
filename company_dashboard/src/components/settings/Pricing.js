@@ -15,8 +15,8 @@ import StarIcon from '@material-ui/icons/StarBorder';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { Elements, StripeProvider } from "react-stripe-elements";
-import CheckoutForm from "./CheckoutForm";
+import Paper from '@material-ui/core/Paper';
+
 
 const styles = theme => ({
   '@global': {
@@ -54,6 +54,9 @@ const styles = theme => ({
     margin: '0 auto',
     padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
   },
+  table: {
+    margin: 'auto',
+  },
   cardHeader: {
     backgroundColor: theme.palette.grey[200],
   },
@@ -68,10 +71,28 @@ const styles = theme => ({
       paddingBottom: theme.spacing.unit * 2,
     },
   },
-  footer: {
-    marginTop: theme.spacing.unit * 8,
-    borderTop: `1px solid ${theme.palette.divider}`,
-    padding: `${theme.spacing.unit * 6}px 0`,
+  // getStarted: {
+  //   color: 'white',
+  // },
+  // footer: {
+  //   marginTop: theme.spacing.unit * 8,
+  //   borderTop: `1px solid ${theme.palette.divider}`,
+  //   padding: `${theme.spacing.unit * 6}px 0`,
+  //   display: 'flex',
+	// 	alignItems: 'center',
+	// 	justifyContent: 'center',
+  //   width: '100%',
+  //   height: 100,
+  //   backgroundColor: 'black',
+  //   color: 'white',
+  // },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
   },
 });
 
@@ -86,7 +107,11 @@ const tiers = [
 ];
 
 
-class Billing extends Component {
+
+class Pricing extends Component {
+  state = {
+    open: false,
+  };
 
   render() {
     const { classes } = this.props;
@@ -106,7 +131,7 @@ class Billing extends Component {
               </Link>
             </Typography>
             <Button size="large" color="primary"> 
-              <Link to={ROUTES.BILLING}>Pricing</Link>
+              <Link to={ROUTES.PRICING}>Pricing</Link>
             </Button>
             <Button size="large" color="primary">
               <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
@@ -121,6 +146,7 @@ class Billing extends Component {
             />
           </Toolbar>
         </AppBar>
+        
         <main className={classes.layout}>
           <div className={classes.content}>
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
@@ -132,7 +158,7 @@ class Billing extends Component {
           </div>
           <Grid container spacing={40} alignItems="flex-end">
             {tiers.map(tier => (
-              <Grid item key={tier.title} xs={12} sm={tier.title === 'Regular' ? 12 : 6} md={4}>
+              <Grid className={classes.table} item key={tier.title} xs={4}>
                 <Card>
                   <CardHeader
                     title={tier.title}
@@ -158,30 +184,39 @@ class Billing extends Component {
                     ))}
                   </CardContent>
                   <CardActions className={classes.cardActions}>
-                    <Button fullWidth variant={tier.buttonVariant} color="primary">
-                      {tier.buttonText}
+                    <Button
+                      fullWidth
+                      variant={tier.buttonVariant}
+                      color='primary'
+                      className={classes.getStarted}
+                    >
+                      <Link to={ROUTES.REP_REGISTER}>{tier.buttonText}</Link>
                     </Button>
+                   
                   </CardActions>
                 </Card>
               </Grid>
             ))}
           </Grid>
+
         </main>
-        <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
-          <Elements>
-            <CheckoutForm />
-          </Elements>
-       </StripeProvider>
+        
+        {/* <Grid container spacing={24}>
+					<Grid item xs={12} className={classes.footer}>
+						<Paper className={classes.copyright} class='copyright'>&copy; Copyright 2019 Labs10 Lambda School - All rights reserved</Paper>
+					</Grid>
+				</Grid> */}
+
       </React.Fragment>
     );
   }
 }
 
-Billing.propTypes = {
+Pricing.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Billing);
+export default withStyles(styles)(Pricing);
 
 
 

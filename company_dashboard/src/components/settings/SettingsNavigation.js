@@ -13,7 +13,7 @@ import axios from 'axios';
 import { withFirebase } from "../Firebase";
 import { FirebaseContext } from '../Firebase';
 import AccountSettings from "./AccountSettings";
-import Billing from "./Billing";
+import Billing from "./Pricing";
 import AdminPanel from "../Admin/AdminPanel";
 import Navigation from "../Navigation";
 import '../Navigation.css'

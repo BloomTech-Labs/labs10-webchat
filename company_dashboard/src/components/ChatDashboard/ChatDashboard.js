@@ -31,7 +31,7 @@ class ChatDashboard extends React.Component {
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
             .then(response => {
-                console.log("Response from ChatDash GET messages: ", response);
+                console.log("Response from ChatDash Queue GET messages: ", response);
                 this.setState({
                     convoSelected: true,
                     currentConvoId: convo_id,
@@ -48,17 +48,7 @@ class ChatDashboard extends React.Component {
                 console.log(error.message);
                 //this.setState({error:error});
             });
-        // // set rep current convo to selected convo:
-        // this.setState({
-        //     convoSelected: true,
-        //     currentConvoId: convo_id,
-        //     currentConvoSocket: customer_uid,
-        //     currentConvoSummary: summary,
-        //     currentCustomerName: customer_name,
-        // }, () => {
-        //     console.log("ChatDashboard state: ", this.state);
-        // })
-       
+        // Remove convo from the Queue by updating in_q to false in the convo's db entry 
         const data = { id: convo_id };
         const deQueueRequest = axios.put('/api/chat/dequeue', data);
         deQueueRequest
@@ -68,7 +58,6 @@ class ChatDashboard extends React.Component {
             .catch(error => {
                 console.log(error.message);
             })
-
     }
 
     handleActiveConvoSelect(convo_id, customer_uid, summary, customer_name) {
@@ -76,7 +65,7 @@ class ChatDashboard extends React.Component {
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
             .then(response => {
-                console.log("Response from ChatDash GET messages: ", response);
+                console.log("Response from ChatDash Active GET messages: ", response);
                 this.setState({
                     convoSelected: true,
                     currentConvoId: convo_id,
@@ -93,17 +82,30 @@ class ChatDashboard extends React.Component {
                 console.log(error.message);
                 //this.setState({error:error});
             });
-        // this.setState({
-        //     convoSelected: true,
-        //     currentConvoId: convo_id,
-        //     currentConvoSocket: customer_uid,
-        //     currentConvoSummary: summary,
-        //     currentCustomerName: customer_name,
-        // }, () => {
-        //     console.log("\nActive Convo Selected");
-        //     console.log("ChatDashboard state: ", this.state);
-        // });
+    }
 
+    handleClosedConvoSelect(convo_id, customer_uid, summary, customer_name) {
+        const id = convo_id;
+        const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        messageRequest
+            .then(response => {
+                console.log("Response from ChatDash Closed GET messages: ", response);
+                this.setState({
+                    convoSelected: true,
+                    currentConvoId: convo_id,
+                    currentConvoSocket: customer_uid,
+                    currentConvoSummary: summary,
+                    currentCustomerName: customer_name,
+                    currentMessages: response.data
+                }, () => {
+                    console.log("\nActive Convo Selected");
+                    console.log("ChatDashboard state: ", this.state);
+                });
+            })
+            .catch(error => {
+                console.log(error.message);
+                //this.setState({error:error});
+            });
     }
 
     closeConvo() {
@@ -128,6 +130,7 @@ class ChatDashboard extends React.Component {
                     <ConvoList 
                         handleQueueConvoSelect={this.handleQueueConvoSelect}
                         handleActiveConvoSelect={this.handleActiveConvoSelect}
+                        handleClosedConvoSelect={this.handleClosedConvoSelect}
                     />
                 </div> 
                     

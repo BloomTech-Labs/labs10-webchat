@@ -106,7 +106,7 @@ class ChatPage extends Component {
 
                 this.setState({message: ""});
 
-                console.log('Messages after Customer onSubmit', this.state.messages);
+                console.log('Messages after Customer onStart', this.state.messages);
                 event.preventDefault();
         }
 
