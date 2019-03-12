@@ -69,7 +69,7 @@ class NavigationBaseForm extends React.Component {
           <Link to={ROUTES.CHAT_DASHBOARD}>Chat Dashboard</Link>
           <Link to={ROUTES.ACCOUNT_SETTINGS}>Account Settings</Link>
           <Link to={ROUTES.ADMIN_PANEL}>Admin Panel</Link>
-          <Link to={ROUTES.PRICING}>Billing</Link>
+          <Link to={ROUTES.BILLING}>Billing</Link>
           <SignOut />
         </div>
       </div>
