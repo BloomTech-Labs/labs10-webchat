@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from 'axios';
 
 import AccountSettings from "./AccountSettings";
-import Billing from "./Billing";
+import Billing from "./Pricing";
 import AdminPanel from "../Admin/AdminPanel";
 import Navigation from "../Navigation";
 import '../Navigation.css'

@@ -187,7 +187,7 @@ class LandingPage extends Component {
               /> */}
             </Typography>
             <Button size="large" color="primary"> 
-              <Link to={ROUTES.BILLING}>Pricing</Link>
+              <Link to={ROUTES.PRICING}>Pricing</Link>
             </Button>
             <Button size="large" color="primary">
               <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
