@@ -70,8 +70,8 @@ class RepSignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        // console.log('authUser: ', authUser);
-        // localStorage.setItem('uid', JSON.stringify(authUser.user.uid));  // If set here, passing uid to next component state may not be neccesary
+        console.log('authUser: ', authUser);
+        //localStorage.setItem('authUser', JSON.stringify(authUser));  // If set here, passing uid to next component state may not be neccesary
         
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
@@ -84,6 +84,8 @@ class RepSignUpFormBase extends Component {
 
             verifyRequest
               .then(company_id => {               // if the email was approved, get the company_id back from server
+	       //localStorage.setItem('idToken', JSON.stringify(idToken));
+
                 this.props.history.push({         // send the user to a form to sign up and directly join their company
                   pathname: ROUTES.APPROVED_REP_REGISTER,
                   state: { 
