@@ -1,6 +1,7 @@
 .admin-panel form {
   display: flex;
   margin-top: 5%;
+  margin-left: 16%;
 }
 
 .admin-panel .left {
