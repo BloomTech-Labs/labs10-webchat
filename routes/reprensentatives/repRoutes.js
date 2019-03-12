@@ -101,11 +101,14 @@ router.get('/company/:id', (req, res)=>{
 });
 
 
-router.get('/allreps/:id', (req,res) =>{
-	const id = req.params.id;           //later modify it to get by uid if required
-	console.log('rep_id is', id);
+router.get('/allreps', (req,res) =>{
+	//const id = req.params.id;       //later modify it to get by uid if required
+	
+	const uid = req.body.uid;
+	console.log('uid is', req.body.uid);
 
-        const request = db.getById(id);
+        //const request = db.getById(id);
+	const request = db.getByUid(uid);
 
 	request.then(response => {
                        
