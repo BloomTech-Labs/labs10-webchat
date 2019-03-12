@@ -229,6 +229,7 @@ class AdminPanelBaseForm extends React.Component {
 
     return (
       <div className='admin-panel'>
+        <Navigation />
         <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
         </Typography>
