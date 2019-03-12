@@ -31,36 +31,38 @@ class RepLoginFormBase extends React.Component {
     }
   }
 
+
+ componentDidMount() {
+ }	
+
+
+
   onSubmit = event => {
     const { email, password } = this.state;
 	  
     this.props.firebase
       .doSignInWithEmailAndPassword (email, password)
-      .then(authUser => {
+      .then(authUser => {     
         this.props.firebase.auth.currentUser.getIdToken()
         .then(idToken => {
-          axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
-          this.setState({email: "", password: ""});
 
+        axios.defaults.headers.common['Authorization'] = idToken; 
 
-		      //const uid = authUser.user.uid;
+	this.setState({email: "", password: ""});
+
+          //const uid = authUser.user.uid;
           // const data ={uid: authUser.user.uid};
-          const request = axios.get('/api/reps/getbyUID');
+          //const request = axios.get('/api/reps/getbyUID');
   
-          request.then(response => {
+          //request.then(response => {
           // console.log('rep_id is :', response.data.id);
- 				
-			      this.props.history.push({
-              pathname: '/adminsettings',
-              state: {
-                rep_id: response.data.id       // authUser returned from Firebase
-              }
-            });
+ 	
+	   //localStorage.setItem('rep_id', response.data.id);
+
+	     this.props.history.push('/adminsettings');
+          //.catch(err => {
+           // console.log(err.message);
           })
-          .catch(err => {
-            console.log(err.message);
-          })
-        })
         .catch(error => {                 // if Firebase getIdToken throws an error
           console.log(error.message);
           this.setState({ error:error });
