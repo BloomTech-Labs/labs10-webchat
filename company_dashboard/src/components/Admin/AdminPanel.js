@@ -22,6 +22,9 @@ import IconButton from '@material-ui/core/IconButton';
 import AddRepForm from './AddRepForm';
 import RepRecord from './RepRecord';
 import './AdminPanel.css';
+import Navigation from "../Navigation";
+import '../Navigation.css';
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -92,7 +95,7 @@ class AdminPanelBaseForm extends React.Component {
       image_id: '',
       url: '',
       company_id: '',		
-      rep_id: props.history.location.state.rep_id,		
+      rep_id: null,		
       error: null,
       deleted: false,		
       logged: false,		
@@ -113,7 +116,7 @@ class AdminPanelBaseForm extends React.Component {
   componentDidMount() {
     //using rep_id to get representative details to display on Admin panel  
 	
-    const id = this.state.rep_id;
+    //const id = this.state.rep_id;
 
   //onAuthStateChanged required before getIdToken() to ensure that the Auth object isn't in an intermediate state—such as initialization—when you get the current user.	Without onAuthStateChanged on refreshing currentUser.getIdToken() was null since it's async
 
@@ -121,8 +124,9 @@ class AdminPanelBaseForm extends React.Component {
   	if (user) {
     	
 	this.props.firebase.auth.currentUser.getIdToken()
-      .then(idToken => {
-        console.log("idToken after in Admin panel: ", idToken);
+      	.then(idToken => {
+        
+	console.log("idToken after in Admin panel: ", idToken);
         axios.defaults.headers.common['Authorization'] = idToken;
 
 	      //get  details like componay name, motto, image url
@@ -135,7 +139,9 @@ class AdminPanelBaseForm extends React.Component {
             // console.log('on client side image_id is:', response.data.image_id);
 
             //get all the team members that belong to the same comapny as the admin
-            const app_req = axios.get(`/api/reps/allreps/${id}`);
+	    //const app_req = axios.get(`/api/reps/allreps/${id}`);
+
+            const app_req = axios.get("/api/reps/allreps");
             app_req
               .then(reps => {
                 // console.log('all reps are on client side are: ', reps.data);
@@ -173,7 +179,7 @@ class AdminPanelBaseForm extends React.Component {
   };
   
   handleClick = () => {
-    const id = this.state.rep_id;
+    /*const id = this.state.rep_id;
     const request = axios.delete(`/api/reps/${id}`);
     request
       .then(response => {
@@ -196,7 +202,7 @@ class AdminPanelBaseForm extends React.Component {
         })
         .catch(error => {
           console.log(error.message);
-        })
+        })*/
   };
 
   reloadRecords = () => {
