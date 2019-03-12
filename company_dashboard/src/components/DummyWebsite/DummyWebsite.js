@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-const styles = {
+const styles = theme => ({
 	root: {
 		flexGrow: 1,
 	},
@@ -23,26 +24,25 @@ const styles = {
 		display: 'flex',
 		justifyContent: 'space-between',
 	},
-	menuButton: {
-		marginLeft: -12,
-		marginRight: 20,
-	},
 	logo: {
 		width: 80,
-    height: 65,
+		height: 65,
+		marginLeft: -10,
+		marginTop: -12,
 	},
 	navButton: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		fontSize: 20,
+		fontSize: 18,
 	},
 	nav: {
-		padding: 10,
+		padding: 12,
 	},
 	parentPaper: {
+		margin: 'auto',
+		marginTop: 20,
 		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-evenly',
+		justifyContent: 'space-around',
 	},
 	home: {
 		width: '100%',
@@ -77,19 +77,26 @@ const styles = {
 	},
 	columns: {
 		display: 'flex',
-
 	},
 	footer: {
-		height: 100,
+		width: '100%',
+		height: 200,
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-evenly',
     backgroundColor: '#fafafa',
-    color: '#616161',
-    marginTop: 30,
-    // fontWeight: 'bold',
+		color: '#616161',
+		marginTop: 50,
+		marginBottom: 0,
 	},
-};
+	info: {
+		fontSize: 20,
+	},
+	description: {
+		fontSize: 16,
+	},
+});
+
 
 class DummyWebsite extends Component {
 
@@ -147,8 +154,8 @@ class DummyWebsite extends Component {
         </Grid>
 
 				<Grid container spacing={24}>
-					<Grid item xs={12}>
-						<Paper className={classes.parentPaper}>
+					{/* <Grid item xs={12}> */}
+						<div className={classes.parentPaper}>
 							<Paper className={classes.home}>
 								<img
 									className={classes.plumbing}
@@ -176,21 +183,44 @@ class DummyWebsite extends Component {
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vulputate tortor laoreet elit semper tempor. Fusce eleifend, nisi non sodales convallis, leo sem dapibus nulla, non condimentum arcu diam non lectus. Ut iaculis sagittis ligula non hendrerit. Fusce aliquet libero quis pretium consequat. Ut metus lectus, vehicula sed mi a, condimentum elementum tortor. Fusce eu libero metus. Nulla pellentesque nisl dolor, at sagittis libero porta commodo. Nam libero nunc, malesuada a rutrum ut, tristique vitae nunc. Aliquam commodo mauris id nisl sagittis malesuada. Donec ut iaculis nisl, ultrices dignissim tellus. Mauris lacinia arcu ipsum. Maecenas id tincidunt dui.
 								</p>
 							</Paper>
-
-						</Paper>
-					</Grid>
+						</div>
+					{/* </Grid> */}
 				</Grid>
-
 				
-						{/* <Button className="webChatAppBtn">Chat!</Button> <iframe className="wcaIFRAME"></iframe> */}
-				
-
 				<Grid container spacing={24}>
-					<Grid item xs={12} className={classes.footer}>
-						<Paper className={classes.copyright} class='copyright'>&copy; Copyright 2019 Lambda School Lab10 Chattr - All rights reserved
-							<Button className="webChatAppBtn">Chat!</Button> <iframe className="wcaIFRAME"></iframe>
-						</Paper>
-					</Grid>
+					<Paper className={classes.footer}>
+						<div className={classes.location}>
+							<Typography className={classes.info} variant="title" gutterBottom>
+								Location
+							</Typography>
+							<Typography className={classes.description} component="h2" variant="display1" gutterBottom>
+								108 Greene St
+								<br/>
+								New York, NY 10012
+							</Typography>
+						</div>
+
+						<div className={classes.contact}>
+							<Typography className={classes.info} variant="title" gutterBottom>
+								Contact Us
+							</Typography>
+							<Typography className={classes.description} component="h2" variant="display1" gutterBottom>
+								1-800-456-7890
+							</Typography>
+						</div>
+
+						<div className={classes.hours}>
+							<Typography className={classes.info} variant="title" gutterBottom>
+								Office Hours
+							</Typography>
+							<Typography className={classes.description} component="h2" variant="display1" gutterBottom>
+								Monday - Saturday
+								<br/>
+								9:00AM - 5:00PM
+							</Typography>
+						</div>
+						<Button className="webChatAppBtn">Chat!</Button> <iframe className="wcaIFRAME"></iframe>
+					</Paper>
 				</Grid>
 			</div>
 		);
