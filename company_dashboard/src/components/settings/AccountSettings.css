@@ -1,11 +1,13 @@
 .account-settings{
-    width: 70%;
+    width: 50%;
+    display: flex;
+    margin-left: 22%;
   }
 
 .account-settings form {
     display: flex;
+    flex-direction: column;
     margin-top: 5%;
-    margin-left: 15.5%;
 }
 
 .account-settings .left-container {
@@ -25,7 +27,8 @@
 .account-settings .right-container {
     display: flex;
     flex-direction: column;
-    margin-left: 10%;
+    margin-left: 25%;
+    margin-top: 10%;
     width: 30%;
 }
 

@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from '@material-ui/core/IconButton';
 import UpdatePassword from './UpdatePassword';
 import axios from 'axios';
+import Navigation from '../Navigation'
 import "./AccountSettings.css";
 
 const styles = theme => ({
@@ -146,6 +147,8 @@ class AccountSettings extends React.Component {
     const { classes } = this.props;
 
     return (
+      <div>
+        <Navigation />
       <div className="account-settings">
           <div className="left-container">
             <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
@@ -197,7 +200,7 @@ class AccountSettings extends React.Component {
               Save
             </Button>
           </form>
-            <UpdatePassword />
+          <UpdatePassword />
           </div>
           <div className="right-container">
             <div className="profile-picture">
@@ -225,6 +228,7 @@ class AccountSettings extends React.Component {
 	         </form>
             </div>
           </div>
+        </div>
       </div>
     );
   }

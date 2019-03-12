@@ -96,6 +96,7 @@ class UpdatePasswordFormBase extends React.Component {
                 <MuiThemeProvider>
                     <div>
                     <br/>
+                    <h2>Update Password</h2>
                     <div>{this.state.status}</div>
                     <form onSubmit={this.onSubmit}>
 
