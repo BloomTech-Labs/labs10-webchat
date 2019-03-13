@@ -258,7 +258,7 @@ class AdminPanelBaseForm extends React.Component {
           </div>
         </form>
 
-        <Paper className={classes.root}>
+        <Paper className={[classes.root, "admin-table"].join(' ')}>
           <Table className={classes.table}>
 
             <TableHead>
