@@ -39,10 +39,14 @@ class RepLoginFormBase extends React.Component {
 		this.props.firebase.auth.currentUser.getIdToken()
         	.then(idToken => {
 
-        	console.log("idToken in Rep Login: ", idToken);
-        	axios.defaults.headers.common['Authorization'] = idToken;
-		this.props.history.push('/accountsettings');  //if signed in displays account settings page
-		})		
+        		console.log("idToken in Rep Login: ", idToken);
+        		axios.defaults.headers.common['Authorization'] = idToken;
+			this.props.history.push('/accountsettings');  //if signed in displays account settings page
+		})
+		.catch(error => {            // if Firebase getIdToken throws an error
+        		console.log(error.message);
+              		this.setState({ error:error });
+      		})
 	}
 	else{
 		this.props.history.push('/repslogin');   //if signed out tehn displays login page
