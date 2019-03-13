@@ -33,6 +33,15 @@ const styles = theme => ({
     marginLeft: -25,
     marginTop: -8,
   },
+  navButton: {
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 13,
+        padding: 2,
+        marginLeft: 5,
+        marginRight: 38,
+        // backgroundColor: 'orange',
+      },
+  },
   barNetlify: {
     width: 70,
     height: 70,
@@ -125,7 +134,12 @@ const styles = theme => ({
   },
   benefits: {
     width: 290,
-		height: 200,
+    height: 200,
+      [theme.breakpoints.down('sm')]: {
+        // backgroundColor: 'yellow',
+        height: 250,
+        marginBottom: 40,
+      },
 	},
 	reason: {
 		fontSize: 20,
@@ -243,7 +257,8 @@ const styles = theme => ({
     justifyContent: 'center',
     backgroundColor: '#fafafa',
     color: '#616161',
-    marginTop: 30,
+    marginBottom: 50,
+    // marginTop: 30,
     // fontWeight: 'bold',
       [theme.breakpoints.down('sm')]: {
         // backgroundColor: 'black',
@@ -256,6 +271,8 @@ const styles = theme => ({
       },
   },
   copyright: {
+    // width: 300,
+    // height: 300,
     color: 'black',
     marginBottom: -500,
       [theme.breakpoints.down('sm')]: {
@@ -297,13 +314,13 @@ class LandingPage extends Component {
                 alt="logo"
               /> */}
             </Typography>
-            <Button size="large" color="primary"> 
+            <Button className={classes.navButton} size="large" color="primary"> 
               <Link to={ROUTES.PRICING}>Pricing</Link>
             </Button>
-            <Button size="large" color="primary">
+            <Button className={classes.navButton} size="large" color="primary">
               <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
             </Button>
-            <Button size="large" color="primary">
+            <Button className={classes.navButton} size="large" color="primary">
               <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
             </Button>
             <img
