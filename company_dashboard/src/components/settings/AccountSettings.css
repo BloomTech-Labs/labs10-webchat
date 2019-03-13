@@ -29,8 +29,8 @@
     display: flex;
     flex-direction: column;
     margin-left: 25%;
-    margin-top: 10%;
-    width: 100%;
+    margin-top: 15%;
+    width: 80%;
 }
 
 .account-settings .right-container img {
@@ -42,16 +42,17 @@
 }
 
 .account-settings .image-upload {
-  display: flex;
-  flex-direction: column;
+    display: block;
+    justify-content: space-around;
+    margin-top: 10%;
 }
 
 .account-settings .image-upload input {
   display: none;
 }
+
 .account-settings .image-upload button {
-  margin: auto;
-  margin-top: 5%;
+  margin-left: 5%;
 }
 
 .checkout {
