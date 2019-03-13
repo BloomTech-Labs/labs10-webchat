@@ -32,6 +32,10 @@ const styles = theme => ({
     height: 55,
     marginLeft: -25,
     marginTop: -8,
+      [theme.breakpoints.down('sm')]: {
+        width: 60,
+        height: 60,
+      },
   },
   navButton: {
       [theme.breakpoints.down('sm')]: {
