@@ -135,7 +135,7 @@ class ChatView extends Component {
         event.preventDefault();
     }
     
-    addMessage = (event, newMessage) => {
+    addMessage = (newMessage) => {
         console.log("newMessage in ChatView: ", newMessage);
         const newMessages = [];
         this.state.messages.forEach(message => {
@@ -143,7 +143,6 @@ class ChatView extends Component {
         });
         newMessages.push(newMessage);
         this.setState({ messages: newMessages });  
-        event.preventDefault();  
     }
 
     componentWillReceiveProps(newProps) {
@@ -153,9 +152,10 @@ class ChatView extends Component {
         this.setState({ 
             messages: newProps.messages 
         });
+        const that = this;
         this.socket.on(newProps.currentConvoSocket, function(message) {
             console.log('Incoming message:', message);
-            // this.addMessage(message);
+            that.addMessage(message);
         });
     }
     
