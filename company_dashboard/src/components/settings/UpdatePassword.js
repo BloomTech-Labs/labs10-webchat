@@ -132,7 +132,7 @@ class UpdatePasswordFormBase extends React.Component {
                             disabled={condition}
                         />
                         {error && <p>{error.message}</p>}
-                        <Link to="/adminsettings">Back to Account Settings</Link>
+                        <Link to="/accountsettings">Back to Account Settings</Link>
                     </form>
                 </div>
                 </MuiThemeProvider>
