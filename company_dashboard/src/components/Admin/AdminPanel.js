@@ -92,7 +92,6 @@ class AdminPanelBaseForm extends React.Component {
       companyName: '',
       name: '',
       motto: '',
-      image_id: '',
       url: '',
       company_id: '',
       rep_id: null,
@@ -147,7 +146,6 @@ class AdminPanelBaseForm extends React.Component {
                 // console.log('all reps are on client side are: ', reps.data);
                 // console.log('compnay_id is', response.data.company_id);
                 this.setState({
-                  image_id: response.data.image_id,
                   company_id: response.data.company_id,
                   companyName: response.data.company_name,
                   name: response.data.name,
@@ -172,7 +170,7 @@ class AdminPanelBaseForm extends React.Component {
 	      this.setState({ error:error });
       })
 }
-	else{
+	else {
 		 this.props.history.push('/repslogin');
 	}
    });
@@ -233,13 +231,8 @@ class AdminPanelBaseForm extends React.Component {
         <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
         </Typography>
-
-		    {this.state.logged ? (<UserImage url={this.state.url} />):(<p>Image</p>)}
-
         <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
-          <Link to="/chatdashboard">Chat Dashboard</Link>
-
             <p>Company Name</p>
             <TextField
               id='outlined-codeSnippet'
@@ -250,26 +243,6 @@ class AdminPanelBaseForm extends React.Component {
               className={classes.TextField}
               value={this.state.companyName}
             />
-
-            <p>Name</p>
-            <TextField
-              id='outlined-codeSnippet'
-              margin='normal'
-	            variant="outlined"
-              rowsMax={Infinity}
-              fullWidth
-              className={classes.TextField}
-              value={this.state.name}
-            />
-
-            <p>Motto</p>
-            <TextField
-              id='outlined-codeSnippet'
-              margin='normal'
-	            variant="outlined"
-              value={this.state.motto}
-            />
-
             <p>Code Snippet</p>
             <TextField
               id='outlined-codeSnippet'
@@ -285,7 +258,7 @@ class AdminPanelBaseForm extends React.Component {
           </div>
         </form>
 
-        <Paper className={classes.root}>
+        <Paper className={[classes.root, "admin-table"].join(' ')}>
           <Table className={classes.table}>
 
             <TableHead>

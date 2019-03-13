@@ -1,11 +1,14 @@
 .account-settings{
-    width: 70%;
+    width: 50%;
+    display: flex;
+    margin-left: 22%;
   }
 
 .account-settings form {
     display: flex;
-    margin-top: 5%;
-    margin-left: 15.5%;
+    flex-direction: column;
+    margin-top: 25%;
+    margin-bottom: 10%;
 }
 
 .account-settings .left-container {
@@ -25,29 +28,31 @@
 .account-settings .right-container {
     display: flex;
     flex-direction: column;
-    margin-left: 10%;
-    width: 30%;
+    margin-left: 25%;
+    margin-top: 15%;
+    width: 80%;
 }
 
 .account-settings .right-container img {
-    min-width: 70%;
-    min-height: 70%;
-    max-width:70%;
-    max-height:70%;
+    min-width: 50%;
+    min-height: 50%;
+    max-width:50%;
+    max-height:50%;
     border-radius: 50%;
 }
 
 .account-settings .image-upload {
-  display: flex;
-  flex-direction: column;
+    display: block;
+    justify-content: space-around;
+    margin-top: 10%;
 }
 
 .account-settings .image-upload input {
   display: none;
 }
+
 .account-settings .image-upload button {
-  margin: auto;
-  margin-top: 5%;
+  margin-left: 5%;
 }
 
 .checkout {
