@@ -40,10 +40,10 @@ class ChatView extends Component {
         super(props);
         this.state = {
             uid: props.currentConvoSocket,
-            // convo_id: null,
+            convo_id: props.currentConvoId,
             rep_uid: null,
             message: '',
-            // messages: props.messages,
+            messages: props.messages,
             is_closed: false,
 			image_id: null,
 			url: "",
@@ -53,21 +53,33 @@ class ChatView extends Component {
 	    this.socket = io('localhost:5000');
 	    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
-        this.socket.on(this.state.uid, function(message) {
-            console.log('Incoming message:', message);
-            // props.addMessage(message);
-        });
+        // this.socket.on(this.props.currentConvoSocket, function(message) {
+        //     console.log('Incoming message:', message);
+        //     addMessage(message);
+        // });
 
+        // const addMessage = newMessage => {
+        //     console.log("newMessage in ChatView: ", newMessage);
+        //     const newMessages = [];
+        //     this.state.messages.forEach(message => {
+        //         newMessages.push({...message});
+        //     });
+        //     newMessages.push(newMessage);
+        //     this.setState({ messages: newMessages });    
+        // }
         // const addMessage = (message) => {
         //     this.props.addMessage(message);
         // }
         // const addMessage = (data) => {
         //     this.setState({messages: [...this.state.messages, data]});
         // }
+
+        this.addMessage = this.addMessage.bind(this);
     } // *** Constructor end
 
 
     componentDidMount() {
+       
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
@@ -90,12 +102,14 @@ class ChatView extends Component {
   
     componentDidUpdate() {
         // console.log('ChatView CDU props: ', this.props);
+        
         this.scrollToBottom();
     }
 
     onSubmit = event =>{
         console.log('\ncurrentConvoSocket/uid in ChatView onSubmit: ', this.props.currentConvoSocket);
-        console.log('ChatView props.messages before emit: ', this.props.messages);
+        // console.log('currentConvoSocket type: ', typeof this.props.currentConvoSocket);
+        // console.log('ChatView props.messages before emit: ', this.props.messages);
 
         // let data = {
         //     socket_uid: this.state.uid,  // socket room
@@ -106,26 +120,45 @@ class ChatView extends Component {
         //     image_url: this.state.url,
         // };
         let data = {
-            socket_uid: this.props.socket_uid,  // socket room
+            socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
             author_uid: this.state.rep_uid,
             author_name: this.state.rep_name,
             body: this.state.message,
             image_url: this.state.url,
         };
-
+        console.log("data to emit: ", data);
         this.socket.emit('join', data);
         this.setState({ message: ""});
 
-        console.log('ChatView props.messages after emit: ', this.props.messages);
+        // console.log('ChatView props.messages after emit: ', this.props.messages);
         event.preventDefault();
+    }
+    
+    addMessage = (event, newMessage) => {
+        console.log("newMessage in ChatView: ", newMessage);
+        const newMessages = [];
+        this.state.messages.forEach(message => {
+            newMessages.push({...message});
+        });
+        newMessages.push(newMessage);
+        this.setState({ messages: newMessages });  
+        event.preventDefault();  
     }
 
     componentWillReceiveProps(newProps) {
         // this.setState({ messages: [...this.state.messages, newProps.messages] });
         // this.setState({ messages: newProps.messages });
         console.log('ChatView CWRP props: ', newProps);
+        this.setState({ 
+            messages: newProps.messages 
+        });
+        this.socket.on(newProps.currentConvoSocket, function(message) {
+            console.log('Incoming message:', message);
+            // this.addMessage(message);
+        });
     }
+    
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -160,7 +193,7 @@ class ChatView extends Component {
 
                         <div className={classes.root}>
                             <div className="messages">
-                            {this.props.messages.map((message, index) => {
+                            {this.state.messages.map((message, index) => {
                                 return(
                                 <Paper key={index} className={classes.paper}>
                                     <AgentBar>

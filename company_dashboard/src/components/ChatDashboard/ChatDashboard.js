@@ -23,18 +23,18 @@ class ChatDashboard extends React.Component {
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
         this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
         this.closeConvo = this.closeConvo.bind(this);
-        this.addMessage = this.addMessage.bind(this);
+        // this.addMessage = this.addMessage.bind(this);
     }
 
-    addMessage(newMessage) {
-        console.log("newMessage in ChatDash: ", newMessage);
-        const currentMessages = [];
-        this.state.currentMessages.forEach(message => {
-            currentMessages.push({...message});
-        });
-        currentMessages.push(newMessage);
-        this.setState({ currentMessages });    
-    }
+    // addMessage(newMessage) {
+    //     console.log("newMessage in ChatDash: ", newMessage);
+    //     const currentMessages = [];
+    //     this.state.currentMessages.forEach(message => {
+    //         currentMessages.push({...message});
+    //     });
+    //     currentMessages.push(newMessage);
+    //     this.setState({ currentMessages });    
+    // }
 
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
         const id = convo_id;
