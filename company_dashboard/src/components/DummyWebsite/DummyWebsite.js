@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import "./DummyWebsite.css";
-import { Link } from "react-router-dom";
-import * as ROUTES from "../../constants/routes";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -43,6 +40,11 @@ const styles = theme => ({
 		marginTop: 20,
 		display: 'flex',
 		justifyContent: 'space-around',
+			[theme.breakpoints.down('sm')]: {
+				// backgroundColor: 'purple',
+				width: '100%',
+				flexDirection: 'column',
+			},
 	},
 	home: {
 		width: '100%',
@@ -50,11 +52,18 @@ const styles = theme => ({
 		maxWidth: 500,
 		margin: 'auto',
 		marginTop: 12,
+			// [theme.breakpoints.down('sm')]: {
+			// 	flexDirection: 'column',
+			// },
 	},
 	plumbing: {
 		width: 450,
 		height: 300,
 		marginTop: 25,
+			[theme.breakpoints.down('sm')]: {
+				width: 350,
+				height: 250,
+			},
 	},
 	title: {
 		fontSize: 26,
@@ -66,10 +75,18 @@ const styles = theme => ({
 		height: 300,
 		margin: 30,
 		textAlign: 'justify',
+			[theme.breakpoints.down('sm')]: {
+				width: 350,
+				marginTop: 10,
+			},
 	},
 	reasons: {
 		width: '100%',
 		height: 250,
+			[theme.breakpoints.down('sm')]: {
+				// backgroundColor: 'gray',
+				height: 370,
+			},
 	},
 	heading: {
 		fontSize: 35,
@@ -77,6 +94,9 @@ const styles = theme => ({
 	},
 	columns: {
 		display: 'flex',
+			[theme.breakpoints.down('sm')]: {
+				flexDirection: 'column',
+			}
 	},
 	footer: {
 		width: '100%',
@@ -88,12 +108,26 @@ const styles = theme => ({
 		color: '#616161',
 		marginTop: 50,
 		marginBottom: 0,
+			[theme.breakpoints.down('sm')]: {
+				// backgroundColor: 'purple',
+				flexDirection: 'column',
+				height: 270,
+			},
 	},
 	info: {
 		fontSize: 20,
+			[theme.breakpoints.down('sm')]: {
+				// backgroundColor: 'orange',
+				fontSize: 16,
+				fontWeight: 'bold',
+			},
 	},
 	description: {
 		fontSize: 16,
+			[theme.breakpoints.down('sm')]: {
+				// backgroundColor: 'green',
+				fontSize: 14,
+			},
 	},
 });
 
