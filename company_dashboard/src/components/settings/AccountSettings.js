@@ -54,6 +54,7 @@ class AccountSettingsBaseForm extends React.Component {
   componentDidMount() {
     //const request = axios.get(`/api/reps/getbyUID`);
 
+//check if a user is signed in or signed out	  
 this.props.firebase.auth.onAuthStateChanged(user => {
         if (user) {
 
@@ -93,7 +94,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
     })
 	}		
     else {
-                 this.props.history.push('/repslogin');
+                 this.props.history.push('/repslogin'); //if user is signed out redirect to login page
         }
  
 });
