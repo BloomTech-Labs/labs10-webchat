@@ -34,10 +34,19 @@ const styles = theme => ({
     width: 80,
     height: 60,
     display: 'flex',
+      [theme.breakpoints.down('sm')]: {
+        width: 60,
+        height: 60,
+      },
   },
-  netlify: {
-    width: 70,
-    height: 70,
+  navButton: {
+      [theme.breakpoints.down('sm')]: {
+        // backgroundColor: 'orange',
+        fontSize: 13,
+        padding: 2,
+        marginLeft: 15,
+        marginRight: 18,
+      },
   },
   layout: {
     width: 'auto',
@@ -56,9 +65,20 @@ const styles = theme => ({
   },
   table: {
     margin: 'auto',
+      [theme.breakpoints.down('sm')]: {
+        // backgroundColor: 'purple',
+      },
+  },
+  card: {
+    [theme.breakpoints.down('sm')]: {
+      // backgroundColor: 'green',
+    },
   },
   cardHeader: {
     backgroundColor: theme.palette.grey[200],
+      [theme.breakpoints.down('sm')]: {
+        // backgroundColor: 'orange',
+      },
   },
   cardPricing: {
     display: 'flex',
@@ -130,20 +150,15 @@ class Pricing extends Component {
                 />
               </Link>
             </Typography>
-            <Button size="large" color="primary"> 
+            <Button className={classes.navButton} size="large" color="primary"> 
               <Link to={ROUTES.PRICING}>Pricing</Link>
             </Button>
-            <Button size="large" color="primary">
+            <Button className={classes.navButton} size="large" color="primary">
               <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
             </Button>
-            <Button size="large" color="primary">
+            <Button className={classes.navButton} size="large" color="primary">
               <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
             </Button>
-            <img
-              className={classes.netlify}
-              src={require("../images/logomark.png")}
-              alt="Netlify logo"
-            />
           </Toolbar>
         </AppBar>
         
@@ -158,8 +173,8 @@ class Pricing extends Component {
           </div>
           <Grid container spacing={40} alignItems="flex-end">
             {tiers.map(tier => (
-              <Grid className={classes.table} item key={tier.title} xs={4}>
-                <Card>
+              <Grid className={classes.table} item key={tier.title} md={4}>
+                <Card className={classes.card}>
                   <CardHeader
                     title={tier.title}
                     subheader={tier.subheader}
