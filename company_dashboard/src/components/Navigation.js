@@ -37,10 +37,10 @@ class NavigationBaseForm extends React.Component {
 
     	axios.defaults.headers.common['Authorization'] = idToken;
 
-     const request = axios.get(`/api/reps/getbyUID`);
+     const request = axios.get('/api/reps/getbyUID');
 
     request.then(response => {
-      console.log("Account Settings CDM getByUID response: ", response);
+      console.log("inside Navigation getByUID response: ", response);
       // console.log(response.data);
 
        console.log('is admin', response.data.is_admin);
