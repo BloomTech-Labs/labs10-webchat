@@ -29,7 +29,6 @@ const styles = theme => ({
 class ChatPage extends Component {
         constructor(props) {
                 super(props);
-                console.log("props after super: ", props);
                 this.state = {
                         uid: props.history.location.state.uid,
                         company_id: props.history.location.state.company_id,
@@ -41,8 +40,8 @@ class ChatPage extends Component {
                         started: false
         	};
 
-	// this.socket = io('localhost:5000');
-         this.socket = io('https://webchatlabs10.herokuapp.com');
+	this.socket = io('localhost:5000');
+        //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -86,7 +85,8 @@ class ChatPage extends Component {
                         console.log("response from POST to /newconvo ", response)
                         this.setState({
                                 started: true,
-                                convo_id: response.data
+                                convo_id: response.data,
+                                message: convo.summary
                         }, () => {
                                 let data = {
                                         socket_uid: this.state.uid,

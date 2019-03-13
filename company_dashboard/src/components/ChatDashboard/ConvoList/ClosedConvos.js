@@ -41,7 +41,6 @@ class ClosedConvos extends React.Component {
         const getClosed = axios.get('/api/chat/closed')
         getClosed 
             .then(closed => {
-                console.log("getActive request success");
                 this.setState({ 
                     conversations: closed.data  // active.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
                 });

@@ -40,7 +40,6 @@ class Queue extends React.Component {
         const getQueue = axios.get('/api/chat/queue')
         getQueue 
             .then(q => {
-                console.log("getQueue request success");
                 this.setState({ 
                     conversations: q.data  // q.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
                 });
