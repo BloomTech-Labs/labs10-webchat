@@ -8,7 +8,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from '@material-ui/core/IconButton';
+import UpdatePassword from './UpdatePassword';
 import axios from 'axios';
+import Navigation from '../Navigation'
 import "./AccountSettings.css";
 
 const styles = theme => ({
@@ -145,12 +147,12 @@ class AccountSettings extends React.Component {
     const { classes } = this.props;
 
     return (
+      <div>
+        <Navigation />
       <div className="account-settings">
-        <h2>Edit Account Information</h2>
-        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
-            <br/>
-
+            <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+            <h2>Edit Account Information</h2>
             <TextField
               id="outlined-name"
               label="Name"
@@ -197,6 +199,8 @@ class AccountSettings extends React.Component {
             <Button variant="outlined" color="primary" className="save-button" onClick={this.handleSubmit} >
               Save
             </Button>
+          </form>
+          <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">
@@ -224,8 +228,7 @@ class AccountSettings extends React.Component {
 	         </form>
             </div>
           </div>
-        </form>
-        <Link to="/updatepassword"><h2>Update Password</h2></Link>
+        </div>
       </div>
     );
   }

@@ -22,6 +22,9 @@ import IconButton from '@material-ui/core/IconButton';
 import AddRepForm from './AddRepForm';
 import RepRecord from './RepRecord';
 import './AdminPanel.css';
+import Navigation from "../Navigation";
+import '../Navigation.css';
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -84,20 +87,19 @@ const AdminPanel = () => (
 
 class AdminPanelBaseForm extends React.Component {
   constructor(props){
-    super(props);  
+    super(props);
 	  this.state = {
       companyName: '',
       name: '',
       motto: '',
-      image_id: '',
       url: '',
-      company_id: '',		
-      rep_id: props.history.location.state.rep_id,		
+      company_id: '',
+      rep_id: null,
       error: null,
-      deleted: false,		
-      logged: false,		
+      deleted: false,
+      logged: false,
       codeSnippet: '',
-      allreps:[ ],		  
+      allreps:[ ],
       team: {
         name: '',
         email: '',
@@ -109,19 +111,26 @@ class AdminPanelBaseForm extends React.Component {
   };
   // All reps in a company
 
-  
+
   componentDidMount() {
-    //using rep_id to get representative details to display on Admin panel  
-    
-    const id = this.state.rep_id;
-      this.props.firebase.auth.currentUser.getIdToken()
-      .then(idToken => {
-        console.log("idToken after in Admin panel: ", idToken);
+    //using rep_id to get representative details to display on Admin panel
+
+    //const id = this.state.rep_id;
+
+  //onAuthStateChanged required before getIdToken() to ensure that the Auth object isn't in an intermediate state—such as initialization—when you get the current user.	Without onAuthStateChanged on refreshing currentUser.getIdToken() was null since it's async
+
+   this.props.firebase.auth.onAuthStateChanged(user => {
+  	if (user) {
+
+	this.props.firebase.auth.currentUser.getIdToken()
+      	.then(idToken => {
+
+	console.log("idToken after in Admin panel: ", idToken);
         axios.defaults.headers.common['Authorization'] = idToken;
 
 	      //get  details like componay name, motto, image url
 	      //const request = axios.get(`/api/reps/adminpanel/${id}`);
-	      const request = axios.get("/api/reps/alldetails");  
+	      const request = axios.get("/api/reps/alldetails");
         request
           .then(response => {
             // console.log('respnse.data is:', response.data);
@@ -129,21 +138,22 @@ class AdminPanelBaseForm extends React.Component {
             // console.log('on client side image_id is:', response.data.image_id);
 
             //get all the team members that belong to the same comapny as the admin
-            const app_req = axios.get(`/api/reps/allreps/${id}`);
+	    //const app_req = axios.get(`/api/reps/allreps/${id}`);
+
+            const app_req = axios.get("/api/reps/allreps");
             app_req
               .then(reps => {
                 // console.log('all reps are on client side are: ', reps.data);
-                // console.log('compnay_id is', response.data.company_id);	
+                // console.log('compnay_id is', response.data.company_id);
                 this.setState({
-                  image_id: response.data.image_id, 
-                  company_id: response.data.company_id, 
-                  companyName: response.data.company_name, 
+                  company_id: response.data.company_id,
+                  companyName: response.data.company_name,
                   name: response.data.name,
-                  motto: response.data.motto, 
-                  url: response.data.url, 
-                  logged: true, 
+                  motto: response.data.motto,
+                  url: response.data.url,
+                  logged: true,
                   allreps: reps.data
-                });  	
+                });
               })
               .catch(error => {     // if get(`/api/reps/allreps/${id}`) throws error
                 console.log(error.message);
@@ -154,15 +164,20 @@ class AdminPanelBaseForm extends React.Component {
             console.log(error.message);
             this.setState({error:error});
           })
-	    })		  
+	    })
       .catch(error => {            // if Firebase getIdToken throws an error
         console.log(error.message);
 	      this.setState({ error:error });
-      })		 
-  }
-  
+      })
+}
+	else {
+		 this.props.history.push('/repslogin');
+	}
+   });
+  };
+
   handleClick = () => {
-    const id = this.state.rep_id;
+    /*const id = this.state.rep_id;
     const request = axios.delete(`/api/reps/${id}`);
     request
       .then(response => {
@@ -185,7 +200,7 @@ class AdminPanelBaseForm extends React.Component {
         })
         .catch(error => {
           console.log(error.message);
-        })
+        })*/
   };
 
   reloadRecords = () => {
@@ -206,22 +221,18 @@ class AdminPanelBaseForm extends React.Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  
+
   render() {
     const { classes } = this.props;
-      
+
     return (
       <div className='admin-panel'>
+        <Navigation />
         <Typography variant='display1' align='center' gutterBottom>
           Admin Panel
         </Typography>
-
-		    {this.state.logged ? (<UserImage url={this.state.url} />):(<p>Image</p>)}
-
         <form className={classes.container} noValidate autoComplete='off'>
           <div className='left'>
-          <Link to="/chatdashboard">Chat Dashboard</Link>
-
             <p>Company Name</p>
             <TextField
               id='outlined-codeSnippet'
@@ -232,26 +243,6 @@ class AdminPanelBaseForm extends React.Component {
               className={classes.TextField}
               value={this.state.companyName}
             />
-        
-            <p>Name</p>
-            <TextField
-              id='outlined-codeSnippet'
-              margin='normal'
-	            variant="outlined"
-              rowsMax={Infinity}
-              fullWidth
-              className={classes.TextField}
-              value={this.state.name}
-            />
-          
-            <p>Motto</p>
-            <TextField
-              id='outlined-codeSnippet'
-              margin='normal'
-	            variant="outlined"
-              value={this.state.motto}
-            />
-
             <p>Code Snippet</p>
             <TextField
               id='outlined-codeSnippet'
@@ -266,8 +257,8 @@ class AdminPanelBaseForm extends React.Component {
             />
           </div>
         </form>
-      
-        <Paper className={classes.root}>
+
+        <Paper className={[classes.root, "admin-table"].join(' ')}>
           <Table className={classes.table}>
 
             <TableHead>
@@ -282,8 +273,8 @@ class AdminPanelBaseForm extends React.Component {
             <TableBody>
               {this.state.allreps.map((rep, index) => {
                 return (
-                  <RepRecord 
-                  key={index} 
+                  <RepRecord
+                  key={index}
                   rep={rep}
                   reloadRecords={this.reloadRecords}
                   />
@@ -315,13 +306,13 @@ class AdminPanelBaseForm extends React.Component {
                 <Typography variant="h6" id="modal-title">
                   Add Team Member
                 </Typography>
-                
-                <form onSubmit={this.onSubmit}>  
+
+                <form onSubmit={this.onSubmit}>
                   <TextField
                     hintText="Enter your Name"
                     floatingLabelText="Name"
                     required={true}
-                    name="name"			
+                    name="name"
                     value={this.state.name}
                     onChange={this.handleChange}
                   />
@@ -330,12 +321,12 @@ class AdminPanelBaseForm extends React.Component {
                     hintText="Enter your Email"
                     floatingLabelText="Email"
                     required={true}
-                    name="email"		
+                    name="email"
                     value={this.state.email}
                     onChange={this.handleChange}
                   />
                   <br/>
-          
+
                   <Button
                     variant='outlined'
                     className={classes.button}

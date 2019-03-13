@@ -27,40 +27,42 @@ class RepLoginFormBase extends React.Component {
       email: "",
       password: "",
       error: "",
-      logged: false,	    
+      logged: false,
     }
   }
 
+
+ componentDidMount() {
+ }
+
+
+
   onSubmit = event => {
     const { email, password } = this.state;
-	  
+
     this.props.firebase
       .doSignInWithEmailAndPassword (email, password)
       .then(authUser => {
         this.props.firebase.auth.currentUser.getIdToken()
         .then(idToken => {
-          axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
-          this.setState({email: "", password: ""});
 
+        axios.defaults.headers.common['Authorization'] = idToken;
 
-		      //const uid = authUser.user.uid;
+	this.setState({email: "", password: ""});
+
+          //const uid = authUser.user.uid;
           // const data ={uid: authUser.user.uid};
-          const request = axios.get('/api/reps/getbyUID');
-  
-          request.then(response => {
+          //const request = axios.get('/api/reps/getbyUID');
+
+          //request.then(response => {
           // console.log('rep_id is :', response.data.id);
- 				
-			      this.props.history.push({
-              pathname: '/adminsettings',
-              state: {
-                rep_id: response.data.id       // authUser returned from Firebase
-              }
-            });
+
+	   //localStorage.setItem('rep_id', response.data.id);
+
+	     this.props.history.push('/accountsettings');
+          //.catch(err => {
+           // console.log(err.message);
           })
-          .catch(err => {
-            console.log(err.message);
-          })
-        })
         .catch(error => {                 // if Firebase getIdToken throws an error
           console.log(error.message);
           this.setState({ error:error });
@@ -78,13 +80,13 @@ class RepLoginFormBase extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   // Media queries
-  
+
   render() {
     const {email, password, error} = this.state;
-    
-    //checking if all the required fields are non-empty  
+
+    //checking if all the required fields are non-empty
     const condition = password === '' || email === '';
-  
+
 
     return (
       <div className="login">
@@ -96,11 +98,11 @@ class RepLoginFormBase extends React.Component {
             <div className="login-top-bar">
                 <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
                   <Link to={ROUTES.LANDING}>
-                    <RaisedButton 
+                    <RaisedButton
                       label="Home"
                     />
                   </Link>
-                  
+
             </div>
             <p className="header">Member Login</p>
             <form onSubmit={this.onSubmit}>
@@ -122,12 +124,12 @@ class RepLoginFormBase extends React.Component {
                 hintText="Enter your Password"
                 floatingLabelText="Password"
                 required={true}
-                name="password"		
+                name="password"
                 value={this.state.password}
                 onChange={this.handleChange}
               />
               <br/>
-      
+
               <RaisedButton
                 className="login-button"
                 label="Login"
@@ -136,7 +138,7 @@ class RepLoginFormBase extends React.Component {
                 disabled={condition}
               />
               <p>By logging in, you agree to the Terms and Conditions and Privacy Policy.</p>
-    
+
               {error && <p>{error.message}</p>}
               <Link to={ROUTES.REP_REGISTER}>Create an Account</Link>
             </form>
@@ -154,4 +156,3 @@ const RepLoginForm = withRouter(withFirebase(RepLoginFormBase));
 export default RepLoginPage;
 
 export { RepLoginForm};
-

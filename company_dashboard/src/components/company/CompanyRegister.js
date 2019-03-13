@@ -29,19 +29,19 @@ class CompanyRegisterFormBase extends Component {
     super(props);
 
     this.state = {
-   	  name: "", 
+   	  name: "",
 	  email: "",
       	  motto: "",
           phone: "",
   	  companyname: "",
-	  selectedFile:null,        
+	  selectedFile:null,
       	  error:null,
-          uid:props.history.location.state.uid,	    
+          uid:props.history.location.state.uid,
           logged:false,
     };
 
   }
-  
+
 
   onSubmit = event => {
 
@@ -52,32 +52,32 @@ class CompanyRegisterFormBase extends Component {
       data.append('motto', this.state.motto);
       data.append('phone_number', this.state.phone);
       data.append('is_admin', true);
-      data.append('uid', this.state.uid);  
+      data.append('uid', this.state.uid);
       data.append('file', this.state.selectedFile);
-	  
-		  
+
+
 const request = axios.post('/api/reps/admin', data);
-    
+
     request
       .then(response => {
 		    // console.log(response.data);
 
 		    //this.setState({logged:true});
-	
+
         this.props.history.push({
-          pathname: '/adminsettings',
+          pathname: '/accountsettings',
           state: { rep_id: response.data, uid:this.state.uid }
-        });		
-		
+        });
+
 	    })
       .catch(err => {
         	console.log(err.message);
-        	this.setState({error:err});		
+        	this.setState({error:err});
       })
-      
-	  event.preventDefault();  
-  };	  
-   	  
+
+	  event.preventDefault();
+  };
+
   fileChangeHandler = (event) => {
  	  this.setState({selectedFile: event.target.files[0]})
   };
@@ -95,7 +95,7 @@ const request = axios.post('/api/reps/admin', data);
     return (
       <div className="company-detail">
         <MuiThemeProvider>
-          {this.state.logged ? 
+          {this.state.logged ?
           (<Typography variant='display1' align='center' gutterBottom>
             Successfully Logged In
             </Typography>):(
@@ -103,12 +103,12 @@ const request = axios.post('/api/reps/admin', data);
             <div className="company-detail-top-bar">
               <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
               <Link to={ROUTES.LANDING}>
-                  <RaisedButton 
+                  <RaisedButton
                     label="Home"
                   />
                 </Link>
             </div>
-            <p className="header">Enter your Company details</p> 
+            <p className="header">Enter your Company details</p>
             <form onSubmit={this.onSubmit}>
               <TextField
                 style = {{width: '65%'}}
@@ -133,7 +133,7 @@ const request = axios.post('/api/reps/admin', data);
                   onChange={this.onChange}
                 />
                 <br/>
-        
+
               <TextField
                   style = {{width: '65%'}}
                   hintText="Enter your email"
@@ -145,7 +145,7 @@ const request = axios.post('/api/reps/admin', data);
                   onChange={this.onChange}
                 />
                 <br/>
-    
+
                 <TextField
                   style = {{width: '65%'}}
                   hintText="Enter your phone number"
@@ -155,7 +155,7 @@ const request = axios.post('/api/reps/admin', data);
                   value={this.state.phone}
                   onChange={this.onChange}
                 />
-                <br/>	
+                <br/>
 
                 <TextField
                   style = {{width: '65%'}}
@@ -166,13 +166,13 @@ const request = axios.post('/api/reps/admin', data);
                   value={this.state.motto}
                   onChange={this.onChange}
                 />
-                <br/><br/>	
+                <br/><br/>
 
                 <input
-                  type="file"	
-                  onChange={this.fileChangeHandler} 
+                  type="file"
+                  onChange={this.fileChangeHandler}
                 />
-                <br/><br/>		
+                <br/><br/>
 
                 <RaisedButton
                   className="company-register-button"
@@ -196,5 +196,3 @@ const CompanyRegisterForm = withRouter(withFirebase(CompanyRegisterFormBase));
 export default CompanyRegisterPage;
 
 export { CompanyRegisterForm};
-
-

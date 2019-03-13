@@ -27,10 +27,10 @@ class UpdatePasswordFormBase extends React.Component {
             newPassword1: "",
             newPassword2: "",
             error: null,
-            status: "Enter current credentials and new password."	    
+            status: "Enter current credentials and new password."
         }
     }
-    
+
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
@@ -70,7 +70,7 @@ class UpdatePasswordFormBase extends React.Component {
 
     render() {
         const { email, oldPassword, newPassword1, newPassword2, error } = this.state;
-        
+
         const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
