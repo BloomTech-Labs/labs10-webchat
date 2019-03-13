@@ -33,8 +33,17 @@ class RepLoginFormBase extends React.Component {
 
 
  componentDidMount() {
- }
-
+ //onAuthStateChanged firebase method checks if a is signed in or signed out
+  this.props.firebase.auth.onAuthStateChanged(user => {
+        if (user) {
+		this.props.history.push('/accountsettings');  //if signed in displays account settings page
+	}
+	else{
+		this.props.history.push('/repslogin');   //if signed out tehn displays login page
+	} 
+ 
+ })
+}
 
 
   onSubmit = event => {
