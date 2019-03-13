@@ -200,7 +200,7 @@ class AccountSettings extends React.Component {
               Save
             </Button>
           </form>
-          <UpdatePassword />
+          <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">

@@ -27,28 +27,8 @@ class UpdatePasswordFormBase extends React.Component {
             newPassword1: "",
             newPassword2: "",
             error: null,
-            status: ""
+            status: "Enter current credentials and new password."
         }
-    }
-    componentDidMount() {
-      //const request = axios.get(`/api/reps/getbyUID`);
-
-      //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
-
-      const request = axios.get("/api/reps/alldetails");
-
-      request.then(response => {
-        console.log("Account Settings CDM getByUID response: ", response);
-        // console.log(response.data);
-
-        this.setState({
-          email: response.data.email,
-         });
-      })
-      .catch(err => {
-        console.log(err.message);
-        this.setState({ error: err });
-      })
     }
 
     onChange = event => {
@@ -65,6 +45,7 @@ class UpdatePasswordFormBase extends React.Component {
                 .then(updateResponse => {
                     console.log("Update response: ", updateResponse);
                     this.setState({
+                        email: "",
                         oldPassword: "",
                         newPassword1: "",
                         newPassword2: "",
@@ -90,15 +71,27 @@ class UpdatePasswordFormBase extends React.Component {
     render() {
         const { email, oldPassword, newPassword1, newPassword2, error } = this.state;
 
-        const condition = oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
+        const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
                 <MuiThemeProvider>
                     <div>
+                    <AppBar
+                        title="Update Password"
+                    />
                     <br/>
-                    <h2>Update Password</h2>
                     <div>{this.state.status}</div>
                     <form onSubmit={this.onSubmit}>
+                        <TextField
+                            hintText="Email"
+                            floatingLabelText="Email"
+                            name="email"
+                            type="text"
+                            required={true}
+                            value={this.state.email}
+                            onChange={this.onChange}
+                        />
+                        <br/>
 
                         <TextField
                             hintText="Old password"
@@ -139,6 +132,7 @@ class UpdatePasswordFormBase extends React.Component {
                             disabled={condition}
                         />
                         {error && <p>{error.message}</p>}
+                        <Link to="/adminsettings">Back to Account Settings</Link>
                     </form>
                 </div>
                 </MuiThemeProvider>
