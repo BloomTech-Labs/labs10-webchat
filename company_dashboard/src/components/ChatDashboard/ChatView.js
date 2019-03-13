@@ -212,7 +212,9 @@ class ChatView extends Component {
                             </div>
 
                             <div className="footer">
-                            <form onSubmit={this.onSubmit}>
+                            <form 
+                            className={classes.form}
+                            onSubmit={this.onSubmit}>
                                 <br/>
                                 <br/>
                                 <br/>
