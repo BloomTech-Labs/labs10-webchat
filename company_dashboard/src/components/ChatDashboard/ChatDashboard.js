@@ -23,9 +23,19 @@ class ChatDashboard extends React.Component {
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
         this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
         this.closeConvo = this.closeConvo.bind(this);
+        this.addMessage = this.addMessage.bind(this);
     }
 
-
+    addMessage(newMessage) {
+        console.log("newMessage in ChatDash: ", newMessage);
+        const currentMessages = [];
+        this.state.currentMessages.forEach(message => {
+            currentMessages.push({...message});
+        });
+        currentMessages.push(newMessage);
+        this.setState({ currentMessages });    
+    }
+    
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
         const id = convo_id;
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
@@ -138,7 +148,6 @@ class ChatDashboard extends React.Component {
                     {/* {!convoSelected ? (
                         <p>No conversation selected.</p>
                         
-                          
                         ) : (
                             <ChatView 
                             currentConvoId={this.state.currentConvoId}
@@ -156,6 +165,7 @@ class ChatDashboard extends React.Component {
                             summary={this.state.currentConvoSummary}
                             messages={this.state.currentMessages}
                             customerName={this.state.currentCustomerName}
+                            addMessage={this.addMessage}
                             closeConvo={this.closeConvo}
                     />
                 </div> 
