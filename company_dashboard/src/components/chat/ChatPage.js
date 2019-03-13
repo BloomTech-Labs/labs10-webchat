@@ -29,7 +29,6 @@ const styles = theme => ({
 class ChatPage extends Component {
         constructor(props) {
                 super(props);
-                console.log("props after super: ", props);
                 this.state = {
                         uid: props.history.location.state.uid,
                         company_id: props.history.location.state.company_id,
@@ -42,7 +41,7 @@ class ChatPage extends Component {
         	};
 
 	this.socket = io('localhost:5000');
-         //this.socket = io('https://webchatlabs10.herokuapp.com');
+        //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -69,6 +68,12 @@ class ChatPage extends Component {
                 });
         }
 
+        componentDidUpdate() {
+                // console.log('ChatView CDU props: ', this.props);
+                
+                this.scrollToBottom();
+        }
+
         // Join conversation and send initial message:
         onStart = event => {
                 console.log('room_uid inside onSubmit is', this.state.uid);
@@ -86,7 +91,8 @@ class ChatPage extends Component {
                         console.log("response from POST to /newconvo ", response)
                         this.setState({
                                 started: true,
-                                convo_id: response.data
+                                convo_id: response.data,
+                                message: convo.summary
                         }, () => {
                                 let data = {
                                         socket_uid: this.state.uid,
@@ -131,6 +137,10 @@ class ChatPage extends Component {
                 this.setState({ [event.target.name]: event.target.value });
         };
 
+        scrollToBottom = () => {
+                this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        }
+
 
 	render() {
                 console.log("ChatPage state on render: ", this.state);
@@ -164,12 +174,17 @@ class ChatPage extends Component {
                 <Subtitle>{message.body}</Subtitle>
                 </Column>
                 </AgentBar>
+                
 		</Paper>
                 );
 		})}
                 </div>
+                <div className="autoscrolldiv">
+                        <div style={{ float:"left", clear: "both" }}
+                                ref={(el) => { this.messagesEnd = el; }}>
+                        </div>
+                </div>
                 <div className="footer">
-		
 		<form onSubmit={this.onSend}>	
                	<br/>
 		<br/>

@@ -28,6 +28,10 @@ const styles = theme => ({
     margin: `${theme.spacing.unit*2}px auto`,
     padding: theme.spacing.unit * 2,
   },
+  root: {
+    height: 500,
+    overflowY: 'scroll'
+  }
 });
 
 
@@ -45,93 +49,124 @@ class ChatView extends Component {
 			url: "",
 			rep_name: "",
         };
-
+        
 	    this.socket = io('localhost:5000');
-	    //this.socket = io('https://webchatlabs10.herokuapp.com');
+	    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
-        this.socket.on(this.state.uid, function(message) {
-            console.log('Incoming message:', message);
-            addMessage(message);
-        });
+        // this.socket.on(this.props.currentConvoSocket, function(message) {
+        //     console.log('Incoming message:', message);
+        //     addMessage(message);
+        // });
 
-        const addMessage = (data) => {
-            this.setState({messages: [...this.state.messages, data]});
-        }
-    }
+        // const addMessage = newMessage => {
+        //     console.log("newMessage in ChatView: ", newMessage);
+        //     const newMessages = [];
+        //     this.state.messages.forEach(message => {
+        //         newMessages.push({...message});
+        //     });
+        //     newMessages.push(newMessage);
+        //     this.setState({ messages: newMessages });    
+        // }
+        // const addMessage = (message) => {
+        //     this.props.addMessage(message);
+        // }
+        // const addMessage = (data) => {
+        //     this.setState({messages: [...this.state.messages, data]});
+        // }
+
+        this.addMessage = this.addMessage.bind(this);
+    } // *** Constructor end
+
 
     componentDidMount() {
+       
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
-            // console.log('rep details', rep)
-            this.setState({
-                rep_uid: rep.data.uid,
-                image_id: rep.data.image_id,
-                url: rep.data.url,
-                rep_name: rep.data.name,
-            }
-            // ,() => {
-            //     console.log("ChatView state after GET rep details: ", this.state);
-            //     // Get saved messages from database:
-            //     let data = { convo_id: this.state.convo_id };
-            //     const messageRequest = axios.get('/api/chat/messages', data);
-            //     messageRequest
-            //         .then(messages => {
-            //             console.log("Response from ChatView GET messages: ", messages);
-            //             this.setState({ messages });
-            //         })
-            //         .catch(error => {
-            //             console.log(error.message);
-            //             //this.setState({error:error});
-            //         });
-            // }
-            );
+        // console.log('rep details', rep)
+        this.setState({
+            rep_uid: rep.data.uid,
+            image_id: rep.data.image_id,
+            url: rep.data.url,
+            rep_name: rep.data.name,
+        });
         })
         .catch(error => {
-            console.log(error.message);
-            //this.setState({error:error});
+        console.log(error.message);
+        //this.setState({error:error});
         });
-    }
 
-    componentWillReceiveProps(newProps) {
-        this.setState({ messages: newProps.messages });
-        // const id = this.props.currentConvoId;
-        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        // messageRequest
-        //     .then(response => {
-        //         console.log("Response from ChatView GET messages: ", response);
-        //         this.setState({ messages: response.data });
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //         //this.setState({error:error});
-        //     });
+        // Scroll to message whenever component mounts
+        this.scrollToBottom();
     }
-
+  
+    componentDidUpdate() {
+        // console.log('ChatView CDU props: ', this.props);
+        
+        this.scrollToBottom();
+    }
 
     onSubmit = event =>{
-        console.log('room_uid inside onSubmit is', this.state.uid);
-        console.log('messages array', this.state.messages);
+        console.log('\ncurrentConvoSocket/uid in ChatView onSubmit: ', this.props.currentConvoSocket);
+        // console.log('currentConvoSocket type: ', typeof this.props.currentConvoSocket);
+        // console.log('ChatView props.messages before emit: ', this.props.messages);
 
+        // let data = {
+        //     socket_uid: this.state.uid,  // socket room
+        //     conversation_id: this.state.convo_id,
+        //     author_uid: this.state.rep_uid,
+        //     author_name: this.state.rep_name,
+        //     body: this.state.message,
+        //     image_url: this.state.url,
+        // };
         let data = {
-            socket_uid: this.state.uid,  // socket room
-            conversation_id: this.state.convo_id,
+            socket_uid: this.props.currentConvoSocket,  // socket room
+            conversation_id: this.props.currentConvoId,
             author_uid: this.state.rep_uid,
             author_name: this.state.rep_name,
             body: this.state.message,
             image_url: this.state.url,
         };
-
+        console.log("data to emit: ", data);
         this.socket.emit('join', data);
         this.setState({ message: ""});
 
-        console.log('messages after submit: ', this.state.messages);
+        // console.log('ChatView props.messages after emit: ', this.props.messages);
         event.preventDefault();
     }
+    
+    addMessage = (event, newMessage) => {
+        console.log("newMessage in ChatView: ", newMessage);
+        const newMessages = [];
+        this.state.messages.forEach(message => {
+            newMessages.push({...message});
+        });
+        newMessages.push(newMessage);
+        this.setState({ messages: newMessages });  
+        event.preventDefault();  
+    }
+
+    componentWillReceiveProps(newProps) {
+        // this.setState({ messages: [...this.state.messages, newProps.messages] });
+        // this.setState({ messages: newProps.messages });
+        console.log('ChatView CWRP props: ', newProps);
+        this.setState({ 
+            messages: newProps.messages 
+        });
+        this.socket.on(newProps.currentConvoSocket, function(message) {
+            console.log('Incoming message:', message);
+            // this.addMessage(message);
+        });
+    }
+    
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
 
 
     render() {
@@ -139,88 +174,90 @@ class ChatView extends Component {
         const { classes } = this.props;
         const title = `Chat with ${this.props.customerName}`;
         return(
-            <div>
-                <ThemeProvider>
-			    <MuiThemeProvider>
+            
+        <div>
+            <ThemeProvider>
+            <MuiThemeProvider>
+                <div>
+                <div>
                     <div>
                     <div>
-                    <div>
-                    <div>
-                    <div>
-                    <div>
-                    </div>
-                    <AppBar
+                        <div>
+                        <div>
+                        </div>
+                        <AppBar
                         title={title}
-                    />
-                    <br/>
-                    <br/>
+                        />
+                        <br/>
+                        <br/>
 
-                    <div className={classes.root}>
-                    <div className="messages">
-                        {this.state.messages.map((message, index) => {
-                            return(
+                        <div className={classes.root}>
+                            <div className="messages">
+                            {this.state.messages.map((message, index) => {
+                                return(
                                 <Paper key={index} className={classes.paper}>
                                     <AgentBar>
-                                        <Avatar src={message.image_url} />
-                                        <Column>
-                                            <Title>{message.author_name}</Title>
-                                            <Subtitle>{message.body}</Subtitle>
-                                        </Column>
-						            </AgentBar>        	
-						        </Paper>
-                            );
-                        })}
-                    </div>
-                    <div className="footer">
+                                    <Avatar src={message.image_url} />
+                                    <Column>
+                                        <Title>{message.author_name}</Title>
+                                        <Subtitle>{message.body}</Subtitle>
+                                    </Column>
+                                    </AgentBar>        	
+                                </Paper>
+                                );
+                            })}
+                            </div>
+                            <div style={{ float:"left", clear: "both" }}
+                            ref={(el) => { this.messagesEnd = el; }}>
+                            </div>
 
-                        <form onSubmit={this.onSubmit}>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <TextField
-                                    hintText="message"
-                                    name="message"
-                                    type="text"
-                                    value={this.state.message}
-                                    onChange={this.onChange}
-                            />
-                            <br/>
-					        <br/>
-					        <RaisedButton
+                            <div className="footer">
+                            <form onSubmit={this.onSubmit}>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <TextField
+                                hintText="message"
+                                name="message"
+                                type="text"
+                                value={this.state.message}
+                                onChange={this.onChange}
+                                />
+                                <br/>
+                                <br/>
+                                <RaisedButton
                                 label="send"
                                 primary={true}
                                 type="submit"
-                            />
-                            {is_closed ? (
+                                />
+                                {is_closed ? (
                                 <p>This conversation is closed.</p>
                                 ) : (
-						        <div>
-						            <br/>
-                                    <RaisedButton
-                                    label="End Conversation"
-                                    error={true}
-                                    onClick={this.props.closeConvo}
-                                    />
-                                    <br/>
-                                    <br/>
-						        </div>
-                            )}
-                        </form>
-                                 
+                                <div>
+                                <br/>
+                                <RaisedButton
+                                label="End Conversation"
+                                error={true}
+                                onClick={this.props.closeConvo}
+                                />
+                                <br/>
+                                <br/>
+                                </div>
+                                )}
+                            </form>
+                            </div>
                         </div>
                         </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                </MuiThemeProvider>
-                </ThemeProvider>
-            </div>
-        );
-    }
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </MuiThemeProvider>
+            </ThemeProvider>
+        </div>
+    );
+  }
 }
-
 
 ChatView.propTypes = {
   classes: PropTypes.object.isRequired,
