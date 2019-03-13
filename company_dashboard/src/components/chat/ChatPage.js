@@ -68,6 +68,12 @@ class ChatPage extends Component {
                 });
         }
 
+        componentDidUpdate() {
+                // console.log('ChatView CDU props: ', this.props);
+                
+                this.scrollToBottom();
+        }
+
         // Join conversation and send initial message:
         onStart = event => {
                 console.log('room_uid inside onSubmit is', this.state.uid);
@@ -131,6 +137,10 @@ class ChatPage extends Component {
                 this.setState({ [event.target.name]: event.target.value });
         };
 
+        scrollToBottom = () => {
+                this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        }
+
 
 	render() {
                 console.log("ChatPage state on render: ", this.state);
@@ -164,12 +174,17 @@ class ChatPage extends Component {
                 <Subtitle>{message.body}</Subtitle>
                 </Column>
                 </AgentBar>
+                
 		</Paper>
                 );
 		})}
                 </div>
+                <div className="autoscrolldiv">
+                        <div style={{ float:"left", clear: "both" }}
+                                ref={(el) => { this.messagesEnd = el; }}>
+                        </div>
+                </div>
                 <div className="footer">
-		
 		<form onSubmit={this.onSend}>	
                	<br/>
 		<br/>
