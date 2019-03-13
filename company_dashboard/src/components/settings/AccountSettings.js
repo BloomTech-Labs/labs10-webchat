@@ -97,7 +97,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
                  this.props.history.push('/repslogin'); //if user is signed out redirect to login page
         }
  
-});
+})
 };
  
 

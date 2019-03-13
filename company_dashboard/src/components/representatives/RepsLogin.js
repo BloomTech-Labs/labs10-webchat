@@ -36,7 +36,13 @@ class RepLoginFormBase extends React.Component {
  //onAuthStateChanged firebase method checks if a is signed in or signed out
   this.props.firebase.auth.onAuthStateChanged(user => {
         if (user) {
+		this.props.firebase.auth.currentUser.getIdToken()
+        	.then(idToken => {
+
+        	console.log("idToken in Rep Login: ", idToken);
+        	axios.defaults.headers.common['Authorization'] = idToken;
 		this.props.history.push('/accountsettings');  //if signed in displays account settings page
+		})		
 	}
 	else{
 		this.props.history.push('/repslogin');   //if signed out tehn displays login page
