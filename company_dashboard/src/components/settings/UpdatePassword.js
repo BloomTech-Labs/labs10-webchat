@@ -9,6 +9,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import Navigation from '../Navigation'
+import './UpdatePassword.css';
 
 const UpdatePasswordPage = () => (
     <div>
@@ -74,14 +76,12 @@ class UpdatePasswordFormBase extends React.Component {
         const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
+              <Navigation />
                 <MuiThemeProvider>
-                    <div>
-                    <AppBar
-                        title="Update Password"
-                    />
+                    <div className="update-password">
                     <br/>
-                    <div>{this.state.status}</div>
                     <form onSubmit={this.onSubmit}>
+                      <div>{this.state.status}</div>
                         <TextField
                             hintText="Email"
                             floatingLabelText="Email"
@@ -130,9 +130,9 @@ class UpdatePasswordFormBase extends React.Component {
                             primary={true}
                             type="submit"
                             disabled={condition}
+                            className="update-password-button"
                         />
                         {error && <p>{error.message}</p>}
-                        <Link to="/accountsettings">Back to Account Settings</Link>
                     </form>
                 </div>
                 </MuiThemeProvider>
