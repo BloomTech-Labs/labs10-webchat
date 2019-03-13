@@ -28,6 +28,10 @@ const styles = theme => ({
     margin: `${theme.spacing.unit*2}px auto`,
     padding: theme.spacing.unit * 2,
   },
+  root: {
+    height: 500,
+    overflowY: 'scroll'
+  }
 });
 
 
@@ -91,6 +95,13 @@ class ChatView extends Component {
       console.log(error.message);
       //this.setState({error:error});
     });
+
+    // Scroll to message whenever component mounts
+    this.scrollToBottom();
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   componentWillReceiveProps(newProps) {
@@ -133,6 +144,10 @@ class ChatView extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
 
   render() {
     const is_closed = this.state.is_closed;
@@ -172,41 +187,44 @@ class ChatView extends Component {
                             );
                           })}
                         </div>
-                      <div className="footer">
+                        <div style={{ float:"left", clear: "both" }}
+                          ref={(el) => { this.messagesEnd = el; }}>
+                        </div>
 
-                        <form onSubmit={this.onSubmit}>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <TextField
-                          hintText="message"
-                          name="message"
-                          type="text"
-                          value={this.state.message}
-                          onChange={this.onChange}
-                          />
-                          <br/>
-                          <br/>
-                          <RaisedButton
-                          label="send"
-                          primary={true}
-                          type="submit"
-                          />
-                          {is_closed ? (
-                          <p>This conversation is closed.</p>
-                          ) : (
-                          <div>
+                        <div className="footer">
+                          <form onSubmit={this.onSubmit}>
                             <br/>
-                            <RaisedButton
-                            label="End Conversation"
-                            error={true}
-                            onClick={this.props.closeConvo}
+                            <br/>
+                            <br/>
+                            <TextField
+                            hintText="message"
+                            name="message"
+                            type="text"
+                            value={this.state.message}
+                            onChange={this.onChange}
                             />
                             <br/>
                             <br/>
-                          </div>
-                          )}
-                        </form>
+                            <RaisedButton
+                            label="send"
+                            primary={true}
+                            type="submit"
+                            />
+                            {is_closed ? (
+                            <p>This conversation is closed.</p>
+                            ) : (
+                            <div>
+                              <br/>
+                              <RaisedButton
+                              label="End Conversation"
+                              error={true}
+                              onClick={this.props.closeConvo}
+                              />
+                              <br/>
+                              <br/>
+                            </div>
+                            )}
+                          </form>
                         </div>
                       </div>
                     </div>
