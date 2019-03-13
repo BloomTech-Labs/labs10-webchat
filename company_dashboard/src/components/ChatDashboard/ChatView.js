@@ -39,7 +39,7 @@ class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // uid: props.currentConvoSocket,
+            uid: props.currentConvoSocket,
             // convo_id: null,
             rep_uid: null,
             message: '',
@@ -53,11 +53,9 @@ class ChatView extends Component {
 	    this.socket = io('localhost:5000');
 	    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
-        const that = this;
-
-        this.socket.on(props.currentConvoSocket, function(message) {
+        this.socket.on(this.state.uid, function(message) {
             console.log('Incoming message:', message);
-            props.addMessage(message);
+            // props.addMessage(message);
         });
 
         // const addMessage = (message) => {
@@ -108,7 +106,7 @@ class ChatView extends Component {
         //     image_url: this.state.url,
         // };
         let data = {
-            socket_uid: this.props.currentConvoSocket,  // socket room
+            socket_uid: this.props.socket_uid,  // socket room
             conversation_id: this.props.currentConvoId,
             author_uid: this.state.rep_uid,
             author_name: this.state.rep_name,
