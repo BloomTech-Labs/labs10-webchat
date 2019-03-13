@@ -35,7 +35,7 @@ class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // uid: null,
+            // uid: props.currentConvoSocket,
             // convo_id: null,
             rep_uid: null,
             message: '',
@@ -45,18 +45,20 @@ class ChatView extends Component {
 			url: "",
 			rep_name: "",
         };
-
+        console.log("props in ChatView constructor: ", this.props);
 	    this.socket = io('localhost:5000');
 	    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
-        this.socket.on(this.props.currentConvoSocket, function(message) {
+        const that = this;
+
+        this.socket.on(props.currentConvoSocket, function(message) {
             console.log('Incoming message:', message);
-            addMessage(message);
+            props.addMessage(message);
         });
 
-        const addMessage = (message) => {
-            this.props.addMessage(message);
-        }
+        // const addMessage = (message) => {
+        //     this.props.addMessage(message);
+        // }
         // const addMessage = (data) => {
         //     this.setState({messages: [...this.state.messages, data]});
         // }
@@ -81,10 +83,11 @@ class ChatView extends Component {
         });
     }
 
-    // componentWillReceiveProps(newProps) {
-    //     // this.setState({ messages: [...this.state.messages, newProps.messages] });
-    //     this.setState({ messages: newProps.messages });
-    // }
+    componentWillReceiveProps(newProps) {
+        // this.setState({ messages: [...this.state.messages, newProps.messages] });
+        // this.setState({ messages: newProps.messages });
+        console.log('ChatView CWRP props: ', this.newProps);
+    }
 
 
     onSubmit = event =>{

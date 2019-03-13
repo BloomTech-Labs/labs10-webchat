@@ -29,7 +29,6 @@ const styles = theme => ({
 class ChatPage extends Component {
         constructor(props) {
                 super(props);
-                console.log("props after super: ", props);
                 this.state = {
                         uid: props.history.location.state.uid,
                         company_id: props.history.location.state.company_id,

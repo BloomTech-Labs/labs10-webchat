@@ -41,7 +41,6 @@ class ActiveConvos extends React.Component {
         const getActive = axios.get('/api/chat/active')
         getActive 
             .then(active => {
-                console.log("getActive request success");
                 this.setState({ 
                     conversations: active.data  // active.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
                 });
@@ -55,8 +54,9 @@ class ActiveConvos extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-        <div>
-            <MuiThemeProvider>    
+       
+            <MuiThemeProvider>   
+            <div> 
             <Typography color='inherit' variant='h4' align='center'>Active Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
@@ -88,8 +88,9 @@ class ActiveConvos extends React.Component {
                     </Paper>
                 )	 
                 })}
+                </div>
             </MuiThemeProvider>      
-        </div>
+        
         );
         // return (
         //     <div>
