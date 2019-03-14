@@ -236,7 +236,7 @@ class AdminPanelBaseForm extends React.Component {
     return (
       <div className='admin-panel-container'>
         <Navigation />
-        <div className="admin-panel">
+        <div className={[classes.adminPane, "admin-panel"].join(' ')}>
           <div className='left-container'>
               <h2>Company Representative</h2>
             <Paper className={[classes.root, "admin-table"].join(' ')}>
