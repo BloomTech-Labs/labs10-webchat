@@ -24,6 +24,7 @@ import RepRecord from './RepRecord';
 import './AdminPanel.css';
 import Navigation from "../Navigation";
 import '../Navigation.css';
+import { Column } from "@livechat/ui-kit";
 
 
 function rand() {
@@ -46,11 +47,18 @@ const styles = theme => ({
   root: {
     width: "100%",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
+    // overflowX: "auto",
+    height: 'auto',
   },
   table: {
-    minWidth: 750,
+    // height: 500
   },
+  tableHead: {
+    // height: 200,
+  },
+  tableBody: {
+    // height: 200,
+  }, 
   paper: {
     position: 'absolute',
     width: theme.spacing.unit * 50,
@@ -59,37 +67,28 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4,
     outline: 'none',
   },
-  container: {
+  adminContainer: {
     display: 'flex',
-    flexDirection: 'column',
-    width: 100,
+    flexDirection: 'Column',
   },
   adminPanel: {
     [theme.breakpoints.down('sm')]: {
+      padding: 60,
       flexDirection: 'column',
     },
     [theme.breakpoints.down('md')]: {
+      padding: 60,
       flexDirection: 'column',
-    },
-  },
-  textField: {
-    [theme.breakpoints.down('sm')]: {
-      widht: '100%',
-      alignItems: 'center' ,
-      justifyContent: 'center',
-    },
-    [theme.breakpoints.down('md')]: {
-      widht: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
   },
   rightContainer: {
+    // display: 'flex',
+
     [theme.breakpoints.down('sm')]: {
-      width: '100%',
+      // width: '100%',
     },
     [theme.breakpoints.down('md')]: {
-      width: '100%',
+      // width: '100%',
     },
   }
 });
@@ -259,43 +258,45 @@ class AdminPanelBaseForm extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className='admin-panel-container'>
+      <div className={[classes.adminContainer, 'admin-panel-container'].join(' ')}>
         <Navigation />
         <div className={[classes.adminPanel, "admin-panel"].join(' ')}>
           <div className='left-container'>
               <h2>Company Representative</h2>
             <Paper className={[classes.root, "admin-table"].join(' ')}>
-
-              <Table className={classes.table} style={{ 
-                maxWidth: 750,
-                width: '100%',
-                }}>
-
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Admin</TableCell>
-                    <TableCell>Remove</TableCell>
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  {this.state.allreps.map((rep, index) => {
-                    return (
-                      <RepRecord
-                      key={index}
-                      rep={rep}
-                      reloadRecords={this.reloadRecords}
-                      />
-                    );
-                  })}
-                </TableBody>
-              </Table>
+              <div style={{ overflow: "auto" }}>
+                <Table className={classes.table} >
+                  <TableHead className={classes.tableHead}>
+                    <TableRow style={{ 
+                      backgroundColor: "#f5f5f5",
+                      height: "35px" }}>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Email</TableCell>
+                      <TableCell>Admin</TableCell>
+                      <TableCell>Remove</TableCell>
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              </div>
+                <div style={{ overflow: 'auto', height: '310px' }}>
+                  <Table>
+                    <TableBody className={classes.tableBody}>
+                      {this.state.allreps.map((rep, index) => {
+                        return (
+                          <RepRecord
+                          key={index}
+                          rep={rep}
+                          reloadRecords={this.reloadRecords}
+                          />
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
             </Paper>
             <br/>
             <AddRepForm company_id={this.state.company_id}/>
-            
+
           </div>
           <div className={[classes.rightContainer, "right-container"].join(' ')}>
             <form noValidate autoComplete='off'>
@@ -306,7 +307,7 @@ class AdminPanelBaseForm extends React.Component {
                 variant="outlined"
                 rowsMax={Infinity}
                 fullWidth
-                className={classes.TextField}
+                className={[classes.TextField, "company-name"].join(' ')}
                 value={this.state.companyName}
               />
               <h3>Code Snippet</h3>
@@ -316,7 +317,7 @@ class AdminPanelBaseForm extends React.Component {
                 rows={8}
                 rowsMax={Infinity}
                 fullWidth
-                className={classes.TextField}
+                className={[classes.TextField, "code-snippet"].join(' ')}
                 value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
                 margin='normal'
                 variant='outlined'

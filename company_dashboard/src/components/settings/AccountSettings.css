@@ -25,7 +25,7 @@
 .account-settings .left-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 60%;
 }
 
 .account-settings .left-container button {
@@ -40,8 +40,8 @@
     display: flex;
     flex-direction: column;
     margin-left: 25%;
-    margin-top: 15%;
-    width: 80%;
+    margin-top: 10%;
+    width: 60%;
 }
 
 .account-settings .right-container img {
@@ -70,3 +70,27 @@
     width: 20%;
     margin: auto;
 }
+
+@media (max-width: 1320px) {
+  .account-settings .image-upload  button {
+      margin-left: 0;
+      margin-top: 5%;
+  }
+}
+
+@media (max-width: 800px) {
+  .account-settings-container {
+    padding-top: 0;
+  }
+
+  .account-settings {
+    margin-top: 70px;
+    margin-left: 5%;
+    width: 85%;
+    height: 70%;
+    padding-top: 0;
+  }
+  .account-settings .right-container {
+    margin-top: 30%;
+  }
+  }

@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 13%;
-    height: 100vh;
+    width: 250px;
+    height: 100%;
     position: fixed;
     background-color: #323439;
     top: 0;
@@ -19,7 +19,7 @@
 .navigation-links {
     display: flex;
     flex-direction: column;
-    width: 65%;
+    width: 75%;
     margin: auto;
     margin-bottom: 0;
     margin-top: 60%;
@@ -39,4 +39,45 @@
 
 .settings-navigation {
     margin-left: 15.5%;
+}
+
+@media (max-width: 1250px) {
+    .navigation {
+      width: 150px;
+      font-size: 12px;
+    }
+    .navigation img {
+      width: 50%;
+    }
+}
+
+@media (max-width: 800px) {
+  .navigation {
+    width: 100%;
+    height: 100px;
+    justify-content: flex-start;
+    align-items: center;
+    position: static;
+    background-color: #323439;
+    bottom: 0;
+    font-size: 1rem;
+    top: 0;
+  }
+
+  .navigation img {
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+  }
+
+  .navigation-links {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      margin: auto;
+      align-items: flex-start;
+      font-size: 14px;
+      justify-content: space-evenly;
+      margin-top: 10px;
+  }
 }
