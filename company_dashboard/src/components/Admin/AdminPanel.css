@@ -1,7 +1,7 @@
 .admin-panel-container {
   background-color: #EAEAEA;
-  /* height: auto;
-  padding-top: 5%; */
+  height: 100vh;
+  padding-top: 5%;
 }
 
 .admin-panel {
@@ -21,4 +21,10 @@
   margin-top: 5%;;
   font-size: 8px;
   width: 70px;
+}
+
+@media (max-width: 1320px) {
+  .admin-panel-container {
+      padding-top: 10%;
+  }
 }
