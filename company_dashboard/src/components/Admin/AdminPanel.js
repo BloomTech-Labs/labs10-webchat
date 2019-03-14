@@ -81,6 +81,21 @@ const styles = theme => ({
       flexDirection: 'column',
     },
   },
+<<<<<<< HEAD
+=======
+  textField: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      alignItems: 'center' ,
+      justifyContent: 'center',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  },
+>>>>>>> 5978678ef104c7328095f2bef5a09438d4cae4fa
   rightContainer: {
     // display: 'flex',
 
@@ -88,7 +103,12 @@ const styles = theme => ({
       // width: '100%',
     },
     [theme.breakpoints.down('md')]: {
+<<<<<<< HEAD
       // width: '100%',
+=======
+      width: '100%',
+      maxHeight: '300px',
+>>>>>>> 5978678ef104c7328095f2bef5a09438d4cae4fa
     },
   }
 });
@@ -264,6 +284,7 @@ class AdminPanelBaseForm extends React.Component {
           <div className='left-container'>
               <h2>Company Representative</h2>
             <Paper className={[classes.root, "admin-table"].join(' ')}>
+<<<<<<< HEAD
               <div style={{ overflow: "auto" }}>
                 <Table className={classes.table} >
                   <TableHead className={classes.tableHead}>
@@ -293,10 +314,39 @@ class AdminPanelBaseForm extends React.Component {
                     </TableBody>
                   </Table>
                 </div>
+=======
+
+              <Table className={classes.table} style={{
+                maxWidth: 750,
+                width: '100%',
+                }}>
+
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Admin</TableCell>
+                    <TableCell>Remove</TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {this.state.allreps.map((rep, index) => {
+                    return (
+                      <RepRecord
+                      key={index}
+                      rep={rep}
+                      reloadRecords={this.reloadRecords}
+                      />
+                    );
+                  })}
+                </TableBody>
+              </Table>
+>>>>>>> 5978678ef104c7328095f2bef5a09438d4cae4fa
             </Paper>
             <br/>
             <AddRepForm company_id={this.state.company_id}/>
-            
+
           </div>
           <div className={[classes.rightContainer, "right-container"].join(' ')}>
             <form noValidate autoComplete='off'>

@@ -40,8 +40,8 @@ class ChatPage extends Component {
                         started: false
         	};
 
-	// this.socket = io('localhost:5000');
-         this.socket = io('https://webchatlabs10.herokuapp.com');
+	       this.socket = io('localhost:5000');
+         // this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
                 console.log('Incoming message:', message);
@@ -70,7 +70,7 @@ class ChatPage extends Component {
 
         componentDidUpdate() {
                 // console.log('ChatView CDU props: ', this.props);
-                
+
                 this.scrollToBottom();
         }
 
@@ -85,24 +85,25 @@ class ChatPage extends Component {
                         summary: this.state.message,
                         company_id: this.state.company_id
                 };
-                // console.log("new convo: ", convo);
+
                 axios.post('/api/chat/newconvo', convo)
                 .then(response => {
-                        console.log("response from POST to /newconvo ", response)
+                        console.log("response from POST to /newconvo (convo id):", response)
+                        let messageBody = convo.summary;
                         this.setState({
                                 started: true,
                                 convo_id: response.data,
-                                message: convo.summary
+                                message: ""
                         }, () => {
                                 let data = {
                                         socket_uid: this.state.uid,
                                         conversation_id: this.state.convo_id,
-                                        author_uid: this.state.uid,   // customer uid same as socket uid
+                                        author_uid: this.state.uid,     // customer uid same as socket uid
                                         author_name: this.state.name,
                                         image_url: this.state.url,
-                                        body: this.state.message,
+                                        body: messageBody,
                                 };
-                
+
                                 this.socket.emit('join', data);
                         });
                 })
@@ -110,9 +111,9 @@ class ChatPage extends Component {
                         console.log(error.message);
                 });
 
-                this.setState({message: ""});
-
                 console.log('Messages after Customer onStart', this.state.messages);
+
+                // this.setState({message: ""});
                 event.preventDefault();
         }
 
@@ -147,8 +148,8 @@ class ChatPage extends Component {
 		const { classes } = this.props;
                 return(
                 <div>
-		<MuiThemeProvider>	
-		<ThemeProvider>	
+		<MuiThemeProvider>
+		<ThemeProvider>
                 <div>
                 <div>
                 <div>
@@ -156,12 +157,12 @@ class ChatPage extends Component {
                 <div>
                 <div>
                 </div>
-		<AppBar 
+		<AppBar
                 title="Customer Chat Panel"
                 />
 		<br/>
 		<br/>
-		
+
 		<div className={classes.root}>
                 <div className="messages">
                 {this.state.messages.map((message, index) => {
@@ -174,7 +175,7 @@ class ChatPage extends Component {
                 <Subtitle>{message.body}</Subtitle>
                 </Column>
                 </AgentBar>
-                
+
 		</Paper>
                 );
 		})}
@@ -185,7 +186,7 @@ class ChatPage extends Component {
                         </div>
                 </div>
                 <div className="footer">
-		<form onSubmit={this.onSend}>	
+		<form onSubmit={this.onSend}>
                	<br/>
 		<br/>
                 <br/>
@@ -222,9 +223,9 @@ class ChatPage extends Component {
 		</div>
                 </div>
                 </div>
-		</div>	
-		</ThemeProvider>	
-		</MuiThemeProvider>	
+		</div>
+		</ThemeProvider>
+		</MuiThemeProvider>
                 </div>
                 );
         }
