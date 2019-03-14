@@ -1,8 +1,8 @@
 .admin-panel-container {
   background-color: #EAEAEA;
-  /* height: auto;
-  padding-top: 5%; */
-}
+  height: 100vh;
+  padding-top: 5%;
+ }
 
 .admin-panel {
   width: 65%;
