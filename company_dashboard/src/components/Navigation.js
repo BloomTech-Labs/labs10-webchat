@@ -64,7 +64,7 @@ class NavigationBaseForm extends React.Component {
     if(this.state.is_admin) {
       return (
         <div className="navigation">
-        <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+        <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
         <div className="navigation-links">
           <Link to={ROUTES.CHAT_DASHBOARD}>Chat Dashboard</Link>
           <Link to={ROUTES.ACCOUNT_SETTINGS}>Account Settings</Link>
@@ -76,7 +76,7 @@ class NavigationBaseForm extends React.Component {
       )
     } else return (
         <div className="navigation">
-        <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+        <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
         <div className="navigation-links">
           <Link to={ROUTES.CHAT_DASHBOARD}>Chat Dashboard</Link>
           <Link to={ROUTES.ACCOUNT_SETTINGS}></Link>

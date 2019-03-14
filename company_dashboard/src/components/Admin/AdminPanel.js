@@ -49,7 +49,7 @@ const styles = theme => ({
     overflowX: "auto"
   },
   table: {
-    minWidth: 700
+    minWidth: 750,
   },
   paper: {
     position: 'absolute',
@@ -59,6 +59,39 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4,
     outline: 'none',
   },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 100,
+  },
+  adminPanel: {
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    },
+  },
+  textField: {
+    [theme.breakpoints.down('sm')]: {
+      widht: '100%',
+      alignItems: 'center' ,
+      justifyContent: 'center',
+    },
+    [theme.breakpoints.down('md')]: {
+      widht: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  },
+  rightContainer: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+  }
 });
 
 let id = 0;
@@ -226,66 +259,72 @@ class AdminPanelBaseForm extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className='admin-panel'>
+      <div className='admin-panel-container'>
         <Navigation />
-        <Typography variant='display1' align='center' gutterBottom>
-          Admin Panel
-        </Typography>
-        <form className={classes.container} noValidate autoComplete='off'>
-          <div className='left'>
-            <p>Company Name</p>
-            <TextField
-              id='outlined-codeSnippet'
-              margin='normal'
-	            variant="outlined"
-              rowsMax={Infinity}
-              fullWidth
-              className={classes.TextField}
-              value={this.state.companyName}
-            />
-            <p>Code Snippet</p>
-            <TextField
-              id='outlined-codeSnippet'
-              multiline={true}
-              rows={8}
-              rowsMax={Infinity}
-              fullWidth
-              className={classes.TextField}
-              value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
-              margin='normal'
-              variant='outlined'
-            />
+        <div className={[classes.adminPanel, "admin-panel"].join(' ')}>
+          <div className='left-container'>
+              <h2>Company Representative</h2>
+            <Paper className={[classes.root, "admin-table"].join(' ')}>
+
+              <Table className={classes.table} style={{ 
+                maxWidth: 750,
+                width: '100%',
+                }}>
+
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Admin</TableCell>
+                    <TableCell>Remove</TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {this.state.allreps.map((rep, index) => {
+                    return (
+                      <RepRecord
+                      key={index}
+                      rep={rep}
+                      reloadRecords={this.reloadRecords}
+                      />
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </Paper>
+            <br/>
+            <AddRepForm company_id={this.state.company_id}/>
+            
           </div>
-        </form>
+          <div className={[classes.rightContainer, "right-container"].join(' ')}>
+            <form noValidate autoComplete='off'>
+              <h3>Company Name</h3>
+              <TextField
+                id='outlined-codeSnippet'
+                margin='normal'
+                variant="outlined"
+                rowsMax={Infinity}
+                fullWidth
+                className={classes.TextField}
+                value={this.state.companyName}
+              />
+              <h3>Code Snippet</h3>
+              <TextField
+                id='outlined-codeSnippet'
+                multiline={true}
+                rows={8}
+                rowsMax={Infinity}
+                fullWidth
+                className={classes.TextField}
+                value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
+                margin='normal'
+                variant='outlined'
+              />
+            </form>
+          </div>
+        </div>
 
-        <Paper className={[classes.root, "admin-table"].join(' ')}>
-          <Table className={classes.table}>
-
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Admin</TableCell>
-                <TableCell>Remove</TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {this.state.allreps.map((rep, index) => {
-                return (
-                  <RepRecord
-                  key={index}
-                  rep={rep}
-                  reloadRecords={this.reloadRecords}
-                  />
-                );
-              })}
-            </TableBody>
-
-          </Table>
-        </Paper>
-        <br/>
-        <AddRepForm company_id={this.state.company_id}/>
 
             {/* <Button
               variant="outlined"
