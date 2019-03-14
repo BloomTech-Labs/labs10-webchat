@@ -49,7 +49,7 @@ const styles = theme => ({
     overflowX: "auto",
   },
   table: {
-    minWidth: 750,
+    minWidth: 500,
   },
   paper: {
     position: 'absolute',
@@ -58,11 +58,6 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     outline: 'none',
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 100,
   },
   adminPanel: {
     [theme.breakpoints.down('sm')]: {
