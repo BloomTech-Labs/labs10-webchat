@@ -57,7 +57,7 @@ class ActiveConvos extends React.Component {
        
             <MuiThemeProvider>   
             <div> 
-            <Typography color='inherit' variant='h4' align='center'>Active Conversations</Typography><br/><br/>     
+            <Typography color='inherit' variant='h4' align='left'>Open Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>

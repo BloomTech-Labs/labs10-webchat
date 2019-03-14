@@ -56,7 +56,7 @@ class Queue extends React.Component {
         <div>
             <MuiThemeProvider>   
             <div> 
-            <Typography color='inherit' variant='h4' align='center'>Message Queue</Typography><br/><br/>     
+            <Typography color='inherit' variant='h4' align='left'>Incoming Queue</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
@@ -79,16 +79,16 @@ class Queue extends React.Component {
                               Customer: {convo.customer_name}
                             </Typography> */}
 
-                            <Typography 
+                            <Typography
                                 color='primary' 
                                 variant='h5' 
                                 align='left' 
                                 noWrap 
                                 key={index}
                             >
-                              Customer: {convo.customer_name}
-                              <br/>
-                              Question: {convo.summary}
+                            <h6>{convo.customer_name}</h6>
+                            
+                            <body2>    {convo.summary}</body2>
                             </Typography>
 
                         </Grid>

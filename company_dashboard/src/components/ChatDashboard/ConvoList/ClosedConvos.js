@@ -56,7 +56,7 @@ class ClosedConvos extends React.Component {
         return (
         <div>
             <MuiThemeProvider>    
-            <Typography color='inherit' variant='h4' align='center'>Closed Conversations</Typography><br/><br/>     
+            <Typography color='inherit' variant='h4' align='left'>Closed Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
