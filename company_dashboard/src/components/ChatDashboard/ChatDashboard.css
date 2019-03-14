@@ -3,7 +3,7 @@
     justify-content: center;
     margin-left: 13%;
     height: 100vh;
-    margin-bottom: 0;
+    overflow-y: hidden;
 }
 
 .chat-dash-left-container {
