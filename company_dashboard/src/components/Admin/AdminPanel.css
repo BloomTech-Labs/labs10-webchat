@@ -1,5 +1,6 @@
 .admin-panel {
   display: flex;
+  border: 1px blue solid;
 }
 
 .admin-panel form {

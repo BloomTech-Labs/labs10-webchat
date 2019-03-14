@@ -49,7 +49,8 @@ const styles = theme => ({
     overflowX: "auto"
   },
   table: {
-    minWidth: 700
+    minWidth: 700,
+    width: 700
   },
   paper: {
     position: 'absolute',
@@ -229,7 +230,7 @@ class AdminPanelBaseForm extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className='admin-panel'>
+      <div className='admin-panel-container'>
         <Navigation />
         <div className="admin-panel">
           <div className='left-container'>
