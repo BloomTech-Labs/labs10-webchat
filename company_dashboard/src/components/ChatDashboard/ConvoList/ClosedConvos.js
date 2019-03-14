@@ -33,6 +33,10 @@ const styles = theme => ({
     },
     convoSummary: {
         'margin-left': '.6em'
+    },
+    convoList: {
+        overflowY: 'scroll',
+        height: 1000
     }
 });
 
@@ -63,7 +67,7 @@ class ClosedConvos extends React.Component {
         return (
         <div>
             <MuiThemeProvider> 
-            <div>   
+            <div className={classes.convoList}>   
             <Typography color='inherit' variant='h4' align='left'>Closed Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(

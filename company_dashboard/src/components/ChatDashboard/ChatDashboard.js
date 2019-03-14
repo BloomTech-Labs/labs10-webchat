@@ -133,7 +133,7 @@ class ChatDashboard extends React.Component {
                 </div>
 
                 <div className="chat-dash-right-container">
-                    {/* {!convoSelected ? (
+                    {!convoSelected ? (
                         <p>No conversation selected.</p>
 
                         ) : (
@@ -143,19 +143,12 @@ class ChatDashboard extends React.Component {
                             summary={this.state.currentConvoSummary}
                             messages={this.state.currentMessages}
                             customerName={this.state.currentCustomerName}
+                            addMessage={this.addMessage}
                             closeConvo={this.closeConvo}
                             />
                         )
-                    } */}
-                    <ChatView
-                            currentConvoId={this.state.currentConvoId}
-                            currentConvoSocket={this.state.currentConvoSocket}
-                            summary={this.state.currentConvoSummary}
-                            messages={this.state.currentMessages}
-                            customerName={this.state.currentCustomerName}
-                            addMessage={this.addMessage}
-                            closeConvo={this.closeConvo}
-                    />
+                    }
+                    
                 </div>
             </div>
             </div>

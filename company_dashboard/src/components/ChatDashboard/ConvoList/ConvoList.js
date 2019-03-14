@@ -25,7 +25,12 @@ function TabContainer(props) {
 
 const styles = {
     root: {
-      flexGrow: 1
+      flexGrow: 1,
+      
+    },
+    convoList: {
+        overflowY: 'scroll',
+        height: 500
     }
 };
 
@@ -47,6 +52,7 @@ class ConvoList extends React.Component {
       const { value } = this.state;
   
       return (
+       
         <NoSsr>
             <Paper className={classes.root}>
                 <Tabs
@@ -62,10 +68,11 @@ class ConvoList extends React.Component {
                 </Tabs>
             </Paper>
 
-            {this.state.value === 0 && <TabContainer><ActiveConvos handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
-            {this.state.value === 1 && <TabContainer><Queue handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
-            {this.state.value === 2 && <TabContainer><ClosedConvos handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
+            {this.state.value === 0 && <TabContainer><ActiveConvos  handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
+            {this.state.value === 1 && <TabContainer><Queue  handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
+            {this.state.value === 2 && <TabContainer><ClosedConvos  handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
         </NoSsr>
+        
       );
     }
 }
