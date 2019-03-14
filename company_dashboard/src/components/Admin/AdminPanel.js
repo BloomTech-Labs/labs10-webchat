@@ -237,7 +237,7 @@ class AdminPanelBaseForm extends React.Component {
         <div className="admin-panel">
           <div className='left-container'>
             <form noValidate autoComplete='off'>
-              <h1>Company Name</h1>
+              <h2>Company Name</h2>
               <TextField
                 id='outlined-codeSnippet'
                 margin='normal'
@@ -247,7 +247,7 @@ class AdminPanelBaseForm extends React.Component {
                 className={classes.TextField}
                 value={this.state.companyName}
               />
-              <h1>Code Snippet</h1>
+              <h2>Code Snippet</h2>
               <TextField
                 id='outlined-codeSnippet'
                 multiline={true}
