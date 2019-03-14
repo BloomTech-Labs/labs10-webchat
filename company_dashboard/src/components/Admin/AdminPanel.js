@@ -46,7 +46,7 @@ const styles = theme => ({
   root: {
     width: "100%",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
+    overflowX: "auto",
   },
   table: {
     minWidth: 750,
@@ -73,6 +73,9 @@ const styles = theme => ({
     },
   },
   textField: {
+    height: 30,
+    maxWidth: 300,
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       widht: '100%',
       alignItems: 'center' ,
@@ -267,7 +270,7 @@ class AdminPanelBaseForm extends React.Component {
             <Paper className={[classes.root, "admin-table"].join(' ')}>
 
               <Table className={classes.table} style={{ 
-                maxWidth: 750,
+                maxWidth: 550,
                 width: '100%',
                 }}>
 
@@ -306,7 +309,7 @@ class AdminPanelBaseForm extends React.Component {
                 variant="outlined"
                 rowsMax={Infinity}
                 fullWidth
-                className={classes.TextField}
+                className={[classes.TextField, "company-name"].join(' ')}
                 value={this.state.companyName}
               />
               <h3>Code Snippet</h3>
@@ -316,7 +319,7 @@ class AdminPanelBaseForm extends React.Component {
                 rows={8}
                 rowsMax={Infinity}
                 fullWidth
-                className={classes.TextField}
+                className={[classes.TextField, "code-snippet"].join(' ')}
                 value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
                 margin='normal'
                 variant='outlined'
