@@ -67,4 +67,15 @@
     padding-top: 0;
     padding-bottom: 0;
   }
+
+  .billing {
+    width: 90%;
+    margin: auto;
+    margin-top: 10%;
+    height: 70%;
+  }
+
+  .billing ul {
+    width: 50%;
+  }
 }
