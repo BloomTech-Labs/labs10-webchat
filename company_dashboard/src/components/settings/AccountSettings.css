@@ -79,11 +79,16 @@
 }
 
 @media (max-width: 800px) {
+  .account-settings-container {
+    padding-top: 0;
+  }
+
   .account-settings {
-    margin-top: 150px;
+    margin-top: 70px;
     margin-left: 5%;
     width: 85%;
     height: 70%;
+    padding-top: 0;
   }
   .account-settings .right-container {
     margin-top: 30%;
