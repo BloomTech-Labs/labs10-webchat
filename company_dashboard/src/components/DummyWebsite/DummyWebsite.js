@@ -169,17 +169,17 @@ class DummyWebsite extends Component {
               <div className={classes.columns}>
                <Grid item xs={12} sm={4}>
                   <div className={classes.benefits}>
-                    <h3 className={classes.reason}>Upfront, Flat Rate Pricing <i class="fas fa-wrench"></i></h3>
+                    <h3 className={classes.reason}>Upfront, Flat Rate Pricing <i className="fas fa-wrench"></i></h3>
                   </div>
                 </Grid>
                 <Grid item xs={12} sm={4}>
                   <div className={classes.benefits}>
-                    <h3 className={classes.reason}>Never an Overtime Charge <i class="fas fa-wrench"></i></h3>
+                    <h3 className={classes.reason}>Never an Overtime Charge <i className="fas fa-wrench"></i></h3>
                   </div>
                 </Grid>
 								<Grid item xs={12} sm={4}>
                   <div className={classes.benefits}>
-                    <h3 className={classes.reason}>Courtous, Uniformed Professionals <i class="fas fa-wrench"></i></h3>
+                    <h3 className={classes.reason}>Courtous, Uniformed Professionals <i className="fas fa-wrench"></i></h3>
                   </div>
                 </Grid>
 							</div>
