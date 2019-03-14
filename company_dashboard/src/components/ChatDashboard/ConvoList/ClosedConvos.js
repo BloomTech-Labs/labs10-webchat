@@ -22,6 +22,18 @@ const styles = theme => ({
       margin: `${theme.spacing.unit}px auto`,
       padding: theme.spacing.unit * 2,
     },
+    listItem: {
+        '&:hover': {
+          cursor: 'pointer'
+        }
+    },
+    convoAuthor: {
+        'margin-block-start': '0px',
+        'margin-block-end': '.8em'
+    },
+    convoSummary: {
+        'margin-left': '.6em'
+    }
 });
 
 class ClosedConvos extends React.Component {
@@ -34,10 +46,9 @@ class ClosedConvos extends React.Component {
 
     componentDidMount() {
         const getClosed = axios.get('/api/chat/closed')
-        getClosed 
+        getClosed
             .then(closed => {
-                console.log("getActive request success");
-                this.setState({ 
+                this.setState({
                     conversations: closed.data  // active.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
                 });
             })
@@ -51,41 +62,44 @@ class ClosedConvos extends React.Component {
         const { classes } = this.props;
         return (
         <div>
-            <MuiThemeProvider>    
-            <Typography color='inherit' variant='h4' align='center'>Closed Conversations</Typography><br/><br/>     
+            <MuiThemeProvider> 
+            <div>   
+            <Typography color='inherit' variant='h4' align='left'>Closed Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={16}>
+                    <Grid container wrap="nowrap" className={classes.listItemContainer} spacing={0}>
                         <Grid item>
                         </Grid>
-                        <Grid item 
-                            xs 
+                        <Grid item
+                            xs
                             zeroMinWidth
-                            key={index} 
+                            className={classes.listItem}
+                            key={index}
+                            onClick={() => this.props.handleClosedConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
                         >
-                            
-                            <Typography 
-                                color='primary' 
-                                variant='h5' 
-                                align='left' 
-                                noWrap 
+                            <Typography
+                                color='primary'
+                                variant='h5'
+                                align='left'
+                                noWrap
                                 key={index}
                             >
-                              Customer: {convo.customer_name}
-                              <br/>
-                              Question: {convo.summary}
-                            </Typography>
+                                <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
                             
+                                <body2 className={classes.convoSummary}>    {convo.summary}</body2>
+                            </Typography>
+
                         </Grid>
                     </Grid>
                     </Paper>
-                )	 
+                )
                 })}
-            </MuiThemeProvider>      
+                </div>
+            </MuiThemeProvider>
         </div>
         );
-        
+
     }
 }
 

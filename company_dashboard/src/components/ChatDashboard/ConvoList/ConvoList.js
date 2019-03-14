@@ -56,7 +56,7 @@ class ConvoList extends React.Component {
                     textColor="primary"
                     centered
                 >
-                    <Tab label="Active" />
+                    <Tab label="Open" />
                     <Tab label="Queue" />
                     <Tab label="Closed" />
                 </Tabs>
@@ -64,7 +64,7 @@ class ConvoList extends React.Component {
 
             {this.state.value === 0 && <TabContainer><ActiveConvos handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
             {this.state.value === 1 && <TabContainer><Queue handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
-            {this.state.value === 2 && <TabContainer><ClosedConvos /></TabContainer>}
+            {this.state.value === 2 && <TabContainer><ClosedConvos handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
         </NoSsr>
       );
     }

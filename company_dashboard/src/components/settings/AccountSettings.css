@@ -1,37 +1,96 @@
+.account-settings-container {
+  background-color: #EAEAEA;
+  height: 100vh;
+  padding-top: 5%;
+}
+
+.account-settings {
+    width: 50%;
+    display: flex;
+    margin-left: 30%;
+    padding: 2.5%;
+    border: 2px gray solid;
+    border-radius: 5px;
+    background-color: white;
+    margin-top: 2%;
+  }
+
 .account-settings form {
     display: flex;
-    margin-top: 5%;
-
+    flex-direction: column;
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 .account-settings .left-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 60%;
+}
+
+.account-settings .left-container button {
+    margin-top: 5%;
+    margin-right: 5%;
+    width: 10%;
+    height: 8%;
+    align-self: flex-end;
 }
 
 .account-settings .right-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    margin-left: 10%;
-    margin-top: 2%;
+    margin-left: 25%;
+    margin-top: 10%;
+    width: 60%;
 }
 
 .account-settings .right-container img {
-    width: 50%;
+    min-width: 50%;
+    min-height: 50%;
+    max-width:50%;
+    max-height:50%;
     border-radius: 50%;
 }
 
-.account-settings .left-container button {
-    margin-top: 5%;
-    width: 10%;
-    height: 8%;
-    margin-left: 3%;
+.account-settings .image-upload {
+    display: block;
+    justify-content: space-around;
+    margin-top: 10%;
+}
+
+.account-settings .image-upload input {
+  display: none;
+}
+
+.account-settings .image-upload button {
+  margin-left: 5%;
 }
 
 .checkout {
     width: 20%;
     margin: auto;
-    margin-top: 5%;
 }
+
+@media (max-width: 1320px) {
+  .account-settings .image-upload  button {
+      margin-left: 0;
+      margin-top: 5%;
+  }
+}
+
+@media (max-width: 800px) {
+  .account-settings-container {
+    padding-top: 0;
+  }
+
+  .account-settings {
+    margin-top: 70px;
+    margin-left: 5%;
+    width: 85%;
+    height: 70%;
+    padding-top: 0;
+  }
+  .account-settings .right-container {
+    margin-top: 30%;
+  }
+  }

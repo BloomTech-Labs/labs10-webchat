@@ -1,14 +1,16 @@
 import React from "react";
 import { withFirebase } from "../Firebase";
 import { FirebaseContext } from '../Firebase';
-import { Link } from "react-router-dom"
+import { Link, withRouter, Route} from "react-router-dom"
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from '@material-ui/core/IconButton';
+import UpdatePassword from './UpdatePassword';
 import axios from 'axios';
+import Navigation from '../Navigation'
 import "./AccountSettings.css";
 
 const styles = theme => ({
@@ -27,39 +29,50 @@ const styles = theme => ({
   }
 });
 
-// const AccountSettingsPage = () => (
-//   <div>
-//     <FirebaseContext.Consumer>
-//       {firebase => <AccountSettings firebase={firebase} />}
-//     </FirebaseContext.Consumer>
-//   </div>
-// );
+const AccountSettings = () => (
+   <div>
+     <FirebaseContext.Consumer>
+       {firebase => <AccountSettingsComponent firebase={firebase} />}
+     </FirebaseContext.Consumer>
+   </div>
+ );
 
-class AccountSettings extends React.Component {
+class AccountSettingsBaseForm extends React.Component {
   state = {
     name: "",
-    uid:"",	  
+    uid:"",
     email: "",
     phone_number: 0,
     motto: "",
-    image_url:"",	  
-    image_id:"",	  
+    image_url:"",
+    image_id:"",
     selectedFile: null,
-    id: ""
+    id: "",
+    error:null,
   };
 
   componentDidMount() {
     //const request = axios.get(`/api/reps/getbyUID`);
-	 
+
+//check if a user is signed in or signed out
+this.props.firebase.auth.onAuthStateChanged(user => {
+        if (user) {
+
+        this.props.firebase.auth.currentUser.getIdToken()
+        .then(idToken => {
+
+        console.log("idToken after in Account Settings: ", idToken);
+        axios.defaults.headers.common['Authorization'] = idToken;
+
     //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
 
-    const request = axios.get("/api/reps/alldetails");	  
+    const request = axios.get("/api/reps/alldetails");
 
     request.then(response => {
       console.log("Account Settings CDM getByUID response: ", response);
       // console.log(response.data);
 
-      this.setState({ 
+      this.setState({
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
@@ -67,14 +80,26 @@ class AccountSettings extends React.Component {
         id: response.data.id,
         image_id:response.data.image_id,
 	      image_url: response.data.url,
-	      uid: response.data.uid       
+	      uid: response.data.uid
        });
     })
     .catch(err => {
       console.log(err.message);
       this.setState({ error: err });
     })
-  }
+    .catch(error => {            // if Firebase getIdToken throws an error
+        console.log(error.message);
+              this.setState({ error:error });
+      })
+    })
+	}
+    else {
+                 this.props.history.push('/repslogin'); //if user is signed out redirect to login page
+        }
+
+})
+};
+
 
   //Sets Input to state
   handleChange = name => event => {
@@ -90,7 +115,7 @@ class AccountSettings extends React.Component {
       phone_number: this.state.phone_number,
       motto: this.state.motto,
       email: this.state.email,
-      id: this.state.id  
+      id: this.state.id
     };
     console.log(user);
 
@@ -105,24 +130,23 @@ class AccountSettings extends React.Component {
         console.log(err.message);
       });
   }
-  
+
   //Sets selectedFile in state after selecting an image
-  
+
  fileChangedHandler = (event) => {
     this.setState({selectedFile: event.target.files[0]});
   };
 
-  
-  onSubmit = event => {
 
-    console.log('inside onSubmit');	  
+  onSubmit = event => {
+    console.log('inside onSubmit');
     console.log('inside onSubmit file is', this.state.selectedFile);
-	  
+
     let data = new FormData();
-     data.append('uid', this.state.uid);	  
+     data.append('uid', this.state.uid);
      data.append('file', this.state.selectedFile);
-	 
-	  
+
+
 
     const id = this.state.image_id;   //image_id to update an existing image to a new one
 
@@ -146,13 +170,12 @@ class AccountSettings extends React.Component {
     const { classes } = this.props;
 
     return (
+      <div className="account-settings-container">
+        <Navigation />
       <div className="account-settings">
-        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <div className="left-container">
-
-            <Link to="/chatdashboard">Chat Dashboard</Link>
-            <br/>
-
+            <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+            <h2>Edit Account Information</h2>
             <TextField
               id="outlined-name"
               label="Name"
@@ -181,6 +204,9 @@ class AccountSettings extends React.Component {
               onChange={this.handleChange("email")}
               margin="normal"
               variant="outlined"
+              InputProps={{
+            readOnly: true,
+          }}
             />
 
             <TextField
@@ -192,11 +218,12 @@ class AccountSettings extends React.Component {
               margin="normal"
               variant="outlined"
             />
-            
+
             <Button variant="outlined" color="primary" className="save-button" onClick={this.handleSubmit} >
               Save
             </Button>
-            <Link to="/updatepassword">Update Password</Link>
+          </form>
+          <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">
@@ -205,38 +232,45 @@ class AccountSettings extends React.Component {
                 alt="profile picture"
               />
               <h2>Your Profile Photo</h2>
-	
-	    <form  onSubmit={this.onSubmit}>
-              <input
-                type="file"
-                onChange={this.fileChangedHandler}
-              />
-	
+
+	    <form className="image-upload" onSubmit={this.onSubmit}>
+        <input
+        accept="image/*"
+        id="outlined-button-file"
+        type="file"
+        onChange={this.fileChangedHandler}
+      />
+      <label htmlFor="outlined-button-file">
+        <Button type="submit" variant="outlined" component="span" color="primary" className={classes.button}>
+          Upload
+        </Button>
+      </label>
 	    <Button type="submit" variant="outlined" color="primary" className="save-button">
               Save Image
             </Button>
-	  </form>
+	         </form>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     );
   }
 }
 
-AccountSettings.propTypes = {
+//AccountSettings.propTypes = {
+//  classes: PropTypes.object.isRequired
+//};
+
+
+//export default withStyles(styles)(AccountSettings);
+
+
+AccountSettingsBaseForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
+const AccountSettingsComponent = withStyles (styles) (withRouter(withFirebase(AccountSettingsBaseForm)));
 
-export default withStyles(styles)(AccountSettings);
+export default AccountSettings;
 
-// const AccountSettings = withFirebase(AccountSettingsBase);
-
-// AccountSettings.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
-
-// export default withStyles(styles)(AccountSettingsPage);
-
-// export { AccountSettings };
+export { AccountSettingsComponent};

@@ -26,6 +26,13 @@ const styles = theme => ({
         '&:hover': {
           cursor: 'pointer'
         }
+    },
+    convoAuthor: {
+        'margin-block-start': '0px',
+        'margin-block-end': '.8em'
+    },
+    convoSummary: {
+        'margin-left': '.6em'
     }
 });
 
@@ -39,10 +46,9 @@ class ActiveConvos extends React.Component {
 
     componentDidMount() {
         const getActive = axios.get('/api/chat/active')
-        getActive 
+        getActive
             .then(active => {
-                console.log("getActive request success");
-                this.setState({ 
+                this.setState({
                     conversations: active.data  // active.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
                 });
             })
@@ -55,62 +61,44 @@ class ActiveConvos extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-        <div>
-            <MuiThemeProvider>    
-            <Typography color='inherit' variant='h4' align='center'>Active Conversations</Typography><br/><br/>     
+            <div>
+            <MuiThemeProvider>   
+            <div> 
+            <Typography color='inherit' variant='h4' align='left'>Open Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={16}>
+                    <Grid container wrap="nowrap" spacing={0}>
                         <Grid item>
                         </Grid>
-                        <Grid item 
-                            xs 
+                        <Grid item
+                            xs
                             zeroMinWidth
                             className={classes.listItem}
-                            key={index} 
-                            onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
+                            key={index}
+                            onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                         >
-                            
-                            <Typography 
-                                color='primary' 
-                                variant='h5' 
-                                align='left' 
-                                noWrap 
+                            <Typography
+                                color='primary'
+                                variant='h5'
+                                align='left'
+                                noWrap
                                 key={index}
                             >
-                              Customer: {convo.customer_name}
-                              <br/>
-                              Question: {convo.summary}
-                            </Typography>
+                                <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
                             
+                                <body2 className={classes.convoSummary}>    {convo.summary}</body2>
+                            </Typography>
+
                         </Grid>
                     </Grid>
                     </Paper>
-                )	 
+                )
                 })}
-            </MuiThemeProvider>      
-        </div>
+                </div>
+            </MuiThemeProvider>
+            </div>
         );
-        // return (
-        //     <div>
-        //         {this.state.conversations.map((convo, index) => {
-        //             return (
-        //                 <div 
-        //                     className="convo-list-item" 
-        //                     key={index}
-        //                     onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
-        //                 >
-        //                     <p>Customer: {convo.customer_name}</p>
-                            
-        //                     <p>Summary: {convo.summary}</p>
-
-        //                     <p>Convo ID: {convo.convo_id}</p>
-        //                 </div>
-        //             )
-        //         })}
-        //     </div>
-        // )
     }
 }
 

@@ -1,0 +1,81 @@
+.billing-container {
+  background-color: #EAEAEA;
+  height: 100vh;
+  padding-top: 5%;
+}
+
+.billing {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30%;
+    padding: 2.5%;
+    border: 2px gray solid;
+    border-radius: 5px;
+    background-color: white;
+  }
+
+.billing h1 {
+  margin-bottom: 10%;
+}
+
+.billing ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 30%;
+  margin: auto;
+  margin-bottom: 10%;
+}
+
+.billing .checkout {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  margin-bottom: 5%;
+}
+
+.billing .checkout button {
+  width: 30%;
+  align-self: center;
+}
+
+@media (max-width: 1250px) {
+    .billing {
+      width: 70%;
+      margin: auto;
+      margin-left: 20%;
+      margin-top: 5%;
+
+    }
+    .billing ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 40%;
+      margin: auto;
+      margin-bottom: 10%;
+    }
+}
+
+@media (max-width: 800px) {
+  .billing-container {
+    background-color: #EAEAEA;
+    height: 100vh;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .billing {
+    width: 90%;
+    margin: auto;
+    margin-top: 10%;
+    height: 70%;
+  }
+
+  .billing ul {
+    width: 50%;
+  }
+}

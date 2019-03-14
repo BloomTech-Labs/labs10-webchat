@@ -15,7 +15,7 @@ ReactDOM.render(
 	 <FirebaseContext.Provider value={new Firebase()}>
 	 <Router>
 	 <App />
-	</Router>, 
+	</Router>
 	 </FirebaseContext.Provider>,
 	 document.getElementById('root')
 );

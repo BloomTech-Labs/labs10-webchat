@@ -1,32 +1,30 @@
-.admin-panel form {
-  display: flex;
-  margin-top: 5%;
+.admin-panel-container {
+  background-color: #EAEAEA;
+  height: 100vh;
+  padding-top: 5%;
 }
 
-.admin-panel .left {
+.admin-panel {
+  width: 65%;
+  border: 2px red solid;
   display: flex;
-  flex-direction: column;
-  width: 35%;
-  padding-left: 15px;
-}
-
-.admin-panel p {
-  /* border: 1px solid black; */
-  display: flex;
-  padding-left: 15px;
+  justify-content: space-around;
+  margin-left: 22%;
+  padding: 2.5%;
+  border: 2px gray solid;
+  border-radius: 5px;
+  background-color: white;
+  margin-top: 2%;
 }
 
 .admin-panel .add-button {
-  /* border: 1px solid red; */
-  font-size: 12px;
-  width: 180px;
-  margin-top: 15px;
+  margin-top: 5%;;
+  font-size: 8px;
+  width: 70px;
 }
 
-.admin-panel .image-style {
-  /* border: 1px solid red; */
-  width: 50px;
-  margin-top: 4%;
-  margin-left:5%;
-
+@media (max-width: 1320px) {
+  .admin-panel-container {
+      padding-top: 10%;
+  }
 }
