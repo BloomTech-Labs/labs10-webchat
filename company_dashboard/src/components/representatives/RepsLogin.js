@@ -38,7 +38,6 @@ class RepLoginFormBase extends React.Component {
         if (user) {
 		this.props.firebase.auth.currentUser.getIdToken()
         	.then(idToken => {
-
         		console.log("idToken in Rep Login: ", idToken);
         		axios.defaults.headers.common['Authorization'] = idToken;
 			this.props.history.push('/accountsettings');  //if signed in displays account settings page
@@ -50,8 +49,8 @@ class RepLoginFormBase extends React.Component {
 	}
 	else{
 		this.props.history.push('/repslogin');   //if signed out tehn displays login page
-	} 
- 
+	}
+
  })
 }
 
@@ -115,7 +114,7 @@ class RepLoginFormBase extends React.Component {
           </Typography>):(
           <div>
             <div className="login-top-bar">
-                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+                <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
                   <Link to={ROUTES.LANDING}>
                     <RaisedButton
                       label="Home"
