@@ -81,21 +81,6 @@ const styles = theme => ({
       flexDirection: 'column',
     },
   },
-<<<<<<< HEAD
-=======
-  textField: {
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      alignItems: 'center' ,
-      justifyContent: 'center',
-    },
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  },
->>>>>>> 5978678ef104c7328095f2bef5a09438d4cae4fa
   rightContainer: {
     // display: 'flex',
 
@@ -103,12 +88,7 @@ const styles = theme => ({
       // width: '100%',
     },
     [theme.breakpoints.down('md')]: {
-<<<<<<< HEAD
       // width: '100%',
-=======
-      width: '100%',
-      maxHeight: '300px',
->>>>>>> 5978678ef104c7328095f2bef5a09438d4cae4fa
     },
   }
 });
