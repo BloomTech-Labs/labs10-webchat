@@ -26,6 +26,9 @@ const styles = theme => ({
         '&:hover': {
           cursor: 'pointer'
         }
+    },
+    convoAuthor: {
+        'margin-block-end': '1em'
     }
 });
 

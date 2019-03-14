@@ -25,6 +25,12 @@ const styles = theme => ({
       '&:hover': {
         cursor: 'pointer'
       }
+    },
+    convoAuthor: {
+        'margin-block-end': '.8em'
+    },
+    convoSummary: {
+        'margin-left': '.6em'
     }
 });
 
@@ -86,9 +92,9 @@ class Queue extends React.Component {
                                 noWrap 
                                 key={index}
                             >
-                            <h6>{convo.customer_name}</h6>
+                            <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
                             
-                            <body2>    {convo.summary}</body2>
+                            <body2 className={classes.convoSummary}>    {convo.summary}</body2>
                             </Typography>
 
                         </Grid>
