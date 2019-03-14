@@ -59,6 +59,9 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4,
     outline: 'none',
   },
+  container: {
+    border: '2px red solid'
+  }
 });
 
 let id = 0;
@@ -228,35 +231,34 @@ class AdminPanelBaseForm extends React.Component {
     return (
       <div className='admin-panel'>
         <Navigation />
-        <Typography variant='display1' align='center' gutterBottom>
-          Admin Panel
-        </Typography>
-        <form className={classes.container} noValidate autoComplete='off'>
+        <div className="admin-panel">
           <div className='left'>
-            <p>Company Name</p>
-            <TextField
-              id='outlined-codeSnippet'
-              margin='normal'
-	            variant="outlined"
-              rowsMax={Infinity}
-              fullWidth
-              className={classes.TextField}
-              value={this.state.companyName}
-            />
-            <p>Code Snippet</p>
-            <TextField
-              id='outlined-codeSnippet'
-              multiline={true}
-              rows={8}
-              rowsMax={Infinity}
-              fullWidth
-              className={classes.TextField}
-              value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
-              margin='normal'
-              variant='outlined'
-            />
+            <form className={classes.container} noValidate autoComplete='off'>
+              <h1>Company Name</h1>
+              <TextField
+                id='outlined-codeSnippet'
+                margin='normal'
+                variant="outlined"
+                rowsMax={Infinity}
+                fullWidth
+                className={classes.TextField}
+                value={this.state.companyName}
+              />
+              <h1>Code Snippet</h1>
+              <TextField
+                id='outlined-codeSnippet'
+                multiline={true}
+                rows={8}
+                rowsMax={Infinity}
+                fullWidth
+                className={classes.TextField}
+                value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
+                margin='normal'
+                variant='outlined'
+              />
+            </form>
           </div>
-        </form>
+        </div>
 
         <Paper className={[classes.root, "admin-table"].join(' ')}>
           <Table className={classes.table}>
