@@ -1,12 +1,13 @@
 .admin-panel-container {
   background-color: #EAEAEA;
-  height: 100vh;
-  padding-top: 5%;
+  /* height: auto;
+  padding-top: 5%; */
 }
 
 .admin-panel {
   width: 65%;
   display: flex;
+  justify-content: space-around;
   margin-left: 22%;
   padding: 2.5%;
   border: 2px gray solid;
@@ -15,50 +16,8 @@
   margin-top: 2%;
 }
 
-.admin-panel form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10%;
-  width: 80%;
-}
-
-.left-container {
-  margin-top: 1%;
-  margin-left: 6%;
-}
-
-.right-container {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  margin-top: 1%;
-  margin-left: 10%;
-}
-
-.admin-panel p {
-  /* border: 1px solid black; */
-  display: flex;
-  padding-left: 15px;
-}
-
 .admin-panel .add-button {
-  /* border: 1px solid red; */
-  font-size: 12px;
-  width: 200px;
-  margin-top: 15px;
-}
-
-.admin-panel .image-style {
-  /* border: 1px solid red; */
-  width: 50px;
-  margin-top: 4%;
-  margin-left:5%;
-}
-
-.admin-panel .admin-table {
-  margin-top: 6%;
-  display: flex;
-  flex-direction: column;
-  /* margin-left: 10%; */
-  height: 30vh;
+  margin-top: 5%;;
+  font-size: 8px;
+  width: 70px;
 }
