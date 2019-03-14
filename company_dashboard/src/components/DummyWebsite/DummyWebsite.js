@@ -9,8 +9,16 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
 
 const styles = theme => ({
+	fullList: {
+		width: 'auto',
+	},
 	root: {
 		flexGrow: 1,
 	},
@@ -20,17 +28,48 @@ const styles = theme => ({
 	toolBar: {
 		display: 'flex',
 		justifyContent: 'space-between',
+		height: 90,
+			[theme.breakpoints.down('sm')]: {
+				// backgroundColor: 'blue',
+			},
 	},
 	logo: {
 		width: 80,
 		height: 65,
 		marginLeft: -10,
-		marginTop: -12,
+		marginTop: 20,
+			[theme.breakpoints.down('sm')]: {
+				width: 80,
+				height: 65,
+				marginLeft: -10,
+				marginTop: -12,
+			},
+	},
+	navbar: {
+			[theme.breakpoints.down('sm')]: {
+				display: 'flex',
+			},
+	},
+	topBar: {
+		visibility: 'hidden',
+			[theme.breakpoints.down('sm')]: {
+				// backgroundColor: 'orange',
+				visibility: 'visible',
+				display: 'flex',
+				justifyContent: 'flex-end',
+				marginLeft: 200,
+				marginTop: 12,
+				height: 40,
+				// marginRight: -750,
+			},
 	},
 	navButton: {
 		display: 'flex',
 		justifyContent: 'space-between',
 		fontSize: 18,
+			[theme.breakpoints.down('sm')]: {
+				visibility: 'hidden',
+			},
 	},
 	nav: {
 		padding: 12,
@@ -133,21 +172,57 @@ const styles = theme => ({
 
 
 class DummyWebsite extends Component {
+	state = {
+		top: false,
+	};
+
+	toggleDrawer = (side, open) => () => {
+		this.setState({
+			[side]: open,
+		});
+	};
 
 	render() {
 		const { classes } = this.props;
+
+		const fullList = (
+			<div className={classes.fullList}>
+				<List>
+					{['Home', 'About', 'Services', 'Products', 'Blog', 'Make Appointment'].map((text, index) => (
+						<ListItem button key={text}>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
+				</List>
+			</div>
+		)
 
 		return (
 			<div className={classes.root}>
 				<AppBar position='static'>
 					<Toolbar className={classes.toolBar}>
-						<IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
-							<img
-                className={classes.logo}
-                src={require("../images/Joe's_Plumbing.png")}
-                alt="logo"
-              />
-						</IconButton>
+						<div className={classes.navbar}>
+							<IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
+								<img
+									className={classes.logo}
+									src={require("../images/Joe's_Plumbing.png")}
+									alt="logo"
+								/>
+							</IconButton>
+							<div className={classes.topBar}>
+								<Button className={classes.menu} onClick={this.toggleDrawer('top', true)}>Menu</Button>
+								<Drawer anchor='top' open={this.state.top} onClose={this.toggleDrawer('top', false)}>
+									<div
+										tabIndex={0}
+										role='button'
+										onClick={this.toggleDrawer('top', false)}
+										onKeyDown={this.toggleDrawer('top', false)}
+									>
+										{fullList}
+									</div>
+								</Drawer>
+							</div>
+						</div>
 							<div className={classes.navButton}>
 								<p className={classes.nav}>Home</p>
 								<p className={classes.nav}>About</p>
