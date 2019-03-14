@@ -11,14 +11,10 @@
 }
 
 .admin-panel form {
-  width: 50%;
   display: flex;
-  margin-left: 30%;
-  padding: 2.5%;
-  border: 2px gray solid;
-  border-radius: 5px;
-  background-color: white;
-  margin-top: 2%;
+  flex-direction: column;
+  margin-top: 5%;
+  margin-left: 16%;
 }
 
 .left-container {
