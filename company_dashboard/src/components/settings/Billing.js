@@ -11,16 +11,24 @@ class Billing extends Component {
     return (
       <div className="billing-container">
         <Navigation />
-        {/* <Paper className="paper">
-          <div className="example">
-            <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
-                <h1>Billing Records</h1>
-                <Elements>
-                  <CheckoutForm />
-                </Elements>
-            </StripeProvider>
-          </div>
-        </Paper> */}
+        <div className="billing">
+          <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
+            <div className="example">
+              <h1>Billing</h1>
+              <p>Chattr is the new way to chat with your customers!</p>
+              <p>$30.00 for a lifetime access includes:</p>
+              <ul>
+                <li>Unlimited representatives</li>
+                <li>Chat Dashboard access</li>
+                <li>24/7 live chat</li>
+
+              </ul>
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
+        </div>
       </div>
     );
   }

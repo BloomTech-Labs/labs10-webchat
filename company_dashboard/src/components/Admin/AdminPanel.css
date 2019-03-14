@@ -2,7 +2,7 @@
   background-color: #EAEAEA;
   height: 100vh;
   padding-top: 5%;
- }
+}
 
 .admin-panel {
   width: 65%;
@@ -21,4 +21,10 @@
   margin-top: 5%;;
   font-size: 8px;
   width: 70px;
+}
+
+@media (max-width: 1320px) {
+  .admin-panel-container {
+      padding-top: 10%;
+  }
 }
