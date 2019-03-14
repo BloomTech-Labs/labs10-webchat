@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import './ChatView.css';
 import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
 
 
@@ -45,13 +46,13 @@ class ChatView extends Component {
             message: '',
             messages: props.messages,
             is_closed: false,
-			image_id: null,
-			url: "",
-			rep_name: "",
+			      image_id: null,
+			      url: "",
+			      rep_name: "",
         };
-        
+
 	    this.socket = io('localhost:5000');
-	    // this.socket = io('https://webchatlabs10.herokuapp.com');
+	    //this.socket = io('https://webchatlabs10.herokuapp.com');
 
         // this.socket.on(this.props.currentConvoSocket, function(message) {
         //     console.log('Incoming message:', message);
@@ -65,7 +66,7 @@ class ChatView extends Component {
         //         newMessages.push({...message});
         //     });
         //     newMessages.push(newMessage);
-        //     this.setState({ messages: newMessages });    
+        //     this.setState({ messages: newMessages });
         // }
         // const addMessage = (message) => {
         //     this.props.addMessage(message);
@@ -79,7 +80,7 @@ class ChatView extends Component {
 
 
     componentDidMount() {
-       
+
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
@@ -99,10 +100,10 @@ class ChatView extends Component {
         // Scroll to message whenever component mounts
         this.scrollToBottom();
     }
-  
+
     componentDidUpdate() {
         // console.log('ChatView CDU props: ', this.props);
-        
+
         this.scrollToBottom();
     }
 
@@ -134,7 +135,7 @@ class ChatView extends Component {
         // console.log('ChatView props.messages after emit: ', this.props.messages);
         event.preventDefault();
     }
-    
+
     addMessage = (newMessage) => {
         console.log("newMessage in ChatView: ", newMessage);
         const newMessages = [];
@@ -142,15 +143,15 @@ class ChatView extends Component {
             newMessages.push({...message});
         });
         newMessages.push(newMessage);
-        this.setState({ messages: newMessages });  
+        this.setState({ messages: newMessages });
     }
 
     componentWillReceiveProps(newProps) {
         // this.setState({ messages: [...this.state.messages, newProps.messages] });
         // this.setState({ messages: newProps.messages });
         console.log('ChatView CWRP props: ', newProps);
-        this.setState({ 
-            messages: newProps.messages 
+        this.setState({
+            messages: newProps.messages
         });
         const that = this;
         this.socket.on(newProps.currentConvoSocket, function(message) {
@@ -158,7 +159,7 @@ class ChatView extends Component {
             that.addMessage(message);
         });
     }
-    
+
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -172,22 +173,17 @@ class ChatView extends Component {
     render() {
         const is_closed = this.state.is_closed;
         const { classes } = this.props;
-        const title = `Chat with ${this.props.customerName}`;
+        const customer_name = `${this.props.customerName}`;
+        const conversation_summary = `${this.props.summary}`
         return(
-            
-        <div>
+
+        <div className="chat-view">
             <ThemeProvider>
             <MuiThemeProvider>
-                <div>
-                <div>
-                    <div>
-                    <div>
-                        <div>
-                        <div>
+                        <div className="chat-view-header">
+                          <p>Chat with {customer_name}</p>
+                          <p>{conversation_summary}</p>
                         </div>
-                        <AppBar
-                        title={title}
-                        />
                         <br/>
                         <br/>
 
@@ -195,15 +191,15 @@ class ChatView extends Component {
                             <div className="messages">
                             {this.state.messages.map((message, index) => {
                                 return(
-                                <Paper key={index} className={classes.paper}>
+                                <div key={index} className="message">
                                     <AgentBar>
-                                    <Avatar src={message.image_url} />
-                                    <Column>
+                                    <img src={message.image_url} />
+                                    <div className="message-info">
                                         <Title>{message.author_name}</Title>
                                         <Subtitle>{message.body}</Subtitle>
-                                    </Column>
-                                    </AgentBar>        	
-                                </Paper>
+                                    </div>
+                                    </AgentBar>
+                                </div>
                                 );
                             })}
                             </div>
@@ -249,11 +245,6 @@ class ChatView extends Component {
                             </form>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
             </MuiThemeProvider>
             </ThemeProvider>
         </div>
@@ -265,4 +256,4 @@ ChatView.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ChatView);	
+export default withStyles(styles)(ChatView);

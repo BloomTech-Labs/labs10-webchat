@@ -39,9 +39,9 @@ class ActiveConvos extends React.Component {
 
     componentDidMount() {
         const getActive = axios.get('/api/chat/active')
-        getActive 
+        getActive
             .then(active => {
-                this.setState({ 
+                this.setState({
                     conversations: active.data  // active.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
                 });
             })
@@ -54,55 +54,55 @@ class ActiveConvos extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-       
-            <MuiThemeProvider>   
-            <div> 
-            <Typography color='inherit' variant='h4' align='center'>Active Conversations</Typography><br/><br/>     
+
+            <MuiThemeProvider>
+            <div>
+            <Typography color='inherit' variant='h4' align='center'>Active Conversations</Typography><br/><br/>
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
                     <Grid container wrap="nowrap" spacing={16}>
                         <Grid item>
                         </Grid>
-                        <Grid item 
-                            xs 
+                        <Grid item
+                            xs
                             zeroMinWidth
                             className={classes.listItem}
-                            key={index} 
+                            key={index}
                             onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                         >
-                            <Typography 
-                                color='primary' 
-                                variant='h5' 
-                                align='left' 
-                                noWrap 
+                            <Typography
+                                color='primary'
+                                variant='h5'
+                                align='left'
+                                noWrap
                                 key={index}
                             >
-                              Customer: {convo.customer_name}
+                              {convo.customer_name}
                               <br/>
-                              Question: {convo.summary}
+                              {convo.summary}
                             </Typography>
-                            
+
                         </Grid>
                     </Grid>
                     </Paper>
-                )	 
+                )
                 })}
                 </div>
-            </MuiThemeProvider>      
-        
+            </MuiThemeProvider>
+
         );
         // return (
         //     <div>
         //         {this.state.conversations.map((convo, index) => {
         //             return (
-        //                 <div 
-        //                     className="convo-list-item" 
+        //                 <div
+        //                     className="convo-list-item"
         //                     key={index}
         //                     onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
         //                 >
         //                     <p>Customer: {convo.customer_name}</p>
-                            
+
         //                     <p>Summary: {convo.summary}</p>
 
         //                     <p>Convo ID: {convo.convo_id}</p>
