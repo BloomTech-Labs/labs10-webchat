@@ -61,7 +61,7 @@ class ActiveConvos extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-       
+            <div>
             <MuiThemeProvider>   
             <div> 
             <Typography color='inherit' variant='h4' align='left'>Open Conversations</Typography><br/><br/>     
@@ -97,7 +97,7 @@ class ActiveConvos extends React.Component {
                 })}
                 </div>
             </MuiThemeProvider>
-
+            </div>
         );
     }
 }

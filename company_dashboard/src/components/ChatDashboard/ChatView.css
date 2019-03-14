@@ -9,7 +9,7 @@
 
 .chat-view .messages {
   width: 80%;
-  margin: auto;
+  /* margin: auto; */
 }
 
 .chat-view .messages .message {

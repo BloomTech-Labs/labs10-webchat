@@ -62,7 +62,8 @@ class ClosedConvos extends React.Component {
         const { classes } = this.props;
         return (
         <div>
-            <MuiThemeProvider>    
+            <MuiThemeProvider> 
+            <div>   
             <Typography color='inherit' variant='h4' align='left'>Closed Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
@@ -94,6 +95,7 @@ class ClosedConvos extends React.Component {
                     </Paper>
                 )
                 })}
+                </div>
             </MuiThemeProvider>
         </div>
         );
