@@ -264,7 +264,6 @@ class AdminPanelBaseForm extends React.Component {
           <div className='left-container'>
               <h2>Company Representative</h2>
             <Paper className={[classes.root, "admin-table"].join(' ')}>
-<<<<<<< HEAD
               <div style={{ overflow: "auto" }}>
                 <Table className={classes.table} >
                   <TableHead className={classes.tableHead}>
@@ -294,35 +293,6 @@ class AdminPanelBaseForm extends React.Component {
                     </TableBody>
                   </Table>
                 </div>
-=======
-
-              <Table className={classes.table} style={{
-                maxWidth: 750,
-                width: '100%',
-                }}>
-
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Admin</TableCell>
-                    <TableCell>Remove</TableCell>
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  {this.state.allreps.map((rep, index) => {
-                    return (
-                      <RepRecord
-                      key={index}
-                      rep={rep}
-                      reloadRecords={this.reloadRecords}
-                      />
-                    );
-                  })}
-                </TableBody>
-              </Table>
->>>>>>> 5978678ef104c7328095f2bef5a09438d4cae4fa
             </Paper>
             <br/>
             <AddRepForm company_id={this.state.company_id}/>
