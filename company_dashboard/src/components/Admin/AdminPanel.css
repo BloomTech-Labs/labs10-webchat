@@ -6,6 +6,7 @@
 
 .admin-panel {
   width: 65%;
+  border: 2px red solid;
   display: flex;
   margin-left: 22%;
   padding: 2.5%;
@@ -30,11 +31,15 @@
 .right-container {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
   margin-top: 1%;
   margin-left: 10%;
+  height: 80%;
 }
 
+.right-container #outlined-codeSnippet {
+  max-height: 150px;
+}
 .admin-panel p {
   /* border: 1px solid black; */
   display: flex;

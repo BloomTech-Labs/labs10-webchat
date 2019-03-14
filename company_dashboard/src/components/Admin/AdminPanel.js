@@ -74,12 +74,12 @@ const styles = theme => ({
   },
   textField: {
     [theme.breakpoints.down('sm')]: {
-      widht: '100%',
+      width: '100%',
       alignItems: 'center' ,
       justifyContent: 'center',
     },
     [theme.breakpoints.down('md')]: {
-      widht: '100%',
+      width: '100%',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -90,6 +90,7 @@ const styles = theme => ({
     },
     [theme.breakpoints.down('md')]: {
       width: '100%',
+      maxHeight: '300px',
     },
   }
 });
@@ -266,7 +267,7 @@ class AdminPanelBaseForm extends React.Component {
               <h2>Company Representative</h2>
             <Paper className={[classes.root, "admin-table"].join(' ')}>
 
-              <Table className={classes.table} style={{ 
+              <Table className={classes.table} style={{
                 maxWidth: 750,
                 width: '100%',
                 }}>
@@ -295,7 +296,7 @@ class AdminPanelBaseForm extends React.Component {
             </Paper>
             <br/>
             <AddRepForm company_id={this.state.company_id}/>
-            
+
           </div>
           <div className={[classes.rightContainer, "right-container"].join(' ')}>
             <form noValidate autoComplete='off'>

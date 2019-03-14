@@ -40,9 +40,8 @@
     display: flex;
     flex-direction: column;
     margin-left: 25%;
-    margin-top: 15%;
+    margin-top: 10%;
     width: 60%;
-    border: 2px red solid;
 }
 
 .account-settings .right-container img {
