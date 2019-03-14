@@ -14,7 +14,7 @@ function enableChattr() {
 	wcaIFRAME.style.height = "600px";
 	wcaBtn.style.width = "40px";
 	wcaBtn.style.height = "40px";
-	wcaBtn.style.backgroundColor = "rgb(0, 188, 212)";
+	wcaBtn.style.backgroundColor = "#3f51b5";
 	wcaBtn.style.padding = "40px";
 	wcaBtn.style.color = "white";
 	wcaBtn.style.textAlign = "center";
@@ -26,6 +26,7 @@ function enableChattr() {
 	wcaIFRAME.style.position = "fixed";
 	wcaIFRAME.style.bottom = "120px";
 	wcaIFRAME.style.right = "20px";
+	wcaIFRAME.style.backgroundColor ="white";
 	wcaBtn.onclick = function() {
 		if (wcaIFRAME.style.display == "none") {
 			wcaIFRAME.style.display = "";
