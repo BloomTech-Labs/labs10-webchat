@@ -61,7 +61,6 @@ const styles = theme => ({
     outline: 'none',
   },
   container: {
-    border: '2px red solid',
     display: 'flex',
     flexDirection: 'column',
     width: 100,
@@ -237,7 +236,7 @@ class AdminPanelBaseForm extends React.Component {
         <Navigation />
         <div className="admin-panel">
           <div className='left-container'>
-            <form className={classes.container} noValidate autoComplete='off'>
+            <form noValidate autoComplete='off'>
               <h1>Company Name</h1>
               <TextField
                 id='outlined-codeSnippet'
