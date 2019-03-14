@@ -16,6 +16,7 @@ const styles = theme => ({
       flexGrow: 1,
       overflow: 'hidden',
       padding: `0 ${theme.spacing.unit * 3}px`,
+      
     },
     paper: {
       maxWidth: 400,
@@ -33,6 +34,10 @@ const styles = theme => ({
     },
     convoSummary: {
         'margin-left': '.6em'
+    },
+    convoList: {
+        overflowY: 'scroll',
+        height: 1000
     }
 });
 
@@ -63,7 +68,7 @@ class ActiveConvos extends React.Component {
         return (
             <div>
             <MuiThemeProvider>   
-            <div> 
+            <div className={classes.convoList}> 
             <Typography color='inherit' variant='h4' align='left'>Open Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(

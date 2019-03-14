@@ -30,7 +30,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
   },
   root: {
-    height: 500,
+    height: 700,
     overflowY: 'scroll'
   }
 });
@@ -51,8 +51,8 @@ class ChatView extends Component {
 			      rep_name: "",
         };
 
-	    this.socket = io('localhost:5000');
-	    //this.socket = io('https://webchatlabs10.herokuapp.com');
+	    // this.socket = io('localhost:5000');
+	    this.socket = io('https://webchatlabs10.herokuapp.com');
 
         // this.socket.on(this.props.currentConvoSocket, function(message) {
         //     console.log('Incoming message:', message);
@@ -103,7 +103,6 @@ class ChatView extends Component {
 
     componentDidUpdate() {
         // console.log('ChatView CDU props: ', this.props);
-
         this.scrollToBottom();
     }
 
@@ -112,14 +111,6 @@ class ChatView extends Component {
         // console.log('currentConvoSocket type: ', typeof this.props.currentConvoSocket);
         // console.log('ChatView props.messages before emit: ', this.props.messages);
 
-        // let data = {
-        //     socket_uid: this.state.uid,  // socket room
-        //     conversation_id: this.state.convo_id,
-        //     author_uid: this.state.rep_uid,
-        //     author_name: this.state.rep_name,
-        //     body: this.state.message,
-        //     image_url: this.state.url,
-        // };
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
@@ -150,6 +141,7 @@ class ChatView extends Component {
         // this.setState({ messages: [...this.state.messages, newProps.messages] });
         // this.setState({ messages: newProps.messages });
         console.log('ChatView CWRP props: ', newProps);
+        if (newProps.messages !== this.props.messages) {
         this.setState({
             messages: newProps.messages
         });
@@ -158,6 +150,7 @@ class ChatView extends Component {
             console.log('Incoming message:', message);
             that.addMessage(message);
         });
+        }
     }
 
 

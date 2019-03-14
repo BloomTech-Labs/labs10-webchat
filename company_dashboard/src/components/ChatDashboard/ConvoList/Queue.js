@@ -32,6 +32,10 @@ const styles = theme => ({
     },
     convoSummary: {
         'margin-left': '.6em'
+    },
+    convoList: {
+        overflowY: 'scroll',
+        height: 1000
     }
 });
 
@@ -62,7 +66,7 @@ class Queue extends React.Component {
         return (
         <div>
             <MuiThemeProvider>   
-            <div> 
+            <div className={classes.convoList}> 
             <Typography color='inherit' variant='h4' align='left'>Incoming Queue</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
