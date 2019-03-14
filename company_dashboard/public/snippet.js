@@ -26,6 +26,7 @@ function enableChattr() {
 	wcaIFRAME.style.position = "fixed";
 	wcaIFRAME.style.bottom = "120px";
 	wcaIFRAME.style.right = "20px";
+	wcaIFRAME.style.backgroundColor ="white";
 	wcaBtn.onclick = function() {
 		if (wcaIFRAME.style.display == "none") {
 			wcaIFRAME.style.display = "";
