@@ -49,7 +49,7 @@ const styles = theme => ({
     overflowX: "auto"
   },
   table: {
-    // minWidth: 700,
+    minWidth: 750,
   },
   paper: {
     position: 'absolute',
@@ -64,8 +64,33 @@ const styles = theme => ({
     flexDirection: 'column',
     width: 100,
   },
+  adminPanel: {
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    },
+  },
   textField: {
-
+    [theme.breakpoints.down('sm')]: {
+      widht: '100%',
+      alignItems: 'center' ,
+      justifyContent: 'center',
+    },
+    [theme.breakpoints.down('md')]: {
+      widht: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  },
+  rightContainer: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
   }
 });
 
@@ -236,7 +261,7 @@ class AdminPanelBaseForm extends React.Component {
     return (
       <div className='admin-panel-container'>
         <Navigation />
-        <div className={[classes.adminPane, "admin-panel"].join(' ')}>
+        <div className={[classes.adminPanel, "admin-panel"].join(' ')}>
           <div className='left-container'>
               <h2>Company Representative</h2>
             <Paper className={[classes.root, "admin-table"].join(' ')}>
@@ -272,7 +297,7 @@ class AdminPanelBaseForm extends React.Component {
             <AddRepForm company_id={this.state.company_id}/>
             
           </div>
-          <div className="right-container">
+          <div className={[classes.rightContainer, "right-container"].join(' ')}>
             <form noValidate autoComplete='off'>
               <h3>Company Name</h3>
               <TextField
