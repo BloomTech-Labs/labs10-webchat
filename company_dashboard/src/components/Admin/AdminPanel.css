@@ -67,3 +67,17 @@
   /* margin-left: 10%; */
   height: 30vh;
 }
+
+@media (max-width: 1500px) {
+  .admin-panel {
+      width: 70%;
+  }
+}
+
+@media (max-width: 800px) {
+  .admin-panel {
+      margin: auto;
+      margin-top: 120px;
+      width: 90%;
+  }
+}
