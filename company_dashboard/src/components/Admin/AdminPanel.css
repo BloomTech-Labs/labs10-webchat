@@ -1,14 +1,38 @@
-.admin-panel form {
-  display: flex;
-  margin-top: 5%;
-  margin-left: 16%;
+.admin-panel-container {
+  background-color: #EAEAEA;
+  height: 100vh;
+  padding-top: 5%;
 }
 
-.admin-panel .left {
+.admin-panel {
+  width: 65%;
+  display: flex;
+  margin-left: 22%;
+  padding: 2.5%;
+  border: 2px gray solid;
+  border-radius: 5px;
+  background-color: white;
+  margin-top: 2%;
+}
+
+.admin-panel form {
   display: flex;
   flex-direction: column;
-  width: 35%;
-  padding-left: 15px;
+  margin-bottom: 10%;
+  width: 80%;
+}
+
+.left-container {
+  margin-top: 1%;
+  margin-left: 6%;
+}
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-top: 1%;
+  margin-left: 10%;
 }
 
 .admin-panel p {
@@ -20,7 +44,7 @@
 .admin-panel .add-button {
   /* border: 1px solid red; */
   font-size: 12px;
-  width: 180px;
+  width: 200px;
   margin-top: 15px;
 }
 
@@ -32,6 +56,9 @@
 }
 
 .admin-panel .admin-table {
-  width: 80%;
-  margin-left: 17%;
+  margin-top: 6%;
+  display: flex;
+  flex-direction: column;
+  /* margin-left: 10%; */
+  height: 30vh;
 }
