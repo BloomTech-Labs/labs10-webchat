@@ -259,38 +259,36 @@ class AdminPanelBaseForm extends React.Component {
             </form>
           </div>
           <div className="right-container">
-          
+            <Paper className={[classes.root, "admin-table"].join(' ')}>
+              <Table className={classes.table}>
+
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Admin</TableCell>
+                    <TableCell>Remove</TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {this.state.allreps.map((rep, index) => {
+                    return (
+                      <RepRecord
+                      key={index}
+                      rep={rep}
+                      reloadRecords={this.reloadRecords}
+                      />
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </Paper>
+            <br/>
+            <AddRepForm company_id={this.state.company_id}/>
           </div>
         </div>
 
-        <Paper className={[classes.root, "admin-table"].join(' ')}>
-          <Table className={classes.table}>
-
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Admin</TableCell>
-                <TableCell>Remove</TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {this.state.allreps.map((rep, index) => {
-                return (
-                  <RepRecord
-                  key={index}
-                  rep={rep}
-                  reloadRecords={this.reloadRecords}
-                  />
-                );
-              })}
-            </TableBody>
-
-          </Table>
-        </Paper>
-        <br/>
-        <AddRepForm company_id={this.state.company_id}/>
 
             {/* <Button
               variant="outlined"
