@@ -141,6 +141,7 @@ class ChatView extends Component {
         // this.setState({ messages: [...this.state.messages, newProps.messages] });
         // this.setState({ messages: newProps.messages });
         console.log('ChatView CWRP props: ', newProps);
+        if (newProps.messages !== this.props.messages) {
         this.setState({
             messages: newProps.messages
         });
@@ -149,6 +150,7 @@ class ChatView extends Component {
             console.log('Incoming message:', message);
             that.addMessage(message);
         });
+        }
     }
 
 
