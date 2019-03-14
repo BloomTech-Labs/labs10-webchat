@@ -1,3 +1,11 @@
-.billing {
-  margin-left: 16%;
+.billing-container {
+  background-color: #EAEAEA;
+}
+
+.example {
+  margin-left: 20%;
+}
+
+.paper {
+  width: 400px;
 }
