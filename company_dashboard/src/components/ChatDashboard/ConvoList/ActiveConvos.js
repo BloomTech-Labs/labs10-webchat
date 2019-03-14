@@ -28,7 +28,11 @@ const styles = theme => ({
         }
     },
     convoAuthor: {
-        'margin-block-end': '1em'
+        'margin-block-start': '0px',
+        'margin-block-end': '.8em'
+    },
+    convoSummary: {
+        'margin-left': '.6em'
     }
 });
 
@@ -64,7 +68,7 @@ class ActiveConvos extends React.Component {
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={16}>
+                    <Grid container wrap="nowrap" spacing={0}>
                         <Grid item>
                         </Grid>
                         <Grid item
@@ -81,9 +85,9 @@ class ActiveConvos extends React.Component {
                                 noWrap
                                 key={index}
                             >
-                              {convo.customer_name}
-                              <br/>
-                              {convo.summary}
+                                <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
+                            
+                                <body2 className={classes.convoSummary}>    {convo.summary}</body2>
                             </Typography>
 
                         </Grid>

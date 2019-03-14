@@ -27,6 +27,7 @@ const styles = theme => ({
       }
     },
     convoAuthor: {
+        'margin-block-start': '0px',
         'margin-block-end': '.8em'
     },
     convoSummary: {
@@ -66,7 +67,7 @@ class Queue extends React.Component {
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={16} className={classes.listItem}>
+                    <Grid container wrap="nowrap"  className={classes.listItem} spacing={0}>
                         <Grid item>
                         </Grid>
                         <Grid item
