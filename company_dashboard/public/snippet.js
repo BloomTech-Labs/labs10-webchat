@@ -30,8 +30,8 @@ function enableChattr() {
 		if (wcaIFRAME.style.display == "none") {
 			wcaIFRAME.style.display = "";
 			let company_id = window.location.search.replace("?company_id=","");
-			// wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/:"+company_id;
-			wcaIFRAME.src = "http://localhost:3000/customersignup/:"+company_id;
+			wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/:"+company_id;
+			// wcaIFRAME.src = "http://localhost:3000/customersignup/:"+company_id;
 
 		} else {
 			wcaIFRAME.style.display = "none";
