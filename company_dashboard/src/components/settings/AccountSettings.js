@@ -48,13 +48,13 @@ class AccountSettingsBaseForm extends React.Component {
     image_id:"",
     selectedFile: null,
     id: "",
-    error:null,	  
+    error:null,
   };
 
   componentDidMount() {
     //const request = axios.get(`/api/reps/getbyUID`);
 
-//check if a user is signed in or signed out	  
+//check if a user is signed in or signed out
 this.props.firebase.auth.onAuthStateChanged(user => {
         if (user) {
 
@@ -62,10 +62,10 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         .then(idToken => {
 
         console.log("idToken after in Account Settings: ", idToken);
-        axios.defaults.headers.common['Authorization'] = idToken;  
+        axios.defaults.headers.common['Authorization'] = idToken;
 
     //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
-    
+
     const request = axios.get("/api/reps/alldetails");
 
     request.then(response => {
@@ -92,14 +92,14 @@ this.props.firebase.auth.onAuthStateChanged(user => {
               this.setState({ error:error });
       })
     })
-	}		
+	}
     else {
                  this.props.history.push('/repslogin'); //if user is signed out redirect to login page
         }
- 
+
 })
 };
- 
+
 
   //Sets Input to state
   handleChange = name => event => {
@@ -170,7 +170,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
     const { classes } = this.props;
 
     return (
-      <div>
+      <div className="account-settings-container">
         <Navigation />
       <div className="account-settings">
           <div className="left-container">
@@ -274,4 +274,3 @@ const AccountSettingsComponent = withStyles (styles) (withRouter(withFirebase(Ac
 export default AccountSettings;
 
 export { AccountSettingsComponent};
-
