@@ -1,12 +1,24 @@
+.admin-panel-container {
+  background-color: #EAEAEA;
+  height: 100vh;
+  padding-top: 5%;
+}
+
 .admin-panel {
   display: flex;
   border: 1px blue solid;
+  margin-left: 30%;
 }
 
 .admin-panel form {
+  width: 50%;
   display: flex;
-  margin-top: 5%;
-  margin-left: 16%;
+  margin-left: 30%;
+  padding: 2.5%;
+  border: 2px gray solid;
+  border-radius: 5px;
+  background-color: white;
+  margin-top: 2%;
 }
 
 .left-container {
@@ -41,6 +53,8 @@
 }
 
 .admin-panel .admin-table {
+  display: flex;
+  flex-direction: column;
   width: 80%;
   margin-left: 17%;
 }
