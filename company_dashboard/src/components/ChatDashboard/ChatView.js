@@ -30,7 +30,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
   },
   root: {
-    height: 500,
+    height: 700,
     overflowY: 'scroll'
   }
 });
@@ -103,7 +103,6 @@ class ChatView extends Component {
 
     componentDidUpdate() {
         // console.log('ChatView CDU props: ', this.props);
-
         this.scrollToBottom();
     }
 
@@ -112,14 +111,6 @@ class ChatView extends Component {
         // console.log('currentConvoSocket type: ', typeof this.props.currentConvoSocket);
         // console.log('ChatView props.messages before emit: ', this.props.messages);
 
-        // let data = {
-        //     socket_uid: this.state.uid,  // socket room
-        //     conversation_id: this.state.convo_id,
-        //     author_uid: this.state.rep_uid,
-        //     author_name: this.state.rep_name,
-        //     body: this.state.message,
-        //     image_url: this.state.url,
-        // };
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
