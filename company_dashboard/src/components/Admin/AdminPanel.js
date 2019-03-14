@@ -49,8 +49,7 @@ const styles = theme => ({
     overflowX: "auto"
   },
   table: {
-    minWidth: 700,
-    width: 700
+    // minWidth: 700,
   },
   paper: {
     position: 'absolute',
@@ -64,6 +63,9 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: 100,
+  },
+  textField: {
+
   }
 });
 
@@ -236,34 +238,13 @@ class AdminPanelBaseForm extends React.Component {
         <Navigation />
         <div className="admin-panel">
           <div className='left-container'>
-            <form noValidate autoComplete='off'>
-              <h2>Company Name</h2>
-              <TextField
-                id='outlined-codeSnippet'
-                margin='normal'
-                variant="outlined"
-                rowsMax={Infinity}
-                fullWidth
-                className={classes.TextField}
-                value={this.state.companyName}
-              />
-              <h2>Code Snippet</h2>
-              <TextField
-                id='outlined-codeSnippet'
-                multiline={true}
-                rows={8}
-                rowsMax={Infinity}
-                fullWidth
-                className={classes.TextField}
-                value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
-                margin='normal'
-                variant='outlined'
-              />
-            </form>
-          </div>
-          <div className="right-container">
+              <h2>Company Representative</h2>
             <Paper className={[classes.root, "admin-table"].join(' ')}>
-              <Table className={classes.table}>
+
+              <Table className={classes.table} style={{ 
+                maxWidth: 750,
+                width: '100%',
+                }}>
 
                 <TableHead>
                   <TableRow>
@@ -289,6 +270,33 @@ class AdminPanelBaseForm extends React.Component {
             </Paper>
             <br/>
             <AddRepForm company_id={this.state.company_id}/>
+            
+          </div>
+          <div className="right-container">
+            <form noValidate autoComplete='off'>
+              <h3>Company Name</h3>
+              <TextField
+                id='outlined-codeSnippet'
+                margin='normal'
+                variant="outlined"
+                rowsMax={Infinity}
+                fullWidth
+                className={classes.TextField}
+                value={this.state.companyName}
+              />
+              <h3>Code Snippet</h3>
+              <TextField
+                id='outlined-codeSnippet'
+                multiline={true}
+                rows={8}
+                rowsMax={Infinity}
+                fullWidth
+                className={classes.TextField}
+                value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
+                margin='normal'
+                variant='outlined'
+              />
+            </form>
           </div>
         </div>
 
