@@ -232,7 +232,7 @@ class AdminPanelBaseForm extends React.Component {
       <div className='admin-panel'>
         <Navigation />
         <div className="admin-panel">
-          <div className='left'>
+          <div className='left-container'>
             <form className={classes.container} noValidate autoComplete='off'>
               <h1>Company Name</h1>
               <TextField
