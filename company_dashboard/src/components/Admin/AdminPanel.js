@@ -61,7 +61,10 @@ const styles = theme => ({
     outline: 'none',
   },
   container: {
-    border: '2px red solid'
+    border: '2px red solid',
+    display: 'flex',
+    flexDirection: 'column',
+    width: 100,
   }
 });
 
