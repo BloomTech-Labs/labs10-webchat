@@ -26,6 +26,13 @@ const styles = theme => ({
         '&:hover': {
           cursor: 'pointer'
         }
+    },
+    convoAuthor: {
+        'margin-block-start': '0px',
+        'margin-block-end': '.8em'
+    },
+    convoSummary: {
+        'margin-left': '.6em'
     }
 });
 
@@ -54,14 +61,14 @@ class ActiveConvos extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-
-            <MuiThemeProvider>
             <div>
-            <Typography color='inherit' variant='h4' align='center'>Active Conversations</Typography><br/><br/>
+            <MuiThemeProvider>   
+            <div> 
+            <Typography color='inherit' variant='h4' align='left'>Open Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={16}>
+                    <Grid container wrap="nowrap" spacing={0}>
                         <Grid item>
                         </Grid>
                         <Grid item
@@ -78,9 +85,9 @@ class ActiveConvos extends React.Component {
                                 noWrap
                                 key={index}
                             >
-                              {convo.customer_name}
-                              <br/>
-                              {convo.summary}
+                                <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
+                            
+                                <body2 className={classes.convoSummary}>    {convo.summary}</body2>
                             </Typography>
 
                         </Grid>
@@ -90,27 +97,8 @@ class ActiveConvos extends React.Component {
                 })}
                 </div>
             </MuiThemeProvider>
-
+            </div>
         );
-        // return (
-        //     <div>
-        //         {this.state.conversations.map((convo, index) => {
-        //             return (
-        //                 <div
-        //                     className="convo-list-item"
-        //                     key={index}
-        //                     onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.summary)}
-        //                 >
-        //                     <p>Customer: {convo.customer_name}</p>
-
-        //                     <p>Summary: {convo.summary}</p>
-
-        //                     <p>Convo ID: {convo.convo_id}</p>
-        //                 </div>
-        //             )
-        //         })}
-        //     </div>
-        // )
     }
 }
 

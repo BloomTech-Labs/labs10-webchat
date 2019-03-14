@@ -26,6 +26,13 @@ const styles = theme => ({
         '&:hover': {
           cursor: 'pointer'
         }
+    },
+    convoAuthor: {
+        'margin-block-start': '0px',
+        'margin-block-end': '.8em'
+    },
+    convoSummary: {
+        'margin-left': '.6em'
     }
 });
 
@@ -55,12 +62,13 @@ class ClosedConvos extends React.Component {
         const { classes } = this.props;
         return (
         <div>
-            <MuiThemeProvider>
-            <Typography color='inherit' variant='h4' align='center'>Closed Conversations</Typography><br/><br/>
+            <MuiThemeProvider> 
+            <div>   
+            <Typography color='inherit' variant='h4' align='left'>Closed Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
                 return(
                     <Paper key={index} className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={16}>
+                    <Grid container wrap="nowrap" className={classes.listItemContainer} spacing={0}>
                         <Grid item>
                         </Grid>
                         <Grid item
@@ -77,9 +85,9 @@ class ClosedConvos extends React.Component {
                                 noWrap
                                 key={index}
                             >
-                              {convo.customer_name}
-                              <br/>
-                              {convo.summary}
+                                <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
+                            
+                                <body2 className={classes.convoSummary}>    {convo.summary}</body2>
                             </Typography>
 
                         </Grid>
@@ -87,6 +95,7 @@ class ClosedConvos extends React.Component {
                     </Paper>
                 )
                 })}
+                </div>
             </MuiThemeProvider>
         </div>
         );
