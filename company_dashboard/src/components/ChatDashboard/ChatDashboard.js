@@ -33,7 +33,7 @@ class ChatDashboard extends React.Component {
     //         currentMessages.push({...message});
     //     });
     //     currentMessages.push(newMessage);
-    //     this.setState({ currentMessages });    
+    //     this.setState({ currentMessages });
     // }
 
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
@@ -57,7 +57,7 @@ class ChatDashboard extends React.Component {
                 console.log(error.message);
                 //this.setState({error:error});
             });
-        // Remove convo from the Queue by updating in_q to false in the convo's db entry 
+        // Remove convo from the Queue by updating in_q to false in the convo's db entry
         const data = { id: convo_id };
         const deQueueRequest = axios.put('/api/chat/dequeue', data);
         deQueueRequest
@@ -134,19 +134,19 @@ class ChatDashboard extends React.Component {
             <Navigation />
             <div className="chat-dashboard-container">
                 <div className="chat-dash-left-container">
-                    <ConvoList 
+                    <ConvoList
                         handleQueueConvoSelect={this.handleQueueConvoSelect}
                         handleActiveConvoSelect={this.handleActiveConvoSelect}
                         handleClosedConvoSelect={this.handleClosedConvoSelect}
                     />
-                </div> 
-                    
+                </div>
+
                 <div className="chat-dash-right-container">
                     {/* {!convoSelected ? (
                         <p>No conversation selected.</p>
-                        
+
                         ) : (
-                            <ChatView 
+                            <ChatView
                             currentConvoId={this.state.currentConvoId}
                             currentConvoSocket={this.state.currentConvoSocket}
                             summary={this.state.currentConvoSummary}
@@ -156,7 +156,7 @@ class ChatDashboard extends React.Component {
                             />
                         )
                     } */}
-                    <ChatView 
+                    <ChatView
                             currentConvoId={this.state.currentConvoId}
                             currentConvoSocket={this.state.currentConvoSocket}
                             summary={this.state.currentConvoSummary}
@@ -165,7 +165,7 @@ class ChatDashboard extends React.Component {
                             addMessage={this.addMessage}
                             closeConvo={this.closeConvo}
                     />
-                </div> 
+                </div>
             </div>
             </div>
         );
