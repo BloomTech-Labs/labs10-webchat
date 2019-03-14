@@ -1,3 +1,7 @@
+.admin-panel {
+  display: flex;
+}
+
 .admin-panel form {
   display: flex;
   margin-top: 5%;
@@ -9,6 +13,10 @@
   flex-direction: column;
   width: 35%;
   padding-left: 15px;
+}
+
+.right-container {
+
 }
 
 .admin-panel p {
