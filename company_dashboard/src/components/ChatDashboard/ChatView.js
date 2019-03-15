@@ -120,65 +120,51 @@ class ChatView extends Component {
         this.scrollToBottom();
     }
 
-    componentDidUpdate(prevProps) {
+    // componentDidUpdate(prevProps) {
 
-        const currentProps = this.props;
-        // if (currentProps.currentConvoId !== prevProps.currentConvoId) {
+    //     const currentProps = this.props;
+    //     // if (currentProps.currentConvoId !== prevProps.currentConvoId) {
 
-            const id = this.props.currentConvoId;  // Get convo_id from props
+    //         const id = this.props.currentConvoId;  // Get convo_id from props
 
-            const messageRequest = axios.get(`/api/chat/messages/${id}`);
-            messageRequest
-                .then(response => {
-                    this.setState({
-                        messages: response.data,
-                    }, () => {
-                        console.log('ChatView state after getting messages in CDU: ', this.state);
-                    });
-                })
-                .catch(error => {
-                        console.log(error.message);
-                        //this.setState({error:error});
-                });
-        // }
-    }
-
-    // componentWillReceiveProps(newProps) {
-    //     console.log('ChatView CWRP props: ', newProps);
-    //     const that1 = this;
-    //     const that2 = this;   // ** might not need this
-
-    //     const id = newProps.currentConvoId;  // Get convo_id from props
-
-    //     const messageRequest = axios.get(`/api/chat/messages/${id}`);
-    //     messageRequest
-    //         .then(response => {
-    //             this.setState({
-    //                 uid: newProps.currentConvoSocket,
-    //                 convo_id: newProps.currentConvoId,
-    //                 messages: response.data,
-    //             }, () => {
-    //                 console.log('ChatView state after getting messages in CWRP: ', that1.state);
-    //                 that1.socket.on(newProps.currentConvoSocket, function(message) {       // Initialize after updating state to make sure past messages are there before customer emits new ones
-    //                     console.log('Incoming message:', message);
-    //                     that2.addMessage(message);
+    //         const messageRequest = axios.get(`/api/chat/messages/${id}`);
+    //         messageRequest
+    //             .then(response => {
+    //                 this.setState({
+    //                     messages: response.data,
+    //                 }, () => {
+    //                     console.log('ChatView state after getting messages in CDU: ', this.state);
     //                 });
+    //             })
+    //             .catch(error => {
+    //                     console.log(error.message);
+    //                     //this.setState({error:error});
     //             });
-    //         })
-    //         .catch(error => {
-    //                 console.log(error.message);
-    //                 //this.setState({error:error});
-    //         });
-    //     // this.setState({
-    //     //     messages: newProps.messages
-    //     // });
-    //     // const that = this;
-    //     // this.socket.on(newProps.currentConvoSocket, function(message) {
-    //     //     console.log('Incoming message:', message);
-    //     //     that.addMessage(message);
-    //     // });
-        
+    //     // }
     // }
+
+    componentWillReceiveProps(newProps) {
+        console.log('ChatView CWRP props: ', newProps);
+        const that1 = this;
+
+        const id = newProps.currentConvoId;  // Get convo_id from props
+
+        const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        messageRequest
+            .then(response => {
+                this.setState({
+                    // uid: newProps.currentConvoSocket,
+                    // convo_id: newProps.currentConvoId,
+                    messages: response.data,
+                }, () => {
+                    console.log('ChatView state after getting messages in CWRP: ', that1.state);
+                });
+            })
+            .catch(error => {
+                    console.log(error.message);
+                    //this.setState({error:error});
+            });
+    }
 
     componentDidUpdate() {
         // console.log('ChatView CDU props: ', this.props);
