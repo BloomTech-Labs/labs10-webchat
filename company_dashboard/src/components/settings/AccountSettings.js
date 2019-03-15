@@ -109,27 +109,32 @@ this.props.firebase.auth.onAuthStateChanged(user => {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
     const user = {
       name: this.state.name,
       phone_number: this.state.phone_number,
       motto: this.state.motto,
       email: this.state.email,
-      id: this.state.id
     };
-    console.log(user);
+	  
 
     const request = axios.put('/api/reps/updaterepinfo', user);
 
     request
       .then(response => {
-        console.log("User info updated");
-        console.log(response);
+        console.log("response from updated is", response.data);
+	this.setState({
+        name: response.data.name,
+        email: response.data.email,
+        phone_number: response.data.phone_number,
+        motto: response.data.motto,
+       });      
       })
       .catch(err => {
         console.log(err.message);
       });
-  }
+	
+      event.preventDefault(); 
+  };
 
   //Sets selectedFile in state after selecting an image
 
@@ -174,7 +179,8 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         <Navigation />
       <div className="account-settings">
           <div className="left-container">
-            <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+            
+	    <form onSubmit={this.handleSubmit}>
             <h2>Edit Account Information</h2>
             <TextField
               id="outlined-name"
@@ -219,7 +225,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
               variant="outlined"
             />
 
-            <Button variant="outlined" color="primary" className="save-button" onClick={this.handleSubmit} >
+            <Button variant="outlined" color="primary" className="save-button" type="submit" >
               Save
             </Button>
           </form>
