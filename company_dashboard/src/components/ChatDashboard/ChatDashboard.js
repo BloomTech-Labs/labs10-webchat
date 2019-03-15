@@ -17,7 +17,7 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: null,
             currentConvoSummary: null,
             currentCustomerName: null,
-            currentMessages: [],
+            // currentMessages: [],
             convoSelected: false
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
@@ -28,26 +28,26 @@ class ChatDashboard extends React.Component {
     }
 
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
-        const id = convo_id;
-        const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        messageRequest
-            .then(response => {
-                console.log("Response from ChatDash Queue GET messages: ", response);
+        // const id = convo_id;
+        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        // messageRequest
+        //     .then(response => {
+        //         console.log("Response from ChatDash Queue GET messages: ", response);
                 this.setState({
                     convoSelected: true,
                     currentConvoId: convo_id,
                     currentConvoSocket: customer_uid,
                     currentConvoSummary: summary,
                     currentCustomerName: customer_name,
-                    currentMessages: response.data
-                }, () => {
-                    console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-                });
-            })
-            .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-            });
+                    // currentMessages: response.data
+            //     }, () => {
+            //         console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+                 });
+            // })
+            // .catch(error => {
+            //     console.log(error.message);
+            //     //this.setState({error:error});
+            // });
         // Remove convo from the Queue by updating in_q to false in the convo's db entry
         const data = { id: convo_id };
         const deQueueRequest = axios.put('/api/chat/dequeue', data);
@@ -141,9 +141,9 @@ class ChatDashboard extends React.Component {
                             currentConvoId={this.state.currentConvoId}
                             currentConvoSocket={this.state.currentConvoSocket}
                             summary={this.state.currentConvoSummary}
-                            messages={this.state.currentMessages}
+                            // messages={this.state.currentMessages}
                             customerName={this.state.currentCustomerName}
-                            addMessage={this.addMessage}
+                            // addMessage={this.addMessage}
                             closeConvo={this.closeConvo}
                             />
                         )
