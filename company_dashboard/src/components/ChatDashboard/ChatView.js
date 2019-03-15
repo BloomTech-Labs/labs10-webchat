@@ -40,10 +40,6 @@ class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // uid: props.currentConvoSocket,
-            // convo_id: props.currentConvoId,
-            // uid: null,
-            // convo_id: null,
             rep_uid: null,
             message: '',
             messages: [],
@@ -70,13 +66,7 @@ class ChatView extends Component {
             newMessages.push(newMessage);
             this.setState({ messages: newMessages });
         }
-        // const addMessage = (message) => {
-        //     this.props.addMessage(message);
-        // }
-        // const addMessage = (data) => {
-        //     this.setState({messages: [...this.state.messages, data]});
-        // }
-
+       
     } // *** Constructor end
 
 
@@ -214,12 +204,16 @@ class ChatView extends Component {
         this.setState({ messages: newMessages });
     }
 
-    
-
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
+
+    handleCloseConvo = event => {
+        this.props.closeConvo();
+        this.setState({ is_closed: true });
+        event.preventDefault();
+    }
 
     scrollToBottom = () => {
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -292,7 +286,7 @@ class ChatView extends Component {
                                 <RaisedButton
                                 label="End Conversation"
                                 error={true}
-                                onClick={this.props.closeConvo}
+                                onClick={this.handleCloseConvo}
                                 />
                                 <br/>
                                 <br/>
