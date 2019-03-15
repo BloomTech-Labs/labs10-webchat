@@ -42,8 +42,12 @@ class CustomerSignUpFormBase extends Component {
 
  onSubmit = event => {
     const {email, password } = this.state;
+	
+    if(this.state.password !== this.state.password1){
+    	this.setState({error:{message:"Passwords don't match"}, password:"", password1:""});
+    }
 
-    
+    else{
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
@@ -86,18 +90,20 @@ class CustomerSignUpFormBase extends Component {
           })
     
   });
+   } 
 	     event.preventDefault();
  }	 
 
 
   onChange = event => {
+	
 	this.setState({ [event.target.name]: event.target.value });
   };
 
 
 render() {
     const {email, password, password1, error, name, summary} = this.state; 
-    const condition = password !== password1 || password1 === '' || email === '' || name === '' || summary === '';
+    const condition = password === '' || password1 === '' || email === '' || name === '' || summary === '';
 
 
     return (
