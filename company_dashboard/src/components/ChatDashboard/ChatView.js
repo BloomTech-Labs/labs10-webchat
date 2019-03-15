@@ -253,8 +253,8 @@ class ChatView extends Component {
                                     hintText="message"
                                     name="message"
                                     type="text"
-                                    style ={{width: '80%'}}
-                                    inputStyle ={{width: '100%'}}
+                                    style ={{width: '80%', padding:'0px 15px 0px 10px'}}
+                                    inputStyle ={{width: '100%' }}
                                     className={classes.messageInput}
                                     value={this.state.message}
                                     onChange={this.onChange}
