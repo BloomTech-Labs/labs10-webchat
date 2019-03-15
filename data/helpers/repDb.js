@@ -83,11 +83,10 @@ function insert(user) {
     .insert(user).returning('id').then(ids => ids[0]);
 }
 
-function updaterepinfo(id, user) {
+function updaterepinfo(uid, user) {
         return db('representatives')
-                .where('id', Number(id))
+                .where('uid', uid)
                 .update(user);
-                // .update({name: user.name}, {phone_number: user.phone_number}, {motto: user.motto}, {email: user.email});
 }
 
 
