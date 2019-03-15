@@ -259,38 +259,41 @@ class ChatView extends Component {
 
                             <div className="footer">
                             <form 
-                            className={classes.form}
-                            onSubmit={this.onSubmit}>
+                                className={classes.form}
+                                onSubmit={this.onSubmit}
+                            >
                                 <br/>
                                 <br/>
                                 <br/>
                                 <TextField
-                                hintText="message"
-                                name="message"
-                                type="text"
-                                value={this.state.message}
-                                onChange={this.onChange}
+                                    hintText="message"
+                                    name="message"
+                                    type="text"
+                                    value={this.state.message}
+                                    onChange={this.onChange}
                                 />
                                 <br/>
                                 <br/>
-                                <RaisedButton
-                                label="send"
-                                primary={true}
-                                type="submit"
-                                />
+                                
                                 {is_closed ? (
-                                <p>This conversation is closed.</p>
+                                    <p>This conversation is closed.</p>
                                 ) : (
-                                <div>
-                                <br/>
-                                <RaisedButton
-                                label="End Conversation"
-                                error={true}
-                                onClick={this.handleCloseConvo}
-                                />
-                                <br/>
-                                <br/>
-                                </div>
+                                    <div>
+                                    <RaisedButton
+                                        label="send"
+                                        primary={true}
+                                        type="submit"
+                                    />
+                                    
+                                    <br/>
+                                    <RaisedButton
+                                        label="End Conversation"
+                                        error={true}
+                                        onClick={this.handleCloseConvo}
+                                    />
+                                    <br/>
+                                    <br/>
+                                    </div>
                                 )}
                             </form>
                             </div>
