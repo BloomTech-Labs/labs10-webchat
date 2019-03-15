@@ -42,8 +42,8 @@ class ChatView extends Component {
         this.state = {
             // uid: props.currentConvoSocket,
             // convo_id: props.currentConvoId,
-            uid: null,
-            convo_id: null,
+            // uid: null,
+            // convo_id: null,
             rep_uid: null,
             message: '',
             messages: [],
@@ -56,20 +56,20 @@ class ChatView extends Component {
 	    this.socket = io('localhost:5000');
 	    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
-        // this.socket.on(this.props.currentConvoSocket, function(message) {
-        //     console.log('Incoming message:', message);
-        //     addMessage(message);
-        // });
+        this.socket.on(this.props.currentConvoSocket, function(message) {
+            console.log('Incoming message:', message);
+            addMessage(message);
+        });
 
-        // const addMessage = newMessage => {
-        //     console.log("newMessage in ChatView: ", newMessage);
-        //     const newMessages = [];
-        //     this.state.messages.forEach(message => {
-        //         newMessages.push({...message});
-        //     });
-        //     newMessages.push(newMessage);
-        //     this.setState({ messages: newMessages });
-        // }
+        const addMessage = (newMessage) => {
+            console.log("newMessage to add in ChatView: ", newMessage);
+            const newMessages = [];
+            this.state.messages.forEach(message => {
+                newMessages.push({...message});
+            });
+            newMessages.push(newMessage);
+            this.setState({ messages: newMessages });
+        }
         // const addMessage = (message) => {
         //     this.props.addMessage(message);
         // }
@@ -104,42 +104,64 @@ class ChatView extends Component {
         this.scrollToBottom();
     }
 
-    componentWillReceiveProps(newProps) {
-        console.log('ChatView CWRP props: ', newProps);
-        const that1 = this;
-        const that2 = this;   // ** might not need this
+    componentDidUpdate(prevProps) {
+        const currentProps = this.props;
+        if (currentProps.currentConvoId !== prevProps.currentConvoId) {
 
-        const id = newProps.currentConvoId;  // Get convo_id from props
+            const id = newProps.currentConvoId;  // Get convo_id from props
 
-        const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        messageRequest
-            .then(response => {
-                this.setState({
-                    uid: newProps.currenConvoSocket,
-                    convo_id: newProps.currentConvoId,
-                    messages: response.data,
-                }, () => {
-                    console.log('ChatView state after getting messages: ', that1.state);
-                    that1.socket.on(newProps.currentConvoSocket, function(message) {       // Initialize after updating state to make sure past messages are there before customer emits new ones
-                        console.log('Incoming message:', message);
-                        that2.addMessage(message);
+            const messageRequest = axios.get(`/api/chat/messages/${id}`);
+            messageRequest
+                .then(response => {
+                    this.setState({
+                        messages: response.data,
+                    }, () => {
+                        console.log('ChatView state after getting messages in CDU: ', this.state);
                     });
+                })
+                .catch(error => {
+                        console.log(error.message);
+                        //this.setState({error:error});
                 });
-            })
-            .catch(error => {
-                    console.log(error.message);
-                    //this.setState({error:error});
-            });
-        // this.setState({
-        //     messages: newProps.messages
-        // });
-        // const that = this;
-        // this.socket.on(newProps.currentConvoSocket, function(message) {
-        //     console.log('Incoming message:', message);
-        //     that.addMessage(message);
-        // });
-        
+        }
     }
+
+    // componentWillReceiveProps(newProps) {
+    //     console.log('ChatView CWRP props: ', newProps);
+    //     const that1 = this;
+    //     const that2 = this;   // ** might not need this
+
+    //     const id = newProps.currentConvoId;  // Get convo_id from props
+
+    //     const messageRequest = axios.get(`/api/chat/messages/${id}`);
+    //     messageRequest
+    //         .then(response => {
+    //             this.setState({
+    //                 uid: newProps.currentConvoSocket,
+    //                 convo_id: newProps.currentConvoId,
+    //                 messages: response.data,
+    //             }, () => {
+    //                 console.log('ChatView state after getting messages in CWRP: ', that1.state);
+    //                 that1.socket.on(newProps.currentConvoSocket, function(message) {       // Initialize after updating state to make sure past messages are there before customer emits new ones
+    //                     console.log('Incoming message:', message);
+    //                     that2.addMessage(message);
+    //                 });
+    //             });
+    //         })
+    //         .catch(error => {
+    //                 console.log(error.message);
+    //                 //this.setState({error:error});
+    //         });
+    //     // this.setState({
+    //     //     messages: newProps.messages
+    //     // });
+    //     // const that = this;
+    //     // this.socket.on(newProps.currentConvoSocket, function(message) {
+    //     //     console.log('Incoming message:', message);
+    //     //     that.addMessage(message);
+    //     // });
+        
+    // }
 
     componentDidUpdate() {
         // console.log('ChatView CDU props: ', this.props);
@@ -167,15 +189,15 @@ class ChatView extends Component {
         event.preventDefault();
     }
 
-    addMessage = (newMessage) => {
-        console.log("newMessage in ChatView: ", newMessage);
-        const newMessages = [];
-        this.state.messages.forEach(message => {
-            newMessages.push({...message});
-        });
-        newMessages.push(newMessage);
-        this.setState({ messages: newMessages });
-    }
+    // addMessage = (newMessage) => {
+    //     console.log("newMessage in ChatView: ", newMessage);
+    //     const newMessages = [];
+    //     this.state.messages.forEach(message => {
+    //         newMessages.push({...message});
+    //     });
+    //     newMessages.push(newMessage);
+    //     this.setState({ messages: newMessages });
+    // }
 
     
 
