@@ -281,22 +281,21 @@ router.post('/admin', upload.single('file'),(req, res) => {
 });
 
 router.put('/updaterepinfo', (req, res) => {
-	const id = req.body.id;
+	const uid = req.body.uid;
 	const user = {
 		name: req.body.name,
 		phone_number: req.body.phone_number,
 		motto: req.body.motto,
 		email: req.body.email,
 	};
+	
+	console.log('user in update endpoint', user);
 
-	const name = user.name;
-
-	const request = db.updaterepinfo(id, user);
+	const request = db.updaterepinfo(uid, user);    //using uid to update rep info
 
 	request.then(response_data => {
-		res.status(200).json(response_data);
+		res.status(200).json(user); //after successfull update sending the updated user info back to display on accout settings page
 	})
-
 	.catch(error => {
 		res.status(500).json({ error: "Failed to update account information" });
 		console.log(error.message);

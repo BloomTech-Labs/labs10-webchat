@@ -28,3 +28,10 @@
   align-items: flex-start;
   margin-left: 2%;
 }
+
+.footer-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 82%;
+}

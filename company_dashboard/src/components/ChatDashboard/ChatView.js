@@ -23,15 +23,26 @@ const styles = theme => ({
     flexGrow: 1,
     overflow: 'hidden',
     padding: `0 ${theme.spacing.unit * 3}px`,
+    height: 500,
+    overflowY: 'scroll'
   },
   paper: {
     maxWidth: 400,
     margin: `${theme.spacing.unit*2}px auto`,
     padding: theme.spacing.unit * 2,
   },
-  root: {
-    height: 700,
-    overflowY: 'scroll'
+//   root: {
+//     overflowY: 'scroll'
+//   },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    padding:"20px"
+  },
+  messageInput: {
+    border: "1px solid grey",
+    padding:"5px 10px 0px 10px"
+    
   }
 });
 
@@ -40,65 +51,109 @@ class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid: props.currentConvoSocket,
-            convo_id: props.currentConvoId,
             rep_uid: null,
             message: '',
-            messages: props.messages,
+            messages: [],
             is_closed: false,
-			      image_id: null,
-			      url: "",
-			      rep_name: "",
+            image_id: null,
+            url: "",
+            rep_name: "",
         };
 
-	    // this.socket = io('localhost:5000');
-	    this.socket = io('https://webchatlabs10.herokuapp.com');
+	    this.socket = io('localhost:5000');
+	    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
-        // this.socket.on(this.props.currentConvoSocket, function(message) {
-        //     console.log('Incoming message:', message);
-        //     addMessage(message);
-        // });
+        this.socket.on(this.props.currentConvoSocket, function(message) {
+            console.log('Incoming message:', message);
+            addMessage(message);
+        });
 
-        // const addMessage = newMessage => {
-        //     console.log("newMessage in ChatView: ", newMessage);
-        //     const newMessages = [];
-        //     this.state.messages.forEach(message => {
-        //         newMessages.push({...message});
-        //     });
-        //     newMessages.push(newMessage);
-        //     this.setState({ messages: newMessages });
-        // }
-        // const addMessage = (message) => {
-        //     this.props.addMessage(message);
-        // }
-        // const addMessage = (data) => {
-        //     this.setState({messages: [...this.state.messages, data]});
-        // }
-
-        this.addMessage = this.addMessage.bind(this);
+        const addMessage = (newMessage) => {
+            console.log("newMessage to add in ChatView: ", newMessage);
+            const newMessages = [];
+            this.state.messages.forEach(message => {
+                newMessages.push({...message});
+            });
+            newMessages.push(newMessage);
+            this.setState({ messages: newMessages });
+        }
+       
     } // *** Constructor end
 
 
     componentDidMount() {
+        console.log('ChatView CDM state: ', this.state);
+        console.log('ChatView CDM props: ', this.props);
 
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
-        // console.log('rep details', rep)
-        this.setState({
-            rep_uid: rep.data.uid,
-            image_id: rep.data.image_id,
-            url: rep.data.url,
-            rep_name: rep.data.name,
-        });
-        })
-        .catch(error => {
-        console.log(error.message);
-        //this.setState({error:error});
-        });
-
-        // Scroll to message whenever component mounts
+            const id = this.props.currentConvoId;  // Get convo_id from props
+            const messageRequest = axios.get(`/api/chat/messages/${id}`);
+            messageRequest
+                .then(response => {
+                    this.setState({
+                        messages: response.data,
+                        rep_uid: rep.data.uid,
+                        image_id: rep.data.image_id,
+                        url: rep.data.url,
+                        rep_name: rep.data.name,
+                    }, () => {
+                        console.log('ChatView state after getting messages in CDU: ', this.state);
+                    });
+                })
+                .catch(error => {
+                        console.log(error.message);
+                        //this.setState({error:error});
+                });
+            // this.setState({
+            //     rep_uid: rep.data.uid,
+            //     image_id: rep.data.image_id,
+            //     url: rep.data.url,
+            //     rep_name: rep.data.name,
+            // });
+            })
+            .catch(error => {
+            console.log(error.message);
+            //this.setState({error:error});
+            });
+        // Scroll to latest message whenever component mounts
         this.scrollToBottom();
+    }
+
+    componentWillReceiveProps(newProps) {
+        console.log('ChatView CWRP props: ', newProps);
+        const that1 = this;
+
+        const id = newProps.currentConvoId;  // Get convo_id from props
+        const currentId = this.props.currentConvoId;
+
+        const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        messageRequest
+            .then(response => {
+                const newConvoId = id;
+                const currentConvoId = currentId;
+                this.setState({
+                    // uid: newProps.currentConvoSocket,
+                    // convo_id: newProps.currentConvoId,
+                    messages: response.data,
+                }, () => {
+                    console.log('ChatView state after getting messages in CWRP: ', that1.state);
+                    console.log('newConvoId: ', newConvoId);
+                    console.log('currentConvoId: ', currentConvoId);
+                    if (newConvoId !== currentConvoId) {
+                        console.log('newProps are different from old');
+                        this.socket.on(newProps.currentConvoSocket, function(message) {
+                            console.log('Incoming message:', message);
+                            that1.addNewMessage(message);
+                        });
+                    }
+                });
+            })
+            .catch(error => {
+                    console.log(error.message);
+                    //this.setState({error:error});
+            });
     }
 
     componentDidUpdate() {
@@ -108,9 +163,7 @@ class ChatView extends Component {
 
     onSubmit = event =>{
         console.log('\ncurrentConvoSocket/uid in ChatView onSubmit: ', this.props.currentConvoSocket);
-        // console.log('currentConvoSocket type: ', typeof this.props.currentConvoSocket);
-        // console.log('ChatView props.messages before emit: ', this.props.messages);
-
+        
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
@@ -123,12 +176,11 @@ class ChatView extends Component {
         this.socket.emit('join', data);
         this.setState({ message: ""});
 
-        // console.log('ChatView props.messages after emit: ', this.props.messages);
         event.preventDefault();
     }
 
-    addMessage = (newMessage) => {
-        console.log("newMessage in ChatView: ", newMessage);
+    addNewMessage = (newMessage) => {
+        console.log("newMessage in ChatView addNewMessage: ", newMessage);
         const newMessages = [];
         this.state.messages.forEach(message => {
             newMessages.push({...message});
@@ -137,26 +189,16 @@ class ChatView extends Component {
         this.setState({ messages: newMessages });
     }
 
-    componentWillReceiveProps(newProps) {
-        // this.setState({ messages: [...this.state.messages, newProps.messages] });
-        // this.setState({ messages: newProps.messages });
-        console.log('ChatView CWRP props: ', newProps);
-        if (newProps.messages !== this.props.messages) {
-        this.setState({
-            messages: newProps.messages
-        });
-        const that = this;
-        this.socket.on(newProps.currentConvoSocket, function(message) {
-            console.log('Incoming message:', message);
-            that.addMessage(message);
-        });
-        }
-    }
-
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
+
+    handleCloseConvo = event => {
+        this.props.closeConvo();
+        this.setState({ is_closed: true });
+        event.preventDefault();
+    }
 
     scrollToBottom = () => {
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -202,38 +244,41 @@ class ChatView extends Component {
 
                             <div className="footer">
                             <form 
-                            className={classes.form}
-                            onSubmit={this.onSubmit}>
+                                className={classes.form}
+                                onSubmit={this.onSubmit}
+                            >
                                 <br/>
                                 <br/>
                                 <br/>
                                 <TextField
-                                hintText="message"
-                                name="message"
-                                type="text"
-                                value={this.state.message}
-                                onChange={this.onChange}
+                                    hintText="message"
+                                    name="message"
+                                    type="text"
+                                    style ={{width: '80%', padding:'0px 15px 0px 10px'}}
+                                    inputStyle ={{width: '100%' }}
+                                    className={classes.messageInput}
+                                    value={this.state.message}
+                                    onChange={this.onChange}
                                 />
                                 <br/>
                                 <br/>
-                                <RaisedButton
-                                label="send"
-                                primary={true}
-                                type="submit"
-                                />
+                                
                                 {is_closed ? (
-                                <p>This conversation is closed.</p>
+                                    <p>This conversation is closed.</p>
                                 ) : (
-                                <div>
-                                <br/>
-                                <RaisedButton
-                                label="End Conversation"
-                                error={true}
-                                onClick={this.props.closeConvo}
-                                />
-                                <br/>
-                                <br/>
-                                </div>
+                                    <div className="footer-buttons">
+                                    <RaisedButton
+                                        label="send"
+                                        primary={true}
+                                        type="submit"
+                                    />
+                                    
+                                    <RaisedButton
+                                        label="End Conversation"
+                                        secondary={true}
+                                        onClick={this.handleCloseConvo}
+                                    />
+                                    </div>
                                 )}
                             </form>
                             </div>
