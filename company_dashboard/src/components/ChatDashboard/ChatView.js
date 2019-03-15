@@ -148,16 +148,28 @@ class ChatView extends Component {
         const that1 = this;
 
         const id = newProps.currentConvoId;  // Get convo_id from props
+        const currentId = this.props.currentConvoId;
 
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
             .then(response => {
+                const newConvoId = id;
+                const currentConvoId = currentId;
                 this.setState({
                     // uid: newProps.currentConvoSocket,
                     // convo_id: newProps.currentConvoId,
                     messages: response.data,
                 }, () => {
                     console.log('ChatView state after getting messages in CWRP: ', that1.state);
+                    console.log('newConvoId: ', newConvoId);
+                    console.log('currentConvoId: ', currentConvoId);
+                    if (newConvoId !== currentConvoId) {
+                        console.log('newProps are different from old');
+                        this.socket.on(newProps.currentConvoSocket, function(message) {
+                            console.log('Incoming message:', message);
+                            that1.addNewMessage(message);
+                        });
+                    }
                 });
             })
             .catch(error => {
@@ -192,15 +204,15 @@ class ChatView extends Component {
         event.preventDefault();
     }
 
-    // addMessage = (newMessage) => {
-    //     console.log("newMessage in ChatView: ", newMessage);
-    //     const newMessages = [];
-    //     this.state.messages.forEach(message => {
-    //         newMessages.push({...message});
-    //     });
-    //     newMessages.push(newMessage);
-    //     this.setState({ messages: newMessages });
-    // }
+    addNewMessage = (newMessage) => {
+        console.log("newMessage in ChatView addNewMessage: ", newMessage);
+        const newMessages = [];
+        this.state.messages.forEach(message => {
+            newMessages.push({...message});
+        });
+        newMessages.push(newMessage);
+        this.setState({ messages: newMessages });
+    }
 
     
 
