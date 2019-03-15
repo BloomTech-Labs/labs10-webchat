@@ -82,6 +82,9 @@ class ChatView extends Component {
 
 
     componentDidMount() {
+        console.log('ChatView CDM state: ', this.state);
+        console.log('ChatView CDM props: ', this.props);
+
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
