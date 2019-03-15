@@ -77,7 +77,6 @@ class ChatView extends Component {
         //     this.setState({messages: [...this.state.messages, data]});
         // }
 
-        this.addMessage = this.addMessage.bind(this);
     } // *** Constructor end
 
 
@@ -88,27 +87,45 @@ class ChatView extends Component {
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
-        // console.log('rep details', rep)
-        this.setState({
-            rep_uid: rep.data.uid,
-            image_id: rep.data.image_id,
-            url: rep.data.url,
-            rep_name: rep.data.name,
-        });
-        })
-        .catch(error => {
-        console.log(error.message);
-        //this.setState({error:error});
-        });
+            const id = this.props.currentConvoId;  // Get convo_id from props
+            const messageRequest = axios.get(`/api/chat/messages/${id}`);
+            messageRequest
+                .then(response => {
+                    this.setState({
+                        messages: response.data,
+                        rep_uid: rep.data.uid,
+                        image_id: rep.data.image_id,
+                        url: rep.data.url,
+                        rep_name: rep.data.name,
+                    }, () => {
+                        console.log('ChatView state after getting messages in CDU: ', this.state);
+                    });
+                })
+                .catch(error => {
+                        console.log(error.message);
+                        //this.setState({error:error});
+                });
+            // this.setState({
+            //     rep_uid: rep.data.uid,
+            //     image_id: rep.data.image_id,
+            //     url: rep.data.url,
+            //     rep_name: rep.data.name,
+            // });
+            })
+            .catch(error => {
+            console.log(error.message);
+            //this.setState({error:error});
+            });
         // Scroll to latest message whenever component mounts
         this.scrollToBottom();
     }
 
     componentDidUpdate(prevProps) {
-        const currentProps = this.props;
-        if (currentProps.currentConvoId !== prevProps.currentConvoId) {
 
-            const id = newProps.currentConvoId;  // Get convo_id from props
+        const currentProps = this.props;
+        // if (currentProps.currentConvoId !== prevProps.currentConvoId) {
+
+            const id = this.props.currentConvoId;  // Get convo_id from props
 
             const messageRequest = axios.get(`/api/chat/messages/${id}`);
             messageRequest
@@ -123,7 +140,7 @@ class ChatView extends Component {
                         console.log(error.message);
                         //this.setState({error:error});
                 });
-        }
+        // }
     }
 
     // componentWillReceiveProps(newProps) {
