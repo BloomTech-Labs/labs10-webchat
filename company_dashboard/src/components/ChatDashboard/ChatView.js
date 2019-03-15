@@ -40,8 +40,10 @@ class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uid: props.currentConvoSocket,
-            convo_id: props.currentConvoId,
+            // uid: props.currentConvoSocket,
+            // convo_id: props.currentConvoId,
+            uid: null,
+            convo_id: null,
             rep_uid: null,
             message: '',
             messages: [],
@@ -80,7 +82,6 @@ class ChatView extends Component {
 
 
     componentDidMount() {
-
         // Get details on the current rep:
         const repRequest = axios.get("/api/reps/alldetails");
         repRequest.then(rep => {
@@ -96,25 +97,27 @@ class ChatView extends Component {
         console.log(error.message);
         //this.setState({error:error});
         });
-
-        // Scroll to message whenever component mounts
+        // Scroll to latest message whenever component mounts
         this.scrollToBottom();
     }
 
     componentWillReceiveProps(newProps) {
         console.log('ChatView CWRP props: ', newProps);
         const that1 = this;
-        const that2 = this;
+        const that2 = this;   // ** might not need this
 
-        const id = newProps.currentConvoId;
+        const id = newProps.currentConvoId;  // Get convo_id from props
 
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
             .then(response => {
                 this.setState({
-                    messages: response.data
+                    uid: newProps.currenConvoSocket,
+                    convo_id: newProps.currentConvoId,
+                    messages: response.data,
                 }, () => {
-                    that1.socket.on(newProps.currentConvoSocket, function(message) {
+                    console.log('ChatView state after getting messages: ', that1.state);
+                    that1.socket.on(newProps.currentConvoSocket, function(message) {       // Initialize after updating state to make sure past messages are there before customer emits new ones
                         console.log('Incoming message:', message);
                         that2.addMessage(message);
                     });

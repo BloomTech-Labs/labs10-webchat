@@ -40,8 +40,8 @@ class ChatDashboard extends React.Component {
                     currentConvoSummary: summary,
                     currentCustomerName: customer_name,
                     // currentMessages: response.data
-            //     }, () => {
-            //         console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+                }, () => {
+                    console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
                  });
             // })
             // .catch(error => {
