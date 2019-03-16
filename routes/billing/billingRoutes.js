@@ -10,10 +10,10 @@ router.post('/addSub', async (req, res) => {
     let plan = req.body.subscription.plan  // comes from Billing form
     let uid = req.body.uid;                // rep uid attached to body in firebase auth check on base url
 
-    let rep_info = await repDb.getByUid(uid);  
-    
-    //check Database for a subscription:
-    let existingSub = await db.getExistingSub(uid);
+    let rep_info = await repDb.getByUid(uid);               // get info for current rep using uid
+    let company_id = rep_info.data.company_id;              // take company_id from rep info
+    let existingSub = await db.getSub(company_id);  // check Database for an existing subscription:
+
 
     if (!existingSub) {
       try {
