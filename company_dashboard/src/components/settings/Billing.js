@@ -109,6 +109,7 @@ class Billing extends React.Component {
       .post(`/api/billing/addSub`, body)  
       .then(response => {    
         console.log('Subscription created with response: ', response);
+        this.setState({ isSubscribed: true });
       })
       .catch(error => {
         console.log('Error from addSub: ', error)
@@ -131,7 +132,7 @@ class Billing extends React.Component {
 
     return (
       {isSubscribed ? (
-        <p>Your company has a subscription.</p>
+        <p>Your company has a subscription</p>
       ) : (
       <PaymentContainer>
         <h1 className="title-wide">Our Subscription Options</h1>
