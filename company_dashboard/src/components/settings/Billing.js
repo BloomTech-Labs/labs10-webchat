@@ -1,6 +1,7 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import styled from 'styled-components'
+import { CUSTOMER_CHAT } from "../../constants/routes";
 // import DashBar from '../NewDash'
 import axios from 'axios'
 // import logo from '../images/logo.png'
@@ -75,7 +76,14 @@ const styles = theme => ({
   },
 })
 
-class Payment extends React.Component {
+class Billing extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSubscribed: false
+    }
+  }
+
   basicToken = token => {
     let bodyToSend = {
       ...token,
@@ -83,30 +91,32 @@ class Payment extends React.Component {
         plan: 'plan_EXEVzE4nraOpql',   // corresponds to plan ID from Stripe Dashboard
       },
     }
-    this.props.createSubscription(bodyToSend)
+    this.addSubscription(bodyToSend)
   }
 
-  // smallBizToken = token => {
-  //   let bodyToSend = {
-  //     ...token,
-  //     subscription: {
-  //       plan: 'plan_EanQzBshDkH9Iu',
-  //     },
-  //   }
-  //   this.props.createSubscription(bodyToSend)
-  // }
-
-  // enterpriseToken = token => {
-  //   let bodyToSend = {
-  //     ...token,
-  //     subscription: {
-  //       plan: 'plan_EanRarp8r1YnYC',
-  //     },
-  //   }
-  //   this.props.createSubscription(bodyToSend)
-  // }
+  addSubscription = body => {  
+    // let auth = {
+    //   headers: {
+    //     authorization: localStorage.getItem('access_token'),
+    //   },
+    // }
+    // addSub endpoint will do the following:
+    // - check if sub for user already exists in webchat db, if no existing sub:
+    // -- create Stripe customer with stripe.customers.create
+    // -- create Stripe subscription with stripe.subscription.create, using the newly created customer
+    // -- insert subscription into subscriptions table in webchat db
+    axios
+      .post(`/api/billing/addSub`, body)  
+      .then(response => {    
+        console.log('Subscription created with response: ', response);
+      })
+      .catch(error => {
+        console.log('Error from addSub: ', error)
+      })
+  }
 
   render() {
+
     const subscriptionTiers = [
       {
         title: 'Basic',
@@ -117,7 +127,12 @@ class Payment extends React.Component {
       }
     ]
 
+    const isSubscribed = this.state.isSubscribed;
+
     return (
+      {isSubscribed ? (
+        <p>Your company has a subscription.</p>
+      ) : (
       <PaymentContainer>
         <h1 className="title-wide">Our Subscription Options</h1>
         <h1 className="title-thin">Our</h1>
@@ -167,7 +182,7 @@ class Payment extends React.Component {
                       label="BUY"
                       panelLabel="SUBSCRIBE"
                       token={tier.token}
-                      stripeKey="pk_test_M1Y5kyDDSB7dOAWXIhzOOqMV"
+                      stripeKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu"
                       name={tier.title}
                       description={tier.description}
                       amount={tier.price * 100}
@@ -181,11 +196,12 @@ class Payment extends React.Component {
           ))}
         </Grid>
       </PaymentContainer>
+      )}
     )
   }
 }
 
-export default Payment
+export default Billing;
 
 
 
