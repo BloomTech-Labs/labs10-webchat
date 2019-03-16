@@ -5,17 +5,22 @@ exports.up = function(knex, Promise) {
             table.integer('company_id')
                 .references('id')
                 .inTable('companies');  
-            table.string('stripe_customer')      // "customer" in response object from stripe.subscirptions.create()
+            table.string('stripe_customer_id')          
                 .notNullable();
-            table.string('stripe_subscription')  // "id" in response object from stripe.subscirptions.create()
+            table.string('stripe_subscription_id')      
                 .notNullable();
-            
+            table.string('stripe_subscription_status')  
+                .notNullable();    
+            table.string('stripe_plan_id')             
+                .notNullable();
+            table.string('stripe_plan_nickname')        
+                .notNullable();
         })
     ])
 };
 
 exports.down = function(knex, Promise) {
     return Promise.all([
-        knex.schema.dropTableIfEsists('messages')
+        knex.schema.dropTableIfEsists('subscriptions')
     ])
 };
