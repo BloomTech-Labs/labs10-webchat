@@ -49,7 +49,7 @@ class App extends Component {
         <div className="App">
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
 
-          <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
+          <Route path="/customersignup/:id" render ={(props) => < CustomerSignUp {...props} />} />
 
           <Route path={ROUTES.REP_REGISTER} component={RepRegister} />
           <Route path={ROUTES.APPROVED_REP_REGISTER} component={ApprovedRepRegisterForm} />
