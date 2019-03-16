@@ -1,10 +1,9 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import styled from 'styled-components'
-import DashBar from '../NewDash'
+// import DashBar from '../NewDash'
 import axios from 'axios'
-import CliqueBook_favicon from '../../logos/CliqueBook_favicon.png'
-
+// import logo from '../images/logo.png'
 import {
   Grid,
   Card,
@@ -108,11 +107,11 @@ class Payment extends React.Component {
   }
 
   render() {
-    const subscriptions = [
+    const subscriptionTiers = [
       {
-        title: 'Startup',
-        price: '0',
-        description: ['5 members'],
+        title: 'Basic',
+        price: '30',
+        description: ['5 users'],
         value: 'a',
         token: this.startupToken,
       }
@@ -125,7 +124,7 @@ class Payment extends React.Component {
         <h1 className="title-thin">Subscription</h1>
         <h1 className="title-thin">Options</h1>
         <Grid container spacing={40} alignItems="flex-end">
-          {subscriptions.map(tier => (
+          {subscriptionTiers.map(tier => (
             <Grid
               item
               key={tier.title}
@@ -173,7 +172,7 @@ class Payment extends React.Component {
                       description={tier.description}
                       amount={tier.price * 100}
                       allowRememberMe={false}
-                      image={CliqueBook_favicon}
+                      // image={logo}
                     />
                   </PaymentButton>
                 </CardContent>
