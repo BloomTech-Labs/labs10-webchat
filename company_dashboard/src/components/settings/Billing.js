@@ -76,35 +76,35 @@ const styles = theme => ({
 })
 
 class Payment extends React.Component {
-  startupToken = token => {
+  basicToken = token => {
     let bodyToSend = {
       ...token,
       subscription: {
-        plan: 'plan_EanP4aFWnkzGTC',
+        plan: 'plan_EXEVzE4nraOpql',   // corresponds to plan ID from Stripe Dashboard
       },
     }
     this.props.createSubscription(bodyToSend)
   }
 
-  smallBizToken = token => {
-    let bodyToSend = {
-      ...token,
-      subscription: {
-        plan: 'plan_EanQzBshDkH9Iu',
-      },
-    }
-    this.props.createSubscription(bodyToSend)
-  }
+  // smallBizToken = token => {
+  //   let bodyToSend = {
+  //     ...token,
+  //     subscription: {
+  //       plan: 'plan_EanQzBshDkH9Iu',
+  //     },
+  //   }
+  //   this.props.createSubscription(bodyToSend)
+  // }
 
-  enterpriseToken = token => {
-    let bodyToSend = {
-      ...token,
-      subscription: {
-        plan: 'plan_EanRarp8r1YnYC',
-      },
-    }
-    this.props.createSubscription(bodyToSend)
-  }
+  // enterpriseToken = token => {
+  //   let bodyToSend = {
+  //     ...token,
+  //     subscription: {
+  //       plan: 'plan_EanRarp8r1YnYC',
+  //     },
+  //   }
+  //   this.props.createSubscription(bodyToSend)
+  // }
 
   render() {
     const subscriptionTiers = [
@@ -113,7 +113,7 @@ class Payment extends React.Component {
         price: '30',
         description: ['5 users'],
         value: 'a',
-        token: this.startupToken,
+        token: this.basicToken,   // Corresponds to token definition above
       }
     ]
 
