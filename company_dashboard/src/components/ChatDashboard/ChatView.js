@@ -11,40 +11,40 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import './ChatView.css';
-import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
+// import './ChatView.css';
+import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Title, Subtitle } from '@livechat/ui-kit';
 
 
-const styles = theme => ({
- avatar: {
-    margin: 10,
-  },
-  root: {
-    flexGrow: 1,
-    overflow: 'hidden',
-    padding: `0 ${theme.spacing.unit * 3}px`,
-    height: 500,
-    overflowY: 'scroll'
-  },
-  paper: {
-    maxWidth: 400,
-    margin: `${theme.spacing.unit*2}px auto`,
-    padding: theme.spacing.unit * 2,
-  },
+// const styles = theme => ({
+//  avatar: {
+//     margin: 10,
+//   },
 //   root: {
+//     flexGrow: 1,
+//     overflow: 'hidden',
+//     padding: `0 ${theme.spacing.unit * 3}px`,
+//     height: 500,
 //     overflowY: 'scroll'
 //   },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    padding:"20px"
-  },
-  messageInput: {
-    border: "1px solid grey",
-    padding:"5px 10px 0px 10px"
+//   paper: {
+//     maxWidth: 400,
+//     margin: `${theme.spacing.unit*2}px auto`,
+//     padding: theme.spacing.unit * 2,
+//   },
+// //   root: {
+// //     overflowY: 'scroll'
+// //   },
+//   form: {
+//     display: "flex",
+//     flexDirection: "column",
+//     padding:"20px"
+//   },
+//   messageInput: {
+//     border: "1px solid grey",
+//     padding:"5px 10px 0px 10px"
     
-  }
-});
+//   }
+// });
 
 
 class ChatView extends Component {
@@ -78,7 +78,7 @@ class ChatView extends Component {
             this.setState({ messages: newMessages });
         }
        
-    } // *** Constructor end
+    }
 
 
     componentDidMount() {
@@ -118,7 +118,7 @@ class ChatView extends Component {
             //this.setState({error:error});
             });
         // Scroll to latest message whenever component mounts
-        this.scrollToBottom();
+        // this.scrollToBottom();
     }
 
     componentWillReceiveProps(newProps) {
@@ -158,7 +158,7 @@ class ChatView extends Component {
 
     componentDidUpdate() {
         // console.log('ChatView CDU props: ', this.props);
-        this.scrollToBottom();
+        // this.scrollToBottom();
     }
 
     onSubmit = event =>{
@@ -200,9 +200,9 @@ class ChatView extends Component {
         event.preventDefault();
     }
 
-    scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    }
+    // scrollToBottom = () => {
+    //     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    // }
 
 
     render() {
@@ -215,34 +215,62 @@ class ChatView extends Component {
         <div className="chat-view">
             <ThemeProvider>
             <MuiThemeProvider>
-                        <div className="chat-view-header">
-                          <p>Chat with {customer_name}</p>
-                          <p>{conversation_summary}</p>
-                        </div>
-                        <br/>
-                        <br/>
 
-                        <div className={classes.root}>
-                            <div className="messages">
-                            {this.state.messages.map((message, index) => {
-                                return(
-                                <div key={index} className="message">
-                                    <AgentBar>
-                                    <img src={message.image_url} />
-                                    <div className="message-info">
-                                        <Title>{message.author_name}</Title>
-                                        <Subtitle>{message.body}</Subtitle>
-                                    </div>
-                                    </AgentBar>
-                                </div>
-                                );
-                            })}
+                    <div className="chat-view-header">
+                        <MessageGroup>
+                            <MessageTitle>Serving Customer: {customer_name}</MessageTitle>
+                            <MessageText>{conversation_summary}</MessageText>
+                        </MessageGroup>
+                    </div>
+                <div style={{ maxWidth: '80%', height: '100%' }}>
+                    <div className="messageList" style={{ height: 500 }}>
+                        <MessageList>
+                                {this.state.messages.map((message, index) => {
+                                    console.log(message);
+                                    if(customer_name === message.author_name) {
+                                        return (
+                                            <MessageGroup
+                                                avatar={message.image_ur}
+                                            >
+                                                <Message
+                                                    authorName={message.author_name}
+                                                     isOwn={true}
+                                                >
+                                                    <MessageText>
+                                                        {message.body}
+                                                    </MessageText>
+                                                </Message>
+                                            </MessageGroup>
+                                        );
+                                    } else {
+                                        return (
+                                            <MessageGroup
+                                            avatar={message.image_ur}
+                                            >
+                                            <Message
+                                                authorName={message.author_name}
+                                            >
+                                                <MessageText>
+                                                    {message.body}
+                                                </MessageText>
+                                            </Message>
+                                        </MessageGroup>
+                                        );
+                                    }
+                                })}
+                        </MessageList>
+                    </div>
+                </div>
+                        
+
+                        {/* <div className="rootReplacement"> */}
+                            {/* <div className="messages">
                             </div>
                             <div style={{ float:"left", clear: "both" }}
                             ref={(el) => { this.messagesEnd = el; }}>
-                            </div>
+                            </div> */}
 
-                            <div className="footer">
+                            {/* <div className="footer">
                             <form 
                                 className={classes.form}
                                 onSubmit={this.onSubmit}
@@ -281,8 +309,8 @@ class ChatView extends Component {
                                     </div>
                                 )}
                             </form>
-                            </div>
-                        </div>
+                            </div> */}
+                        {/* </div> */}
             </MuiThemeProvider>
             </ThemeProvider>
         </div>
@@ -294,4 +322,5 @@ ChatView.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ChatView);
+// export default withStyles(styles)(ChatView);
+export default ChatView;
