@@ -15,6 +15,12 @@ class AddRepForm extends React.Component {
     error: null
   };
 
+  componentDidMount() {
+    //check max_reps on sub
+    
+
+  }
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };

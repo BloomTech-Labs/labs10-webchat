@@ -132,6 +132,7 @@ class AdminPanelBaseForm extends React.Component {
       logged: false,
       codeSnippet: '',
       allreps:[ ],
+      teamSize: null,
       team: {
         name: '',
         email: '',
@@ -184,7 +185,8 @@ class AdminPanelBaseForm extends React.Component {
                   motto: response.data.motto,
                   url: response.data.url,
                   logged: true,
-                  allreps: reps.data
+                  allreps: reps.data,
+                  teamSize: reps.data.length
                 });
               })
               .catch(error => {     // if get(`/api/reps/allreps/${id}`) throws error
@@ -295,7 +297,7 @@ class AdminPanelBaseForm extends React.Component {
                 </div>
             </Paper>
             <br/>
-            <AddRepForm company_id={this.state.company_id}/>
+            <AddRepForm company_id={this.state.company_id} teamSize={this.state.teamSize}/>
 
           </div>
           <div className={[classes.rightContainer, "right-container"].join(' ')}>

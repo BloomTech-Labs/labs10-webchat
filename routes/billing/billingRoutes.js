@@ -12,7 +12,7 @@ router.post('/addSub', async (req, res) => {
 
     let rep_info = await repDb.getByUid(uid);               // get info for current rep using uid
     let company_id = rep_info.company_id;              // take company_id from rep info
-    let existingSub = await db.getSub(company_id);          // check Database for an existing subscription:
+    let existingSub = await db.getSub(company_id);          // check Database for an existing subscription
 
 
 
@@ -48,6 +48,11 @@ router.post('/addSub', async (req, res) => {
       res.status(400).json({ message: `you already have a subscription` })
     }
 });
+
+router.get('/getSub', async (req, res) => {
+    let company_id = rep_info.company_id;                 
+    let existingSub = await db.getSub(company_id);          
+})
 
 // router.post("/charge", async (req, res) => {
 //     // Take the Stripe token and company_id from req.body:
