@@ -7,7 +7,7 @@ import ChatView from './ChatView';
 import './ChatDashboard.css';
 import './ConvoList/ConvoList.css';
 import Navigation from '../Navigation';
-import '../Navigation.css'
+// import '../Navigation.css'
 
 class ChatDashboard extends React.Component {
     constructor() {
