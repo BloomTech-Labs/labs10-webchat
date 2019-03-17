@@ -27,7 +27,7 @@ router.post('/addSub', async (req, res) => {
           customer: customer.id,    // comes from creatCustomer call above
           items: [{ plan }],        
         })
-
+        console.log('charge response from Stripe: ', charge);
         let subInfo = {
           company_id: company_id,
           stripe_customer_id: charge.customer,
@@ -35,6 +35,7 @@ router.post('/addSub', async (req, res) => {
           stripe_subscription_status: charge.status,
           stripe_plan_id: charge.plan.id,
           stripe_plan_nickname: charge.plan.nickname,
+          max_reps: Number(charge.plan.metadata.max_reps)         // max_reps for the payment plan set in Stripe Dashboard
         }
 
         let inserted = await db.insert(subInfo)
