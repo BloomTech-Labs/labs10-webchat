@@ -7,37 +7,37 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 
 router.post('/addSub', async (req, res) => {
-    let plan = req.body.subscription.plan  // comes from Billing form
-    let uid = req.body.uid;                // rep uid attached to body in firebase auth check on base url
+    let plan = req.body.subscription.plan;  // comes from Billing form
+    let uid = req.body.uid;                  // rep uid attached to body in firebase auth check on base url
 
     let rep_info = await repDb.getByUid(uid);               // get info for current rep using uid
-    let company_id = rep_info.data.company_id;              // take company_id from rep info
-    let existingSub = await db.getSub(company_id);  // check Database for an existing subscription:
+    let company_id = rep_info.company_id;              // take company_id from rep info
+    let existingSub = await db.getSub(company_id);          // check Database for an existing subscription:
+
 
 
     if (!existingSub) {
       try {
         let customer = await stripe.customers.create({
-          email: req.body.email,
-          source: req.body.id,
+          email: rep_info.email,     // ** attach to body
+          source: req.body.id,            // ** attach to body-- WHAT IS SOURCE?
         })
 
         let charge = await stripe.subscriptions.create({
-          customer: customer.id,
-          items: [{ plan }],
+          customer: customer.id,    // comes from creatCustomer call above
+          items: [{ plan }],        
         })
 
         let subInfo = {
-          user_id: req.userInfo.id,
-          customer: charge.customer,
-          subscription: charge.id,
-          status: charge.status,
-          plan: charge.plan.id,
-          product: charge.plan.product,
-          type: charge.plan.nickname,
+          company_id: company_id,
+          stripe_customer_id: charge.customer,
+          stripe_subscription_id: charge.id,
+          stripe_subscription_status: charge.status,
+          stripe_plan_id: charge.plan.id,
+          stripe_plan_nickname: charge.plan.nickname,
         }
 
-        let inserted = await db('subscriptions').insert(subInfo)
+        let inserted = await db.insert(subInfo)
 
         res.status(201).json({ message: `subscription created`, inserted })
       } catch (err) {
@@ -46,7 +46,7 @@ router.post('/addSub', async (req, res) => {
     } else {
       res.status(400).json({ message: `you already have a subscription` })
     }
-  }
+});
 
 // router.post("/charge", async (req, res) => {
 //     // Take the Stripe token and company_id from req.body:

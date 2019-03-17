@@ -131,9 +131,9 @@ class Billing extends React.Component {
     const isSubscribed = this.state.isSubscribed;
 
     return (
-      {isSubscribed ? (
-        <p>Your company has a subscription</p>
-      ) : (
+      // {this.state.isSubscribed ? (
+      //   <p>Your company has a subscription</p>
+      // ) : (
       <PaymentContainer>
         <h1 className="title-wide">Our Subscription Options</h1>
         <h1 className="title-thin">Our</h1>
@@ -197,7 +197,7 @@ class Billing extends React.Component {
           ))}
         </Grid>
       </PaymentContainer>
-      )}
+      // )}
     )
   }
 }

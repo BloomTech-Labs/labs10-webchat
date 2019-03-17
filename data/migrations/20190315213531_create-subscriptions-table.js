@@ -15,6 +15,7 @@ exports.up = function(knex, Promise) {
                 .notNullable();
             table.string('stripe_plan_nickname')        // e.g., 'Basic Monthly'
                 .notNullable();
+            table.integer('max_reps');
         })
     ])
 };
