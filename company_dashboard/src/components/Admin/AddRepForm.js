@@ -53,7 +53,25 @@ class AddRepForm extends React.Component {
   }
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    const id = this.props.company_id;
+    axios.get(`/api/billing/getSub/${id}`)
+      .then(response => {
+        console.log('response from AddRepForm getSub: ', response);
+        if (response.data > this.props.teamSize) {   // if max_reps on subscription is greater than current team size
+          this.setState({ 
+            moreRepsAllowed: true,
+            open: true 
+          })
+        } else {
+          this.setState({ 
+            moreRepsAllowed: false,
+            open: true 
+          });
+        }
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      })
   };
 
   handleClose = () => {
@@ -82,7 +100,10 @@ class AddRepForm extends React.Component {
 
     return (
         <div>
-          <div>
+          <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                Add a Team Member
+          </Button>
+          {/* <div>
             {!moreRepsAllowed ? (
               <p>You've reached the max number of team members for your plan. Upgrade your plan to add more.</p>
             ) : (
@@ -90,40 +111,44 @@ class AddRepForm extends React.Component {
                 Add a Team Member
               </Button>
             )}
-            
-          </div>
+          </div> */}
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-
-            <DialogTitle id="form-dialog-title">Add a Team Member</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Enter the email address of a team member below to invite them to join. They will be sent an email with a link to sign up.
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                name="email"
-                label="Email Address"
-                type="email"
-                required={true}
-                value={this.state.email}
-                onChange={this.onChange}
-                fullWidth
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={this.onSubmit} color="primary">
-                Submit
-              </Button>
-            </DialogActions>
+            {!moreRepsAllowed ? (
+              <p>You've reached the max number of team members for your plan. Upgrade your plan to add more.</p>
+            ) : (
+              <div>
+                <DialogTitle id="form-dialog-title">Add a Team Member</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Enter the email address of a team member below to invite them to join. They will be sent an email with a link to sign up.
+                  </DialogContentText>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    name="email"
+                    label="Email Address"
+                    type="email"
+                    required={true}
+                    value={this.state.email}
+                    onChange={this.onChange}
+                    fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={this.onSubmit} color="primary">
+                    Submit
+                  </Button>
+                </DialogActions>
+              </div>
+            )}
           </Dialog>
           {this.state.error && <p>{this.state.error}</p>}
         </div>
