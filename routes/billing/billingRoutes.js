@@ -14,8 +14,6 @@ router.post('/addSub', async (req, res) => {
     let company_id = rep_info.company_id;              // take company_id from rep info
     let existingSub = await db.getSub(company_id);          // check Database for an existing subscription
 
-
-
     if (!existingSub) {
       try {
         let customer = await stripe.customers.create({
@@ -50,9 +48,19 @@ router.post('/addSub', async (req, res) => {
 });
 
 router.get('/getSub', async (req, res) => {
-    let company_id = rep_info.company_id;                 
-    let existingSub = await db.getSub(company_id);          
-})
+    const company_id = req.body.company_id; 
+    const noSubTeamSize = 5;                              // max_reps to return for 'Free' plan if no sub exists
+    try {
+        const existingSub = await db.getSub(company_id); 
+        if(!existingSub) {
+            res.status(200).json(noSubTeamSize);          // if no sub, return max-reps for 'Free' plan
+        } else {
+            res.status(200).json(existingSub.max_reps);
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 // router.post("/charge", async (req, res) => {
 //     // Take the Stripe token and company_id from req.body:

@@ -7,17 +7,29 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import { get } from 'https';
 
 class AddRepForm extends React.Component {
   state = {
     open: false,
     email: '',
+    moreRepsAllowed: false,
     error: null
   };
 
   componentDidMount() {
     //check max_reps on sub
-    
+    const data = { company_id: this.props.company_id };
+    axios.get('/api/chat/getSub', data)
+      .then(response => {
+        console.log('response from AddRepForm getSub: ', response);
+        if (response.data > this.props.teamSize) {   // if max_reps on subscription is greater than current team size
+          this.setState({ moreRepsAllowed: true })
+        }
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      })
 
   }
 
