@@ -9,38 +9,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 router.post('/addSub', async (req, res) => {
     let plan = req.body.subscription.plan;  // comes from Billing form
     let uid = req.body.uid;                  // rep uid attached to body in firebase auth check on base url
-<<<<<<< HEAD
-
-    let rep_info = await repDb.getByUid(uid);               // get info for current rep using uid
-    let company_id = rep_info.company_id;              // take company_id from rep info
-    let existingSub = await db.getSub(company_id);          // check Database for an existing subscription:
-
-
-
-    if (!existingSub) {
-      try {
-        let customer = await stripe.customers.create({
-          email: rep_info.email,     // ** attach to body
-          source: req.body.id,            // ** attach to body-- WHAT IS SOURCE?
-        })
-
-        let charge = await stripe.subscriptions.create({
-          customer: customer.id,    // comes from creatCustomer call above
-          items: [{ plan }],        
-        })
-
-        let subInfo = {
-          company_id: company_id,
-          stripe_customer_id: charge.customer,
-          stripe_subscription_id: charge.id,
-          stripe_subscription_status: charge.status,
-          stripe_plan_id: charge.plan.id,
-          stripe_plan_nickname: charge.plan.nickname,
-        }
-
-        let inserted = await db.insert(subInfo)
-
-=======
 
     let rep_info = await repDb.getByUid(uid);               // get info for current rep using uid
     let company_id = rep_info.company_id;              // take company_id from rep info
@@ -70,15 +38,12 @@ router.post('/addSub', async (req, res) => {
 
         let inserted = await db.insert(subInfo)
 
->>>>>>> 7454562bf11f9a657ffd040fe3b4ffa0663ce036
         res.status(201).json({ message: `subscription created`, inserted })
       } catch (err) {
         res.status(500).json({ error: err })
       }
     } else {
       res.status(400).json({ message: `you already have a subscription` })
-<<<<<<< HEAD
-=======
     }
 });
 
@@ -96,7 +61,6 @@ router.get('/getSub/:id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
->>>>>>> 7454562bf11f9a657ffd040fe3b4ffa0663ce036
     }
 });
 
