@@ -18,39 +18,39 @@ class AddRepForm extends React.Component {
     error: null
   };
 
-  componentDidMount() {
-    //check max_reps on sub
-    // const data = { company_id: this.props.company_id };
-    // console.log('addRepForm CDM getSub data: ', data);
-    const id = this.props.company_id;
-    axios.get(`/api/billing/getSub/${id}`)
-      .then(response => {
-        console.log('response from AddRepForm getSub: ', response);
-        if (response.data > this.props.teamSize) {   // if max_reps on subscription is greater than current team size
-          this.setState({ moreRepsAllowed: true })
-        }
-      })
-      .catch(error => {
-        this.setState({ error: error.message });
-      })
-  }
+  // componentDidMount() {
+  //   //check max_reps on sub
+  //   // const data = { company_id: this.props.company_id };
+  //   // console.log('addRepForm CDM getSub data: ', data);
+  //   const id = this.props.company_id;
+  //   axios.get(`/api/billing/getSub/${id}`)
+  //     .then(response => {
+  //       console.log('response from AddRepForm getSub: ', response);
+  //       if (response.data > this.props.teamSize) {   // if max_reps on subscription is greater than current team size
+  //         this.setState({ moreRepsAllowed: true })
+  //       }
+  //     })
+  //     .catch(error => {
+  //       this.setState({ error: error.message });
+  //     })
+  // }
 
-  componentWillReceiveProps(newProps) {
-    //check max_reps on sub
-    // const data = { company_id: newProps.company_id };
-    // console.log('addRepForm CWRP getSub data: ', data);
-    const id = newProps.company_id;
-    axios.get(`/api/billing/getSub/${id}`)
-      .then(response => {
-        console.log('response from AddRepForm getSub: ', response);
-        if (response.data > this.props.teamSize) {   // if max_reps on subscription is greater than current team size
-          this.setState({ moreRepsAllowed: true })
-        }
-      })
-      .catch(error => {
-        this.setState({ error: error.message });
-      })
-  }
+  // componentWillReceiveProps(newProps) {
+  //   //check max_reps on sub
+  //   // const data = { company_id: newProps.company_id };
+  //   // console.log('addRepForm CWRP getSub data: ', data);
+  //   const id = newProps.company_id;
+  //   axios.get(`/api/billing/getSub/${id}`)
+  //     .then(response => {
+  //       console.log('response from AddRepForm getSub: ', response);
+  //       if (response.data > this.props.teamSize) {   // if max_reps on subscription is greater than current team size
+  //         this.setState({ moreRepsAllowed: true })
+  //       }
+  //     })
+  //     .catch(error => {
+  //       this.setState({ error: error.message });
+  //     })
+  // }
 
   handleClickOpen = () => {
     const id = this.props.company_id;
