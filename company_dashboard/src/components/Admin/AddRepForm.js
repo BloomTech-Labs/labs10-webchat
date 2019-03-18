@@ -83,7 +83,7 @@ class AddRepForm extends React.Component {
     return (
         <div>
           <div>
-            {moreRepsAllowed ? (
+            {!moreRepsAllowed ? (
               <p>You've reached the max number of team members for your plan. Upgrade your plan to add more.</p>
             ) : (
               <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
