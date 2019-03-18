@@ -1,26 +1,20 @@
 .chat-dashboard-container {
     display: flex;
+    /* display: fixed; */
     justify-content: center;
     margin-left: 250px;
     height: 100vh;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
+    border: 1px solid red;
 }
 
 .chat-dash-left-container {
-    border: 1px solid black;
-    width: 40%;
-    height: 100%;
+    width: 47%;
 }
 
 .chat-dash-right-container {
-    border: 1px solid black;
-    width: 60%;
-    height: 100%;
-}
-
-.chat-dash-middle-container {
-    border: 1px solid black;
-    width: 70%;
+    border: 1px solid lightgray;
+    width: 53%;
 }
 
 @media (max-width: 1250px) {
