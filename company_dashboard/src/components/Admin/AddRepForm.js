@@ -57,7 +57,7 @@ class AddRepForm extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ email: '', open: false });
   };
 
   onChange = event => {
