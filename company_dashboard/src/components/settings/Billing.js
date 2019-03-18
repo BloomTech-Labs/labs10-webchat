@@ -1,8 +1,7 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import styled from 'styled-components'
-import { CUSTOMER_CHAT } from "../../constants/routes";
-// import DashBar from '../NewDash'
+import Navigation from "../Navigation";
 import axios from 'axios'
 // import logo from '../images/logo.png'
 import {
