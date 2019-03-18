@@ -17,7 +17,10 @@ import ClosedConvos from './ClosedConvos';
 
 function TabContainer(props) {
     return (
-      <Typography component="div" style={{ padding: 8 * 3 }}>
+      // <Typography component="div" style={{ padding: 8 * 3 }}>
+      //   {props.children}
+      // </Typography>
+      <Typography component="div" style={{ margin: 'none' }}>
         {props.children}
       </Typography>
     );
@@ -29,8 +32,7 @@ const styles = {
       
     },
     convoList: {
-        overflowY: 'scroll',
-        height: 500
+        height: '100%'
     }
 };
 
@@ -52,7 +54,9 @@ class ConvoList extends React.Component {
       const { value } = this.state;
   
       return (
-       
+       <div className={classes.convoList}>
+
+       </div>
         <NoSsr>
             <Paper className={classes.root}>
                 <Tabs
