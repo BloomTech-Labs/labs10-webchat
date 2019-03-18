@@ -133,12 +133,9 @@ class RepSignUpFormBase extends Component {
             </Typography>):(
             <div>
               <div className="register-top-bar">
-                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
                 <Link to={ROUTES.LANDING}>
-                    <RaisedButton 
-                      label="Home"
-                    />
-                  </Link>
+                  <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+                </Link>
               </div>
                 <p className="header">Register an Account</p> 
             <form onSubmit={this.onSubmit}>
