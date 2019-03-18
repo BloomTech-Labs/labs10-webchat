@@ -318,7 +318,7 @@ class AdminPanelBaseForm extends React.Component {
                 rowsMax={Infinity}
                 fullWidth
                 className={[classes.TextField, "code-snippet"].join(' ')}
-                value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
+                value={"<button class='webChatAppBtn'>Chat!</button><iframe data-company-id='"+this.state.company_id+"' class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js'></script>"}
                 margin='normal'
                 variant='outlined'
               />
