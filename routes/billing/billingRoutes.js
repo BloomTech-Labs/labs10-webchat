@@ -12,9 +12,7 @@ router.post('/addSub', async (req, res) => {
 
     let rep_info = await repDb.getByUid(uid);               // get info for current rep using uid
     let company_id = rep_info.company_id;              // take company_id from rep info
-    let existingSub = await db.getSub(company_id);          // check Database for an existing subscription:
-
-
+    let existingSub = await db.getSub(company_id);          // check Database for an existing subscription
 
     if (!existingSub) {
       try {
@@ -46,6 +44,23 @@ router.post('/addSub', async (req, res) => {
       }
     } else {
       res.status(400).json({ message: `you already have a subscription` })
+    }
+});
+
+router.get('/getSub/:id', async (req, res) => {
+    const company_id = req.params.id; 
+    console.log('company_id in getSub endpoint: ', company_id);
+    const noSubTeamSize = 4;                              // max_reps to return for 'Free' plan if no sub exists
+    
+    try {
+        const existingSub = await db.getSub(company_id); 
+        if(!existingSub) {
+            res.status(200).json(noSubTeamSize);          // if no sub, return max-reps for 'Free' plan
+        } else {
+            res.status(200).json(existingSub.max_reps);
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 
