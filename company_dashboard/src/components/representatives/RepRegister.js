@@ -80,11 +80,11 @@ class RepSignUpFormBase extends Component {
             const data = { email: email };
             axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
             
-            const verifyRequest = axios.post('/api/reps/verifyemail', data);  //check if the email is in approved emails table
+            const verifyRequest = axios.post('/api/approvedemails/verifyemail', data);  //check if the email is in approved emails table
 
             verifyRequest
               .then(company_id => {               // if the email was approved, get the company_id back from server
-	       //localStorage.setItem('idToken', JSON.stringify(idToken));
+	              //localStorage.setItem('idToken', JSON.stringify(idToken));
 
                 this.props.history.push({         // send the user to a form to sign up and directly join their company
                   pathname: ROUTES.APPROVED_REP_REGISTER,
@@ -133,12 +133,9 @@ class RepSignUpFormBase extends Component {
             </Typography>):(
             <div>
               <div className="register-top-bar">
-                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
                 <Link to={ROUTES.LANDING}>
-                    <RaisedButton 
-                      label="Home"
-                    />
-                  </Link>
+                  <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+                </Link>
               </div>
                 <p className="header">Register an Account</p> 
             <form onSubmit={this.onSubmit}>

@@ -18,12 +18,20 @@
     max-height: 65px;
 }
 
-.MuiToolbar-root-66 a {
+.MuiButtonBase-root-78 a {
     color: white;
 }
 
-.MuiToolbar-root-66 a:visited {
+.MuiButtonBase-root-78 a:visited {
     color: white;
+}
+
+.LandingPage-signup-21 a {
+    color: #2d8754;
+}
+
+.LandingPage-signup-21 a:visited {
+    color: #2d8754;
 }
 
 a { 

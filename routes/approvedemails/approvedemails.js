@@ -70,6 +70,21 @@ router.post('/', (req, res) => {
         })
 });
 
+router.post('/verifyemail', (req, res) => {
+	console.log("verifyemail endpoint hit");
+	const { email } = req.body;
+	const request = db.getByEmail(email);
+	request.then(response_data => {
+		console.log("verifyemail response: ", response_data);
+		if (response_data) {
+			res.status(200).json(response_data.company_id);
+		} else {
+			res.status(400).json({ message: "Not an approved email. Register a new company or check with admin of existing company." });
+		}
+	});
+
+})
+
 
 router.delete('/:id', (req, res) => {
         const {id} = req.params;
