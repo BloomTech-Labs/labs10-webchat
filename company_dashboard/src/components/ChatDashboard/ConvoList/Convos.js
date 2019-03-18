@@ -80,7 +80,7 @@ class Convos extends React.Component {
             <Typography
               variant='h4'
             >
-              Closed Queues
+              
             </Typography>
             <div className={classes.convoList}>
                 {this.state.conversations.map((queue, index) => {
