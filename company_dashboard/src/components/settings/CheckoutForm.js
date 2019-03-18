@@ -70,23 +70,4 @@ class CheckoutForm extends Component {
 
 export default injectStripe(CheckoutForm);
 
-// render() {
-//   return (
-//     <form action="./create_subscription.php" method="POST">
-//       <script
-//         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-//         data-key="pk_test_rY8prrYy1Hij91qrNdI5zpYu"
-//         // data-image="/images/marketplace.png"
-//         data-name="Chattr Subscription"
-//         data-description="Monthly Subscription for Chattr Web Chat"
-//         data-amount="3000"
-//         data-label="Start Subcription">
-//       </script>
-//     </form>
 
-//   );
-// }
-
-// }
-
-// export default CheckoutForm;

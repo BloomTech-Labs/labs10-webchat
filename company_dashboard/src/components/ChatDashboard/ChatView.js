@@ -23,15 +23,26 @@ const styles = theme => ({
     flexGrow: 1,
     overflow: 'hidden',
     padding: `0 ${theme.spacing.unit * 3}px`,
+    height: 500,
+    overflowY: 'scroll'
   },
   paper: {
     maxWidth: 400,
     margin: `${theme.spacing.unit*2}px auto`,
     padding: theme.spacing.unit * 2,
   },
-  root: {
-    height: 700,
-    overflowY: 'scroll'
+//   root: {
+//     overflowY: 'scroll'
+//   },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    padding:"20px"
+  },
+  messageInput: {
+    border: "1px solid grey",
+    padding:"5px 10px 0px 10px"
+    
   }
 });
 
@@ -40,10 +51,6 @@ class ChatView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // uid: props.currentConvoSocket,
-            // convo_id: props.currentConvoId,
-            // uid: null,
-            // convo_id: null,
             rep_uid: null,
             message: '',
             messages: [],
@@ -70,13 +77,7 @@ class ChatView extends Component {
             newMessages.push(newMessage);
             this.setState({ messages: newMessages });
         }
-        // const addMessage = (message) => {
-        //     this.props.addMessage(message);
-        // }
-        // const addMessage = (data) => {
-        //     this.setState({messages: [...this.state.messages, data]});
-        // }
-
+       
     } // *** Constructor end
 
 
@@ -120,29 +121,6 @@ class ChatView extends Component {
         this.scrollToBottom();
     }
 
-    // componentDidUpdate(prevProps) {
-
-    //     const currentProps = this.props;
-    //     // if (currentProps.currentConvoId !== prevProps.currentConvoId) {
-
-    //         const id = this.props.currentConvoId;  // Get convo_id from props
-
-    //         const messageRequest = axios.get(`/api/chat/messages/${id}`);
-    //         messageRequest
-    //             .then(response => {
-    //                 this.setState({
-    //                     messages: response.data,
-    //                 }, () => {
-    //                     console.log('ChatView state after getting messages in CDU: ', this.state);
-    //                 });
-    //             })
-    //             .catch(error => {
-    //                     console.log(error.message);
-    //                     //this.setState({error:error});
-    //             });
-    //     // }
-    // }
-
     componentWillReceiveProps(newProps) {
         console.log('ChatView CWRP props: ', newProps);
         const that1 = this;
@@ -185,9 +163,7 @@ class ChatView extends Component {
 
     onSubmit = event =>{
         console.log('\ncurrentConvoSocket/uid in ChatView onSubmit: ', this.props.currentConvoSocket);
-        // console.log('currentConvoSocket type: ', typeof this.props.currentConvoSocket);
-        // console.log('ChatView props.messages before emit: ', this.props.messages);
-
+        
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
@@ -200,7 +176,6 @@ class ChatView extends Component {
         this.socket.emit('join', data);
         this.setState({ message: ""});
 
-        // console.log('ChatView props.messages after emit: ', this.props.messages);
         event.preventDefault();
     }
 
@@ -214,12 +189,16 @@ class ChatView extends Component {
         this.setState({ messages: newMessages });
     }
 
-    
-
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
+
+    handleCloseConvo = event => {
+        this.props.closeConvo();
+        this.setState({ is_closed: true });
+        event.preventDefault();
+    }
 
     scrollToBottom = () => {
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -265,38 +244,41 @@ class ChatView extends Component {
 
                             <div className="footer">
                             <form 
-                            className={classes.form}
-                            onSubmit={this.onSubmit}>
+                                className={classes.form}
+                                onSubmit={this.onSubmit}
+                            >
                                 <br/>
                                 <br/>
                                 <br/>
                                 <TextField
-                                hintText="message"
-                                name="message"
-                                type="text"
-                                value={this.state.message}
-                                onChange={this.onChange}
+                                    hintText="message"
+                                    name="message"
+                                    type="text"
+                                    style ={{width: '80%', padding:'0px 15px 0px 10px'}}
+                                    inputStyle ={{width: '100%' }}
+                                    className={classes.messageInput}
+                                    value={this.state.message}
+                                    onChange={this.onChange}
                                 />
                                 <br/>
                                 <br/>
-                                <RaisedButton
-                                label="send"
-                                primary={true}
-                                type="submit"
-                                />
+                                
                                 {is_closed ? (
-                                <p>This conversation is closed.</p>
+                                    <p>This conversation is closed.</p>
                                 ) : (
-                                <div>
-                                <br/>
-                                <RaisedButton
-                                label="End Conversation"
-                                error={true}
-                                onClick={this.props.closeConvo}
-                                />
-                                <br/>
-                                <br/>
-                                </div>
+                                    <div className="footer-buttons">
+                                    <RaisedButton
+                                        label="send"
+                                        primary={true}
+                                        type="submit"
+                                    />
+                                    
+                                    <RaisedButton
+                                        label="End Conversation"
+                                        secondary={true}
+                                        onClick={this.handleCloseConvo}
+                                    />
+                                    </div>
                                 )}
                             </form>
                             </div>
