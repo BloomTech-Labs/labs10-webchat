@@ -36,8 +36,8 @@ const styles = theme => ({
         'margin-left': '.6em'
     },
     convoList: {
-        overflowY: 'scroll',
-        height: 1000
+        // overflowY: 'scroll',
+        // height: 1000
     }
 });
 
@@ -66,42 +66,40 @@ class ActiveConvos extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <div>
-            <MuiThemeProvider>   
             <div className={classes.convoList}> 
-            <Typography color='inherit' variant='h4' align='left'>Open Conversations</Typography><br/><br/>     
+                <MuiThemeProvider>   
+                <Typography color='inherit' variant='h4' align='left'>Open Conversations</Typography><br/><br/>     
                 {this.state.conversations.map((convo, index) => {
-                return(
-                    <Paper key={index} className={classes.paper}>
-                    <Grid container wrap="nowrap" spacing={0}>
-                        <Grid item>
-                        </Grid>
-                        <Grid item
-                            xs
-                            zeroMinWidth
-                            className={classes.listItem}
-                            key={index}
-                            onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
-                        >
-                            <Typography
-                                color='primary'
-                                variant='h5'
-                                align='left'
-                                noWrap
+                    return(
+                        <Paper key={index} className={classes.paper}>
+                        <Grid container wrap="nowrap" spacing={0}>
+                            <Grid item>
+                            </Grid>
+                            <Grid item
+                                xs
+                                zeroMinWidth
+                                className={classes.listItem}
                                 key={index}
+                                onClick={() => this.props.handleActiveConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                             >
-                                <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
-                            
-                                <body2 className={classes.convoSummary}>    {convo.summary}</body2>
-                            </Typography>
+                                <Typography
+                                    color='primary'
+                                    variant='h5'
+                                    align='left'
+                                    noWrap
+                                    key={index}
+                                >
+                                    <h3 className={classes.convoAuthor}>{convo.customer_name}</h3>
+                                
+                                    <body2 className={classes.convoSummary}>    {convo.summary}</body2>
+                                </Typography>
 
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    </Paper>
-                )
-                })}
-                </div>
-            </MuiThemeProvider>
+                        </Paper>
+                    )
+                    })}
+                </MuiThemeProvider>
             </div>
         );
     }

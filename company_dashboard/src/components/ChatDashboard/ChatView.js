@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 // import './ChatView.css';
-import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Title, Subtitle } from '@livechat/ui-kit';
+import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
 
 
 // const styles = theme => ({
@@ -222,44 +222,85 @@ class ChatView extends Component {
                             <MessageText>{conversation_summary}</MessageText>
                         </MessageGroup>
                     </div>
-                <div style={{ maxWidth: '80%', height: '100%' }}>
+                <div style={{ maxWidth: '100%', height: '100%' }}>
                     <div className="messageList" style={{ height: 500 }}>
                         <MessageList>
                                 {this.state.messages.map((message, index) => {
                                     console.log(message);
                                     if(customer_name === message.author_name) {
                                         return (
-                                            <MessageGroup
-                                                avatar={message.image_ur}
-                                            >
+                                            <Row reverse>
+                                                <AgentBar>
+                                                    <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+                                                </AgentBar>
+
+                                                    <Message
+                                                        authorName={message.author_name}
+                                                        isOwn={true}
+                                                    >
+                                                        <MessageText>
+                                                            {message.body}
+                                                        </MessageText>
+                                                    </Message>
+                                            </Row>
+                                        );
+                                    } else {
+                                        return (
+                                            <Row>
+                                                <AgentBar>
+                                                    <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+                                                </AgentBar>
                                                 <Message
                                                     authorName={message.author_name}
-                                                     isOwn={true}
                                                 >
                                                     <MessageText>
                                                         {message.body}
                                                     </MessageText>
                                                 </Message>
-                                            </MessageGroup>
-                                        );
-                                    } else {
-                                        return (
-                                            <MessageGroup
-                                            avatar={message.image_ur}
-                                            >
-                                            <Message
-                                                authorName={message.author_name}
-                                            >
-                                                <MessageText>
-                                                    {message.body}
-                                                </MessageText>
-                                            </Message>
-                                        </MessageGroup>
+                                            </Row>
                                         );
                                     }
                                 })}
                         </MessageList>
                     </div>
+                    <form 
+                        className="form"    
+                        onSubmit={this.onSubmit}
+                    >
+                        <br/>
+                        <br/>
+                        <br/>
+                        <input
+                            hintText="message"
+                            name="message"
+                            type="text"
+                            style ={{width: '80%', padding:'0px 15px 0px 10px'}}
+                            inputStyle ={{width: '100%' }}
+                            className="messageInput"
+                            value={this.state.message}
+                            onChange={this.onChange}
+                        />
+                        <br/>
+                        <br/>
+                        
+                        {is_closed ? (
+                            <p>This conversation is closed.</p>
+                        ) : (
+                            <div className="footer-buttons">
+                            <RaisedButton
+                                label="send"
+                                primary={true}
+                                type="submit"
+                            />
+                            
+                            <RaisedButton
+                                label="End Conversation"
+                                secondary={true}
+                                onClick={this.handleCloseConvo}
+                            />
+                            </div>
+                        )}
+                    </form>
                 </div>
                         
 
@@ -271,44 +312,6 @@ class ChatView extends Component {
                             </div> */}
 
                             {/* <div className="footer">
-                            <form 
-                                className={classes.form}
-                                onSubmit={this.onSubmit}
-                            >
-                                <br/>
-                                <br/>
-                                <br/>
-                                <TextField
-                                    hintText="message"
-                                    name="message"
-                                    type="text"
-                                    style ={{width: '80%', padding:'0px 15px 0px 10px'}}
-                                    inputStyle ={{width: '100%' }}
-                                    className={classes.messageInput}
-                                    value={this.state.message}
-                                    onChange={this.onChange}
-                                />
-                                <br/>
-                                <br/>
-                                
-                                {is_closed ? (
-                                    <p>This conversation is closed.</p>
-                                ) : (
-                                    <div className="footer-buttons">
-                                    <RaisedButton
-                                        label="send"
-                                        primary={true}
-                                        type="submit"
-                                    />
-                                    
-                                    <RaisedButton
-                                        label="End Conversation"
-                                        secondary={true}
-                                        onClick={this.handleCloseConvo}
-                                    />
-                                    </div>
-                                )}
-                            </form>
                             </div> */}
                         {/* </div> */}
             </MuiThemeProvider>
