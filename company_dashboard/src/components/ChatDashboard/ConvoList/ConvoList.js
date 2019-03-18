@@ -54,28 +54,27 @@ class ConvoList extends React.Component {
       const { value } = this.state;
   
       return (
-       <div className={classes.convoList}>
+        <div className={classes.convoList}>
+            <NoSsr>
+                <Paper className={classes.root}>
+                    <Tabs
+                        value={this.state.value}
+                        onChange={this.handleTabChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        centered
+                        >
+                        <Tab label="Open" />
+                        <Tab label="Queue" />
+                        <Tab label="Closed" />
+                    </Tabs>
+                </Paper>
 
-       </div>
-        <NoSsr>
-            <Paper className={classes.root}>
-                <Tabs
-                    value={this.state.value}
-                    onChange={this.handleTabChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                >
-                    <Tab label="Open" />
-                    <Tab label="Queue" />
-                    <Tab label="Closed" />
-                </Tabs>
-            </Paper>
-
-            {this.state.value === 0 && <TabContainer><ActiveConvos  handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
-            {this.state.value === 1 && <TabContainer><Queue  handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
-            {this.state.value === 2 && <TabContainer><ClosedConvos  handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
-        </NoSsr>
+                {this.state.value === 0 && <TabContainer><ActiveConvos  handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
+                {this.state.value === 1 && <TabContainer><Queue  handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
+                {this.state.value === 2 && <TabContainer><ClosedConvos  handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
+          </NoSsr>
+        </div>
         
       );
     }

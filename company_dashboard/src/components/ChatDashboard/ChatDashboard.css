@@ -8,20 +8,15 @@
 }
 
 .chat-dash-left-container {
-    border: 1px solid black;
+    border: 1px solid lightgray;
     width: 40%;
     height: 100%;
 }
 
 .chat-dash-right-container {
-    border: 1px solid black;
+    border: 1px solid lightgrey;
     width: 60%;
     height: 100%;
-}
-
-.chat-dash-middle-container {
-    border: 1px solid black;
-    width: 70%;
 }
 
 @media (max-width: 1250px) {
