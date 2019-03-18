@@ -64,6 +64,63 @@ router.get('/getSub/:id', async (req, res) => {
     }
 });
 
-
+// router.post(
+//     '/updateFromStripe',
+//     checkMemberSizeToDowngrade,
+//     async (req, res) => {
+//       let newPlan = req.body.subscription.plan
+  
+//       try {
+//         let subInfo = await db('subscriptions')
+//           .where({ user_id: req.userInfo.id })
+//           .first()
+  
+//         const subscription = await stripe.subscriptions.retrieve(
+//           subInfo.subscription
+//         )
+  
+//         //update subscription plan
+//         const newSub = await stripe.subscriptions.update(subInfo.subscription, {
+//           cancel_at_period_end: false,
+//           items: [
+//             {
+//               id: subscription.items.data[0].id,
+//               plan: newPlan,
+//             },
+//           ],
+//         })
+  
+//         //create invoice to pay/credit difference
+//         try {
+//           await stripe.invoices.create({
+//             customer: newSub.customer,
+//           })
+//         } catch (err) {
+//           console.log(err)
+//         }
+  
+//         let subInfo = {
+//             company_id: company_id,
+//             stripe_customer_id: charge.customer,
+//             stripe_subscription_id: charge.id,
+//             stripe_subscription_status: charge.status,
+//             stripe_plan_id: charge.plan.id,
+//             stripe_plan_nickname: charge.plan.nickname,
+//             max_reps: Number(charge.plan.metadata.max_reps)         // max_reps for the payment plan set in Stripe Dashboard
+//         }
+  
+  
+//         await db('subscriptions')
+//           .where({ user_id: req.userInfo.id })
+//           .update(newInfo)
+  
+//         res
+//           .status(200)
+//           .json({ message: `subscription updated`, type: newInfo.type })
+//       } catch (err) {
+//         res.status(500).json({ error: err })
+//       }
+//     }
+// )
 
 module.exports = router;
