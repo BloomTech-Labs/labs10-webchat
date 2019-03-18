@@ -31,7 +31,7 @@ const styles = theme => ({
     flex: 1,
   },
   logo: {
-    width: 80,
+    width: 65,
     height: 60,
     display: 'flex',
       [theme.breakpoints.down('sm')]: {

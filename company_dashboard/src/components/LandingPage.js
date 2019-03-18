@@ -22,14 +22,14 @@ const styles = theme => ({
     position: 'fixed',
   },
   toolbar: {
-    height: 60,
+    height: 70,
   },
   grow: {
     flexGrow: 1,
   },
   logo: {
-    width: 80,
-    height: 55,
+    width: 65,
+    height: 60,
     marginLeft: -25,
     marginTop: -8,
       [theme.breakpoints.down('sm')]: {
