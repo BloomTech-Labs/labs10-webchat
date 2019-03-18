@@ -1,5 +1,6 @@
 .chat-view {
   border: 1px solid red;
+  overfly-y: scroll;
 }
 
 .chat-view .chat-view-header  {
@@ -9,6 +10,10 @@
   align-items: flex-start;
   margin-left: 5%;
   margin-top: 3%;
+}
+
+.messageList {
+  height: 100vh;
 }
 
 .chat-view .messages {

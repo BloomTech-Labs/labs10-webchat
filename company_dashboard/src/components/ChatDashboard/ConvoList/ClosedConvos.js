@@ -17,7 +17,6 @@ import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Me
 const styles = theme => ({
   root: {
     border: '1px dotted black',
-    marginBottom: 300,
     overflowY: 'scroll',
     // height: '100vh',
   },

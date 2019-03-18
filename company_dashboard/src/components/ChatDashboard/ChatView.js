@@ -221,8 +221,8 @@ class ChatView extends Component {
                       <MessageText>{conversation_summary}</MessageText>
                   </MessageGroup>
               </div>
-              <div style={{ maxWidth: '100%', height: '100%' }}>
-                <div className="messageList" style={{ height: 500 }}>
+
+                <div className="messageList">
                   <MessageList>
                     {this.state.messages.map((message, index) => {
                       console.log(message);
@@ -266,21 +266,22 @@ class ChatView extends Component {
                   className="form"    
                   onSubmit={this.onSubmit}
                 >
-                  <br/>
-                  <br/>
-                  <br/>
+
                   <input
                       hintText="message"
                       name="message"
                       type="text"
-                      style ={{width: '80%', padding:'0px 15px 0px 10px'}}
+                      style ={{ 
+                        padding: '20px',
+                        border: '2px solid red',
+                        width: '90vw', 
+                        padding:'0px 15px 0px 10px'
+                      }}
                       inputStyle ={{width: '100%' }}
                       className="messageInput"
                       value={this.state.message}
                       onChange={this.onChange}
                   />
-                  <br/>
-                  <br/>
                     
                   {is_closed ? (
                       <p>This conversation is closed.</p>
@@ -300,9 +301,6 @@ class ChatView extends Component {
                       </div>
                   )}
                 </form>
-              </div>
-                        
-
                         {/* <div className="rootReplacement"> */}
                             {/* <div className="messages">
                             </div>
