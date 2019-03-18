@@ -94,6 +94,12 @@ class Billing extends React.Component {
   }
 
   addSubscription = body => {  
+    // let auth = {
+    //   headers: {
+    //     authorization: localStorage.getItem('access_token'),
+    //   },
+    // }
+
     // addSub endpoint will do the following:
     // - check if sub for user already exists in webchat db, if no existing sub:
     // -- create Stripe customer with stripe.customers.create

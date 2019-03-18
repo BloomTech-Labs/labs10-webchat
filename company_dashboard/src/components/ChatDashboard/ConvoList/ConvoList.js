@@ -17,7 +17,10 @@ import ClosedConvos from './ClosedConvos';
 
 function TabContainer(props) {
     return (
-      <Typography component="div" style={{ padding: 8 * 3 }}>
+      // <Typography component="div" style={{ padding: 8 * 3 }}>
+      //   {props.children}
+      // </Typography>
+      <Typography component="div" style={{ margin: 'none' }}>
         {props.children}
       </Typography>
     );
@@ -26,12 +29,17 @@ function TabContainer(props) {
 const styles = {
     root: {
       flexGrow: 1,
+      border: '1px solid blue'
       
     },
-    convoList: {
-        overflowY: 'scroll',
-        height: 500
-    }
+    queueMenu: {
+      border: '1px solid red'
+
+    },
+    queueList: {
+      // overflyY: 'scroll',
+      border: '1px solid orange'
+  }
 };
 
 class ConvoList extends React.Component {
@@ -52,27 +60,32 @@ class ConvoList extends React.Component {
       const { value } = this.state;
   
       return (
-       
-        <NoSsr>
-            <Paper className={classes.root}>
+
+        <div className={classes.root}>
+
+          <div className={classes.queueMenu}>
+            <Paper>
                 <Tabs
                     value={this.state.value}
                     onChange={this.handleTabChange}
                     indicatorColor="primary"
                     textColor="primary"
                     centered
-                >
+                    >
                     <Tab label="Open" />
                     <Tab label="Queue" />
                     <Tab label="Closed" />
                 </Tabs>
             </Paper>
+          </div>
 
-            {this.state.value === 0 && <TabContainer><ActiveConvos  handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
-            {this.state.value === 1 && <TabContainer><Queue  handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
-            {this.state.value === 2 && <TabContainer><ClosedConvos  handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
-        </NoSsr>
-        
+          <div className={classes.queueList}>
+                {this.state.value === 0 && <TabContainer><ActiveConvos  handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
+                {this.state.value === 1 && <TabContainer><Queue  handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
+                {this.state.value === 2 && <TabContainer><ClosedConvos  handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
+          </div>
+
+        </div>
       );
     }
 }
