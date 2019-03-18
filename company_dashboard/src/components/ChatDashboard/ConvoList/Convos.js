@@ -91,7 +91,7 @@ class Convos extends React.Component {
                       <MuiThemeProvider> 
                         <Paper className={classes.paper}>
                           <Grid item
-                            onClick={() => this.props.handleClosedConvoSelect(queue.convo_id, queue.customer_uid, queue.summar, queue.customer_name)}
+                            onClick={() => this.props.handleConvoSelect(queue.convo_id, queue.customer_uid, queue.summar, queue.customer_name)}
                           >
                             <h3 className={classes.queueTitle}>
                               {queue.customer_name}
