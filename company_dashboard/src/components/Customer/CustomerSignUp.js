@@ -112,7 +112,7 @@ render() {
               Successfully Logged In</Typography>):(
             <div>
               <div className="customer-signup-top-bar">
-                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+                <p>Register an Account to get live customer support</p>
               </div>
 
 	            <form onSubmit={this.onSubmit}>
@@ -126,8 +126,7 @@ render() {
                   value={this.state.name}
                   onChange={this.onChange}
                 />
-                <br/>
-                
+
 	              <TextField
                   style = {{width: '65%'}}
                   hintText="Enter your Email"
@@ -138,7 +137,6 @@ render() {
                   value={this.state.email}
                   onChange={this.onChange}
                 />
-                <br/>
 
                 <TextField
                   style = {{width: '65%'}}
@@ -150,7 +148,6 @@ render() {
                   value={this.state.password}
                   onChange={this.onChange}
                 />
-                <br/>
 
                 <TextField
                   style = {{width: '65%'}}
@@ -162,7 +159,6 @@ render() {
                   value={this.state.password1}
                   onChange={this.onChange}
                 />
-                <br/>
 
                 <TextField
                   style = {{width: '65%'}}
@@ -174,14 +170,15 @@ render() {
                   value={this.state.summary}
                   onChange={this.onChange}
                 />
-                <br/>
 
                 <RaisedButton
+                    className="customer-signup-button"
                     label="SignUp"
                     primary={true}
                     type="submit"
                     disabled={condition}
               />
+              <p className="smaller-text">Powered by chattr</p>
 
         {error && <p>{error.message}</p>}
             </form>

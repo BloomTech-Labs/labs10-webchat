@@ -12,7 +12,10 @@ function enableChattr() {
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
 	wcaIFRAME.style.display = "none";
 	wcaIFRAME.style.width = "450px";
-	wcaIFRAME.style.height = "600px";
+	wcaIFRAME.style.height = "554px";
+	wcaIFRAME.style.border = "0";
+	wcaIFRAME.scrolling = "no";
+	wcaIFRAME.style.overflow = "hidden";
 	wcaBtn.style.textAlign = "center";
 	wcaBtn.style.verticalAlign = "middle";
 	wcaBtn.style.borderRadius = "60px";
