@@ -27,17 +27,15 @@ class CustomerSignUpFormBase extends Component {
       
      this.state = {     
     	email:"",
-	password:"",
-	password1:"",
-	company_id:2,     
-	name:"",
-	uid:"",     
-	summary:"",     
-	error:null,
-	registered:false,     
+      password:"",
+      password1:"",
+      company_id:2,     
+      name:"",
+      uid:"",     
+      summary:"",     
+      error:null,
+      registered:false,     
     };
-
-
   }
 
  onSubmit = event => {
