@@ -191,7 +191,7 @@ const styles = theme => ({
     margin: 'auto',
     width: 130,
     height: 50,
-    color: '#64dd17',
+    color: '#004D40',
     fontWeight: 'bold',
     fontSize: 18,
     borderStyle: 'solid',
@@ -229,18 +229,33 @@ const styles = theme => ({
       [theme.breakpoints.down('sm')]: {
         // color: 'white',
         flexDirection: 'column',
-        marginBottom: 0,
         fontSize: 11,
       },
   },
   meetTeam: {
     marginRight: 90,
-    marginTop: 'auto',
-    color: '#64dd17',
+    // marginTop: 'auto',
+    color: '#1b5e20',
     fontWeight: 'bold',
       [theme.breakpoints.down('sm')]: {
         margin: 'auto',
-        marginBottom: 15,
+        marginTop: -70,
+        fontSize: 15,
+      },
+  },
+  rights: {
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: -10,
+      },
+  },
+  terms: {
+    marginLeft: 90,
+    // marginTop: 'auto',
+    color: '#1b5e20',
+    fontWeight: 'bold',
+      [theme.breakpoints.down('sm')]: {
+        margin: 'auto',
+        marginTop: -50,
         fontSize: 15,
       },
   },
@@ -363,7 +378,10 @@ class LandingPage extends Component {
               <a href='/developers'>
                 <p className={classes.meetTeam}>Developers</p>
               </a>
-              &copy; Copyright 2019 Lambda School Lab10 Chattr - All rights reserved
+              <p className={classes.rights}>&copy; Copyright 2019 Lambda School Lab10 Chattr - All rights reserved</p>
+              <a href='/'>
+                <p className={classes.terms}>Terms</p>
+              </a>
             </div>
 					</Grid>
 				</Grid>
