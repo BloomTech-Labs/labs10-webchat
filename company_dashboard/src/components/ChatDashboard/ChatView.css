@@ -1,3 +1,7 @@
+.chat-view {
+  border: 1px solid red;
+}
+
 .chat-view .chat-view-header  {
   font-size: 26px;
   display: flex;
