@@ -13,14 +13,24 @@
     background-color: #3F51B5;
 }
 
-.register .register-top-bar a {
-    color: #4C7AF1;
-}
-
 .register .register-top-bar img {
     height: 70px;
     width: 70px;
     margin-left: 45%;
+}
+
+.register .register-top-bar .top-bar-links {
+    display: flex;
+    width: 325px;
+    justify-content: space-around;
+}
+
+.register-top-bar .top-bar-links a {
+    color: white;
+}
+
+.register-top-bar .top-bar-links a:last-of-type {
+    color: #64dd17;
 }
 
 .register .header {

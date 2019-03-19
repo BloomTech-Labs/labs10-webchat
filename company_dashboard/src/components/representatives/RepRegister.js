@@ -136,6 +136,17 @@ class RepSignUpFormBase extends Component {
                 <Link to={ROUTES.LANDING}>
                   <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
                 </Link>
+                <div className="top-bar-links">
+                  <a href='/pricing'>
+                    <p className="navigation-button">PRICING</p>
+                  </a>
+                  <a href='/repslogin'>
+                    <p className="navigation-button">SIGN IN</p>
+                  </a>
+                  <a href='/repregister'>
+                    <p className="navigation-button">SIGN UP</p>
+                  </a>
+                </div>
               </div>
                 <p className="header">Register an Account</p>
             <form onSubmit={this.onSubmit}>
