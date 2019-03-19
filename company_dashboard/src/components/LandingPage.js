@@ -32,13 +32,17 @@ const styles = theme => ({
     width: 65,
     height: 60,
     marginLeft: -25,
-    marginTop: -8,
+    marginTop: -6,
       [theme.breakpoints.down('sm')]: {
         width: 60,
         height: 60,
       },
   },
   navButton: {
+    // backgroundColor: 'orange',
+    display: 'flex',
+    paddingRight: 50,
+    color: 'white',
       [theme.breakpoints.down('sm')]: {
         fontSize: 13,
         padding: 2,
@@ -182,8 +186,20 @@ const styles = theme => ({
       },
 	},
 	signup: {
-		marginTop: 55,
+    marginTop: 55,
+    margin: 'auto',
+    width: 130,
     height: 50,
+    color: '#64dd17',
+    fontWeight: 'bold',
+    fontSize: 18,
+    borderStyle: 'solid',
+    borderColor: '#2d8754',
+    borderRadius: 5,
+    border: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 	},
 	footer: {
     width: '100%',
@@ -217,7 +233,8 @@ const styles = theme => ({
   meetTeam: {
     marginRight: 90,
     marginTop: 'auto',
-    color: '#2d8754',
+    color: '#64dd17',
+    fontWeight: 'bold',
   },
   // footerNetlify: {
   //   visibility: 'hidden',
@@ -253,20 +270,15 @@ class LandingPage extends Component {
                 alt="logo"
               /> */}
             </Typography>
-            <Button className={classes.navButton} size="large" color="primary"> 
-              <Link to={ROUTES.PRICING}>Pricing</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-            </Button>
-            {/* <img
-              className={classes.barNetlify}
-              src={require("./images/logomark.png")}
-              alt="Netlify logo"
-            /> */}
+            <a href='/pricing'>
+              <p className={classes.navButton}>PRICING</p>
+            </a>
+            <a href='/repslogin'>
+              <p className={classes.navButton}>SIGN IN</p>
+            </a>
+            <a href='/repregister'>
+              <p className={classes.navButton}>SIGN UP</p>
+            </a>
           </Toolbar>
         </AppBar>
         
@@ -277,9 +289,12 @@ class LandingPage extends Component {
                 <Typography className={classes.main} component='h2' variant='h3' gutterBottom>
                   Welcome to Chattr, the new way to chat with your customers
                 </Typography>
-                <Button variant="outlined" color="primary" className={classes.signup}>
+                {/* <Button variant="outlined" color="primary" className={classes.signup}>
                   <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
-                </Button>
+                </Button> */}
+                <a href='/repregister'>
+                  <p className={classes.signup}>Get Started</p>
+                </a>
               </div>
                 <img
                   className={classes.landing}
@@ -336,9 +351,9 @@ class LandingPage extends Component {
                   All companies get our features for just one payment of $30
                 </Typography>
               </div>
-              <Button variant="outlined" color="primary" className={classes.signup}>
-                <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
-              </Button>
+              <a href='/repregister'>
+                <p className={classes.signup}>Get Started</p>
+              </a>
             </Paper>
           {/* </Grid> */}
         </Grid>
