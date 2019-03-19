@@ -3,7 +3,7 @@
     justify-content: flex-end;
     margin-top: 1%;
     margin-bottom: 2%;
-    margin-right: 2%; 
+    margin-right: 2%;
 
 }
 
@@ -18,15 +18,23 @@
     max-height: 65px;
 }
 
-.MuiToolbar-root-66 a {
+.MuiButtonBase-root-78 a {
     color: white;
 }
 
-.MuiToolbar-root-66 a:visited {
+.MuiButtonBase-root-78 a:visited {
     color: white;
 }
 
-a { 
+.LandingPage-signup-21 a {
+    color: #2d8754;
+}
+
+.LandingPage-signup-21 a:visited {
+    color: #2d8754;
+}
+
+a {
     text-decoration: none;
  }
 a:visited {

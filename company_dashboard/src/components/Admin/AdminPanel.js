@@ -58,7 +58,7 @@ const styles = theme => ({
   },
   tableBody: {
     // height: 200,
-  }, 
+  },
   paper: {
     position: 'absolute',
     width: theme.spacing.unit * 50,
@@ -269,7 +269,7 @@ class AdminPanelBaseForm extends React.Component {
               <div style={{ overflow: "auto" }}>
                 <Table className={classes.table} >
                   <TableHead className={classes.tableHead}>
-                    <TableRow style={{ 
+                    <TableRow style={{
                       backgroundColor: "#f5f5f5",
                       height: "35px" }}>
                       <TableCell>Name</TableCell>

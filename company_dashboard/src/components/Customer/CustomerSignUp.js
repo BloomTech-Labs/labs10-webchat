@@ -36,8 +36,6 @@ class CustomerSignUpFormBase extends Component {
 	error:null,
 	registered:false,     
     };
-
-
   }
 
  onSubmit = event => {

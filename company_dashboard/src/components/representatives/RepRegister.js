@@ -66,20 +66,20 @@ class RepSignUpFormBase extends Component {
 
   onSubmit = event => {
     const {email, password } = this.state;
-    
+
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log('authUser: ', authUser);
         //localStorage.setItem('authUser', JSON.stringify(authUser));  // If set here, passing uid to next component state may not be neccesary
-        
+
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             // console.log("idToken after doCreate: ", idToken);
             // localStorage.setItem('idToken', idToken);
             const data = { email: email };
             axios.defaults.headers.common['Authorization'] = idToken;   // This should set the Authorization header to idToken for all axios calls (across all components)
-            
+
             const verifyRequest = axios.post('/api/approvedemails/verifyemail', data);  //check if the email is in approved emails table
 
             verifyRequest
@@ -88,10 +88,10 @@ class RepSignUpFormBase extends Component {
 
                 this.props.history.push({         // send the user to a form to sign up and directly join their company
                   pathname: ROUTES.APPROVED_REP_REGISTER,
-                  state: { 
+                  state: {
                     company_id: company_id.data,  //company_id.data gives the company_id int value
                     uid: authUser.user.uid        // authUser returned from Firebase
-                  }  
+                  }
                 });
               })
               .catch(error => {                  // if email is not approved server throws 400 error
@@ -101,7 +101,7 @@ class RepSignUpFormBase extends Component {
                   state: {
                     uid: authUser.user.uid
                   }
-                });       
+                });
               })
           })
           .catch(error => {                 // if Firebase getIdToken throws an error
@@ -111,7 +111,7 @@ class RepSignUpFormBase extends Component {
     .catch(error => {                    // if Firebase doCreateUser throws an error
         this.setState({ error:error });
     });
-        
+
     event.preventDefault();
   }
 
@@ -122,10 +122,10 @@ class RepSignUpFormBase extends Component {
   render() {
   	const {email, password, password1, error} = this.state;
 
-	  //checking if all the required fields are non-empty  
-    const condition = password !== password1 || password1 === '' || email === '';	    
-	
-	  return (  
+	  //checking if all the required fields are non-empty
+    const condition = password !== password1 || password1 === '' || email === '';
+
+	  return (
 	    <div className="register">
         <MuiThemeProvider>
           {this.state.logged ? (<Typography variant='display1' align='center' gutterBottom>
@@ -133,14 +133,22 @@ class RepSignUpFormBase extends Component {
             </Typography>):(
             <div>
               <div className="register-top-bar">
-                <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
                 <Link to={ROUTES.LANDING}>
-                    <RaisedButton 
-                      label="Home"
-                    />
-                  </Link>
+                  <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
+                </Link>
+                <div className="top-bar-links">
+                  <a href='/pricing'>
+                    <p className="navigation-button">PRICING</p>
+                  </a>
+                  <a href='/repslogin'>
+                    <p className="navigation-button">SIGN IN</p>
+                  </a>
+                  <a href='/repregister'>
+                    <p className="navigation-button">SIGN UP</p>
+                  </a>
+                </div>
               </div>
-                <p className="header">Register an Account</p> 
+                <p className="header">Register an Account</p>
             <form onSubmit={this.onSubmit}>
               <TextField
                 style = {{width: '65%'}}
@@ -186,7 +194,7 @@ class RepSignUpFormBase extends Component {
                 disabled={condition}
               />
               <p>By signing up, you agree to the Terms and Conditions and Privacy Policy.</p>
-    
+
               {error && <p>{error.message}</p>}
                   <p>Already have an account? <Link to={ROUTES.REPS_LOGIN}>Login Here</Link></p>
             </form>

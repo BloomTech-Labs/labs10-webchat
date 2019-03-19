@@ -34,8 +34,8 @@ const styles = theme => ({
         'margin-left': '.6em'
     },
     convoList: {
-        overflowY: 'scroll',
-        height: 1000
+        // overflowY: 'scroll',
+        // height: 1000
     }
 });
 
