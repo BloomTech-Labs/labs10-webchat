@@ -313,6 +313,7 @@ class AdminPanelBaseForm extends React.Component {
                 value={this.state.companyName}
               />
               <h3>Code Snippet</h3>
+              <p className="code-snippet-info">Add the Code Snippet to the html for any page that you want to have the Customer Service widget on</p>
               <TextField
                 id='outlined-codeSnippet'
                 multiline={true}

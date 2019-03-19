@@ -23,6 +23,11 @@
   width: 70px;
 }
 
+.admin-panel .right-container .code-snippet-info {
+  width: 300px;
+  margin: auto;
+}
+
 @media (max-width: 1280px) {
   .admin-panel-container {
       padding-top: 10%;
