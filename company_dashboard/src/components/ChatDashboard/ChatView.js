@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import './ChatView.css';
 import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
+import { Grid } from '@material-ui/core';
 
 
 const styles = theme => ({
@@ -30,9 +31,11 @@ const styles = theme => ({
     flexGrow: 1,
 
   },
-  inputArea: {
-    // height: '100%'
-    // flexShrink: 0
+  inputForm: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
@@ -212,10 +215,12 @@ class ChatView extends Component {
                         return (
                           <div className={classes.message}>
                             <MuiThemeProvider>
-                              <Paper>
+                              <Grid
+                              
+                              >
                                 <img src={message.image_url} style={{ width: 55, height: 55 }}/>
                                 <p>{message.body}</p>
-                              </Paper>
+                              </Grid>
                             </MuiThemeProvider>
 
                           </div>
@@ -223,7 +228,7 @@ class ChatView extends Component {
                     })}
               </div>
               <div className={classes.inputArea}>
-                <form onSubmit={this.onSubmit}>
+                <form className={classes.inputForm} onSubmit={this.onSubmit}>
                   <input
                     hintText="message"
                     name="message"
@@ -239,16 +244,26 @@ class ChatView extends Component {
                     }}
                     className="messageInput"
                   />
-                  <div 
-                  style={{
-                    border: '1px solid blue'
-                  }}
-                  className={classes.sendMessage}> send </div>
-                  <div 
-                  style={{
-                    border: '1px solid red'
-                  }}
-                  className={classes.endConvo}> close convo </div>
+                  <div style={{
+                    marginLeft: '3px',
+                  }}>
+                    <div 
+                    style={{
+                      border: '1px solid blue',
+                      width: '100px',
+                      borderRadius: '3px',
+                      padding: '1px',
+                    }}
+                    className={classes.sendMessage}> send </div>
+                    <div 
+                    style={{
+                      border: '1px solid red',
+                      width: '100px',
+                      borderRadius: '3px',
+                      padding: '1px',
+                    }}
+                    className={classes.endConvo}> close convo </div>
+                  </div>
                 </form>
                 {/* <form>
                   <input
