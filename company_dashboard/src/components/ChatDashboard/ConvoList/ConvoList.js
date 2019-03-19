@@ -98,15 +98,9 @@ class ConvoList extends React.Component {
           </div>
 
           <div className={classes.queueList}>
-<<<<<<< HEAD
-                {this.state.value === 0 && <TabContainer className={classes.tabs1}><ActiveConvos  handleActiveConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
-                {this.state.value === 1 && <TabContainer className={classes.tabs1}><Queue  handleQueueConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
-                {this.state.value === 2 && <TabContainer className={classes.tabs1}><ClosedConvos  handleClosedConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
-=======
                 {this.state.value === 0 && <TabContainer><Convos  convoStatus={'active'} handleConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
                 {this.state.value === 1 && <TabContainer><Convos  convoStatus={'queue'} handleConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
                 {this.state.value === 2 && <TabContainer><Convos  convoStatus={'closed'} handleConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
->>>>>>> f3017f3a1ffb61de567a0d3d891028939b7c0084
           </div>
 
         </div>
