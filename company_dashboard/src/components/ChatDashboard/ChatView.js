@@ -225,7 +225,7 @@ class ChatView extends Component {
                 <div className="messageList" style={{ height: 500 }}>
                   <MessageList>
                     {this.state.messages.map((message, index) => {
-                      console.log(message);
+                      // console.log(message);
                       if(customer_name === message.author_name) {
                         return (
                           <Row reverse>

@@ -80,12 +80,17 @@ class ConvoList extends React.Component {
             </Paper>
           </div>
 
-          <div className={classes.queueList}>
+          {/* <div className={classes.queueList}>
                 {this.state.value === 0 && <TabContainer><Convos  convoStatus={'active'} handleConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
                 {this.state.value === 1 && <TabContainer><Convos  convoStatus={'queue'} handleConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
                 {this.state.value === 2 && <TabContainer><Convos  convoStatus={'closed'} handleConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
-          </div>
+          </div> */}
 
+          <div className={classes.queueList}>
+                {this.state.value === 0 && <Convos  convoStatus={'active'} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
+                {this.state.value === 1 && <Convos  convoStatus={'queue'} handleConvoSelect={this.props.handleQueueConvoSelect} />}
+                {this.state.value === 2 && <Convos  convoStatus={'closed'} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
+          </div>
         </div>
       );
     }
