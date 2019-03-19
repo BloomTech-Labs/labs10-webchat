@@ -33,6 +33,8 @@ const styles = theme => ({
   logo: {
     width: 65,
     height: 60,
+    marginLeft: -3,
+    marginTop: -5,
     display: 'flex',
       [theme.breakpoints.down('sm')]: {
         width: 60,
@@ -147,10 +149,10 @@ class Pricing extends Component {
           <Toolbar>
             <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
               <Link to={ROUTES.LANDING}>
-                <img
-                  className={classes.logo}
-                  src={require("../images/logo.png")}
-                  alt="logo"
+                <img 
+                  className={classes.logo} 
+                  src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" 
+                  alt="logo" 
                 />
               </Link>
             </Typography>

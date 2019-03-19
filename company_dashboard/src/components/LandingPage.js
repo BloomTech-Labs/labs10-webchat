@@ -32,7 +32,7 @@ const styles = theme => ({
     width: 65,
     height: 60,
     marginLeft: -25,
-    marginTop: -8,
+    marginTop: -6,
       [theme.breakpoints.down('sm')]: {
         width: 60,
         height: 60,
