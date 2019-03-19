@@ -18,7 +18,9 @@ const Navigation = () => (
  );
 
 class NavigationBaseForm extends React.Component {
-  state = {
+constructor(props) {
+super(props);  
+this.state = {
     name: "",
     uid:"",
     email: "",
@@ -27,10 +29,13 @@ class NavigationBaseForm extends React.Component {
     selectedFile: null,
     id: "",
     error:null,
-  };
-  componentDidMount() {
+  }
+};	
+  
+componentDidMount() {
 	this.props.firebase.auth.onAuthStateChanged(user => {
         if (user) {
+	console.log('user after onAUthState', user);
 
         this.props.firebase.auth.currentUser.getIdToken()
         .then(idToken => {
@@ -56,11 +61,19 @@ class NavigationBaseForm extends React.Component {
   .catch(error => {            // if Firebase getIdToken throws an error
         console.log(error.message);
        this.setState({ error:error });
+	//this.props.history.push('/repslogin');
    })
   }
+
+else {
+                 this.props.history.push('/repslogin'); //if user is signed out redirect to login page
+     }
 })
+	  
 };
-  render() {
+  
+
+render() {
     if(this.state.is_admin) {
       return (
         <div className="navigation">
@@ -91,7 +104,7 @@ NavigationBaseForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const NavigationComponent =(withRouter(withFirebase(NavigationBaseForm)));
+const NavigationComponent =  (withRouter(withFirebase(NavigationBaseForm)));
 
 export default Navigation;
 
