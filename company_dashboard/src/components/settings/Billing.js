@@ -12,6 +12,10 @@ import {
   Typography,
 } from '@material-ui/core'
 
+const BillingContainer = styled.div`
+  
+`
+
 const PaymentContainer = styled.div`
   margin: 100px auto;
   max-width: 800px;
@@ -94,12 +98,6 @@ class Billing extends React.Component {
   }
 
   addSubscription = body => {  
-    // let auth = {
-    //   headers: {
-    //     authorization: localStorage.getItem('access_token'),
-    //   },
-    // }
-
     // addSub endpoint will do the following:
     // - check if sub for user already exists in webchat db, if no existing sub:
     // -- create Stripe customer with stripe.customers.create
@@ -134,69 +132,72 @@ class Billing extends React.Component {
       // {this.state.isSubscribed ? (
       //   <p>Your company has a subscription</p>
       // ) : (
-      <PaymentContainer>
-        <h1 className="title-wide">Our Subscription Options</h1>
-        <h1 className="title-thin">Our</h1>
-        <h1 className="title-thin">Subscription</h1>
-        <h1 className="title-thin">Options</h1>
-        <Grid container spacing={40} alignItems="flex-end">
-          {subscriptionTiers.map(tier => (
-            <Grid
-              item
-              key={tier.title}
-              xs={12}
-              sm={tier.title === 'Enterprise' ? 12 : 6}
-              md={4}
-            >
-              <Card className="card" align="center">
-                <CardHeader
-                  title={tier.title}
-                  // subheader={tier.subheader} no subheaders defined
-                  titleTypographyProps={{ align: 'center', variant: 'h3' }}
-                  subheaderTypographyProps={{ align: 'center' }}
-                />
-                <CardContent>
-                  <div className={styles.cardPricing}>
-                    <Typography
-                      align="center"
-                      // component="h2"
-                      variant="h3"
-                      color="textPrimary"
-                    >
-                      ${tier.price}
-                    </Typography>
-                    <Typography
-                      align="center"
-                      variant="h5"
-                      color="textSecondary"
-                    >
-                      monthly
-                    </Typography>
-                  </div>
-                  {tier.description.map(line => (
-                    <Typography variant="h6" align="center" key={line}>
-                      {line}
-                    </Typography>
-                  ))}
-                  <PaymentButton>
-                    <StripeCheckout
-                      label="BUY"
-                      panelLabel="SUBSCRIBE"
-                      token={tier.token}
-                      stripeKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu"
-                      name={tier.title}
-                      description={tier.description}
-                      amount={tier.price * 100}
-                      allowRememberMe={false}
-                      // image={logo}
-                    />
-                  </PaymentButton>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </PaymentContainer>
+      <BillingContainer>
+        <Navigation />
+        <PaymentContainer>
+          <h1 className="title-wide">Our Subscription Options</h1>
+          <h1 className="title-thin">Our</h1>
+          <h1 className="title-thin">Subscription</h1>
+          <h1 className="title-thin">Options</h1>
+          <Grid container spacing={40} alignItems="flex-end">
+            {subscriptionTiers.map(tier => (
+              <Grid
+                item
+                key={tier.title}
+                xs={12}
+                sm={tier.title === 'Enterprise' ? 12 : 6}
+                md={4}
+              >
+                <Card className="card" align="center">
+                  <CardHeader
+                    title={tier.title}
+                    // subheader={tier.subheader} no subheaders defined
+                    titleTypographyProps={{ align: 'center', variant: 'h3' }}
+                    subheaderTypographyProps={{ align: 'center' }}
+                  />
+                  <CardContent>
+                    <div className={styles.cardPricing}>
+                      <Typography
+                        align="center"
+                        // component="h2"
+                        variant="h3"
+                        color="textPrimary"
+                      >
+                        ${tier.price}
+                      </Typography>
+                      <Typography
+                        align="center"
+                        variant="h5"
+                        color="textSecondary"
+                      >
+                        monthly
+                      </Typography>
+                    </div>
+                    {tier.description.map(line => (
+                      <Typography variant="h6" align="center" key={line}>
+                        {line}
+                      </Typography>
+                    ))}
+                    <PaymentButton>
+                      <StripeCheckout
+                        label="BUY"
+                        panelLabel="SUBSCRIBE"
+                        token={tier.token}
+                        stripeKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu"
+                        name={tier.title}
+                        description={tier.description}
+                        amount={tier.price * 100}
+                        allowRememberMe={false}
+                        // image={logo}
+                      />
+                    </PaymentButton>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </PaymentContainer>
+      </BillingContainer>
       // )}
     )
   }
