@@ -6,23 +6,22 @@ function enableChattr() {
 	// }
 
 	let wcaBtn = document.querySelector(".webChatAppBtn");
+	let wcaBtnImg = document.querySelector(".webChatAppBtnImg");
 	if (wcaBtn === null) return;
 
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
 	wcaIFRAME.style.display = "none";
 	wcaIFRAME.style.width = "450px";
 	wcaIFRAME.style.height = "600px";
-	wcaBtn.style.width = "40px";
-	wcaBtn.style.height = "40px";
-	wcaBtn.style.backgroundColor = "#3f51b5";
-	wcaBtn.style.padding = "40px";
-	wcaBtn.style.color = "white";
 	wcaBtn.style.textAlign = "center";
 	wcaBtn.style.verticalAlign = "middle";
 	wcaBtn.style.borderRadius = "60px";
 	wcaBtn.style.position = "fixed";
 	wcaBtn.style.bottom = "20px";
 	wcaBtn.style.right = "20px";
+	wcaBtnImg.style.width = "80px";
+	wcaBtnImg.style.height = "80px";
+	wcaBtnImg.src = "https://freeiconshop.com/wp-content/uploads/edd/chat-alt-flat.png";
 	wcaIFRAME.style.position = "fixed";
 	wcaIFRAME.style.bottom = "120px";
 	wcaIFRAME.style.right = "20px";
