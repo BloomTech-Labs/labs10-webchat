@@ -40,6 +40,10 @@ const styles = theme => ({
       },
   },
   navButton: {
+    // backgroundColor: 'orange',
+    display: 'flex',
+    paddingRight: 50,
+    color: 'white',
       [theme.breakpoints.down('sm')]: {
         // backgroundColor: 'orange',
         fontSize: 13,
@@ -150,15 +154,15 @@ class Pricing extends Component {
                 />
               </Link>
             </Typography>
-            <Button className={classes.navButton} size="large" color="primary"> 
-              <Link to={ROUTES.PRICING}>Pricing</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-            </Button>
+            <a href='/pricing'>
+              <p className={classes.navButton}>PRICING</p>
+            </a>
+            <a href='/repslogin'>
+              <p className={classes.navButton}>SIGN IN</p>
+            </a>
+            <a href='/repregister'>
+              <p className={classes.navButton}>SIGN UP</p>
+            </a>
           </Toolbar>
         </AppBar>
         
