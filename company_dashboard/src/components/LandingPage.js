@@ -44,23 +44,21 @@ const styles = theme => ({
     paddingRight: 50,
     color: 'white',
       [theme.breakpoints.down('sm')]: {
-        fontSize: 13,
+        fontSize: 14,
         padding: 2,
-        marginLeft: 5,
-        marginRight: 38,
+        marginLeft: 25,
         // backgroundColor: 'orange',
       },
   },
   signupNav: {
     color: '#64dd17',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 14,
+        padding: 2,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
+      },
   },
-  // barNetlify: {
-  //   width: 70,
-  //   height: 70,
-  //     [theme.breakpoints.down('sm')]: {
-  //       visibility: 'hidden',
-  //     },
-  // },
   home: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
@@ -230,7 +228,9 @@ const styles = theme => ({
     color: 'black',
       [theme.breakpoints.down('sm')]: {
         // color: 'white',
+        flexDirection: 'column',
         marginBottom: 0,
+        fontSize: 11,
       },
   },
   meetTeam: {
@@ -238,16 +238,12 @@ const styles = theme => ({
     marginTop: 'auto',
     color: '#64dd17',
     fontWeight: 'bold',
+      [theme.breakpoints.down('sm')]: {
+        margin: 'auto',
+        marginBottom: 15,
+        fontSize: 15,
+      },
   },
-  // footerNetlify: {
-  //   visibility: 'hidden',
-  //     [theme.breakpoints.down('sm')]: {
-  //       width: 70,
-  //       height: 70,
-  //       marginTop: 15,
-  //       visibility: 'visible',
-  //     },
-  // },
 })
 
 class LandingPage extends Component {
