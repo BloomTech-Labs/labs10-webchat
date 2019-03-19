@@ -84,11 +84,11 @@ class ChatDashboard extends React.Component {
     }
 
     handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
-        const id = convo_id;
-        const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        messageRequest
-            .then(response => {
-                console.log("Response from ChatDash Closed GET messages: ", response);
+        // const id = convo_id;
+        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        // messageRequest
+        //     .then(response => {
+        //         console.log("Response from ChatDash Closed GET messages: ", response);
                 this.setState({
                     convoSelected: true,
                     currentConvoId: convo_id,
@@ -100,10 +100,10 @@ class ChatDashboard extends React.Component {
                     console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
                 });
             })
-            .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-            });
+            // .catch(error => {
+            //     console.log(error.message);
+            //     //this.setState({error:error});
+            // });
     }
 
     closeConvo() {
