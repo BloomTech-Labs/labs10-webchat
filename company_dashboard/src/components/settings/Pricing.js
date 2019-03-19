@@ -33,6 +33,8 @@ const styles = theme => ({
   logo: {
     width: 65,
     height: 60,
+    marginLeft: -3,
+    marginTop: -5,
     display: 'flex',
       [theme.breakpoints.down('sm')]: {
         width: 60,
@@ -40,12 +42,24 @@ const styles = theme => ({
       },
   },
   navButton: {
+    // backgroundColor: 'orange',
+    display: 'flex',
+    paddingRight: 50,
+    color: 'white',
       [theme.breakpoints.down('sm')]: {
-        // backgroundColor: 'orange',
-        fontSize: 13,
+        fontSize: 14,
         padding: 2,
-        marginLeft: 15,
-        marginRight: 18,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
+      },
+  },
+  signupNav: {
+    color: '#64dd17',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 14,
+        padding: 2,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
       },
   },
   layout: {
@@ -143,22 +157,22 @@ class Pricing extends Component {
           <Toolbar>
             <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
               <Link to={ROUTES.LANDING}>
-                <img
-                  className={classes.logo}
-                  src={require("../images/logo.png")}
-                  alt="logo"
+                <img 
+                  className={classes.logo} 
+                  src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" 
+                  alt="logo" 
                 />
               </Link>
             </Typography>
-            <Button className={classes.navButton} size="large" color="primary"> 
-              <Link to={ROUTES.PRICING}>Pricing</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-            </Button>
+            <a href='/pricing'>
+              <p className={classes.navButton}>PRICING</p>
+            </a>
+            <a href='/repslogin'>
+              <p className={classes.navButton}>SIGN IN</p>
+            </a>
+            <a href='/repregister'>
+              <p className={classes.signupNav}>SIGN UP</p>
+            </a>
           </Toolbar>
         </AppBar>
         
