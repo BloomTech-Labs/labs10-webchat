@@ -1,50 +1,40 @@
 import React, {Component} from 'react';
 import io from 'socket.io-client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { withRouter} from "react-router-dom"
+
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-// import './ChatView.css';
-import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
+import './ChatView.css';
+import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
 
 
-// const styles = theme => ({
-//  avatar: {
-//     margin: 10,
-//   },
-//   root: {
-//     flexGrow: 1,
-//     overflow: 'hidden',
-//     padding: `0 ${theme.spacing.unit * 3}px`,
-//     height: 500,
-//     overflowY: 'scroll'
-//   },
-//   paper: {
-//     maxWidth: 400,
-//     margin: `${theme.spacing.unit*2}px auto`,
-//     padding: theme.spacing.unit * 2,
-//   },
-// //   root: {
-// //     overflowY: 'scroll'
-// //   },
-//   form: {
-//     display: "flex",
-//     flexDirection: "column",
-//     padding:"20px"
-//   },
-//   messageInput: {
-//     border: "1px solid grey",
-//     padding:"5px 10px 0px 10px"
-    
-//   }
-// });
+const styles = theme => ({
+  root: {
+    // overflowY: 'scroll', 
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  chatViewHead: {
+    // flexShrink: 0
+  },
+  messageList: {
+    margin: '10px',
+    overflowY: 'scroll',
+    // maxHeight: '700px',
+    flexGrow: 1,
+
+  },
+  inputArea: {
+    // height: '100%'
+    // flexShrink: 0
+  }
+});
 
 
 class ChatView extends Component {
@@ -206,123 +196,203 @@ class ChatView extends Component {
 
     render() {
         const is_closed = this.state.is_closed;
-        const { classes } = this.props;
         const customer_name = `${this.props.customerName}`;
         const conversation_summary = `${this.props.summary}`
-        return(
+        const { classes } = this.props;
+        return (
 
-
-          <div className="chat-view">
-            <ThemeProvider>
-            <MuiThemeProvider>
-              <div className="chat-view-header">
-                  <MessageGroup>
-                      <MessageTitle>Serving Customer: {customer_name}</MessageTitle>
-                      <MessageText>{conversation_summary}</MessageText>
-                  </MessageGroup>
+          <div className={classes.root}>
+              <div className={classes.chatViewHead}>
+                <h1>CHAT VIEW HEAD</h1>
               </div>
-              <div style={{ maxWidth: '100%', height: '100%' }}>
-                <div className="messageList" style={{ height: 500 }}>
-                  <MessageList>
+
+              <div className={classes.messageList}> 
                     {this.state.messages.map((message, index) => {
-                      console.log(message);
-                      if(customer_name === message.author_name) {
+                        console.log(message.image_url)
                         return (
-                          <Row reverse>
-                            <AgentBar>
-                                <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-                            </AgentBar>
+                          <div className={classes.message}>
 
-                            <Message
-                                authorName={message.author_name}
-                                isOwn={true}
-                            >
-                                <MessageText>
-                                    {message.body}
-                                </MessageText>
-                            </Message>
-                          </Row>
+                            <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+
+                            <p>{message.body}</p>
+                          </div>
                         );
-                      } else {
-                        return (
-                          <Row>
-                            <AgentBar>
-                              <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-                            </AgentBar>
-                            <Message
-                              authorName={message.author_name}
-                            >
-                              <MessageText>
-                                {message.body}
-                              </MessageText>
-                            </Message>
-                          </Row>
-                        );
-                        }
                     })}
-                  </MessageList>
-                </div>
-                <form 
-                  className="form"    
-                  onSubmit={this.onSubmit}
-                >
-                  <br/>
-                  <br/>
-                  <br/>
-                  <input
-                      hintText="message"
-                      name="message"
-                      type="text"
-                      style ={{width: '80%', padding:'0px 15px 0px 10px'}}
-                      inputStyle ={{width: '100%' }}
-                      className="messageInput"
-                      value={this.state.message}
-                      onChange={this.onChange}
-                  />
-                  <br/>
-                  <br/>
-                    
-                  {is_closed ? (
-                      <p>This conversation is closed.</p>
-                  ) : (
-                      <div className="footer-buttons">
-                      <RaisedButton
-                          label="send"
-                          primary={true}
-                          type="submit"
-                      />
-                      
-                      <RaisedButton
-                          label="End Conversation"
-                          secondary={true}
-                          onClick={this.handleCloseConvo}
-                      />
-                      </div>
-                  )}
-                </form>
               </div>
-                        
-
-                        {/* <div className="rootReplacement"> */}
-                            {/* <div className="messages">
-                            </div>
-                            <div style={{ float:"left", clear: "both" }}
-                            ref={(el) => { this.messagesEnd = el; }}>
-                            </div> */}
-
-                            {/* <div className="footer">
-                            </div> */}
-                        {/* </div> */}
-            </MuiThemeProvider>
-            </ThemeProvider>
+              <div className={classes.inputArea}>
+                <form onSubmit={this.onSubmit}>
+                  <input
+                    hintText="message"
+                    name="message"
+                    type="text"
+                    value={this.state.message}
+                    onChange={this.onChange}
+                    style ={{ 
+                      border: '1.5px solid lightgrey',
+                      borderRadius: '3px',
+                      height: '40px',
+                      width: '90vw',
+                      maxWidth: '480px', 
+                    }}
+                    className="messageInput"
+                  />
+                  <span style={{
+                    fontSize: '2rem',
+                    color: 'DodgerBlue',
+                    margin: '20px'
+                  }}>
+                    <i class="far fa-paper-plane"></i>
+                  </span>
+                  <span style={{
+                    fontSize: '2rem',
+                    margin: '20px'
+                  }}>
+                    <i class="fas fa-times"></i>
+                  </span>
+                </form>
+                {/* <form>
+                  <input
+                    name="message"
+                    type="text"
+                    value={this.state.message}
+                    onChange={this.onChange}
+                    />
+                <ThemeProvider>
+                  <div className={classes.buttonArea}>
+                    <Row>
+                      <IconButton>
+                        <SendIcon />
+                      </IconButton>
+                    </Row>
+                    <Row>
+                      <IconButton>
+                        <CloseIcon />
+                      </IconButton>
+                    </Row>
+                  </div>
+                </ThemeProvider>
+              </form> */}
+            </div>
           </div>
     );
   }
 }
 
-ChatView.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// ChatView.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
 // export default withStyles(styles)(ChatView);
-export default ChatView;
+export default withStyles(styles)(withRouter(ChatView));
+
+
+
+
+
+
+
+// Underneath is old JSX
+
+
+{/* <div className="chat-view">
+<ThemeProvider>
+<MuiThemeProvider>
+  <div className="chat-view-header">
+      <MessageGroup>
+          <MessageTitle>Serving Customer: {customer_name}</MessageTitle>
+          <MessageText>{conversation_summary}</MessageText>
+      </MessageGroup>
+  </div>
+
+    <div className="messageList">
+      <MessageList>
+        {this.state.messages.map((message, index) => {
+          console.log(message);
+          if(customer_name === message.author_name) {
+            return (
+              <Row reverse>
+                <AgentBar>
+                    <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+                </AgentBar>
+
+                <Message
+                    authorName={message.author_name}
+                    isOwn={true}
+                >
+                    <MessageText>
+                        {message.body}
+                    </MessageText>
+                </Message>
+              </Row>
+            );
+          } else {
+            return (
+              <Row>
+                <AgentBar>
+                  <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+                </AgentBar>
+                <Message
+                  authorName={message.author_name}
+                >
+                  <MessageText>
+                    {message.body}
+                  </MessageText>
+                </Message>
+              </Row>
+            );
+            }
+        })}
+      </MessageList>
+    </div>
+    <form 
+      className="form"    
+      onSubmit={this.onSubmit}
+    >
+
+      <input
+          hintText="message"
+          name="message"
+          type="text"
+          style ={{ 
+            padding: '20px',
+            border: '2px solid red',
+            width: '90vw', 
+            padding:'0px 15px 0px 10px'
+          }}
+          inputStyle ={{width: '100%' }}
+          className="messageInput"
+          value={this.state.message}
+          onChange={this.onChange}
+      />
+        
+      {is_closed ? (
+          <p>This conversation is closed.</p>
+      ) : (
+          <div className="footer-buttons">
+          <RaisedButton
+              label="send"
+              primary={true}
+              type="submit"
+          />
+          
+          <RaisedButton
+              label="End Conversation"
+              secondary={true}
+              onClick={this.handleCloseConvo}
+          />
+          </div>
+      )}
+    </form>
+            <div className="rootReplacement">
+                <div className="messages">
+                </div>
+                <div style={{ float:"left", clear: "both" }}
+                ref={(el) => { this.messagesEnd = el; }}>
+                </div>
+
+                <div className="footer">
+                </div>
+            </div>
+</MuiThemeProvider>
+</ThemeProvider>
+</div> */}
