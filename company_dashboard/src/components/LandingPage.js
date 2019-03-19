@@ -186,8 +186,20 @@ const styles = theme => ({
       },
 	},
 	signup: {
-		marginTop: 55,
+    marginTop: 55,
+    margin: 'auto',
+    width: 130,
     height: 50,
+    color: '#64dd17',
+    fontWeight: 'bold',
+    fontSize: 18,
+    borderStyle: 'solid',
+    borderColor: '#2d8754',
+    borderRadius: 5,
+    border: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 	},
 	footer: {
     width: '100%',
@@ -221,7 +233,8 @@ const styles = theme => ({
   meetTeam: {
     marginRight: 90,
     marginTop: 'auto',
-    color: '#2d8754',
+    color: '#64dd17',
+    fontWeight: 'bold',
   },
   // footerNetlify: {
   //   visibility: 'hidden',
@@ -276,9 +289,12 @@ class LandingPage extends Component {
                 <Typography className={classes.main} component='h2' variant='h3' gutterBottom>
                   Welcome to Chattr, the new way to chat with your customers
                 </Typography>
-                <Button variant="outlined" color="primary" className={classes.signup}>
+                {/* <Button variant="outlined" color="primary" className={classes.signup}>
                   <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
-                </Button>
+                </Button> */}
+                <a href='/repregister'>
+                  <p className={classes.signup}>Get Started</p>
+                </a>
               </div>
                 <img
                   className={classes.landing}
@@ -335,9 +351,9 @@ class LandingPage extends Component {
                   All companies get our features for just one payment of $30
                 </Typography>
               </div>
-              <Button variant="outlined" color="primary" className={classes.signup}>
-                <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
-              </Button>
+              <a href='/repregister'>
+                <p className={classes.signup}>Get Started</p>
+              </a>
             </Paper>
           {/* </Grid> */}
         </Grid>
