@@ -10,6 +10,8 @@ const app = express();
 if (process.env.ENVIRONMENT == 'development') { 
   require('dotenv').config(); 
 }
+
+
 const port = process.env.PORT || 5000;
 
 const admin = require('firebase-admin');
@@ -61,16 +63,26 @@ const billingRoutes = require('./routes/billing/billingRoutes');
 const imageRoutes = require('./routes/images/imageRoutes');
 const approvedemailRoutes = require('./routes/approvedemails/approvedemails');
 const chatRoutes = require('./routes/chat/index');
+const webhooksRoutes = require('./routes/webhooks/webhooksRoutes');
+
+//trying to send raw req.body for stripe signature to verify, hence calling this endpoint before app.use(express.json());
+
+//app.use('/api/webhook', webhooksRoutes);
 
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 
+//stripe webhook endpiont
+app.use('/api/webhook', webhooksRoutes);
 
 app.get('/',(req, res) => {
   res.send("Welcome to Webchat app....");
 });
+
+
+
 
 // Any req coming into the server has to go through this verification:
 app.use(async(req,res) => {                         

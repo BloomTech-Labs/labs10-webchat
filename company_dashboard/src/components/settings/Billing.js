@@ -1,7 +1,12 @@
 import React from 'react'
-import StripeCheckout from 'react-stripe-checkout'
+import { withFirebase } from "../Firebase";
+import { Link, withRouter, Route} from "react-router-dom"
+import { FirebaseContext } from '../Firebase';
+import StripeCheckout from 'react-stripe-checkout';
+import { withStyles } from "@material-ui/core/styles";
 import styled from 'styled-components'
 import { CUSTOMER_CHAT } from "../../constants/routes";
+import PropTypes from "prop-types";
 // import DashBar from '../NewDash'
 import axios from 'axios'
 // import logo from '../images/logo.png'
@@ -76,13 +81,47 @@ const styles = theme => ({
   },
 })
 
-class Billing extends React.Component {
+
+const Billing = () => (
+  <div>
+    <FirebaseContext.Consumer>
+      {firebase => <BillingComponent firebase={firebase} />}
+    </FirebaseContext.Consumer>
+  </div>
+)
+
+
+class BillingBaseForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isSubscribed: false
     }
   }
+
+
+ componentDidMount() {
+ 
+  this.props.firebase.auth.onAuthStateChanged(user => {
+        if (user) {
+
+        this.props.firebase.auth.currentUser.getIdToken()
+        .then(idToken => {
+
+        	console.log("idToken after in Admin panel: ", idToken);
+        	axios.defaults.headers.common['Authorization'] = idToken;
+	})	
+ 	.catch(error => {            // if Firebase getIdToken throws an error
+        	console.log(error.message);
+                //this.setState({ error:error });
+      	})
+	}	
+        else {
+                 this.props.history.push('/repslogin');
+        }
+   });
+ };
+
 
   basicToken = token => {
     let bodyToSend = {
@@ -197,9 +236,17 @@ class Billing extends React.Component {
   }
 }
 
+//export default Billing;
+
+BillingBaseForm.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+const BillingComponent = withStyles (styles) (withRouter(withFirebase(BillingBaseForm)));
+
 export default Billing;
 
-
+export { BillingComponent};
 
 
 
