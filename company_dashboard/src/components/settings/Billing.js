@@ -3,7 +3,6 @@ import StripeCheckout from 'react-stripe-checkout'
 import styled from 'styled-components'
 import Navigation from "../Navigation";
 import axios from 'axios'
-// import logo from '../images/logo.png'
 import {
   Grid,
   Card,
@@ -17,7 +16,8 @@ const BillingContainer = styled.div`
 `
 
 const PaymentContainer = styled.div`
-  margin: 100px auto;
+  margin: 100px auto 100px auto;
+
   max-width: 800px;
   /* width: 70%; */
   display: flex;
@@ -188,7 +188,6 @@ class Billing extends React.Component {
                         description={tier.description}
                         amount={tier.price * 100}
                         allowRememberMe={false}
-                        // image={logo}
                       />
                     </PaymentButton>
                   </CardContent>
