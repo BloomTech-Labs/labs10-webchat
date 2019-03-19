@@ -45,10 +45,8 @@
 }
 
 .account-settings .right-container img {
-    min-width: 50%;
-    min-height: 50%;
-    max-width:50%;
-    max-height:50%;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
 }
 
