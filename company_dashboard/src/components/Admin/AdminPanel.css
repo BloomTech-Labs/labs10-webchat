@@ -23,6 +23,22 @@
   width: 70px;
 }
 
+@media (max-width: 1280px) {
+  .admin-panel-container {
+      padding-top: 10%;
+      height: 100%;
+      margin-right: 0;
+      padding-right: 0;
+      right: 0;
+  }
+  .admin-panel {
+      margin-top: -8%;
+      padding-bottom: 20%;
+      width: 60%;
+      margin-bottom: 10%;
+      margin-right: 0;
+  }
+}
 
 @media (max-width: 800px) {
 
@@ -32,8 +48,8 @@
     }
 
   .admin-panel {
-    margin: auto;
     margin-top: 50px;
+    margin-left: 2%;
     flex-direction: column;
     align-items: center;
     width: 70%;
@@ -44,7 +60,6 @@
     .admin-panel .admin-table {
       margin-left: 2%;
       width: 95%;
-      overflow-x: hidden;
     }
 
   }
