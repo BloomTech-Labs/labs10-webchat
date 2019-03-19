@@ -105,7 +105,7 @@
   .account-settings {
     margin-top: 50px;
     margin-left: 5%;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     width: 85%;
     padding-top: 0;
