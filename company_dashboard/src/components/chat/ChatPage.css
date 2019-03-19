@@ -1,0 +1,19 @@
+.customer-chat {
+  background-color: #F9FAFF;
+  height: 100%;
+  border: 2px gray solid;
+}
+
+.customer-chat-top-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding-top: 1%;
+  margin-bottom: 8%;
+  background-color: gray;
+  height: 80px;
+  color: white;
+  font-size: 19px;
+  font-weight: 200;
+}

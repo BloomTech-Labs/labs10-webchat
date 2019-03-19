@@ -57,9 +57,9 @@ class CustomerSignUpFormBase extends Component {
           .then(idToken => {
             console.log("idToken from curentUser: ", idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
-	    console.log('company id in Customer Signup page is:', this.state.company_id);		  
-	    const data ={company_id: this.state.company_id, name: this.state.name, email: this.state.email, summary: this.state.summary, uid:authUser.user.uid}	
-		
+	    console.log('company id in Customer Signup page is:', this.state.company_id);
+	    const data ={company_id: this.state.company_id, name: this.state.name, email: this.state.email, summary: this.state.summary, uid:authUser.user.uid}
+
 	    	//add customer details to customer table
 		const request = axios.post('/api/customers', data);
 
@@ -113,7 +113,7 @@ render() {
               Successfully Logged In</Typography>):(
             <div>
               <div className="customer-signup-top-bar">
-                <p>Register an Account to get live customer support</p>
+                <p>Register an Account for Live Customer Support</p>
               </div>
 
 	            <form onSubmit={this.onSubmit}>
@@ -179,9 +179,8 @@ render() {
                     type="submit"
                     disabled={condition}
               />
+              {error && <p>{error.message}</p>}
               <p className="smaller-text">Powered by chattr</p>
-
-        {error && <p>{error.message}</p>}
             </form>
             </div>)}
         </MuiThemeProvider>
