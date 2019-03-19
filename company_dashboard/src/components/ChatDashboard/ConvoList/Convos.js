@@ -12,8 +12,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
 
 
-
-
 const styles = theme => ({
   root: {
     border: '1px dotted black',
@@ -51,7 +49,7 @@ const styles = theme => ({
   }
 });
 
-class ClosedConvos extends React.Component {
+class Convos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,11 +58,11 @@ class ClosedConvos extends React.Component {
   }
 
   componentDidMount() {
-    const getClosed = axios.get('/api/chat/closed');
+    const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
     getClosed
-      .then(closed => {
+      .then(response => {
         this.setState({
-          conversations: closed.data  // active.data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
+          conversations: response.data  // .data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
         });
       })
       .catch(error => {
@@ -82,7 +80,7 @@ class ClosedConvos extends React.Component {
             <Typography
               variant='h4'
             >
-              Closed Queues
+              
             </Typography>
             <div className={classes.convoList}>
                 {this.state.conversations.map((queue, index) => {
@@ -93,7 +91,7 @@ class ClosedConvos extends React.Component {
                       <MuiThemeProvider> 
                         <Paper className={classes.paper}>
                           <Grid item
-                            onClick={() => this.props.handleClosedConvoSelect(queue.convo_id, queue.customer_uid, queue.summar, queue.customer_name)}
+                            onClick={() => this.props.handleConvoSelect(queue.convo_id, queue.customer_uid, queue.summar, queue.customer_name)}
                           >
                             <h3 className={classes.queueTitle}>
                               {queue.customer_name}
@@ -114,46 +112,7 @@ class ClosedConvos extends React.Component {
 
         ); 
       }
-    }
+    } 
     
-    
-    
-    
-export default withStyles(styles)(withRouter(ClosedConvos));
+export default withStyles(styles)(withRouter(Convos));
 
-
-
-
-    // {this.state.conversations.map((convo, index) => {
-    // return(
-    //     <Paper key={index} className={classes.paper}>
-    //     <Grid container wrap="nowrap" className={classes.listItemContainer} spacing={0}>
-    //         <Grid item>
-    //         </Grid>
-    //         <Grid item
-    //             lg
-    //             zeroMinWidth
-    //             className={classes.listItem}
-    //             key={index}
-    //             onClick={() => this.props.handleClosedConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
-    //         >
-    //             <Typography
-    //                 color='primary'
-    //                 variant='h5'
-    //                 align='left'
-    //                 noWrap
-    //                 key={index}
-    //             >
-    //                 <p>
-    //                 {convo.customer_name}
-    //                 </p>
-    //                 <p className={classes.convoSummary}> 
-    //                     {convo.summary}
-    //                 </p>
-    //             </Typography>
-
-    //         </Grid>
-    //     </Grid>
-    //     </Paper>
-    // )
-    // })}
