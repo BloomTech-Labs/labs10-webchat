@@ -9,17 +9,30 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-// import './ChatView.css';
+import './ChatView.css';
 import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
 
 
 const styles = theme => ({
   root: {
-    overflowY: 'scroll',
+    // overflowY: 'scroll', 
     height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  chatViewHead: {
+    // flexShrink: 0
   },
   messageList: {
-    // overflowY: 'scroll'
+    margin: '10px',
+    overflowY: 'scroll',
+    // maxHeight: '700px',
+    flexGrow: 1,
+
+  },
+  inputArea: {
+    // height: '100%'
+    // flexShrink: 0
   }
 });
 
@@ -193,59 +206,50 @@ class ChatView extends Component {
                 <h1>CHAT VIEW HEAD</h1>
               </div>
 
-              <div className={classes.messageList}>
-                <ThemeProvider>
-                  <MessageList>
+              <div className={classes.messageList}> 
                     {this.state.messages.map((message, index) => {
-                      if(customer_name === message.author_name) {
+                        console.log(message.image_url)
                         return (
                           <div className={classes.message}>
-                            <MessageGroup
-                              avatar={message.image_url}
-                            >
-                            {/* <img src={message.image_url} style={{ width: 55, height: 55 }}/> */}
-                              <MessageText>
-                                {message.body}
-                              </MessageText>
-                            </MessageGroup>
+
+                            <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+
+                            <p>{message.body}</p>
                           </div>
                         );
-                      } else {
-                        return (
-                          <div className={classes.message}>
-                            <MessageGroup
-                              avatar={message.image_url}
-                            >
-                            {/* <img src={message.image_url} style={{ width: 55, height: 55 }}/> */}
-                              <MessageText>
-                                {message.body}
-                              </MessageText>
-                            </MessageGroup>
-                          </div>
-                        );
-                      }
                     })}
-                  </MessageList>
-                </ThemeProvider>
               </div>
               <div className={classes.inputArea}>
-                <ThemeProvider>
-                  <TextComposer defaultValue="Hello, can you help me?">
-                    <Row align="center">
-                      <IconButton fit>
-                        <AddIcon />
-                      </IconButton>
-                      <TextInput fill />
-                      <SendButton fit />
-                    </Row>
-
-                    <Row verticalAlign="center" justify="right">
-                      <IconButton fit>
-                        <CloseIcon />
-                      </IconButton>
-                    </Row>
-                  </TextComposer>
-                </ThemeProvider>
+                <form onSubmit={this.onSubmit}>
+                  <input
+                    hintText="message"
+                    name="message"
+                    type="text"
+                    value={this.state.message}
+                    onChange={this.onChange}
+                    style ={{ 
+                      border: '1.5px solid lightgrey',
+                      borderRadius: '3px',
+                      height: '40px',
+                      width: '90vw',
+                      maxWidth: '480px', 
+                    }}
+                    className="messageInput"
+                  />
+                  <span style={{
+                    fontSize: '2rem',
+                    color: 'DodgerBlue',
+                    margin: '20px'
+                  }}>
+                    <i class="far fa-paper-plane"></i>
+                  </span>
+                  <span style={{
+                    fontSize: '2rem',
+                    margin: '20px'
+                  }}>
+                    <i class="fas fa-times"></i>
+                  </span>
+                </form>
                 {/* <form>
                   <input
                     name="message"
