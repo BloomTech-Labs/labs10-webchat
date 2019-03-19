@@ -13,6 +13,10 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
+            rep_uid: null,
+            rep_name: null,
+            rep_name: null,
+            url: null,
             currentConvoId: null,
             currentConvoSocket: null,
             currentConvoSummary: null,
@@ -25,6 +29,26 @@ class ChatDashboard extends React.Component {
         this.handleClosedConvoSelect = this.handleClosedConvoSelect.bind(this);
         this.closeConvo = this.closeConvo.bind(this);
         // this.addMessage = this.addMessage.bind(this);
+    }
+
+    componentDidMount() {
+        const repRequest = axios.get("/api/reps/alldetails");
+        repRequest.then(rep => {
+            this.setState({
+            rep_uid: rep.data.uid,
+            image_id: rep.data.image_id,
+            url: rep.data.url,
+            rep_name: rep.data.name,
+          }, () => {
+            console.log('ChatView state after getting messages in CDM: ', this.state);
+          });
+        })
+        .catch(error => {
+          console.log(error.message);
+          //this.setState({error:error});
+        });
+      
+      
     }
 
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {

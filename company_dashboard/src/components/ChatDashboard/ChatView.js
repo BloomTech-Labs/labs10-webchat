@@ -75,18 +75,20 @@ class ChatView extends Component {
     console.log('ChatView CDM props: ', this.props);
 
     // Get details on the current rep:
-    const repRequest = axios.get("/api/reps/alldetails");
-    repRequest.then(rep => {
+
+    // const repRequest = axios.get("/api/reps/alldetails");
+    // repRequest.then(rep => {
+
       const id = this.props.currentConvoId;  // Get convo_id from props
       const messageRequest = axios.get(`/api/chat/messages/${id}`);
       messageRequest
         .then(response => {
           this.setState({
             messages: response.data,
-            rep_uid: rep.data.uid,
-            image_id: rep.data.image_id,
-            url: rep.data.url,
-            rep_name: rep.data.name,
+            // rep_uid: rep.data.uid,
+            // image_id: rep.data.image_id,
+            // url: rep.data.url,
+            // rep_name: rep.data.name,
           }, () => {
             console.log('ChatView state after getting messages in CDM: ', this.state);
           });
@@ -95,17 +97,12 @@ class ChatView extends Component {
           console.log(error.message);
           //this.setState({error:error});
         });
-      // this.setState({
-      //     rep_uid: rep.data.uid,
-      //     image_id: rep.data.image_id,
-      //     url: rep.data.url,
-      //     rep_name: rep.data.name,
+      
+      // })
+      // .catch(error => {
+      //   console.log(error.message);
+      //   //this.setState({error:error});
       // });
-      })
-      .catch(error => {
-        console.log(error.message);
-        //this.setState({error:error});
-      });
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
   }
