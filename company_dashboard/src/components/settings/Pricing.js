@@ -47,11 +47,19 @@ const styles = theme => ({
     paddingRight: 50,
     color: 'white',
       [theme.breakpoints.down('sm')]: {
-        // backgroundColor: 'orange',
-        fontSize: 13,
+        fontSize: 14,
         padding: 2,
-        marginLeft: 15,
-        marginRight: 18,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
+      },
+  },
+  signupNav: {
+    color: '#64dd17',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 14,
+        padding: 2,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
       },
   },
   layout: {
@@ -163,7 +171,7 @@ class Pricing extends Component {
               <p className={classes.navButton}>SIGN IN</p>
             </a>
             <a href='/repregister'>
-              <p className={classes.navButton}>SIGN UP</p>
+              <p className={classes.signupNav}>SIGN UP</p>
             </a>
           </Toolbar>
         </AppBar>
