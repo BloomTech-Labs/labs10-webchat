@@ -211,10 +211,13 @@ class ChatView extends Component {
                         console.log(message.image_url)
                         return (
                           <div className={classes.message}>
+                            <MuiThemeProvider>
+                              <Paper>
+                                <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+                                <p>{message.body}</p>
+                              </Paper>
+                            </MuiThemeProvider>
 
-                            <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-
-                            <p>{message.body}</p>
                           </div>
                         );
                     })}
@@ -236,19 +239,16 @@ class ChatView extends Component {
                     }}
                     className="messageInput"
                   />
-                  <span style={{
-                    fontSize: '2rem',
-                    color: 'DodgerBlue',
-                    margin: '20px'
-                  }}>
-                    <i class="far fa-paper-plane"></i>
-                  </span>
-                  <span style={{
-                    fontSize: '2rem',
-                    margin: '20px'
-                  }}>
-                    <i class="fas fa-times"></i>
-                  </span>
+                  <div 
+                  style={{
+                    border: '1px solid blue'
+                  }}
+                  className={classes.sendMessage}> send </div>
+                  <div 
+                  style={{
+                    border: '1px solid red'
+                  }}
+                  className={classes.endConvo}> close convo </div>
                 </form>
                 {/* <form>
                   <input
