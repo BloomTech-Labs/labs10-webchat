@@ -61,11 +61,11 @@ class ChatDashboard extends React.Component {
     }
 
     handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
-        const id = convo_id;
-        const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        messageRequest
-            .then(response => {
-                console.log("Response from ChatDash Active GET messages: ", response);
+        // const id = convo_id;
+        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
+        // messageRequest
+        //     .then(response => {
+        //         console.log("Response from ChatDash Active GET messages: ", response);
                 this.setState({
                     convoSelected: true,
                     currentConvoId: convo_id,
@@ -76,11 +76,11 @@ class ChatDashboard extends React.Component {
                 }, () => {
                     console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
                 });
-            })
-            .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-            });
+            // })
+            // .catch(error => {
+            //     console.log(error.message);
+            //     //this.setState({error:error});
+            // });
     }
 
     handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {

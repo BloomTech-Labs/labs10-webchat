@@ -88,7 +88,7 @@ class ChatView extends Component {
             url: rep.data.url,
             rep_name: rep.data.name,
           }, () => {
-            console.log('ChatView state after getting messages in CDU: ', this.state);
+            console.log('ChatView state after getting messages in CDM: ', this.state);
           });
         })
         .catch(error => {
@@ -114,12 +114,13 @@ class ChatView extends Component {
         console.log('ChatView CWRP props: ', newProps);
         const that1 = this;
 
-        const id = newProps.currentConvoId;  // Get convo_id from props
+        const id = newProps.currentConvoId;  // Get convo_id from newProps
         const currentId = this.props.currentConvoId;
 
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
             .then(response => {
+                console.log('get messages response in ChatView CWRP: ',response);
                 const newConvoId = id;
                 const currentConvoId = currentId;
                 this.setState({
@@ -210,7 +211,7 @@ class ChatView extends Component {
                     {this.state.messages.map((message, index) => {
                         console.log(message.image_url)
                         return (
-                          <div className={classes.message}>
+                          <div key={index} className={classes.message}>
 
                             <img src={message.image_url} style={{ width: 55, height: 55 }}/>
 
