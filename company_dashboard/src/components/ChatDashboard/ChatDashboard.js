@@ -15,7 +15,6 @@ class ChatDashboard extends React.Component {
         this.state = {
             rep_uid: null,
             rep_name: null,
-            rep_name: null,
             url: null,
             currentConvoId: null,
             currentConvoSocket: null,
@@ -36,7 +35,6 @@ class ChatDashboard extends React.Component {
         repRequest.then(rep => {
             this.setState({
             rep_uid: rep.data.uid,
-            image_id: rep.data.image_id,
             url: rep.data.url,
             rep_name: rep.data.name,
           }, () => {
@@ -160,10 +158,11 @@ class ChatDashboard extends React.Component {
                     <ChatView
                     currentConvoId={this.state.currentConvoId}
                     currentConvoSocket={this.state.currentConvoSocket}
+                    rep_uid={this.state.rep_uid}
+                    rep_name={this.state.rep_name}
+                    url={this.state.url}
                     summary={this.state.currentConvoSummary}
-                    // messages={this.state.currentMessages}
                     customerName={this.state.currentCustomerName}
-                    // addMessage={this.addMessage}
                     closeConvo={this.closeConvo}
                     />
                     {/* {!convoSelected ? (
