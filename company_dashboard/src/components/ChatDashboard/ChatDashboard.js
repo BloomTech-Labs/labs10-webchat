@@ -72,7 +72,7 @@ class ChatDashboard extends React.Component {
                     currentConvoSocket: customer_uid,
                     currentConvoSummary: summary,
                     currentCustomerName: customer_name,
-                    currentMessages: response.data
+                    // currentMessages: response.data
                 }, () => {
                     console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
                 });
@@ -95,11 +95,11 @@ class ChatDashboard extends React.Component {
                     currentConvoSocket: customer_uid,
                     currentConvoSummary: summary,
                     currentCustomerName: customer_name,
-                    currentMessages: response.data
+                    // currentMessages: response.data
                 }, () => {
                     console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
                 });
-            })
+            // })
             // .catch(error => {
             //     console.log(error.message);
             //     //this.setState({error:error});
