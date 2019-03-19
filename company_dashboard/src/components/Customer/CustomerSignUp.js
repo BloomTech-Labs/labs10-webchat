@@ -27,20 +27,21 @@ class CustomerSignUpFormBase extends Component {
       
      this.state = {     
     	email:"",
-      password:"",
-      password1:"",
-      company_id:2,     
-      name:"",
-      uid:"",     
-      summary:"",     
-      error:null,
-      registered:false,     
+	password:"",
+	password1:"",
+	company_id:props.match.params.id,     
+	name:"",
+	uid:"",     
+	summary:"",     
+	error:null,
+	registered:false,     
     };
   }
 
  onSubmit = event => {
     const {email, password } = this.state;
-	
+    console.log('company_id in customer signup', this.state.company_id);
+
     if(this.state.password !== this.state.password1){
     	this.setState({error:{message:"Passwords don't match"}, password:"", password1:""});
     }
@@ -56,7 +57,7 @@ class CustomerSignUpFormBase extends Component {
             console.log("idToken from curentUser: ", idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
 		
-	    console.log('company is: ', this.state.company_id);		  
+	    console.log('company id in Customer Signup page is:', this.state.company_id);		  
 	    const data ={company_id: this.state.company_id, name: this.state.name, email: this.state.email, summary: this.state.summary, uid:authUser.user.uid}	
 		
 	    	//add customer details to customer table
