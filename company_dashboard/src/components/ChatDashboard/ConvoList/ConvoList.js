@@ -39,7 +39,11 @@ const styles = {
     },
     queueList: {
       // overflyY: 'scroll',
-      border: '1px solid orange'
+      border: '1px solid orange',
+      
+  },
+  listFooter: {
+    height: '100px'
   }
 };
 
@@ -91,6 +95,7 @@ class ConvoList extends React.Component {
                 {this.state.value === 1 && <Convos  convoStatus={'queue'} handleConvoSelect={this.props.handleQueueConvoSelect} />}
                 {this.state.value === 2 && <Convos  convoStatus={'closed'} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
           </div>
+          
         </div>
       );
     }
