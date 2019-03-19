@@ -30,20 +30,32 @@ function TabContainer(props) {
 const styles = {
     root: {
       flexGrow: 1,
-      border: '1px solid blue'
-      
+      border: '1px solid blue',
+      // Changes from David
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column'
     },
     queueMenu: {
-      border: '1px solid red'
-
+      // height: '100%',
+      border: '1px solid red',
     },
     queueList: {
       // overflyY: 'scroll',
+      // height: '100% ',
       border: '1px solid orange',
-      
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
   },
-  listFooter: {
-    height: '100px'
+  paper: {
+    // height: '100%'
+  },
+  // paper2: {
+  //   height: '100%'
+  // }
+  tabs1: {
+    height: '100%'
   }
 };
 
@@ -69,18 +81,19 @@ class ConvoList extends React.Component {
         <div className={classes.root}>
 
           <div className={classes.queueMenu}>
-            <Paper>
-                <Tabs
-                    value={this.state.value}
-                    onChange={this.handleTabChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                    >
-                    <Tab label="Open" />
-                    <Tab label="Queue" />
-                    <Tab label="Closed" />
-                </Tabs>
+            <Paper className={classes.paper}>
+              <Tabs
+                className={classes.paper2}
+                value={this.state.value}
+                onChange={this.handleTabChange}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+                >
+                  <Tab label="Open" />
+                  <Tab label="Queue" />
+                  <Tab label="Closed" />
+              </Tabs>
             </Paper>
           </div>
 

@@ -240,7 +240,7 @@ class DummyWebsite extends Component {
               <Typography className={classes.heading} variant='h3' gutterBottom>
                 Why Use Joe's Plumbing?
               </Typography>
-          
+
               <div className={classes.columns}>
                <Grid item xs={12} sm={4}>
                   <div className={classes.benefits}>
@@ -295,7 +295,7 @@ class DummyWebsite extends Component {
 						</div>
 					{/* </Grid> */}
 				</Grid>
-				
+
 				<Grid container spacing={24}>
 					<Paper className={classes.footer}>
 						<div className={classes.location}>
@@ -328,7 +328,7 @@ class DummyWebsite extends Component {
 								9:00AM - 5:00PM
 							</Typography>
 						</div>
-						<Button className="webChatAppBtn">Chat!</Button> <iframe data-company-id='2' className="wcaIFRAME"></iframe>
+						<Button className="webChatAppBtn"><img className="webChatAppBtnImg"/></Button> <iframe className="wcaIFRAME" scrolling="no" overflow="hidden"></iframe>
 					</Paper>
 				</Grid>
 			</div>
@@ -341,4 +341,3 @@ DummyWebsite.propTypes = {
 };
 
 export default withStyles(styles)(DummyWebsite);
-
