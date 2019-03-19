@@ -44,20 +44,21 @@ const styles = theme => ({
     paddingRight: 50,
     color: 'white',
       [theme.breakpoints.down('sm')]: {
-        fontSize: 13,
+        fontSize: 14,
         padding: 2,
-        marginLeft: 5,
-        marginRight: 38,
+        marginLeft: 25,
         // backgroundColor: 'orange',
       },
   },
-  // barNetlify: {
-  //   width: 70,
-  //   height: 70,
-  //     [theme.breakpoints.down('sm')]: {
-  //       visibility: 'hidden',
-  //     },
-  // },
+  signupNav: {
+    color: '#64dd17',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 14,
+        padding: 2,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
+      },
+  },
   home: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
@@ -190,7 +191,7 @@ const styles = theme => ({
     margin: 'auto',
     width: 130,
     height: 50,
-    color: '#64dd17',
+    color: '#004D40',
     fontWeight: 'bold',
     fontSize: 18,
     borderStyle: 'solid',
@@ -227,24 +228,37 @@ const styles = theme => ({
     color: 'black',
       [theme.breakpoints.down('sm')]: {
         // color: 'white',
-        marginBottom: 0,
+        flexDirection: 'column',
+        fontSize: 11,
       },
   },
   meetTeam: {
     marginRight: 90,
-    marginTop: 'auto',
-    color: '#64dd17',
+    // marginTop: 'auto',
+    color: '#1b5e20',
     fontWeight: 'bold',
+      [theme.breakpoints.down('sm')]: {
+        margin: 'auto',
+        marginTop: -70,
+        fontSize: 15,
+      },
   },
-  // footerNetlify: {
-  //   visibility: 'hidden',
-  //     [theme.breakpoints.down('sm')]: {
-  //       width: 70,
-  //       height: 70,
-  //       marginTop: 15,
-  //       visibility: 'visible',
-  //     },
-  // },
+  rights: {
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: -10,
+      },
+  },
+  terms: {
+    marginLeft: 90,
+    // marginTop: 'auto',
+    color: '#1b5e20',
+    fontWeight: 'bold',
+      [theme.breakpoints.down('sm')]: {
+        margin: 'auto',
+        marginTop: -50,
+        fontSize: 15,
+      },
+  },
 })
 
 class LandingPage extends Component {
@@ -277,7 +291,7 @@ class LandingPage extends Component {
               <p className={classes.navButton}>SIGN IN</p>
             </a>
             <a href='/repregister'>
-              <p className={classes.navButton}>SIGN UP</p>
+              <p className={classes.signupNav}>SIGN UP</p>
             </a>
           </Toolbar>
         </AppBar>
@@ -364,7 +378,10 @@ class LandingPage extends Component {
               <a href='/developers'>
                 <p className={classes.meetTeam}>Developers</p>
               </a>
-              &copy; Copyright 2019 Lambda School Lab10 Chattr - All rights reserved
+              <p className={classes.rights}>&copy; Copyright 2019 Lambda School Lab10 Chattr - All rights reserved</p>
+              <a href='/'>
+                <p className={classes.terms}>Terms</p>
+              </a>
             </div>
 					</Grid>
 				</Grid>
