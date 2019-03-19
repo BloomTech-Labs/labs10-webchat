@@ -74,7 +74,6 @@ else {
     this.setState({
       activePage: current_page.slice(22)
     })
-    };
 };
 
 
@@ -84,10 +83,10 @@ render() {
         <div className="navigation">
         <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
         <div className="navigation-links">
-          <Link to={ROUTES.CHAT_DASHBOARD}>Chat Dashboard</Link>
-          <Link to={ROUTES.ACCOUNT_SETTINGS}>Account Settings</Link>
-          <Link to={ROUTES.ADMIN_PANEL}>Admin Panel</Link>
-          <Link to={ROUTES.BILLING}>Billing</Link>
+          <Link to={ROUTES.CHAT_DASHBOARD}><a style={{ color: this.state.activePage == "chatdashboard" ? '#63DD15': 'white'}}>Chat Dashboard</a></Link>
+          <Link to={ROUTES.ACCOUNT_SETTINGS}><a style={{ color: this.state.activePage == "accountsettings" ? '#63DD15': 'white'}}>Account Settings</a></Link>
+          <Link to={ROUTES.ADMIN_PANEL}><a style={{ color: this.state.activePage == "adminpanel" ? '#63DD15': 'white'}}>Admin Panel</a></Link>
+          <Link to={ROUTES.BILLING}><a style={{ color: this.state.activePage == "billing" ? '#63DD15': 'white'}}>Billing</a></Link>
           <SignOut />
         </div>
       </div>
