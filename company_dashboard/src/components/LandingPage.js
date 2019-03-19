@@ -51,6 +51,9 @@ const styles = theme => ({
         // backgroundColor: 'orange',
       },
   },
+  signupNav: {
+    color: '#64dd17',
+  },
   // barNetlify: {
   //   width: 70,
   //   height: 70,
@@ -277,7 +280,7 @@ class LandingPage extends Component {
               <p className={classes.navButton}>SIGN IN</p>
             </a>
             <a href='/repregister'>
-              <p className={classes.navButton}>SIGN UP</p>
+              <p className={classes.signupNav}>SIGN UP</p>
             </a>
           </Toolbar>
         </AppBar>
