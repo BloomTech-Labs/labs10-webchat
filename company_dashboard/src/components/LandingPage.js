@@ -39,6 +39,10 @@ const styles = theme => ({
       },
   },
   navButton: {
+    // backgroundColor: 'orange',
+    display: 'flex',
+    paddingRight: 50,
+    color: 'white',
       [theme.breakpoints.down('sm')]: {
         fontSize: 13,
         padding: 2,
@@ -253,20 +257,15 @@ class LandingPage extends Component {
                 alt="logo"
               /> */}
             </Typography>
-            <Button className={classes.navButton} size="large" color="primary"> 
-              <Link to={ROUTES.PRICING}>Pricing</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-            </Button>
-            {/* <img
-              className={classes.barNetlify}
-              src={require("./images/logomark.png")}
-              alt="Netlify logo"
-            /> */}
+            <a href='/pricing'>
+              <p className={classes.navButton}>PRICING</p>
+            </a>
+            <a href='/repslogin'>
+              <p className={classes.navButton}>SIGN IN</p>
+            </a>
+            <a href='/repregister'>
+              <p className={classes.navButton}>SIGN UP</p>
+            </a>
           </Toolbar>
         </AppBar>
         
