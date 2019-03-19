@@ -19,7 +19,7 @@ const Navigation = () => (
 
 class NavigationBaseForm extends React.Component {
 constructor(props) {
-super(props);  
+super(props);
 this.state = {
     name: "",
     uid:"",
@@ -29,9 +29,10 @@ this.state = {
     selectedFile: null,
     id: "",
     error:null,
+    activePage: ""
   }
-};	
-  
+};
+
 componentDidMount() {
 	this.props.firebase.auth.onAuthStateChanged(user => {
         if (user) {
@@ -69,9 +70,13 @@ else {
                  this.props.history.push('/repslogin'); //if user is signed out redirect to login page
      }
 })
-	  
+    let current_page = window.location.href;
+    this.setState({
+      activePage: current_page.slice(22)
+    })
+    };
 };
-  
+
 
 render() {
     if(this.state.is_admin) {
