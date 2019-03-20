@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import io from 'socket.io-client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { withRouter} from "react-router-dom"
-
+import Typography from '@material-ui/core/Typography';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from '@material-ui/core/Paper';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -21,15 +22,36 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    margin: 'auto',
+    maxWidth: 500,
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    borderRadius: '3px'
+  },
   chatViewHead: {
     // flexShrink: 0
   },
   messageList: {
-    margin: '10px',
+    margin: 70,
     overflowY: 'scroll',
     // maxHeight: '700px',
     flexGrow: 1,
+    margin: 10
 
+  },
+  inputArea: {
+    height: '40px',
+    marginBottom: '20px'
   },
   inputForm: {
     display: 'flex',
@@ -215,14 +237,46 @@ class ChatView extends Component {
                         return (
                           <div className={classes.message}>
                             <MuiThemeProvider>
-                              <Grid
-                              
-                              >
-                                <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-                                <p>{message.body}</p>
-                              </Grid>
-                            </MuiThemeProvider>
+                              <Paper className={classes.paper}
+                              style={{
+                                margin: '10px',
 
+                              }}
+                              >
+                                <Grid 
+                                 spacing={12}
+                                //  alignItems="center"
+                                //  justify="center"
+                                 container spacing={16}
+                                 >
+                                  <Grid item>
+                                    <ButtonBase className={classes.image}>
+                                      <img
+                                        className={classes.img}
+                                        alt="complex"
+                                        src={message.image_url}
+                                      />
+                                    </ButtonBase>
+                                  </Grid>
+                                  <Grid item xs={12} sm container>
+                                    <Grid item xs container direction="column" spacing={16}>
+                                      <Grid item xs>
+                                        <Typography gutterBottom variant="subtitle1">
+                                          {message.author_name}
+                                        </Typography>
+                                        <Typography color="primary" gutterBottom>
+                                          {message.body}
+                                        </Typography>
+                                        {/* <Typography color="textSecondary">ID: 1030114</Typography> */}
+                                      </Grid>
+                                      {/* <Grid item>
+                                        <Typography style={{ cursor: "pointer" }}>Remove</Typography>
+                                      </Grid> */}
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              </Paper>
+                            </MuiThemeProvider>
                           </div>
                         );
                     })}
