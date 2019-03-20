@@ -2,7 +2,8 @@ const db = require('../db.js');
 
 module.exports = {
     getSub,
-    insert
+    insert,
+    updateByStripeCustomerId	
 }
 
 // check for existing sub
@@ -20,4 +21,10 @@ function getSub(company_id){
 function insert(newSub) {
     return db('subscriptions')
     .insert(newSub).returning('id').then(ids => ids[0]);
+}
+
+function updateByStripeCustomerId(id, user){
+        return db('subscriptions')
+               .where({stripe_customer_id: id})
+               .update(user);
 }
