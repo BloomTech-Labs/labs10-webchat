@@ -14,22 +14,26 @@ import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Me
 
 const styles = theme => ({
   root: {
-    border: '1px dotted black',
+    // border: '1px dotted black',
     marginBottom: 300,
-    overflowY: 'scroll',
+    // overflowY: 'scroll',
     // height: '100vh',
   },
   convoList: {
-    // overflowY: 'auto',
+    overflowY: 'scroll',
     height: '100vh',
   },
   paper: {
-    height: 200,
+    height: 100,
+    textAlign: 'left',
+    padding: theme.spacing.unit,
+    borderRadius: '0px',
+    border: '0.2px solid grey',
     // width: '85%',
     // marrgin: 10,
     // maxWidth: 400,
     // margin: `${theme.spacing.unit}px auto`,
-    // padding: theme.spacing.unit * 2,
+    
   },
   queueItem: {
     // padding: theme.spacing.unit * 2,
@@ -46,6 +50,9 @@ const styles = theme => ({
   },
   queueSummary: {
 
+  },
+  listFooter: {
+    height: '100px'
   }
 });
 
@@ -62,7 +69,7 @@ class Convos extends React.Component {
     getClosed
       .then(response => {
         this.setState({
-          conversations: response.data  // .data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
+          conversations: response.data  
         });
       })
       .catch(error => {
@@ -70,43 +77,60 @@ class Convos extends React.Component {
       })
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentConvoClosed !== this.props.currentConvoClosed) {
+      console.log('Convos currentConvoClosed changed');
+      const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
+      getClosed
+        .then(response => {
+          this.setState({
+            conversations: response.data  
+          });
+        })
+        .catch(error => {
+          console.log(error.message);
+        })
+    }
+  }
 
     render() {
         const { classes } = this.props;
 
         return (
-
           <div className={classes.root}>
             <Typography
               variant='h4'
             >
-              
             </Typography>
             <div className={classes.convoList}>
-                {this.state.conversations.map((queue, index) => {
+                {this.state.conversations.map((convo, index) => {
 
                   return (
-
                     <div className={classes.queueItem} key={index}>
                       <MuiThemeProvider> 
-                        <Paper className={classes.paper}>
-                          <Grid item
-                            onClick={() => this.props.handleConvoSelect(queue.convo_id, queue.customer_uid, queue.summar, queue.customer_name)}
-                          >
+                        <Paper 
+                          className={classes.paper}
+                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#AAAAAA' : 'white' }}
+                          onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
+                        >
+                          {/* <Grid item
+                            onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
+                          > */}
                             <h3 className={classes.queueTitle}>
-                              {queue.customer_name}
+                              {convo.customer_name}
                             </h3>
                             <h5 className={classes.queueSummary}>
-                              {queue.summary}
+                              {convo.summary}
                             </h5>
-                         </Grid>
+                         {/* </Grid> */}
                         </Paper>
                       </MuiThemeProvider>
-
                     </div>
-
                   );
                 })}
+                <div className={classes.listFooter}>
+                  <p>End of list</p>
+                </div>
             </div>
           </div>
 
@@ -114,5 +138,5 @@ class Convos extends React.Component {
       }
     } 
     
-export default withStyles(styles)(withRouter(Convos));
+export default withStyles(styles)(Convos);
 

@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom"
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import axios from 'axios';
 
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
@@ -30,31 +31,69 @@ function TabContainer(props) {
 const styles = {
     root: {
       flexGrow: 1,
-      border: '1px solid blue'
-      
+      // border: '1px solid blue',
+      // Changes from David
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column'
     },
     queueMenu: {
-      border: '1px solid red'
-
+      // height: '100%',
+      // border: '1px solid red',
+      borderRadius: '0px'
     },
     queueList: {
       // overflyY: 'scroll',
-      border: '1px solid orange'
-  }
+      // height: '100% ',
+      // border: '1px solid orange',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
+  },
+  paper: {
+    // height: '100%'
+    borderRadius: '0px'
+  },
+  paper2: {
+    // height: '100%',
+    borderRadius: '0px'
+  },
+  tabs1: {
+    height: '100%'
+  },
+  // tab: {
+  //   borderRadius: '2px'
+  // }
 };
 
 class ConvoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+          value: 1,
         };
     }
     
-  
-    handleTabChange = (event, value) => {
+    
+
+    handleTabSelect= (event, value) => {
       this.setState({ value });
     };
+
+    handleQueueConvoSelect = (convo_id, customer_uid, customer_name, summary) => {
+      // Remove convo from the Queue by updating in_q to false in the convo's db entry
+      const data = { id: convo_id };
+      const deQueueRequest = axios.put('/api/chat/dequeue', data);
+      deQueueRequest
+          .then(response => {
+              console.log("Conversation removed from Queue.");
+              this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);  // call hander at ChatDashboard to pass current convo info to ChatView
+              this.setState({ value: 0 });                                                        // switch selected tab to Open tab
+          })
+          .catch(error => {
+              console.log(error.message);
+          })
+    }
   
     render() {
       const { classes } = this.props;
@@ -63,29 +102,29 @@ class ConvoList extends React.Component {
       return (
 
         <div className={classes.root}>
-
           <div className={classes.queueMenu}>
-            <Paper>
-                <Tabs
-                    value={this.state.value}
-                    onChange={this.handleTabChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                    >
-                    <Tab label="Open" />
-                    <Tab label="Queue" />
-                    <Tab label="Closed" />
-                </Tabs>
+            <Paper className={classes.paper}>
+              <Tabs
+                className={classes.paper2}
+                value={this.state.value}
+                onChange={this.handleTabSelect}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+                >
+                  <Tab label="Open" style={{ border: this.state.value === 0 ? '2.5px solid blue' : ''}}/>
+                  <Tab label="Queue" style={{ border: this.state.value === 1 ? '2.5px solid blue' : ''}}/>
+                  <Tab label="Closed" style={{ border: this.state.value === 2 ? '2.5px solid blue' : ''}}/>
+              </Tabs>
             </Paper>
           </div>
 
           <div className={classes.queueList}>
-                {this.state.value === 0 && <TabContainer><Convos  convoStatus={'active'} handleConvoSelect={this.props.handleActiveConvoSelect}/></TabContainer>}
-                {this.state.value === 1 && <TabContainer><Convos  convoStatus={'queue'} handleConvoSelect={this.props.handleQueueConvoSelect} /></TabContainer>}
-                {this.state.value === 2 && <TabContainer><Convos  convoStatus={'closed'} handleConvoSelect={this.props.handleClosedConvoSelect}/></TabContainer>}
+                {this.state.value === 0 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} currentConvoClosed={this.props.currentConvoClosed} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
+                {this.state.value === 1 && <Convos  convoStatus={'queue'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.handleQueueConvoSelect} />}
+                {this.state.value === 2 && <Convos  convoStatus={'closed'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
           </div>
-
+          
         </div>
       );
     }
@@ -95,41 +134,4 @@ ConvoList.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withRouter(withStyles(styles)(ConvoList));
-
-
-
-
-
-// class ConvoList extends React.Component {
-//     constructor() {
-//         super();
-//         this.state = {
-//             selectedTab: "queue"
-//         }
-//     }
-    
-
-//     changeSelectedTab = tabName => {
-//         // this function should take in the tab and update the state with the new tab.
-//         this.setState({ selectedTab: tabName });
-//     };
-
-//     render() {
-        
-
-//         return (
-//             <div className="convolist-container">
-//                 <div className="tabs-container">
-//                     <Tabs 
-//                         selectedTab={this.state.selectedTab} 
-//                         changeSelectedTab={this.changeSelectedTab}
-//                     />
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
-
-// export default ConvoList;
+export default withStyles(styles)(ConvoList);

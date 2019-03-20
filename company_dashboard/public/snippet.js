@@ -9,36 +9,43 @@ function enableChattr() {
 	if (wcaBtn === null) return;
 
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
+	let clickCount=0;
 	wcaIFRAME.style.display = "none";
-	wcaIFRAME.style.width = "450px";
-	wcaIFRAME.style.height = "600px";
-	wcaBtn.style.width = "40px";
-	wcaBtn.style.height = "40px";
-	wcaBtn.style.backgroundColor = "#3f51b5";
-	wcaBtn.style.padding = "40px";
-	wcaBtn.style.color = "white";
-	wcaBtn.style.textAlign = "center";
-	wcaBtn.style.verticalAlign = "middle";
-	wcaBtn.style.borderRadius = "60px";
-	wcaBtn.style.position = "fixed";
-	wcaBtn.style.bottom = "20px";
-	wcaBtn.style.right = "20px";
-	wcaIFRAME.style.position = "fixed";
-	wcaIFRAME.style.bottom = "120px";
-	wcaIFRAME.style.right = "20px";
-	wcaIFRAME.style.backgroundColor ="white";
-	wcaBtn.onclick = function() {
-		if (wcaIFRAME.style.display == "none") {
-			wcaIFRAME.style.display = "";
-			let company_id = wcaIFRAME.getAttribute("data-company-id");
-			console.log('company_id in snippet', company_id);
-			
-			//wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
-			wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
+  wcaIFRAME.style.width = "450px";
+  wcaIFRAME.style.height = "600px";
+  wcaIFRAME.style.border = "2px gray solid";
+  wcaIFRAME.scrolling = "no";
+  wcaIFRAME.style.overflow = "hidden";
+  wcaBtn.style.textAlign = "center";
+  wcaBtn.style.verticalAlign = "middle";
+  wcaBtn.src = "https://freeiconshop.com/wp-content/uploads/edd/chat-alt-flat.png";
+  wcaBtn.style.position = "fixed";
+  wcaBtn.style.borderRadius = "80px";
+  wcaBtn.style.width = "90px";
+  wcaBtn.style.bottom = "20px";
+  wcaBtn.style.outline = "none";
+  wcaBtn.style.right = "40px";
+  wcaIFRAME.style.position = "fixed";
+  wcaIFRAME.style.bottom = "120px";
+  wcaIFRAME.style.right = "20px";
+  wcaIFRAME.style.backgroundColor ="white";
 
-		} else {
-			wcaIFRAME.style.display = "none";
-		}
+
+  wcaBtn.onclick = function() {
+		if (wcaIFRAME.style.display == "none" & clickCount === 0) {
+      clickCount++;
+      wcaIFRAME.style.display = "";
+      let company_id = wcaIFRAME.getAttribute("data-company-id");
+      console.log('company_id in snippet', company_id);
+
+       wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
+      //wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
+
+    } else if (wcaIFRAME.style.display == "none") {
+        wcaIFRAME.style.display = "";
+    } else {
+      wcaIFRAME.style.display = "none";
+    }
 	}
 }
 
@@ -49,3 +56,4 @@ window.onload = function (e) {
 window.onpopstate = function(e){
 	enableChattr();
 };
+
