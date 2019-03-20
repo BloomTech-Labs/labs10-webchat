@@ -65,9 +65,10 @@ const approvedemailRoutes = require('./routes/approvedemails/approvedemails');
 const chatRoutes = require('./routes/chat/index');
 const webhooksRoutes = require('./routes/webhooks/webhooksRoutes');
 
-//trying to send raw req.body for stripe signature to verify, hence calling this endpoint before app.use(express.json());
+//trying to send raw req for stripe signature to verify, hence calling this endpoint before app.use(express.json());
 
-//app.use('/api/webhook', webhooksRoutes);
+//stripe webhook endpiont
+app.use('/api/webhook', webhooksRoutes);
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -75,7 +76,7 @@ app.use(helmet());
 app.use(cors());
 
 //stripe webhook endpiont
-app.use('/api/webhook', webhooksRoutes);
+//app.use('/api/webhook', webhooksRoutes);
 
 app.get('/',(req, res) => {
   res.send("Welcome to Webchat app....");
