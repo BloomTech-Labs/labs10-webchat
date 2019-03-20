@@ -54,7 +54,6 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: customer_uid,
             currentConvoSummary: summary,
             currentCustomerName: customer_name,
-            // currentMessages: response.data
         }, () => {
             console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
         });
@@ -67,7 +66,6 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: customer_uid,
             currentConvoSummary: summary,
             currentCustomerName: customer_name,
-            currentTab: 0
         }, () => {
             console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
         });
@@ -92,7 +90,7 @@ class ChatDashboard extends React.Component {
         axios.put('/api/chat/close', data)
         .then(response => {
             console.log("Conversation closed.")
-            this.setState({ currentTab: 1 })  // Switch to Queue after closing convo
+            this.forceUpdate();
         })
         .catch(error => {
             console.log(error.message);
