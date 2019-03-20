@@ -118,7 +118,7 @@ ConvoList.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withRouter(withStyles(styles)(ConvoList));
+export default withStyles(styles)(ConvoList);
 
 
 
