@@ -156,7 +156,7 @@ class ChatDashboard extends React.Component {
                 </div>
 
                 <div className="chat-dash-right-container">
-                    <ChatView
+                    {/* <ChatView
                     currentConvoId={this.state.currentConvoId}
                     currentConvoSocket={this.state.currentConvoSocket}
                     rep_uid={this.state.rep_uid}
@@ -165,22 +165,23 @@ class ChatDashboard extends React.Component {
                     summary={this.state.currentConvoSummary}
                     customerName={this.state.currentCustomerName}
                     closeConvo={this.closeConvo}
-                    />
-                    {/* {!convoSelected ? (
+                    /> */}
+                    {!convoSelected ? (
                         <p>No conversation selected.</p>
 
                         ) : (
                             <ChatView
-                            currentConvoId={this.state.currentConvoId}
-                            currentConvoSocket={this.state.currentConvoSocket}
-                            summary={this.state.currentConvoSummary}
-                            // messages={this.state.currentMessages}
-                            customerName={this.state.currentCustomerName}
-                            // addMessage={this.addMessage}
-                            closeConvo={this.closeConvo}
+                                currentConvoId={this.state.currentConvoId}
+                                currentConvoSocket={this.state.currentConvoSocket}
+                                rep_uid={this.state.rep_uid}
+                                rep_name={this.state.rep_name}
+                                url={this.state.url}
+                                summary={this.state.currentConvoSummary}
+                                customerName={this.state.currentCustomerName}
+                                closeConvo={this.closeConvo}
                             />
                         )
-                    } */}
+                    }
                     
                 </div>
             </div>
