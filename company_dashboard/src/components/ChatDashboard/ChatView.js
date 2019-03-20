@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -242,13 +243,7 @@ class ChatView extends Component {
                                  container spacing={16}
                                  >
                                   <Grid item>
-                                    <ButtonBase className={classes.image}>
-                                      <img
-                                        className={classes.img}
-                                        alt="complex"
-                                        src={message.image_url}
-                                      />
-                                    </ButtonBase>
+                                    <Avatar alt="Avatar" src={message.image_url} />
                                   </Grid>
                                   <Grid item xs={12} sm container>
                                     <Grid item xs container direction="column" spacing={16}>
