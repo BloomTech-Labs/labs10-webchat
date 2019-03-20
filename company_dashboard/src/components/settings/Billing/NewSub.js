@@ -88,7 +88,7 @@ const styles = theme => ({
 
 
 
-const Billing = () => (
+const NewSub = () => (
   <div>
     <FirebaseContext.Consumer>
       {firebase => <BillingComponent firebase={firebase} />}
@@ -97,7 +97,7 @@ const Billing = () => (
 )
 
 
-class BillingBaseForm extends React.Component {
+class NewSubBaseForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -267,9 +267,9 @@ BillingBaseForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const BillingComponent = withStyles (styles) (withRouter(withFirebase(BillingBaseForm)));
+const BillingComponent = withStyles (styles) (withRouter(withFirebase(NewSubBaseForm)));
 
-export default Billing;
+export default NewSub;
 
 export { BillingComponent};
 
