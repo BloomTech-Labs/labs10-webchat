@@ -47,7 +47,7 @@ const styles = theme => ({
     overflowY: 'scroll',
     // maxHeight: '700px',
     flexGrow: 1,
-    padding: 20
+    padding: 12,
 
   },
   message: {
@@ -283,8 +283,16 @@ class ChatView extends Component {
                           </div>
                         );
                     })}
+
               </div>
+
               <div className={classes.inputArea}>
+                {/* Scroll div */}
+                {/* <div 
+                  style={{ float:"left", clear: "both" }}
+                  ref={(el) => { this.messagesEnd = el; }
+                }>
+                </div>       */}
                 <form className={classes.inputForm} onSubmit={this.onSubmit}>
                   <input
                     hintText="message"
@@ -295,31 +303,26 @@ class ChatView extends Component {
                     style ={{ 
                       border: '1.5px solid lightgrey',
                       borderRadius: '3px',
-                      height: '40px',
+                      height: '35px',
                       width: '90vw',
-                      maxWidth: '480px', 
+                      maxWidth: '490px', 
                     }}
                     className="messageInput"
                   />
                   <div style={{
                     marginLeft: '3px',
                   }}>
-                    <div 
-                    style={{
-                      border: '1px solid blue',
-                      width: '100px',
-                      borderRadius: '3px',
-                      padding: '1px',
-                    }}
-                    className={classes.sendMessage}> send </div>
-                    <div 
-                    style={{
-                      border: '1px solid red',
-                      width: '100px',
-                      borderRadius: '3px',
-                      padding: '1px',
-                    }}
-                    className={classes.endConvo}> close convo </div>
+                    <MuiThemeProvider>
+                      <RaisedButton
+                        label="Send"
+                        primary={true}
+                        type="submit"
+                      />   
+                      <RaisedButton
+                        label="End Convo"
+                        onClick={this.handleCloseConvo}
+                      />
+                    </MuiThemeProvider>
                   </div>
                 </form>
                 {/* <form>
