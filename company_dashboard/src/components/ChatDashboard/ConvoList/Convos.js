@@ -69,7 +69,7 @@ class Convos extends React.Component {
     getClosed
       .then(response => {
         this.setState({
-          conversations: response.data  // .data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
+          conversations: response.data  
         });
       })
       .catch(error => {
@@ -84,7 +84,7 @@ class Convos extends React.Component {
       getClosed
         .then(response => {
           this.setState({
-            conversations: response.data  // .data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
+            conversations: response.data  
           });
         })
         .catch(error => {
@@ -92,6 +92,7 @@ class Convos extends React.Component {
         })
     }
   }
+
 
 
     render() {

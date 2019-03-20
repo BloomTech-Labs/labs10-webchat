@@ -67,6 +67,7 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: customer_uid,
             currentConvoSummary: summary,
             currentCustomerName: customer_name,
+            currentConvoClosed: false
         }, () => {
             console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
         });
