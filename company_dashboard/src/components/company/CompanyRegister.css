@@ -85,6 +85,7 @@
 .company-detail form input {
   width: 70%;
 }
+
 @media (max-width: 800px) {
   .company-detail {
     height: 100%;
