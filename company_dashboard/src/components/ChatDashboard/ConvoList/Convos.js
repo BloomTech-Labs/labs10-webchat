@@ -98,7 +98,7 @@ class Convos extends React.Component {
                       <MuiThemeProvider> 
                         <Paper 
                           className={classes.paper}
-                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? 'grey' : 'white' }}
+                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#AAAAAA' : 'white' }}
                           onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
                         >
                           {/* <Grid item
