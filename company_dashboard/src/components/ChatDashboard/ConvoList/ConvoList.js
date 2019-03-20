@@ -79,8 +79,8 @@ class ConvoList extends React.Component {
       deQueueRequest
           .then(response => {
               console.log("Conversation removed from Queue.");
-              this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);
-              this.handleTabChange(0);
+              this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);  // call hander at ChatDashboard to pass current convo info to ChatView
+              this.setState({ value: 0 });                                                        // switch selected tab to Open tab
           })
           .catch(error => {
               console.log(error.message);
