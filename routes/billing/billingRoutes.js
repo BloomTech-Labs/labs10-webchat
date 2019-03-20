@@ -47,7 +47,7 @@ router.post('/addSub', async (req, res) => {
     }
 });
 
-router.get('/getSub/:id', async (req, res) => {
+router.get('/getSubMax/:id', async (req, res) => {
     const company_id = req.params.id; 
     console.log('company_id in getSub endpoint: ', company_id);
     const noSubTeamSize = 4;                              // max_reps to return for 'Free' plan if no sub exists
