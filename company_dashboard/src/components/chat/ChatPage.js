@@ -167,19 +167,52 @@ class ChatPage extends Component {
 		<div className={classes.root}>
                 <div className="messages">
                 {this.state.messages.map((message, index) => {
-                return(
-		<Paper key={index} className={classes.paper}>
-                <AgentBar>
-                <Avatar src={message.image_url} />
-                <Column>
-                <Title>{message.author_name}</Title>
-                <Subtitle>{message.body}</Subtitle>
-                </Column>
-                </AgentBar>
 
-		</Paper>
-                );
-		})}
+                        return(
+                        // <Paper key={index} className={classes.paper}>
+                        // <AgentBar>
+                        // <Avatar src={message.image_url} />
+                        // <Column>
+                        // <Title>{message.author_name}</Title>
+                        // <Subtitle>{message.body}</Subtitle>
+                        // </Column>
+                        // </AgentBar>
+
+                        // </Paper>
+                        <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                        <Grid item>
+                                                <Avatar alt="Avatar" src={message.image_url} className={classes.bigAvatar} />
+                                        </Grid>
+                                        <Grid>
+                                                <Grid 
+                                                item
+                                                xs
+                                                >
+                                                        <Typography
+                                                        variant="h6"
+                                                        className={classes.messageAuthor}
+                                                        >
+                                                        {message.author_name}
+                                                        </Typography>
+                                                </Grid>
+                                        <Grid 
+                                        item
+                                        xs
+                                        >
+                                                <Typography
+                                                variant="componenth6"
+                                                className={classes.messageBody}
+                                                >
+                                                        {message.body}
+                                                </Typography>
+                                        </Grid>
+                                        </Grid>
+
+                                </Grid>
+                        </Paper>
+                        );
+                        })}
                 </div>
                 <div className="autoscrolldiv">
                         <div style={{ float:"left", clear: "both" }}
