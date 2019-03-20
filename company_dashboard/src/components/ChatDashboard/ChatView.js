@@ -232,7 +232,7 @@ class ChatView extends Component {
 
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
-                <h1>CHAT VIEW HEAD</h1>
+                <h1>Serving: {customer_name}</h1>
               </div>
 
                <div className={classes.messageList}> 
