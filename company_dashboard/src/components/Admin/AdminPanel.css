@@ -13,7 +13,6 @@
   border-radius: 5px;
   background-color: white;
   margin-top: 5%;
-  margin-bottom: 15%;
 }
 
 .admin-panel .add-button {
@@ -56,14 +55,14 @@
     margin-top: 50px;
     flex-direction: column;
     align-items: center;
-    width: 70%;
+    width: 65%;
     padding-top: 0;
     margin-bottom: 5%;
     }
 
     .admin-panel .admin-table {
-      margin-left: 2%;
-      width: 95%;
+      margin: auto;
+      width: 80%;
     }
 
   }
