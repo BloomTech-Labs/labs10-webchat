@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -28,17 +29,6 @@ const styles = theme => ({
     maxWidth: 650,
     height: 130
   },
-  image: {
-    width: 100,
-    height: 100,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-    borderRadius: '3px'
-  },
   chatViewHead: {
     // flexShrink: 0
   },
@@ -53,6 +43,26 @@ const styles = theme => ({
   message: {
     marginBottom: 30
   },
+  bigAvatar: {
+    marginLeft: 15,
+    marginTop: 15,
+    marginBottom: 15,
+    width: 55,
+    height: 55,
+  },
+  messageAuthor: {
+    textAlign: 'justify',
+    padding: 10,
+    paddingLeft: 20,
+    // fontWeight: 'bold'
+  },
+  messageBody: {
+    // marginTop: 20,
+    paddingLeft: 20,
+    paddingRight: 25,
+    paddingBottom: 30,
+    textAlign: 'justify'
+  },
   inputArea: {
     height: '40px',
     marginBottom: '20px'
@@ -62,7 +72,8 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+
 });
 
 
@@ -234,7 +245,7 @@ class ChatView extends Component {
                         return (
                           <div className={classes.message}>
                             <MuiThemeProvider>
-                              <Paper>
+                              {/* <Paper>
                                 <Grid 
                                  spacing={12}
                                 //  alignItems="center"
@@ -242,13 +253,7 @@ class ChatView extends Component {
                                  container spacing={16}
                                  >
                                   <Grid item>
-                                    <ButtonBase className={classes.image}>
-                                      <img
-                                        className={classes.img}
-                                        alt="complex"
-                                        src={message.image_url}
-                                      />
-                                    </ButtonBase>
+                                    <Avatar alt="Avatar" src={message.image_url} />
                                   </Grid>
                                   <Grid item xs={12} sm container>
                                     <Grid item xs container direction="column" spacing={16}>
@@ -259,13 +264,41 @@ class ChatView extends Component {
                                         <Typography color="primary" gutterBottom>
                                           {message.body}
                                         </Typography>
-                                        {/* <Typography color="textSecondary">ID: 1030114</Typography> */}
                                       </Grid>
-                                      {/* <Grid item>
-                                        <Typography style={{ cursor: "pointer" }}>Remove</Typography>
-                                      </Grid> */}
                                     </Grid>
                                   </Grid>
+                                </Grid>
+                              </Paper> */}
+                              <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
+                                  <Grid item>
+                                    <Avatar alt="Avatar" src={message.image_url} className={classes.bigAvatar} />
+                                  </Grid>
+                                  <Grid>
+                                    <Grid 
+                                      item
+                                      xs
+                                    >
+                                      <Typography
+                                        variant="h6"
+                                        className={classes.messageAuthor}
+                                      >
+                                        {message.author_name}
+                                      </Typography>
+                                    </Grid>
+                                    <Grid 
+                                      item
+                                      xs
+                                    >
+                                      <Typography
+                                        variant="componenth6"
+                                        className={classes.messageBody}
+                                      >
+                                      {message.body}
+                                      </Typography>
+                                    </Grid>
+                                  </Grid>
+
                                 </Grid>
                               </Paper>
                             </MuiThemeProvider>
