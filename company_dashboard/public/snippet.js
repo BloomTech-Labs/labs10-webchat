@@ -10,6 +10,7 @@ function enableChattr() {
 	if (wcaBtn === null) return;
 
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
+	let clickCount=0;
 	wcaIFRAME.style.display = "none";
 	wcaIFRAME.style.width = "450px";
 	wcaIFRAME.style.height = "600px";
@@ -30,17 +31,20 @@ function enableChattr() {
 	wcaIFRAME.style.right = "20px";
 	wcaIFRAME.style.backgroundColor ="white";
 	wcaBtn.onclick = function() {
-		if (wcaIFRAME.style.display == "none") {
-			wcaIFRAME.style.display = "";
-			let company_id = wcaIFRAME.getAttribute("data-company-id");
-			console.log('company_id in snippet', company_id);
+		if (wcaIFRAME.style.display == "none" & clickCount === 0) {
+      clickCount++;
+      wcaIFRAME.style.display = "";
+      let company_id = wcaIFRAME.getAttribute("data-company-id");
+      console.log('company_id in snippet', company_id);
 
-			// wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
-			wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
+      // wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
+      wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
 
-		} else {
-			wcaIFRAME.style.display = "none";
-		}
+    } else if (wcaIFRAME.style.display == "none") {
+        wcaIFRAME.style.display = "";
+    } else {
+      wcaIFRAME.style.display = "none";
+    }
 	}
 }
 
