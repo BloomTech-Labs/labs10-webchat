@@ -24,7 +24,28 @@ const styles = theme => ({
     maxWidth: 400,
     margin: `${theme.spacing.unit}px auto`,
     padding: theme.spacing.unit * 2,
+    height: 75,
   },
+  bigAvatar: {
+    marginLeft: 15,
+    marginTop: 15,
+    marginBottom: 15,
+    width: 55,
+    height: 55,
+  },
+  messageAuthor: {
+    textAlign: 'justify',
+    padding: 10,
+    paddingLeft: 20,
+        // fontWeight: 'bold'
+      },
+      messageBody: {
+    // marginTop: 20,
+    paddingLeft: 20,
+    paddingRight: 25,
+    paddingBottom: 30,
+    textAlign: 'justify'
+      },
 });
 
 class ChatPage extends Component {
@@ -182,7 +203,11 @@ class ChatPage extends Component {
                         <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                         <Grid item>
-                                                <Avatar alt="Avatar" src={message.image_url} className={classes.bigAvatar} />
+                                                <Avatar 
+                                                        alt="Avatar" 
+                                                        className={classes.bigAvatar}>
+                                                        {this.state.name[0]}
+                                                </Avatar>
                                         </Grid>
                                         <Grid>
                                                 <Grid 
