@@ -12,8 +12,8 @@ function enableChattr() {
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
 	wcaIFRAME.style.display = "none";
 	wcaIFRAME.style.width = "450px";
-	wcaIFRAME.style.height = "554px";
-	wcaIFRAME.style.border = "0";
+	wcaIFRAME.style.height = "600px";
+	wcaIFRAME.style.border = "2px gray solid";
 	wcaIFRAME.scrolling = "no";
 	wcaIFRAME.style.overflow = "hidden";
 	wcaBtn.style.textAlign = "center";
@@ -34,7 +34,7 @@ function enableChattr() {
 			wcaIFRAME.style.display = "";
 			let company_id = wcaIFRAME.getAttribute("data-company-id");
 			console.log('company_id in snippet', company_id);
-			
+
 			// wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
 			wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
 
