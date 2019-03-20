@@ -30,15 +30,16 @@ function enableChattr() {
   wcaIFRAME.style.right = "20px";
   wcaIFRAME.style.backgroundColor ="white";
 
-	wcaBtn.onclick = function() {
+
+  wcaBtn.onclick = function() {
 		if (wcaIFRAME.style.display == "none" & clickCount === 0) {
       clickCount++;
       wcaIFRAME.style.display = "";
       let company_id = wcaIFRAME.getAttribute("data-company-id");
       console.log('company_id in snippet', company_id);
 
-      // wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
-      wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
+       wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
+      //wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
 
     } else if (wcaIFRAME.style.display == "none") {
         wcaIFRAME.style.display = "";
@@ -55,3 +56,4 @@ window.onload = function (e) {
 window.onpopstate = function(e){
 	enableChattr();
 };
+

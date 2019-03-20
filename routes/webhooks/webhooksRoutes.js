@@ -4,101 +4,75 @@ const db = require('../../data/helpers/subDb');
 const repDb = require('../../data/helpers/repDb');
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const endpointSecret = 'whsec_IIa4T70SUFVds9GCRtSPpOucY3jh1EdS';
+const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
 
-// Retrieve the raw body as a buffer and match all content types
-//router.use(require('body-parser').raw({type: '*/*'}));
+// this middleware is used to caputure the req coming in which is a stream since this endpoint is not passed through body parser or express.json() since stripe needs raw body in constructEvent
 
+router.use((req, res, next)=> {
+  
+	var data_stream ='';
 
-
-//const bodyParser = require('body-parser');
-//router.use(bodyParser.raw({type: '*/*'}));
-
-// Parse body to into JSON
-//router.use(bodyParser.json());
-//router.use(bodyParser.urlencoded({ extended: true }));
-//router.use(cookieParser());
-
-
- /*router.use(bodyParser.json({
-    verify: function (req, res, buf) {
-      var url = req.originalUrl;
-      if (url.startsWith('/stripe'))
-        req.rawBody = buf.toString();
-    }
-  }));*/
-
-/*function addRawBody(req, res, next) {
-	req.setEncoding('utf8');
-	var body = '';
-
-   req.on('data', function(chunk) {
-    body += chunk;
-  });
-
-   req.on('end', function() {
-    req.rawBody = body;
-
-     next();
-  });
-}*/
+                req
+                .setEncoding('utf-8')
+                .on('data', function(data) {            //each time there is data this is triggered and the data coming in streams is captured
+                        data_stream += data;
+                        //console.log('data_stream is', data_stream);
+                })
+                .on('end', function() {                 //when the stream ends, this is triggered, attach data_stream to req.rawBody
+                        console.log("Inside END");
+                        //console.log('data_stream is', data_stream);
+			req.rawBody = data_stream;
+			next();
+		})	
+});
 
 
 
 
 router.post('/', (req, res)=>{
 	
-	console.log('Response from stripe webhook is', req.body);
-	
-	/*var b ='';
+	//console.log('req.rawBody  inside webhook endpoint is', req.rawBody);
+	console.log('req.rawBody.type  inside webhook endpoint is', JSON.parse(req.rawBody).type);
+	console.log('req.rawBody.data.object.customer is stripe_customer_id in subscriptions table inside webhook endpoint is', JSON.parse(req.rawBody).data.object.customer);
+			
+			const id = JSON.parse(req.rawBody).data.object.customer;  //id is stripe_customer_id in subscriptions table
+			
+			let sig = req.headers['stripe-signature'];
+                	console.log('stripe signature is', sig);
+				
 		
-		req
-      		.setEncoding('utf-8')
-      		.on('data', function(data) {
-        		b += data;
-			console.log('inside body is', b);
-          		//res.statusCode = 413;
-          		//res.end("Your message is too big for my little chat");
-      		})
-      		.on('end', function() {
-        		console.log("END");
-			req.rawBody = b;
-			console.log('req.rawBody is', req.rawBody);
-      		});*/
-		
+		try {
+   			let evs = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
+    			console.log('response form stripe signature verification is ', evs);
+			
+			// Send recurring payment status update to database
+			const user ={stripe_subscription_status:'active'}
+			
+			const update_req = db.updateByStripeCustomerId(id, user);
+			
+			update_req.then(response_data => {
+                		
+				console.log('response_data after recurring payment update status', response_data);
+				//res.status(200).json({message:"Success in recurring payment status update"});
+        		})
+        		.catch(error => {
+                		
+				console.log(error.message);
+				//res.status(500).json({ error: error.message });
+        		})
 
-  	
-		//console.log('Response from stripe webhook is', req.body);
-
-		//verify if all webhooks are coming from Stripe
-  		if(endpointSecret){
-			console.log('secret is present');
+  			}
+  		catch (err) {
+  			 console.log('error in stripe signature verification is', err.message);
+                         res.sendStatus(400).json({ error: err.message });
 		}
-		
 
-		let sig = req.headers['stripe-signature'];
-  		console.log('sig is', sig);
-		
-		const request_stripe = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
-		
-		request_stripe.then(response =>{
-  			console.log('response form stripe sig verify is ', response);
-			res.sendStatus(200);
-		})
-		.catch(error =>{
-   			console.log('error in stripe signature verification is', error.message);	 
-   			//return res.sendStatus(401);
-	 	})
-	// Retrieve the request's body and parse it as JSON
-        //const event_json = req.body;
 
-        //Do something with event_json
-        //console.log('req.body.data.status from stripe webhook', event_json);
+		//Return a response to stripe to acknowledge receipt of the webhook event
+        	res.sendStatus(200);
 
-	// Return a response to acknowledge receipt of the event
-        //res.sendStatus(200);	
-	
+		
 });
 
 module.exports = router;
