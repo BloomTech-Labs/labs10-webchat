@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import classNames from 'classnames';
+
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -15,7 +15,6 @@ import StarIcon from '@material-ui/icons/StarBorder';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 
 
 const styles = theme => ({
@@ -81,6 +80,7 @@ const styles = theme => ({
     margin: 'auto',
       [theme.breakpoints.down('sm')]: {
         // backgroundColor: 'purple',
+        width: 300,
       },
   },
   card: {
@@ -105,21 +105,6 @@ const styles = theme => ({
       paddingBottom: theme.spacing.unit * 2,
     },
   },
-  // getStarted: {
-  //   color: 'white',
-  // },
-  // footer: {
-  //   marginTop: theme.spacing.unit * 8,
-  //   borderTop: `1px solid ${theme.palette.divider}`,
-  //   padding: `${theme.spacing.unit * 6}px 0`,
-  //   display: 'flex',
-	// 	alignItems: 'center',
-	// 	justifyContent: 'center',
-  //   width: '100%',
-  //   height: 100,
-  //   backgroundColor: 'black',
-  //   color: 'white',
-  // },
   paper: {
     position: 'absolute',
     width: theme.spacing.unit * 50,
@@ -132,11 +117,25 @@ const styles = theme => ({
 
 const tiers = [
   {
+    title: 'Free',
+    price: '0',
+    description: ['1 representative', 'Help center access', '24/7 live chat'],
+    buttonText: 'Sign up for free',
+    buttonVariant: 'outlined',
+  },
+  {
     title: 'Regular',
     price: '30',
-    description: ['Unlimited users included', 'Help center access', '24/7 live chat'],
+    description: ['5 representative', 'Help center access', '24/7 live chat'],
     buttonText: 'Get Started',
     buttonVariant: 'contained',
+  },
+  {
+    title: 'Pro',
+    price: '50',
+    description: ['30 representative', 'Help center access', '24/7 live chat'],
+    buttonText: 'Get Started',
+    buttonVariant: 'outlined',
   },
 ];
 
@@ -187,7 +186,7 @@ class Pricing extends Component {
           </div>
           <Grid container spacing={40} alignItems="flex-end">
             {tiers.map(tier => (
-              <Grid className={classes.table} item key={tier.title} md={4}>
+              <Grid className={classes.table} item key={tier.title} sm={tier.title === 'Pro' ? 12 : 6} md={4}>
                 <Card className={classes.card}>
                   <CardHeader
                     title={tier.title}
@@ -203,7 +202,7 @@ class Pricing extends Component {
                         ${tier.price}
                       </Typography>
                       <Typography variant="h6" color="textSecondary">
-                        for lifetime
+                        /mo
                       </Typography>
                     </div>
                     {tier.description.map(line => (
@@ -216,12 +215,9 @@ class Pricing extends Component {
                     <Button
                       fullWidth
                       variant={tier.buttonVariant}
-                      color='primary'
-                      className={classes.getStarted}
                     >
                       <Link to={ROUTES.REP_REGISTER}>{tier.buttonText}</Link>
                     </Button>
-                   
                   </CardActions>
                 </Card>
               </Grid>
@@ -246,26 +242,3 @@ Pricing.propTypes = {
 };
 
 export default withStyles(styles)(Pricing);
-
-
-
-// import React, { Component } from "react";
-// import { Elements, StripeProvider } from "react-stripe-elements";
-// import CheckoutForm from "./CheckoutForm";
-
-// class Billing extends Component {
-//   render() {
-//     return (
-//       <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
-//         <div className="example">
-//           <h1>Lifetime purchase of webchat for $30</h1>
-//           <Elements>
-//             <CheckoutForm />
-//           </Elements>
-//         </div>
-//       </StripeProvider>
-//     );
-//   }
-// }
-
-// export default Billing;
