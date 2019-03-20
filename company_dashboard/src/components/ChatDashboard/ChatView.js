@@ -85,16 +85,22 @@ class ChatView extends Component {
         .then(response => {
           this.setState({
             messages: response.data,
-            // rep_uid: rep.data.uid,
-            // image_id: rep.data.image_id,
-            // url: rep.data.url,
-            // rep_name: rep.data.name,
+            rep_uid: this.props.rep_uid,
+            url: this.props.url,
+            rep_name: this.props.rep_name,
           }, () => {
             console.log('ChatView state after getting messages in CDM: ', this.state);
           });
         })
         .catch(error => {
           console.log(error.message);
+          this.setState({
+            rep_uid: this.props.rep_uid,
+            url: this.props.url,
+            rep_name: this.props.rep_name,
+          }, () => {
+            console.log('ChatView state after failed messages request in CDM: ', this.state);
+          });
           //this.setState({error:error});
         });
       
