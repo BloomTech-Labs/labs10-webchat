@@ -76,20 +76,20 @@ class ConvoList extends React.Component {
       this.setState({ value });
     };
 
-    handleQueueConvoSelect = (convo_id, customer_uid, customer_name, summary) => {
-      // Remove convo from the Queue by updating in_q to false in the convo's db entry
-      const data = { id: convo_id };
-      const deQueueRequest = axios.put('/api/chat/dequeue', data);
-      deQueueRequest
-          .then(response => {
-              console.log("Conversation removed from Queue.");
-              this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);  // call hander at ChatDashboard to pass current convo info to ChatView
-              this.setState({ value: 0 });                                                        // switch selected tab to Open tab
-          })
-          .catch(error => {
-              console.log(error.message);
-          })
-    }
+    // handleQueueConvoSelect = (convo_id, customer_uid, customer_name, summary) => {
+    //   // Remove convo from the Queue by updating in_q to false in the convo's db entry
+    //   const data = { id: convo_id };
+    //   const deQueueRequest = axios.put('/api/chat/dequeue', data);
+    //   deQueueRequest
+    //       .then(response => {
+    //           console.log("Conversation removed from Queue.");
+    //           this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);  // call hander at ChatDashboard to pass current convo info to ChatView
+    //           this.setState({ value: 0 });                                                        // switch selected tab to Open tab
+    //       })
+    //       .catch(error => {
+    //           console.log(error.message);
+    //       })
+    // }
   
     render() {
       const { classes } = this.props;
@@ -118,7 +118,7 @@ class ConvoList extends React.Component {
 
           <div className={classes.queueList}>
                 {this.state.value === 0 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
-                {this.state.value === 1 && <Convos  convoStatus={'queue'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.handleQueueConvoSelect} />}
+                {this.state.value === 1 && <Convos  convoStatus={'queue'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleQueueConvoSelect} />}
                 {this.state.value === 2 && <Convos  convoStatus={'closed'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
           </div>
           
