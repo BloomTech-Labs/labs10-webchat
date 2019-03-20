@@ -1,14 +1,14 @@
 import React from 'react'
-import { withFirebase } from "../Firebase";
+import { withFirebase, FirebaseContext } from "../../Firebase";
 import { Link, withRouter, Route} from "react-router-dom"
-import { FirebaseContext } from '../Firebase';
+// import { FirebaseContext } from '../../Firebase';
 import StripeCheckout from 'react-stripe-checkout';
 import { withStyles } from "@material-ui/core/styles";
 import styled from 'styled-components'
-import { CUSTOMER_CHAT } from "../../constants/routes";
+import { CUSTOMER_CHAT } from "../../../constants/routes";
 import PropTypes from "prop-types";
 // import DashBar from '../NewDash'
-import Navigation from "../Navigation";
+import Navigation from "../../Navigation";
 import axios from 'axios'
 import {
   Grid,
