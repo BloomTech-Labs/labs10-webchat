@@ -124,14 +124,14 @@ const tiers = [
     buttonVariant: 'outlined',
   },
   {
-    title: 'Regular',
+    title: 'Basic',
     price: '30',
     description: ['5 representative', 'Help center access', '24/7 live chat'],
     buttonText: 'Get Started',
     buttonVariant: 'contained',
   },
   {
-    title: 'Pro',
+    title: 'Enterprise',
     price: '50',
     description: ['30 representative', 'Help center access', '24/7 live chat'],
     buttonText: 'Get Started',
@@ -186,14 +186,14 @@ class Pricing extends Component {
           </div>
           <Grid container spacing={40} alignItems="flex-end">
             {tiers.map(tier => (
-              <Grid className={classes.table} item key={tier.title} sm={tier.title === 'Pro' ? 12 : 6} md={4}>
+              <Grid className={classes.table} item key={tier.title} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
                 <Card className={classes.card}>
                   <CardHeader
                     title={tier.title}
                     subheader={tier.subheader}
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
-                    action={tier.title === 'Regular' ? <StarIcon /> : null}
+                    action={tier.title === 'Basic' ? <StarIcon /> : null}
                     className={classes.cardHeader}
                   />
                   <CardContent>
