@@ -34,7 +34,6 @@ class CompanyRegisterFormBase extends Component {
       	  motto: "",
           phone: "",
   	  companyname: "",
-	  selectedFile:null,
       	  error:null,
           uid:props.history.location.state.uid,
           logged:false,
@@ -53,7 +52,6 @@ class CompanyRegisterFormBase extends Component {
       data.append('phone_number', this.state.phone);
       data.append('is_admin', true);
       data.append('uid', this.state.uid);
-      data.append('file', this.state.selectedFile);
 
 
 const request = axios.post('/api/reps/admin', data);
@@ -108,7 +106,7 @@ const request = axios.post('/api/reps/admin', data);
                   />
                 </Link>
             </div>
-            <p className="header">Enter your Company details</p>
+            <p className="header">Enter your Company Details</p>
             <form onSubmit={this.onSubmit}>
               <TextField
                 style = {{width: '65%'}}
@@ -165,12 +163,6 @@ const request = axios.post('/api/reps/admin', data);
                   type="text"
                   value={this.state.motto}
                   onChange={this.onChange}
-                />
-                <br/><br/>
-
-                <input
-                  type="file"
-                  onChange={this.fileChangeHandler}
                 />
                 <br/><br/>
 
