@@ -20,7 +20,8 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: null,
             currentConvoSummary: null,
             currentCustomerName: null,
-            convoSelected: false
+            convoSelected: false,
+            currentConvoClosed: false
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
         this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
@@ -90,7 +91,7 @@ class ChatDashboard extends React.Component {
         axios.put('/api/chat/close', data)
         .then(response => {
             console.log("Conversation closed.")
-            this.forceUpdate();
+            this.setState({ currentConvoClosed: true })
         })
         .catch(error => {
             console.log(error.message);
@@ -106,7 +107,7 @@ class ChatDashboard extends React.Component {
                 <div className="chat-dash-left-container">
                     <ConvoList
                         currentConvoId={this.state.currentConvoId}
-                        currentTab={this.state.currentTab}
+                        currentConvoClosed={this.state.currentConvoClosed}
                         handleQueueConvoSelect={this.handleQueueConvoSelect}
                         handleActiveConvoSelect={this.handleActiveConvoSelect}
                         handleClosedConvoSelect={this.handleClosedConvoSelect}
