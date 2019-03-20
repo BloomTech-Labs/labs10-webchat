@@ -5,16 +5,13 @@ Chattr is a live chat tool for B2C and B2B companies to connect with visitors to
 
 ## Contributors
 
-
-- **Jennifer Player** | [Github](https://github.com/chainchompa)
-
 - **Sukhada Gholba** | [Github](https://github.com/sukhadagholba)
-
+- **Jennifer Player** | [Github](https://github.com/chainchompa)
+- **Cameron Ray** | [Github](https://github.com/upsmancsr)
 - **Wonjae Hwang** | [Github](https://github.com/verydecent)
-
 - **Linda Yang** | [Github](https://github.com/lyang9)
 
-- **Cameron Ray** | [Github](https://github.com/upsmancsr)
+
 
 
 
