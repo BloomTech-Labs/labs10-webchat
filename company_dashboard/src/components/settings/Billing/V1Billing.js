@@ -1,14 +1,14 @@
 import React from 'react'
-import { withFirebase } from "../Firebase";
+import { withFirebase, FirebaseContext } from "../../Firebase";
 import { Link, withRouter, Route} from "react-router-dom"
-import { FirebaseContext } from '../Firebase';
+// import { FirebaseContext } from '../../Firebase';
 import StripeCheckout from 'react-stripe-checkout';
 import { withStyles } from "@material-ui/core/styles";
 import styled from 'styled-components'
-import { CUSTOMER_CHAT } from "../../constants/routes";
+import { CUSTOMER_CHAT } from "../../../constants/routes";
 import PropTypes from "prop-types";
 // import DashBar from '../NewDash'
-import Navigation from "../Navigation";
+import Navigation from "../../Navigation";
 import axios from 'axios'
 import {
   Grid,
@@ -86,8 +86,6 @@ const styles = theme => ({
   },
 })
 
-
-
 const Billing = () => (
   <div>
     <FirebaseContext.Consumer>
@@ -101,7 +99,9 @@ class BillingBaseForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSubscribed: false
+      isSubscribed: false,
+      plan: null,
+      subStatus: null
     }
   }
 
@@ -115,7 +115,29 @@ class BillingBaseForm extends React.Component {
         .then(idToken => {
 
         	console.log("idToken after in Admin panel: ", idToken);
-        	axios.defaults.headers.common['Authorization'] = idToken;
+            axios.defaults.headers.common['Authorization'] = idToken;
+            
+            const id = this.props.company_id;
+            axios.get(`/api/billing/getSub`)
+            .then(response => {
+                console.log('response from Billing getSub: ', response);
+                if (response.data) {   // if max_reps on subscription is greater than current team size
+                    this.setState({ 
+                        isSubscribed: true,
+                        plan: response.data.stripe_plan_nickname,
+                        subStatus: response.data.stripe_subscription_status
+                    }, () => console.log('Billing state after getSub: ', this.state));
+                } else {
+                    this.setState({ 
+                        isSubscribed: false,
+                        plan: 'Free',
+                        subStatus: 'active'
+                    }, () => console.log('Billing state after getSub: ', this.state));
+                }
+            })
+            .catch(error => {
+                this.setState({ error: error.message });
+            })
 	})	
  	.catch(error => {            // if Firebase getIdToken throws an error
         	console.log(error.message);
@@ -126,6 +148,7 @@ class BillingBaseForm extends React.Component {
                  this.props.history.push('/repslogin');
         }
    });
+
  };
 
 
@@ -174,7 +197,7 @@ class BillingBaseForm extends React.Component {
         price: '30',
         description: ['10 users'],
         value: 'a',
-        token: this.basicToken,   // Corresponds to token definition above
+        token: this.basicToken,        // Corresponds to token definition above
       },
       {
         title: 'Enterprise',
@@ -186,77 +209,86 @@ class BillingBaseForm extends React.Component {
     ]
 
     const isSubscribed = this.state.isSubscribed;
+    const subStatus = this.state.subStatus;
 
     return (
-      // {this.state.isSubscribed ? (
-      //   <p>Your company has a subscription</p>
-      // ) : (
-      <BillingContainer>
-        <Navigation />
-        <PaymentContainer>
-          <h1 className="title-wide">Our Subscription Options</h1>
-          <h1 className="title-thin">Our</h1>
-          <h1 className="title-thin">Subscription</h1>
-          <h1 className="title-thin">Options</h1>
-          <Grid container spacing={40} alignItems="flex-end">
-            {subscriptionTiers.map(tier => (
-              <Grid
-                item
-                key={tier.title}
-                xs={12}
-                sm={tier.title === 'Enterprise' ? 12 : 6}
-                md={4}
-              >
-                <Card className="card" align="center">
-                  <CardHeader
-                    title={tier.title}
-                    // subheader={tier.subheader} no subheaders defined
-                    titleTypographyProps={{ align: 'center', variant: 'h3' }}
-                    subheaderTypographyProps={{ align: 'center' }}
-                  />
-                  <CardContent>
-                    <div className={styles.cardPricing}>
-                      <Typography
-                        align="center"
-                        // component="h2"
-                        variant="h3"
-                        color="textPrimary"
-                      >
-                        ${tier.price}
-                      </Typography>
-                      <Typography
-                        align="center"
-                        variant="h5"
-                        color="textSecondary"
-                      >
-                        monthly
-                      </Typography>
-                    </div>
-                    {tier.description.map(line => (
-                      <Typography variant="h6" align="center" key={line}>
-                        {line}
-                      </Typography>
-                    ))}
-                    <PaymentButton>
-                      <StripeCheckout
-                        label="BUY"
-                        panelLabel="SUBSCRIBE"
-                        token={tier.token}
-                        stripeKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu"
-                        name={tier.title}
-                        description={tier.description}
-                        amount={tier.price * 100}
-                        allowRememberMe={false}
-                      />
-                    </PaymentButton>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </PaymentContainer>
-      </BillingContainer>
-      // )}
+        <div>
+        {isSubscribed ? (
+            <div>
+            <h1>Your company has already subscribed</h1>
+            {subStatus !== 'active' ? ( 
+                <h1>Your subscriptin status is not active.</h1>
+                ) : ( ''
+            )}
+            </div>
+        ) : (
+        <BillingContainer>
+            <Navigation />
+            <PaymentContainer>
+            <h1 className="title-wide">Our Subscription Options</h1>
+            <h1 className="title-thin">Our</h1>
+            <h1 className="title-thin">Subscription</h1>
+            <h1 className="title-thin">Options</h1>
+            <Grid container spacing={40} alignItems="flex-end">
+                {subscriptionTiers.map(tier => (
+                <Grid
+                    item
+                    key={tier.title}
+                    xs={12}
+                    sm={tier.title === 'Enterprise' ? 12 : 6}
+                    md={4}
+                >
+                    <Card className="card" align="center">
+                    <CardHeader
+                        title={tier.title}
+                        // subheader={tier.subheader} no subheaders defined
+                        titleTypographyProps={{ align: 'center', variant: 'h3' }}
+                        subheaderTypographyProps={{ align: 'center' }}
+                    />
+                    <CardContent>
+                        <div className={styles.cardPricing}>
+                        <Typography
+                            align="center"
+                            // component="h2"
+                            variant="h3"
+                            color="textPrimary"
+                        >
+                            ${tier.price}
+                        </Typography>
+                        <Typography
+                            align="center"
+                            variant="h5"
+                            color="textSecondary"
+                        >
+                            monthly
+                        </Typography>
+                        </div>
+                        {tier.description.map(line => (
+                        <Typography variant="h6" align="center" key={line}>
+                            {line}
+                        </Typography>
+                        ))}
+                        <PaymentButton>
+                        <StripeCheckout
+                            label="BUY"
+                            panelLabel="SUBSCRIBE"
+                            token={tier.token}
+                            stripeKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu"
+                            name={tier.title}
+                            description={tier.description}
+                            amount={tier.price * 100}
+                            allowRememberMe={false}
+                        />
+                        </PaymentButton>
+                    </CardContent>
+                    </Card>
+                </Grid>
+                ))}
+            </Grid>
+            </PaymentContainer>
+        </BillingContainer>
+        )}
+        </div>
     )
   }
 }

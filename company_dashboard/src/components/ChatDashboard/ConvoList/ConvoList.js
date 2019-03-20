@@ -74,8 +74,6 @@ class ConvoList extends React.Component {
         };
     }
     
-    
-
     handleTabSelect= (event, value) => {
       this.setState({ value });
     };
