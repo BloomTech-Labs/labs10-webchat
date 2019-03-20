@@ -174,7 +174,7 @@ class BillingBaseForm extends React.Component {
         price: '30',
         description: ['10 users'],
         value: 'a',
-        token: this.basicToken,   // Corresponds to token definition above
+        token: this.basicToken,        // Corresponds to token definition above
       },
       {
         title: 'Enterprise',
