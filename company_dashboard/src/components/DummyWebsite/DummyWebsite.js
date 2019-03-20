@@ -328,7 +328,7 @@ class DummyWebsite extends Component {
 								9:00AM - 5:00PM
 							</Typography>
 						</div>
-						<Button className="webChatAppBtn">Chat!</Button> <iframe data-company-id='2' className="wcaIFRAME"></iframe>
+		<Button className="webChatAppBtn">Chat!</Button> <iframe data-company-id='2' className="wcaIFRAME"></iframe>
 					</Paper>
 				</Grid>
 			</div>

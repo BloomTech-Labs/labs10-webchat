@@ -33,7 +33,7 @@ function enableChattr() {
 			let company_id = wcaIFRAME.getAttribute("data-company-id");
 			console.log('company_id in snippet', company_id);
 			
-			// wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
+			//wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
 			wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
 
 		} else {
