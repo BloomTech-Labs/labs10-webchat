@@ -16,6 +16,7 @@ function getSub(company_id){
     // });
 }
 
+
 function insert(newSub) {
     return db('subscriptions')
     .insert(newSub).returning('id').then(ids => ids[0]);

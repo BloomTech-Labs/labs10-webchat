@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require('../../data/helpers/subDb');
 const repDb = require('../../data/helpers/repDb');
+const repDb = require('../../data/helpers/repDb');
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -65,7 +66,8 @@ router.get('/getSubMax/:id', async (req, res) => {
 });
 
 router.get('/getSub/:id', async (req, res) => {
-  const company_id = req.params.id; 
+  const repInfo = await repDb.getByUid(req.body.uid)
+  const company_id = repInfo.company_id;
   console.log('company_id in getSub endpoint: ', company_id);
   
   try {

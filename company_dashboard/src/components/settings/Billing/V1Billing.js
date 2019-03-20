@@ -120,7 +120,7 @@ class BillingBaseForm extends React.Component {
             axios.defaults.headers.common['Authorization'] = idToken;
             
             const id = this.props.company_id;
-            axios.get(`/api/billing/getSub/${id}`)
+            axios.get(`/api/billing/getSub`)
             .then(response => {
                 console.log('response from Billing getSub: ', response);
                 if (response.data) {   // if max_reps on subscription is greater than current team size
