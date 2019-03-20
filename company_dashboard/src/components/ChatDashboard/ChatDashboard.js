@@ -59,16 +59,16 @@ class ChatDashboard extends React.Component {
         }, () => {
             console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
         });
-        // Remove convo from the Queue by updating in_q to false in the convo's db entry
-        const data = { id: convo_id };
-        const deQueueRequest = axios.put('/api/chat/dequeue', data);
-        deQueueRequest
-            .then(response => {
-                console.log("Conversation removed from Queue.")
-            })
-            .catch(error => {
-                console.log(error.message);
-            })
+        // // Remove convo from the Queue by updating in_q to false in the convo's db entry
+        // const data = { id: convo_id };
+        // const deQueueRequest = axios.put('/api/chat/dequeue', data);
+        // deQueueRequest
+        //     .then(response => {
+        //         console.log("Conversation removed from Queue.")
+        //     })
+        //     .catch(error => {
+        //         console.log(error.message);
+        //     })
     }
 
     handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {

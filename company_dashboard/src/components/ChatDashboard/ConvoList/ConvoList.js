@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom"
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import axios from 'axios';
 
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
@@ -63,13 +64,27 @@ class ConvoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+          value: 1,
         };
     }
     
     handleTabChange = (event, value) => {
       this.setState({ value });
     };
+
+    handleQueueConvoSelect = (convo_id, customer_uid, customer_name, summary) => {
+      // Remove convo from the Queue by updating in_q to false in the convo's db entry
+      const data = { id: convo_id };
+      const deQueueRequest = axios.put('/api/chat/dequeue', data);
+      deQueueRequest
+          .then(response => {
+              console.log("Conversation removed from Queue.");
+              this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);
+          })
+          .catch(error => {
+              console.log(error.message);
+          })
+    }
   
     render() {
       const { classes } = this.props;
