@@ -104,8 +104,8 @@ class ConvoList extends React.Component {
 
           <div className={classes.queueList}>
                 {this.state.value === 0 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
-                {this.state.value === 1 && <Convos  convoStatus={'queue'} handleConvoSelect={this.props.handleQueueConvoSelect} />}
-                {this.state.value === 2 && <Convos  convoStatus={'closed'} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
+                {this.state.value === 1 && <Convos  convoStatus={'queue'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleQueueConvoSelect} />}
+                {this.state.value === 2 && <Convos  convoStatus={'closed'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
           </div>
           
         </div>
