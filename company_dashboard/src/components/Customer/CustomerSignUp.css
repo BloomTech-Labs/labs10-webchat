@@ -9,7 +9,7 @@
   align-items: center;
   margin: auto;
   padding-top: 1%;
-  margin-bottom: 8%;
+  margin-bottom: 5%;
   background-color: #3BBCD4;
   height: 65px;
   color: white;
@@ -35,11 +35,11 @@
 .customer-signup form {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   width: 340px;
-  height: 450px;
   margin: auto;
+  height: 100%;
   padding-top: 1%;
   padding-bottom: 1%;
 }
@@ -56,5 +56,6 @@
 
 .customer-signup form a {
   color: #4C7AF1;
-  padding-bottom: 5%;
+  padding-bottom: 0;
+  margin-top: 5%;
 }
