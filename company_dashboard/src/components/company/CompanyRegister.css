@@ -1,6 +1,6 @@
 .company-detail {
-  background-color: #F9FAFF;
-  height: 100%;
+  background-color: #EAEAEA;
+  height: 100vh;
 }
 
 .company-detail .register-top-bar {
@@ -58,7 +58,6 @@
   background-color: white;
   padding-top: 1%;
   padding-bottom: 1%;
-  margin-bottom: 15%;
 }
 
 .company-detail form .company-register-button {
@@ -84,4 +83,16 @@
 
 .company-detail form input {
   width: 70%;
+}
+@media (max-width: 800px) {
+  .company-detail {
+    height: 100%;
+  }
+  .company-detail form {
+      margin-bottom: 15%;
+      padding-bottom: 5%;
+  }
+  .company-detail .register-top-bar img {
+      margin-left: 15%;
+  }
 }
