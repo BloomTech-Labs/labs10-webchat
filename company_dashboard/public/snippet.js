@@ -13,7 +13,7 @@ function enableChattr() {
 	wcaIFRAME.style.display = "none";
   wcaIFRAME.style.width = "450px";
   wcaIFRAME.style.height = "600px";
-  wcaIFRAME.style.border = "2px gray solid";
+  wcaIFRAME.style.border = "1px lightgray solid";
   wcaIFRAME.scrolling = "no";
   wcaIFRAME.style.overflow = "hidden";
   wcaBtn.style.textAlign = "center";
@@ -26,6 +26,7 @@ function enableChattr() {
   wcaBtn.style.outline = "none";
   wcaBtn.style.right = "40px";
   wcaIFRAME.style.position = "fixed";
+	wcaIFRAME.style.borderRadius = "20px";
   wcaIFRAME.style.bottom = "120px";
   wcaIFRAME.style.right = "20px";
   wcaIFRAME.style.backgroundColor ="white";
