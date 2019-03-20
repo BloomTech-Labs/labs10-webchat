@@ -67,7 +67,6 @@ class ConvoList extends React.Component {
         };
     }
     
-  
     handleTabChange = (event, value) => {
       this.setState({ value });
     };
@@ -119,40 +118,3 @@ ConvoList.propTypes = {
 };
 
 export default withStyles(styles)(ConvoList);
-
-
-
-
-
-// class ConvoList extends React.Component {
-//     constructor() {
-//         super();
-//         this.state = {
-//             selectedTab: "queue"
-//         }
-//     }
-    
-
-//     changeSelectedTab = tabName => {
-//         // this function should take in the tab and update the state with the new tab.
-//         this.setState({ selectedTab: tabName });
-//     };
-
-//     render() {
-        
-
-//         return (
-//             <div className="convolist-container">
-//                 <div className="tabs-container">
-//                     <Tabs 
-//                         selectedTab={this.state.selectedTab} 
-//                         changeSelectedTab={this.changeSelectedTab}
-//                     />
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
-
-// export default ConvoList;
