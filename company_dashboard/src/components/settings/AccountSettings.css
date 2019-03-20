@@ -1,25 +1,25 @@
 .account-settings-container {
   background-color: #EAEAEA;
   height: 100vh;
-  padding-top: 5%;
+  display: flex;
+  align-items: center;
 }
 
-.account-settings {
+.account-settings-container .account-settings {
     width: 65%;
     display: flex;
     margin-left: 22%;
     padding: 2.5%;
+    height: 60%;
     border: 2px gray solid;
     border-radius: 5px;
     background-color: white;
-    margin-bottom: 15%;
   }
 
 .account-settings form {
     display: flex;
     flex-direction: column;
     margin-top: 10%;
-    margin-bottom: 10%;
 }
 
 .account-settings .left-container {
@@ -73,20 +73,11 @@
 }
 
 @media (max-width: 1320px) {
-  .account-settings-container {
-    padding-bottom: 10%;
-    height: 100%;
-    }
-
   .account-settings {
-    margin-top: 10%;
-    margin-bottom: 15%;
+      height: 100%;
+      width: 85%;
     }
 
-  .account-settings .image-upload  button {
-      margin-left: 0;
-      margin-top: 5%;
-  }
   .account-settings .right-container img {
       width: 150px;
       height: 150px;
@@ -99,11 +90,12 @@
   .account-settings-container {
     padding-top: 0;
     height: 100%;
+    display: block;
     }
 
-  .account-settings {
-    margin-top: 50px;
-    margin-left: 5%;
+  .account-settings-container .account-settings {
+    margin: auto;
+    margin-top: 10%;
     flex-direction: column-reverse;
     align-items: center;
     width: 85%;
