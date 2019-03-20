@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./LandingPage.css";
-import { Link } from "react-router-dom";
-import * as ROUTES from "../constants/routes";
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -11,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   root: {
@@ -379,7 +376,7 @@ class LandingPage extends Component {
                 <p className={classes.meetTeam}>Developers</p>
               </a>
               <p className={classes.rights}>&copy; Copyright 2019 Lambda School Lab10 Chattr - All rights reserved</p>
-              <a href='/'>
+              <a href='#'>
                 <p className={classes.terms}>Terms</p>
               </a>
             </div>
