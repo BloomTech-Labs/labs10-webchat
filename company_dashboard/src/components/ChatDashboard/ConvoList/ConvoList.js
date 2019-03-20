@@ -60,7 +60,10 @@ const styles = {
   },
   tabs1: {
     height: '100%'
-  }
+  },
+  // tab: {
+  //   borderRadius: '2px'
+  // }
 };
 
 class ConvoList extends React.Component {
@@ -99,7 +102,6 @@ class ConvoList extends React.Component {
       return (
 
         <div className={classes.root}>
-
           <div className={classes.queueMenu}>
             <Paper className={classes.paper}>
               <Tabs
@@ -110,9 +112,9 @@ class ConvoList extends React.Component {
                 textColor="primary"
                 centered
                 >
-                  <Tab label="Open" />
-                  <Tab label="Queue" />
-                  <Tab label="Closed" />
+                  <Tab label="Open" style={{ border: this.state.value === 0 ? '2.5px solid blue' : ''}}/>
+                  <Tab label="Queue" style={{ border: this.state.value === 1 ? '2.5px solid blue' : ''}}/>
+                  <Tab label="Closed" style={{ border: this.state.value === 2 ? '2.5px solid blue' : ''}}/>
               </Tabs>
             </Paper>
           </div>
