@@ -31,7 +31,7 @@ function TabContainer(props) {
 const styles = {
     root: {
       flexGrow: 1,
-      border: '1px solid blue',
+      // border: '1px solid blue',
       // Changes from David
       height: '100vh',
       display: 'flex',
@@ -39,22 +39,25 @@ const styles = {
     },
     queueMenu: {
       // height: '100%',
-      border: '1px solid red',
+      // border: '1px solid red',
+      borderRadius: '0px'
     },
     queueList: {
       // overflyY: 'scroll',
       // height: '100% ',
-      border: '1px solid orange',
+      // border: '1px solid orange',
       height: '100%',
       display: 'flex',
       flexDirection: 'column'
   },
   paper: {
     // height: '100%'
+    borderRadius: '0px'
   },
-  // paper2: {
-  //   height: '100%'
-  // }
+  paper2: {
+    // height: '100%',
+    borderRadius: '0px'
+  },
   tabs1: {
     height: '100%'
   }
