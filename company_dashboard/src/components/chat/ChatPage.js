@@ -210,7 +210,7 @@ class ChatPage extends Component {
                 ) : (
                         <RaisedButton
                         label="Start a conversation"
-                        secondary={true}
+                        primary={true}
                         type="submit"
                         onSubmit={this.onStart}
                         onClick={this.onStart}
