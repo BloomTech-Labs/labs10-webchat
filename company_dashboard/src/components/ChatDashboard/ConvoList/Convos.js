@@ -28,7 +28,7 @@ const styles = theme => ({
     textAlign: 'left',
     padding: theme.spacing.unit,
     borderRadius: '0px',
-    border: '0.2px solid grey'
+    border: '0.2px solid grey',
     // width: '85%',
     // marrgin: 10,
     // maxWidth: 400,
@@ -98,6 +98,7 @@ class Convos extends React.Component {
                       <MuiThemeProvider> 
                         <Paper 
                           className={classes.paper}
+                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? 'grey' : 'white' }}
                           onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
                         >
                           {/* <Grid item
