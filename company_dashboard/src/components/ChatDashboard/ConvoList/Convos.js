@@ -78,7 +78,8 @@ class Convos extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.currentConvoClosed) {
+    if (newProps.currentConvoClosed !== this.props.currentConvoClosed) {
+      console.log('Convos currentConvoClosed changed');
       const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
       getClosed
         .then(response => {
