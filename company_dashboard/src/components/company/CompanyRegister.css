@@ -45,6 +45,7 @@
 .company-detail .header {
   font-size: 2em;
   margin-bottom: 3%;
+  margin-top: 5%;
 }
 
 .company-detail form {
@@ -94,5 +95,8 @@
   }
   .company-detail .register-top-bar img {
       margin-left: 15%;
+  }
+  .company-detail .header {
+      margin-top: 15%;
   }
 }

@@ -73,6 +73,16 @@
 }
 
 @media (max-width: 800px) {
+  .register {
+    height: 100%;
+  }
+  .register form {
+      margin-bottom: 15%;
+      padding-bottom: 5%;
+  }
+  .register .register-top-bar img {
+      margin-left: 15%;
+  }
   .register .header {
       margin-top: 15%;
   }
