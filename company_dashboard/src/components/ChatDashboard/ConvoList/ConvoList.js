@@ -68,9 +68,7 @@ class ConvoList extends React.Component {
         };
     }
     
-    // componentDidUpdate() {
-    //   this.setState({ value: this.props.currentTab })
-    // }
+    
 
     handleTabSelect= (event, value) => {
       this.setState({ value });
@@ -117,7 +115,7 @@ class ConvoList extends React.Component {
           </div>
 
           <div className={classes.queueList}>
-                {this.state.value === 0 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
+                {this.state.value === 0 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} currentConvoClosed={this.props.currentConvoClosed} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
                 {this.state.value === 1 && <Convos  convoStatus={'queue'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.handleQueueConvoSelect} />}
                 {this.state.value === 2 && <Convos  convoStatus={'closed'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
           </div>

@@ -77,6 +77,21 @@ class Convos extends React.Component {
       })
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentConvoClosed) {
+      const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
+      getClosed
+        .then(response => {
+          this.setState({
+            conversations: response.data  // .data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
+          });
+        })
+        .catch(error => {
+          console.log(error.message);
+        })
+    }
+  }
+
 
     render() {
         const { classes } = this.props;
