@@ -71,9 +71,15 @@ else {
      }
 })
     let current_page = window.location.href;
-    this.setState({
-      activePage: current_page.slice(22)
-    })
+    if(process.env.NODE_ENV == 'development') {
+      this.setState({
+        activePage: current_page.slice(22)
+      })
+    } else {
+      this.setState({
+        activePage: current_page.slice(35)
+      })
+    }
 };
 
 
