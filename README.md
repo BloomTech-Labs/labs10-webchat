@@ -11,18 +11,28 @@ Chattr is a live chat tool for B2C and B2B companies to connect with visitors to
 - [Dependencies](#Dependencies)
 - [Developers](#Developers)
 
+
 ## Features
 
-
+- Realtime message updates between representative and customer
+- Sign up Companies using Chattr
+- Register representative team members via email
+- Adminstrators update team member status to adminstrator
+- Administrators remove team member
+- Representatives and Administrators can select, open and chat with incoming customer queries
+- Live updating query list
+- Resolved queries are consolidated into a Closed List
 
 
 ## Dependencies
 
+### Front-End
 - [React](https://reactjs.org/)
 - [Axios](https://www.npmjs.com/package/axios) 
 - [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
 - [Material UI](https://material-ui.com/)
 
+### Back-End
 - [Socket.io](https://socket.io/)
 - [FireBase](https://firebase.google.com/)
 - [Stripe](https://stripe.com/docs)
