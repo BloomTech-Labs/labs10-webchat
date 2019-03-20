@@ -69,7 +69,7 @@ class Convos extends React.Component {
     getClosed
       .then(response => {
         this.setState({
-          conversations: response.data  // .data should be an array of objects, each containing rep_name, rep_company_id, customer_uid, summary, customer_name
+          conversations: response.data  
         });
       })
       .catch(error => {
@@ -77,23 +77,35 @@ class Convos extends React.Component {
       })
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentConvoClosed !== this.props.currentConvoClosed) {
+      console.log('Convos currentConvoClosed changed');
+      const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
+      getClosed
+        .then(response => {
+          this.setState({
+            conversations: response.data  
+          });
+        })
+        .catch(error => {
+          console.log(error.message);
+        })
+    }
+  }
 
     render() {
         const { classes } = this.props;
 
         return (
-
           <div className={classes.root}>
             <Typography
               variant='h4'
             >
-              
             </Typography>
             <div className={classes.convoList}>
                 {this.state.conversations.map((convo, index) => {
 
                   return (
-
                     <div className={classes.queueItem} key={index}>
                       <MuiThemeProvider> 
                         <Paper 
@@ -113,9 +125,7 @@ class Convos extends React.Component {
                          {/* </Grid> */}
                         </Paper>
                       </MuiThemeProvider>
-
                     </div>
-
                   );
                 })}
                 <div className={classes.listFooter}>
