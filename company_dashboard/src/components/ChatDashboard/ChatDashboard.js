@@ -20,7 +20,6 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: null,
             currentConvoSummary: null,
             currentCustomerName: null,
-            currentTab: 1,
             convoSelected: false
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
@@ -49,36 +48,16 @@ class ChatDashboard extends React.Component {
 
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
 
-        // this.setState({
-        //     convoSelected: true,
-        //     currentConvoId: convo_id,
-        //     currentConvoSocket: customer_uid,
-        //     currentConvoSummary: summary,
-        //     currentCustomerName: customer_name,
-        //     // currentMessages: response.data
-        // }, () => {
-        //     console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-        // });
-        // Remove convo from the Queue by updating in_q to false in the convo's db entry
-        const data = { id: convo_id };
-        const deQueueRequest = axios.put('/api/chat/dequeue', data);
-        deQueueRequest
-            .then(response => {
-                console.log("Conversation removed from Queue.")
-                this.setState({
-                    convoSelected: true,
-                    currentConvoId: convo_id,
-                    currentConvoSocket: customer_uid,
-                    currentConvoSummary: summary,
-                    currentCustomerName: customer_name,
-                    currentTab: 0
-                }, () => {
-                    console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-                });
-            })
-            .catch(error => {
-                console.log(error.message);
-            })
+        this.setState({
+            convoSelected: true,
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid,
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
+            // currentMessages: response.data
+        }, () => {
+            console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+        });
     }
 
     handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
