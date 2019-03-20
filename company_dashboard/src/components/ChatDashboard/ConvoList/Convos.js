@@ -111,7 +111,7 @@ class Convos extends React.Component {
                   );
                 })}
                 <div className={classes.listFooter}>
-                  <p>End of list</p>
+                  <p>No more conversations</p>
                 </div>
             </div>
           </div>
@@ -120,5 +120,5 @@ class Convos extends React.Component {
       }
     } 
     
-export default withStyles(styles)(withRouter(Convos));
+export default withStyles(styles)(Convos);
 
