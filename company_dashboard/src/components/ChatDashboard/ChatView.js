@@ -103,11 +103,6 @@ class ChatView extends Component {
     console.log('ChatView CDM state: ', this.state);
     console.log('ChatView CDM props: ', this.props);
 
-    // Get details on the current rep:
-
-    // const repRequest = axios.get("/api/reps/alldetails");
-    // repRequest.then(rep => {
-
       const id = this.props.currentConvoId;  // Get convo_id from props
       const messageRequest = axios.get(`/api/chat/messages/${id}`);
       messageRequest
@@ -132,12 +127,6 @@ class ChatView extends Component {
           });
           //this.setState({error:error});
         });
-      
-      // })
-      // .catch(error => {
-      //   console.log(error.message);
-      //   //this.setState({error:error});
-      // });
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
   }
@@ -325,28 +314,6 @@ class ChatView extends Component {
                     </MuiThemeProvider>
                   </div>
                 </form>
-                {/* <form>
-                  <input
-                    name="message"
-                    type="text"
-                    value={this.state.message}
-                    onChange={this.onChange}
-                    />
-                <ThemeProvider>
-                  <div className={classes.buttonArea}>
-                    <Row>
-                      <IconButton>
-                        <SendIcon />
-                      </IconButton>
-                    </Row>
-                    <Row>
-                      <IconButton>
-                        <CloseIcon />
-                      </IconButton>
-                    </Row>
-                  </div>
-                </ThemeProvider>
-              </form> */}
             </div>
           </div>
     );

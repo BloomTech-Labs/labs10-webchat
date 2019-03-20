@@ -92,7 +92,10 @@ class ChatDashboard extends React.Component {
         axios.put('/api/chat/close', data)
         .then(response => {
             console.log("Conversation closed.")
-            this.setState({ currentConvoClosed: true })
+            this.setState({ 
+                convoSelected: false, 
+                currentConvoClosed: true 
+            });
         })
         .catch(error => {
             console.log(error.message);
