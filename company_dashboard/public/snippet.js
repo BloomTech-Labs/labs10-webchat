@@ -6,30 +6,30 @@ function enableChattr() {
 	// }
 
 	let wcaBtn = document.querySelector(".webChatAppBtn");
-	let wcaBtnImg = document.querySelector(".webChatAppBtnImg");
 	if (wcaBtn === null) return;
 
 	let wcaIFRAME = document.querySelector(".wcaIFRAME");
 	let clickCount=0;
 	wcaIFRAME.style.display = "none";
-	wcaIFRAME.style.width = "450px";
-	wcaIFRAME.style.height = "600px";
-	wcaIFRAME.style.border = "2px gray solid";
-	wcaIFRAME.scrolling = "no";
-	wcaIFRAME.style.overflow = "hidden";
-	wcaBtn.style.textAlign = "center";
-	wcaBtn.style.verticalAlign = "middle";
-	wcaBtn.style.borderRadius = "60px";
-	wcaBtn.style.position = "fixed";
-	wcaBtn.style.bottom = "20px";
-	wcaBtn.style.right = "20px";
-	wcaBtnImg.style.width = "80px";
-	wcaBtnImg.style.height = "80px";
-	wcaBtnImg.src = "https://freeiconshop.com/wp-content/uploads/edd/chat-alt-flat.png";
-	wcaIFRAME.style.position = "fixed";
-	wcaIFRAME.style.bottom = "120px";
-	wcaIFRAME.style.right = "20px";
-	wcaIFRAME.style.backgroundColor ="white";
+  wcaIFRAME.style.width = "450px";
+  wcaIFRAME.style.height = "600px";
+  wcaIFRAME.style.border = "2px gray solid";
+  wcaIFRAME.scrolling = "no";
+  wcaIFRAME.style.overflow = "hidden";
+  wcaBtn.style.textAlign = "center";
+  wcaBtn.style.verticalAlign = "middle";
+  wcaBtn.src = "https://freeiconshop.com/wp-content/uploads/edd/chat-alt-flat.png";
+  wcaBtn.style.position = "fixed";
+  wcaBtn.style.borderRadius = "80px";
+  wcaBtn.style.width = "90px";
+  wcaBtn.style.bottom = "20px";
+  wcaBtn.style.outline = "none";
+  wcaBtn.style.right = "40px";
+  wcaIFRAME.style.position = "fixed";
+  wcaIFRAME.style.bottom = "120px";
+  wcaIFRAME.style.right = "20px";
+  wcaIFRAME.style.backgroundColor ="white";
+
 	wcaBtn.onclick = function() {
 		if (wcaIFRAME.style.display == "none" & clickCount === 0) {
       clickCount++;
