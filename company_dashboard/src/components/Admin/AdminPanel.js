@@ -313,6 +313,7 @@ class AdminPanelBaseForm extends React.Component {
                 value={this.state.companyName}
               />
               <h3>Code Snippet</h3>
+              <p className="code-snippet-info">Add the Code Snippet to the html for any page that you want to have the Customer Service widget on</p>
               <TextField
                 id='outlined-codeSnippet'
                 multiline={true}
@@ -320,7 +321,7 @@ class AdminPanelBaseForm extends React.Component {
                 rowsMax={Infinity}
                 fullWidth
                 className={[classes.TextField, "code-snippet"].join(' ')}
-                value={"<button class='webChatAppBtn'>Chat!</button><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
+                value={"<input class='webChatAppBtn'type='image'/><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
                 margin='normal'
                 variant='outlined'
               />

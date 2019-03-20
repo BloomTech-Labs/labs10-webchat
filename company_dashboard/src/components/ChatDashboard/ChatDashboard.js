@@ -13,12 +13,15 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
+            rep_uid: null,
+            rep_name: null,
+            url: null,
             currentConvoId: null,
             currentConvoSocket: null,
             currentConvoSummary: null,
             currentCustomerName: null,
-            // currentMessages: [],
-            convoSelected: false
+            convoSelected: false,
+            currentConvoClosed: false
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
         this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
@@ -27,83 +30,60 @@ class ChatDashboard extends React.Component {
         // this.addMessage = this.addMessage.bind(this);
     }
 
+    componentDidMount() {
+        const repRequest = axios.get("/api/reps/alldetails");
+        repRequest.then(rep => {
+            this.setState({
+            rep_uid: rep.data.uid,
+            url: rep.data.url,
+            rep_name: rep.data.name,
+          }, () => {
+            console.log('ChatView state after getting messages in CDM: ', this.state);
+          });
+        })
+        .catch(error => {
+          console.log(error.message);
+          //this.setState({error:error});
+        });
+    }
+
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
-        // const id = convo_id;
-        // const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        // messageRequest
-        //     .then(response => {
-        //         console.log("Response from ChatDash Queue GET messages: ", response);
-                this.setState({
-                    convoSelected: true,
-                    currentConvoId: convo_id,
-                    currentConvoSocket: customer_uid,
-                    currentConvoSummary: summary,
-                    currentCustomerName: customer_name,
-                    // currentMessages: response.data
-                }, () => {
-                    console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-                 });
-            // })
-            // .catch(error => {
-            //     console.log(error.message);
-            //     //this.setState({error:error});
-            // });
-        // Remove convo from the Queue by updating in_q to false in the convo's db entry
-        const data = { id: convo_id };
-        const deQueueRequest = axios.put('/api/chat/dequeue', data);
-        deQueueRequest
-            .then(response => {
-                console.log("Conversation removed from Queue.")
-            })
-            .catch(error => {
-                console.log(error.message);
-            })
+
+        this.setState({
+            convoSelected: true,
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid,
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
+        }, () => {
+            console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+        });
     }
 
     handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
-        const id = convo_id;
-        const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        messageRequest
-            .then(response => {
-                console.log("Response from ChatDash Active GET messages: ", response);
-                this.setState({
-                    convoSelected: true,
-                    currentConvoId: convo_id,
-                    currentConvoSocket: customer_uid,
-                    currentConvoSummary: summary,
-                    currentCustomerName: customer_name,
-                    currentMessages: response.data
-                }, () => {
-                    console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
-                });
-            })
-            .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-            });
+        this.setState({
+            convoSelected: true,
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid,
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
+            currentConvoClosed: false
+        }, () => {
+            console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
+        });
     }
 
     handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
-        const id = convo_id;
-        const messageRequest = axios.get(`/api/chat/messages/${id}`);
-        messageRequest
-            .then(response => {
-                console.log("Response from ChatDash Closed GET messages: ", response);
-                this.setState({
-                    convoSelected: true,
-                    currentConvoId: convo_id,
-                    currentConvoSocket: customer_uid,
-                    currentConvoSummary: summary,
-                    currentCustomerName: customer_name,
-                    currentMessages: response.data
-                }, () => {
-                    console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
-                });
-            })
-            .catch(error => {
-                console.log(error.message);
-                //this.setState({error:error});
-            });
+        
+        this.setState({
+            convoSelected: true,
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid,
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
+        }, () => {
+            console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
+        });
     }
 
     closeConvo() {
@@ -112,6 +92,10 @@ class ChatDashboard extends React.Component {
         axios.put('/api/chat/close', data)
         .then(response => {
             console.log("Conversation closed.")
+            this.setState({ 
+                convoSelected: false, 
+                currentConvoClosed: true 
+            });
         })
         .catch(error => {
             console.log(error.message);
@@ -126,6 +110,8 @@ class ChatDashboard extends React.Component {
             <div className="chat-dashboard-container">
                 <div className="chat-dash-left-container">
                     <ConvoList
+                        currentConvoId={this.state.currentConvoId}
+                        currentConvoClosed={this.state.currentConvoClosed}
                         handleQueueConvoSelect={this.handleQueueConvoSelect}
                         handleActiveConvoSelect={this.handleActiveConvoSelect}
                         handleClosedConvoSelect={this.handleClosedConvoSelect}
@@ -133,31 +119,21 @@ class ChatDashboard extends React.Component {
                 </div>
 
                 <div className="chat-dash-right-container">
-                    <ChatView
-                    currentConvoId={this.state.currentConvoId}
-                    currentConvoSocket={this.state.currentConvoSocket}
-                    summary={this.state.currentConvoSummary}
-                    // messages={this.state.currentMessages}
-                    customerName={this.state.currentCustomerName}
-                    // addMessage={this.addMessage}
-                    closeConvo={this.closeConvo}
-                    />
-                    {/* {!convoSelected ? (
+                    {!convoSelected ? (
                         <p>No conversation selected.</p>
-
                         ) : (
                             <ChatView
-                            currentConvoId={this.state.currentConvoId}
-                            currentConvoSocket={this.state.currentConvoSocket}
-                            summary={this.state.currentConvoSummary}
-                            // messages={this.state.currentMessages}
-                            customerName={this.state.currentCustomerName}
-                            // addMessage={this.addMessage}
-                            closeConvo={this.closeConvo}
+                                currentConvoId={this.state.currentConvoId}
+                                currentConvoSocket={this.state.currentConvoSocket}
+                                rep_uid={this.state.rep_uid}
+                                rep_name={this.state.rep_name}
+                                url={this.state.url}
+                                summary={this.state.currentConvoSummary}
+                                customerName={this.state.currentCustomerName}
+                                closeConvo={this.closeConvo}
                             />
                         )
-                    } */}
-                    
+                    }
                 </div>
             </div>
             </div>

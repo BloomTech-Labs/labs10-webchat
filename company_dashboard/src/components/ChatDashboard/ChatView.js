@@ -1,50 +1,69 @@
 import React, {Component} from 'react';
 import io from 'socket.io-client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { withRouter} from "react-router-dom"
+import Typography from '@material-ui/core/Typography';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-// import './ChatView.css';
-import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
+import './ChatView.css';
+import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
+import { Grid } from '@material-ui/core';
 
 
-// const styles = theme => ({
-//  avatar: {
-//     margin: 10,
-//   },
-//   root: {
-//     flexGrow: 1,
-//     overflow: 'hidden',
-//     padding: `0 ${theme.spacing.unit * 3}px`,
-//     height: 500,
-//     overflowY: 'scroll'
-//   },
-//   paper: {
-//     maxWidth: 400,
-//     margin: `${theme.spacing.unit*2}px auto`,
-//     padding: theme.spacing.unit * 2,
-//   },
-// //   root: {
-// //     overflowY: 'scroll'
-// //   },
-//   form: {
-//     display: "flex",
-//     flexDirection: "column",
-//     padding:"20px"
-//   },
-//   messageInput: {
-//     border: "1px solid grey",
-//     padding:"5px 10px 0px 10px"
-    
-//   }
-// });
+const styles = theme => ({
+  root: {
+    // overflowY: 'scroll', 
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  Paper: {
+    padding: theme.spacing.unit * 2,
+    margin: 'auto',
+    maxWidth: 650,
+    height: 130
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    borderRadius: '3px'
+  },
+  chatViewHead: {
+    // flexShrink: 0
+  },
+  messageList: {
+    margin: 70,
+    overflowY: 'scroll',
+    // maxHeight: '700px',
+    flexGrow: 1,
+    padding: 12,
+
+  },
+  message: {
+    marginBottom: 30
+  },
+  inputArea: {
+    height: '40px',
+    marginBottom: '20px'
+  },
+  inputForm: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});
 
 
 class ChatView extends Component {
@@ -84,38 +103,30 @@ class ChatView extends Component {
     console.log('ChatView CDM state: ', this.state);
     console.log('ChatView CDM props: ', this.props);
 
-    // Get details on the current rep:
-    const repRequest = axios.get("/api/reps/alldetails");
-    repRequest.then(rep => {
       const id = this.props.currentConvoId;  // Get convo_id from props
       const messageRequest = axios.get(`/api/chat/messages/${id}`);
       messageRequest
         .then(response => {
           this.setState({
             messages: response.data,
-            rep_uid: rep.data.uid,
-            image_id: rep.data.image_id,
-            url: rep.data.url,
-            rep_name: rep.data.name,
+            rep_uid: this.props.rep_uid,
+            url: this.props.url,
+            rep_name: this.props.rep_name,
           }, () => {
-            console.log('ChatView state after getting messages in CDU: ', this.state);
+            console.log('ChatView state after getting messages in CDM: ', this.state);
           });
         })
         .catch(error => {
           console.log(error.message);
+          this.setState({
+            rep_uid: this.props.rep_uid,
+            url: this.props.url,
+            rep_name: this.props.rep_name,
+          }, () => {
+            console.log('ChatView state after failed messages request in CDM: ', this.state);
+          });
           //this.setState({error:error});
         });
-      // this.setState({
-      //     rep_uid: rep.data.uid,
-      //     image_id: rep.data.image_id,
-      //     url: rep.data.url,
-      //     rep_name: rep.data.name,
-      // });
-      })
-      .catch(error => {
-        console.log(error.message);
-        //this.setState({error:error});
-      });
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
   }
@@ -124,12 +135,13 @@ class ChatView extends Component {
         console.log('ChatView CWRP props: ', newProps);
         const that1 = this;
 
-        const id = newProps.currentConvoId;  // Get convo_id from props
+        const id = newProps.currentConvoId;  // Get convo_id from newProps
         const currentId = this.props.currentConvoId;
 
         const messageRequest = axios.get(`/api/chat/messages/${id}`);
         messageRequest
             .then(response => {
+                console.log('get messages response in ChatView CWRP: ',response);
                 const newConvoId = id;
                 const currentConvoId = currentId;
                 this.setState({
@@ -166,10 +178,10 @@ class ChatView extends Component {
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
-            author_uid: this.state.rep_uid,
-            author_name: this.state.rep_name,
+            author_uid: this.props.rep_uid,
+            author_name: this.props.rep_name,
             body: this.state.message,
-            image_url: this.state.url,
+            image_url: this.props.url,
         };
         console.log("data to emit: ", data);
         this.socket.emit('join', data);
@@ -206,123 +218,223 @@ class ChatView extends Component {
 
     render() {
         const is_closed = this.state.is_closed;
-        const { classes } = this.props;
         const customer_name = `${this.props.customerName}`;
         const conversation_summary = `${this.props.summary}`
-        return(
+        const { classes } = this.props;
+        return (
 
-
-          <div className="chat-view">
-            <ThemeProvider>
-            <MuiThemeProvider>
-              <div className="chat-view-header">
-                  <MessageGroup>
-                      <MessageTitle>Serving Customer: {customer_name}</MessageTitle>
-                      <MessageText>{conversation_summary}</MessageText>
-                  </MessageGroup>
+          <div className={classes.root}>
+              <div className={classes.chatViewHead}>
+                <h1>Serving: {customer_name}</h1>
               </div>
-              <div style={{ maxWidth: '100%', height: '100%' }}>
-                <div className="messageList" style={{ height: 500 }}>
-                  <MessageList>
+
+               <div className={classes.messageList}> 
                     {this.state.messages.map((message, index) => {
-                      console.log(message);
-                      if(customer_name === message.author_name) {
+                        console.log(message.image_url)
                         return (
-                          <Row reverse>
-                            <AgentBar>
-                                <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-                            </AgentBar>
-
-                            <Message
-                                authorName={message.author_name}
-                                isOwn={true}
-                            >
-                                <MessageText>
-                                    {message.body}
-                                </MessageText>
-                            </Message>
-                          </Row>
+                          <div className={classes.message}>
+                            <MuiThemeProvider>
+                              <Paper>
+                                <Grid 
+                                 spacing={12}
+                                //  alignItems="center"
+                                //  justify="center"
+                                 container spacing={16}
+                                 >
+                                  <Grid item>
+                                    <ButtonBase className={classes.image}>
+                                      <img
+                                        className={classes.img}
+                                        alt="complex"
+                                        src={message.image_url}
+                                      />
+                                    </ButtonBase>
+                                  </Grid>
+                                  <Grid item xs={12} sm container>
+                                    <Grid item xs container direction="column" spacing={16}>
+                                      <Grid item xs>
+                                        <Typography gutterBottom variant="subtitle1">
+                                          {message.author_name}
+                                        </Typography>
+                                        <Typography color="primary" gutterBottom>
+                                          {message.body}
+                                        </Typography>
+                                        {/* <Typography color="textSecondary">ID: 1030114</Typography> */}
+                                      </Grid>
+                                      {/* <Grid item>
+                                        <Typography style={{ cursor: "pointer" }}>Remove</Typography>
+                                      </Grid> */}
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              </Paper>
+                            </MuiThemeProvider>
+                          </div>
                         );
-                      } else {
-                        return (
-                          <Row>
-                            <AgentBar>
-                              <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-                            </AgentBar>
-                            <Message
-                              authorName={message.author_name}
-                            >
-                              <MessageText>
-                                {message.body}
-                              </MessageText>
-                            </Message>
-                          </Row>
-                        );
-                        }
                     })}
-                  </MessageList>
-                </div>
-                <form 
-                  className="form"    
-                  onSubmit={this.onSubmit}
-                >
-                  <br/>
-                  <br/>
-                  <br/>
-                  <input
-                      hintText="message"
-                      name="message"
-                      type="text"
-                      style ={{width: '80%', padding:'0px 15px 0px 10px'}}
-                      inputStyle ={{width: '100%' }}
-                      className="messageInput"
-                      value={this.state.message}
-                      onChange={this.onChange}
-                  />
-                  <br/>
-                  <br/>
-                    
-                  {is_closed ? (
-                      <p>This conversation is closed.</p>
-                  ) : (
-                      <div className="footer-buttons">
-                      <RaisedButton
-                          label="send"
-                          primary={true}
-                          type="submit"
-                      />
-                      
-                      <RaisedButton
-                          label="End Conversation"
-                          secondary={true}
-                          onClick={this.handleCloseConvo}
-                      />
-                      </div>
-                  )}
-                </form>
+
               </div>
-                        
 
-                        {/* <div className="rootReplacement"> */}
-                            {/* <div className="messages">
-                            </div>
-                            <div style={{ float:"left", clear: "both" }}
-                            ref={(el) => { this.messagesEnd = el; }}>
-                            </div> */}
-
-                            {/* <div className="footer">
-                            </div> */}
-                        {/* </div> */}
-            </MuiThemeProvider>
-            </ThemeProvider>
+              <div className={classes.inputArea}>
+                {/* Scroll div */}
+                {/* <div 
+                  style={{ float:"left", clear: "both" }}
+                  ref={(el) => { this.messagesEnd = el; }
+                }>
+                </div>       */}
+                <form className={classes.inputForm} onSubmit={this.onSubmit}>
+                  <input
+                    hintText="message"
+                    name="message"
+                    type="text"
+                    value={this.state.message}
+                    onChange={this.onChange}
+                    style ={{ 
+                      border: '1.5px solid lightgrey',
+                      borderRadius: '3px',
+                      height: '35px',
+                      width: '90vw',
+                      maxWidth: '490px', 
+                    }}
+                    className="messageInput"
+                  />
+                  <div style={{
+                    marginLeft: '3px',
+                  }}>
+                    <MuiThemeProvider>
+                      <RaisedButton
+                        label="Send"
+                        primary={true}
+                        type="submit"
+                      />   
+                      <RaisedButton
+                        label="End Convo"
+                        onClick={this.handleCloseConvo}
+                      />
+                    </MuiThemeProvider>
+                  </div>
+                </form>
+            </div>
           </div>
     );
   }
 }
 
-ChatView.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// ChatView.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
 // export default withStyles(styles)(ChatView);
-export default ChatView;
+export default withStyles(styles)(withRouter(ChatView));
+
+
+
+
+
+
+
+// Underneath is old JSX
+
+
+{/* <div className="chat-view">
+<ThemeProvider>
+<MuiThemeProvider>
+  <div className="chat-view-header">
+      <MessageGroup>
+          <MessageTitle>Serving Customer: {customer_name}</MessageTitle>
+          <MessageText>{conversation_summary}</MessageText>
+      </MessageGroup>
+  </div>
+
+    <div className="messageList">
+      <MessageList>
+        {this.state.messages.map((message, index) => {
+          console.log(message);
+          if(customer_name === message.author_name) {
+            return (
+              <Row reverse>
+                <AgentBar>
+                    <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+                </AgentBar>
+
+                <Message
+                    authorName={message.author_name}
+                    isOwn={true}
+                >
+                    <MessageText>
+                        {message.body}
+                    </MessageText>
+                </Message>
+              </Row>
+            );
+          } else {
+            return (
+              <Row>
+                <AgentBar>
+                  <img src={message.image_url} style={{ width: 55, height: 55 }}/>
+                </AgentBar>
+                <Message
+                  authorName={message.author_name}
+                >
+                  <MessageText>
+                    {message.body}
+                  </MessageText>
+                </Message>
+              </Row>
+            );
+            }
+        })}
+      </MessageList>
+    </div>
+    <form 
+      className="form"    
+      onSubmit={this.onSubmit}
+    >
+
+      <input
+          hintText="message"
+          name="message"
+          type="text"
+          style ={{ 
+            padding: '20px',
+            border: '2px solid red',
+            width: '90vw', 
+            padding:'0px 15px 0px 10px'
+          }}
+          inputStyle ={{width: '100%' }}
+          className="messageInput"
+          value={this.state.message}
+          onChange={this.onChange}
+      />
+        
+      {is_closed ? (
+          <p>This conversation is closed.</p>
+      ) : (
+          <div className="footer-buttons">
+          <RaisedButton
+              label="send"
+              primary={true}
+              type="submit"
+          />
+          
+          <RaisedButton
+              label="End Conversation"
+              secondary={true}
+              onClick={this.handleCloseConvo}
+          />
+          </div>
+      )}
+    </form>
+            <div className="rootReplacement">
+                <div className="messages">
+                </div>
+                <div style={{ float:"left", clear: "both" }}
+                ref={(el) => { this.messagesEnd = el; }}>
+                </div>
+
+                <div className="footer">
+                </div>
+            </div>
+</MuiThemeProvider>
+</ThemeProvider>
+</div> */}

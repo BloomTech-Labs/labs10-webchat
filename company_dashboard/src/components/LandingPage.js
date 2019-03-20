@@ -26,10 +26,9 @@ const styles = theme => ({
     flexGrow: 1,
   },
   logo: {
-    width: 65,
-    height: 60,
-    marginLeft: -25,
-    marginTop: -6,
+    width: 70,
+    height: 70,
+    marginLeft: -5,
       [theme.breakpoints.down('sm')]: {
         width: 60,
         height: 60,
@@ -78,7 +77,7 @@ const styles = theme => ({
     width: 480,
     height: 280,
     marginTop: 50,
-    marginLeft: 25, 
+    marginLeft: 25,
     // backgroundColor: 'orange',
       [theme.breakpoints.down('sm')]: {
         width: 300,
@@ -259,7 +258,11 @@ const styles = theme => ({
 })
 
 class LandingPage extends Component {
-  render() {
+constructor(props){
+    super(props);
+}	
+	
+render() {
     const { classes } = this.props;
 
     return (
@@ -268,10 +271,10 @@ class LandingPage extends Component {
           <Toolbar className={classes.toolbar}>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               {/* <MenuIcon /> */}
-              <img 
-                className={classes.logo} 
-                src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" 
-                alt="logo" 
+              <img
+                className={classes.logo}
+                src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297"
+                alt="logo"
               />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
@@ -292,7 +295,7 @@ class LandingPage extends Component {
             </a>
           </Toolbar>
         </AppBar>
-        
+
         <Grid container spacing={24}>
           {/* <Grid item xs={12}> */}
             <Paper className={classes.home}>
@@ -323,7 +326,7 @@ class LandingPage extends Component {
                 Why Use Chattr?
                 <i class="far fa-comments fa-2x" style={{color: '#64b5f6'}}></i>
               </Typography>
-          
+
               <div className={classes.columns}>
                 {/* <Grid item xs={12} sm={4}>
                   <Paper className={classes.benefits}>Track Conversations
@@ -349,7 +352,7 @@ class LandingPage extends Component {
               </div>
             </Paper>
           {/* </Grid> */}
-        </Grid>  
+        </Grid>
 
         <Grid container spacing={24}>
           {/* <Grid item xs={12}> */}

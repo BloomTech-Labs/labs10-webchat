@@ -1,29 +1,41 @@
 .login {
     background-color: #EAEAEA;
     height: 100%;
+    padding-bottom: 15%;
 }
 .login .login-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
     margin: auto;
-    padding-top: 2%;
-    margin-bottom: 2%;
-}
-
-.login .login-top-bar a {
-    color: #4C7AF1;
+    height: 70px;
+    background-color: #3F51B5;
 }
 
 .login .login-top-bar img {
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
+    margin-left: 45%;
+}
+
+.login .login-top-bar .top-bar-links {
+    display: flex;
+    width: 325px;
+    justify-content: space-around;
+}
+
+.login-top-bar .top-bar-links a {
+    color: white;
+}
+
+.login-top-bar .top-bar-links a:last-of-type {
+    color: #64dd17;
 }
 
 .login .header {
     font-size: 2em;
     margin-bottom: 3%;
+    margin-top: 5%;
 }
 
 
@@ -55,4 +67,10 @@
     color: #4C7AF1;
     font-size: .9em;
     padding-bottom: 5%;
+}
+
+@media (max-width: 800px) {
+  .login .header {
+      margin-top: 15%;
+  }
 }

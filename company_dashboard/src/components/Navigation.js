@@ -18,7 +18,9 @@ const Navigation = () => (
  );
 
 class NavigationBaseForm extends React.Component {
-  state = {
+constructor(props) {
+super(props);
+this.state = {
     name: "",
     uid:"",
     email: "",
@@ -27,10 +29,14 @@ class NavigationBaseForm extends React.Component {
     selectedFile: null,
     id: "",
     error:null,
-  };
-  componentDidMount() {
+    activePage: ""
+  }
+};
+
+componentDidMount() {
 	this.props.firebase.auth.onAuthStateChanged(user => {
         if (user) {
+	console.log('user after onAUthState', user);
 
         this.props.firebase.auth.currentUser.getIdToken()
         .then(idToken => {
@@ -56,20 +62,37 @@ class NavigationBaseForm extends React.Component {
   .catch(error => {            // if Firebase getIdToken throws an error
         console.log(error.message);
        this.setState({ error:error });
+	//this.props.history.push('/repslogin');
    })
   }
+
+else {
+                 this.props.history.push('/repslogin'); //if user is signed out redirect to login page
+     }
 })
+    let current_page = window.location.href;
+    if(process.env.NODE_ENV == 'development') {
+      this.setState({
+        activePage: current_page.slice(22)
+      })
+    } else {
+      this.setState({
+        activePage: current_page.slice(35)
+      })
+    }
 };
-  render() {
+
+
+render() {
     if(this.state.is_admin) {
       return (
         <div className="navigation">
         <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
         <div className="navigation-links">
-          <Link to={ROUTES.CHAT_DASHBOARD}>Chat Dashboard</Link>
-          <Link to={ROUTES.ACCOUNT_SETTINGS}>Account Settings</Link>
-          <Link to={ROUTES.ADMIN_PANEL}>Admin Panel</Link>
-          <Link to={ROUTES.BILLING}>Billing</Link>
+          <Link to={ROUTES.CHAT_DASHBOARD} style={{ color: this.state.activePage == "chatdashboard" ? '#63DD15' : ''}}>Chat Dashboard</Link>
+          <Link to={ROUTES.ACCOUNT_SETTINGS} style={{ color: this.state.activePage == "accountsettings" ? '#63DD15': ''}}>Account Settings</Link>
+          <Link to={ROUTES.ADMIN_PANEL} style={{ color: this.state.activePage == "adminpanel" ? '#63DD15': ''}}>Admin Panel</Link>
+          <Link to={ROUTES.BILLING} style={{ color: this.state.activePage == "billing" ? '#63DD15': ''}}>Billing</Link>
           <SignOut />
         </div>
       </div>
@@ -91,7 +114,7 @@ NavigationBaseForm.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const NavigationComponent =(withRouter(withFirebase(NavigationBaseForm)));
+const NavigationComponent =  (withRouter(withFirebase(NavigationBaseForm)));
 
 export default Navigation;
 

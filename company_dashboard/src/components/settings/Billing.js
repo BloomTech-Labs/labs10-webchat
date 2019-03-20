@@ -1,6 +1,13 @@
 import React from 'react'
-import StripeCheckout from 'react-stripe-checkout'
+import { withFirebase } from "../Firebase";
+import { Link, withRouter, Route} from "react-router-dom"
+import { FirebaseContext } from '../Firebase';
+import StripeCheckout from 'react-stripe-checkout';
+import { withStyles } from "@material-ui/core/styles";
 import styled from 'styled-components'
+import { CUSTOMER_CHAT } from "../../constants/routes";
+import PropTypes from "prop-types";
+// import DashBar from '../NewDash'
 import Navigation from "../Navigation";
 import axios from 'axios'
 import {
@@ -79,7 +86,18 @@ const styles = theme => ({
   },
 })
 
-class Billing extends React.Component {
+
+
+const Billing = () => (
+  <div>
+    <FirebaseContext.Consumer>
+      {firebase => <BillingComponent firebase={firebase} />}
+    </FirebaseContext.Consumer>
+  </div>
+)
+
+
+class BillingBaseForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,11 +105,45 @@ class Billing extends React.Component {
     }
   }
 
+
+ componentDidMount() {
+ 
+  this.props.firebase.auth.onAuthStateChanged(user => {
+        if (user) {
+
+        this.props.firebase.auth.currentUser.getIdToken()
+        .then(idToken => {
+
+        	console.log("idToken after in Admin panel: ", idToken);
+        	axios.defaults.headers.common['Authorization'] = idToken;
+	})	
+ 	.catch(error => {            // if Firebase getIdToken throws an error
+        	console.log(error.message);
+                //this.setState({ error:error });
+      	})
+	}	
+        else {
+                 this.props.history.push('/repslogin');
+        }
+   });
+ };
+
+
   basicToken = token => {
     let bodyToSend = {
       ...token,
       subscription: {
-        plan: 'plan_EXEVzE4nraOpql',   // corresponds to plan ID from Stripe Dashboard
+        plan: 'plan_EXEVzE4nraOpql',   // corresponds to Basic Monthly plan ID from Stripe Dashboard
+      },
+    }
+    this.addSubscription(bodyToSend)
+  }
+
+  enterpriseToken = token => {
+    let bodyToSend = {
+      ...token,
+      subscription: {
+        plan: 'plan_EjRPESTVxfVWQs',   // corresponds to Enterprise Monthly plan ID from Stripe Dashboard
       },
     }
     this.addSubscription(bodyToSend)
@@ -120,9 +172,16 @@ class Billing extends React.Component {
       {
         title: 'Basic',
         price: '30',
-        description: ['5 users'],
+        description: ['10 users'],
         value: 'a',
         token: this.basicToken,   // Corresponds to token definition above
+      },
+      {
+        title: 'Enterprise',
+        price: '50',
+        description: ['30 users'],
+        value: 'b',
+        token: this.enterpriseToken,   // Corresponds to token definition above
       }
     ]
 
@@ -202,4 +261,56 @@ class Billing extends React.Component {
   }
 }
 
+//export default Billing;
+
+BillingBaseForm.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+const BillingComponent = withStyles (styles) (withRouter(withFirebase(BillingBaseForm)));
+
 export default Billing;
+
+export { BillingComponent};
+
+
+
+// *************************************
+
+// import React, { Component } from "react";
+// import { Elements, StripeProvider } from "react-stripe-elements";
+// import CheckoutForm from "./CheckoutForm";
+// import "./Billing.css";
+// import Navigation from "../Navigation";
+// import Paper from "@material-ui/core/Paper";
+
+// class Billing extends Component {
+//   render() {
+
+//     return (
+//       <div className="billing-container">
+//         <Navigation />
+//         <div className="billing">
+//           <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
+//             <div className="example">
+//               <h1>Billing</h1>
+//               <p>Chattr is the new way to chat with your customers!</p>
+//               <p>$30.00 for a lifetime access includes:</p>
+//               <ul>
+//                 <li>Unlimited representatives</li>
+//                 <li>Chat Dashboard access</li>
+//                 <li>24/7 live chat</li>
+
+//               </ul>
+//               <Elements>
+//                 <CheckoutForm />
+//               </Elements>
+//             </div>
+//           </StripeProvider>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// export default Billing;
