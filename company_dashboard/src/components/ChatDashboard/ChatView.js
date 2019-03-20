@@ -46,7 +46,7 @@ const styles = theme => ({
     overflowY: 'scroll',
     // maxHeight: '700px',
     flexGrow: 1,
-    margin: 10
+    padding: 20
 
   },
   inputArea: {
@@ -239,15 +239,9 @@ class ChatView extends Component {
                     {this.state.messages.map((message, index) => {
                         console.log(message.image_url)
                         return (
-<<<<<<< HEAD
                           <div className={classes.message}>
                             <MuiThemeProvider>
-                              <Paper className={classes.paper}
-                              style={{
-                                margin: '10px',
-
-                              }}
-                              >
+                              <Paper className={classes.paper}>
                                 <Grid 
                                  spacing={12}
                                 //  alignItems="center"
@@ -282,13 +276,6 @@ class ChatView extends Component {
                                 </Grid>
                               </Paper>
                             </MuiThemeProvider>
-=======
-                          <div key={index} className={classes.message}>
-
-                            <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-
-                            <p>{message.body}</p>
->>>>>>> 10bc4def411c5234eb74ccb77a11bf6601eb97bc
                           </div>
                         );
                     })}
