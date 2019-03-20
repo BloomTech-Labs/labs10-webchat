@@ -160,10 +160,10 @@ class ChatView extends Component {
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
-            author_uid: this.state.rep_uid,
-            author_name: this.state.rep_name,
+            author_uid: this.props.rep_uid,
+            author_name: this.props.rep_name,
             body: this.state.message,
-            image_url: this.state.url,
+            image_url: this.props.url,
         };
         console.log("data to emit: ", data);
         this.socket.emit('join', data);
