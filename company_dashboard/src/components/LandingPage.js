@@ -96,9 +96,12 @@ const styles = theme => ({
   landing: {
     width: 500,
     marginTop: 20,
-      [theme.breakpoints.down('sm')] : {
+      [theme.breakpoints.down('sm')]: {
         width: 350,
         marginTop: -80,
+      },
+      [theme.breakpoints.up('md')]: {
+        width: 450,
       },
   },
   reasons: {
@@ -137,7 +140,12 @@ const styles = theme => ({
         // backgroundColor: 'orange',
         flexDirection: 'column',
         height: 520,
-      }
+      },
+      [theme.breakpoints.up('md')]: {
+        // backgroundColor: 'orange',
+        // margin: 'auto',
+        marginTop: 10,
+      },
   },
   benefits: {
     width: 290,
@@ -146,6 +154,11 @@ const styles = theme => ({
         // backgroundColor: 'yellow',
         height: 250,
         marginBottom: 40,
+      },
+      [theme.breakpoints.up('md')]: {
+        // backgroundColor: 'yellow',
+        height: 300,
+        margin: 50,
       },
 	},
 	reason: {
@@ -334,7 +347,7 @@ render() {
                     <p>Chattr lets you keep track and assign conversations so that the conversations doesn't get lost.</p>
                   </Paper>
                 </Grid> */}
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={6}>
                   <div className={classes.benefits}>
                     <i class="fab fa-rocketchat fa-7x" style={{color: '#b71c1c'}}></i>
                     <h3 className={classes.reason}>Quick Response</h3>
@@ -342,7 +355,7 @@ render() {
                     conversations with multiple customers.</p>
                   </div>
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} sm={6}>
                   <div className={classes.benefits}>
                     <i class="fas fa-users fa-7x" style={{color: '#607d8b'}}></i>
                     <h3 className={classes.reason}>Engage customers</h3>
