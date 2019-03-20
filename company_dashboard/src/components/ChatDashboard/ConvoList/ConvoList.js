@@ -68,7 +68,11 @@ class ConvoList extends React.Component {
         };
     }
     
-    handleTabChange = (event, value) => {
+    componentDidUpdate() {
+      this.setState({ value: this.props.currentTab })
+    }
+
+    handleTabSelect= (event, value) => {
       this.setState({ value });
     };
 
@@ -100,7 +104,7 @@ class ConvoList extends React.Component {
               <Tabs
                 className={classes.paper2}
                 value={this.state.value}
-                onChange={this.handleTabChange}
+                onChange={this.handleTabSelect}
                 indicatorColor="primary"
                 textColor="primary"
                 centered
