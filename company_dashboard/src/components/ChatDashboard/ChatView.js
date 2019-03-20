@@ -23,7 +23,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
-  Paper: {
+  aper: {
     padding: theme.spacing.unit * 2,
     margin: 'auto',
     maxWidth: 650,
@@ -241,14 +241,17 @@ class ChatView extends Component {
 
                <div className={classes.messageList}> 
                     {this.state.messages.map((message, index) => {
-                        console.log(message.image_url)
+                        console.log(this.state)
+                        console.log(message)
                         return (
-                          <div className={classes.message}>
+                          <div className={classes.message} key={index}>
                             <MuiThemeProvider>
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <Avatar alt="Avatar" src={message.image_url} className={classes.bigAvatar} />
+                                    <Avatar alt="Avatar" className={classes.bigAvatar}>
+                                      {message.author_name[0]}
+                                    </Avatar>
                                   </Grid>
                                   <Grid>
                                     <Grid 
