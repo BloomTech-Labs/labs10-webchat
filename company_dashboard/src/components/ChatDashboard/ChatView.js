@@ -245,30 +245,6 @@ class ChatView extends Component {
                         return (
                           <div className={classes.message}>
                             <MuiThemeProvider>
-                              {/* <Paper>
-                                <Grid 
-                                 spacing={12}
-                                //  alignItems="center"
-                                //  justify="center"
-                                 container spacing={16}
-                                 >
-                                  <Grid item>
-                                    <Avatar alt="Avatar" src={message.image_url} />
-                                  </Grid>
-                                  <Grid item xs={12} sm container>
-                                    <Grid item xs container direction="column" spacing={16}>
-                                      <Grid item xs>
-                                        <Typography gutterBottom variant="subtitle1">
-                                          {message.author_name}
-                                        </Typography>
-                                        <Typography color="primary" gutterBottom>
-                                          {message.body}
-                                        </Typography>
-                                      </Grid>
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-                              </Paper> */}
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
