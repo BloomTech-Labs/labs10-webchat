@@ -133,7 +133,17 @@ class BillingBaseForm extends React.Component {
     let bodyToSend = {
       ...token,
       subscription: {
-        plan: 'plan_EXEVzE4nraOpql',   // corresponds to plan ID from Stripe Dashboard
+        plan: 'plan_EXEVzE4nraOpql',   // corresponds to Basic Monthly plan ID from Stripe Dashboard
+      },
+    }
+    this.addSubscription(bodyToSend)
+  }
+
+  enterpriseToken = token => {
+    let bodyToSend = {
+      ...token,
+      subscription: {
+        plan: 'plan_EjRPESTVxfVWQs',   // corresponds to Enterprise Monthly plan ID from Stripe Dashboard
       },
     }
     this.addSubscription(bodyToSend)
@@ -162,9 +172,16 @@ class BillingBaseForm extends React.Component {
       {
         title: 'Basic',
         price: '30',
-        description: ['5 users'],
+        description: ['10 users'],
         value: 'a',
         token: this.basicToken,   // Corresponds to token definition above
+      },
+      {
+        title: 'Enterprise',
+        price: '50',
+        description: ['30 users'],
+        value: 'b',
+        token: this.enterpriseToken,   // Corresponds to token definition above
       }
     ]
 
