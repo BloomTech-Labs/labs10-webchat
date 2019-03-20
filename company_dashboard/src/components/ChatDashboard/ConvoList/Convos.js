@@ -16,15 +16,15 @@ const styles = theme => ({
   root: {
     border: '1px dotted black',
     marginBottom: 300,
-    overflowY: 'scroll',
+    // overflowY: 'scroll',
     // height: '100vh',
   },
   convoList: {
-    // overflowY: 'auto',
+    overflowY: 'scroll',
     height: '100vh',
   },
   paper: {
-    height: 200,
+    height: 100,
     // width: '85%',
     // marrgin: 10,
     // maxWidth: 400,
@@ -46,6 +46,9 @@ const styles = theme => ({
   },
   queueSummary: {
 
+  },
+  listFooter: {
+    height: '100px'
   }
 });
 
@@ -107,6 +110,9 @@ class Convos extends React.Component {
 
                   );
                 })}
+                <div className={classes.listFooter}>
+                  <p>End of list</p>
+                </div>
             </div>
           </div>
 
