@@ -14,8 +14,7 @@ function enableChattr() {
   wcaIFRAME.style.width = "450px";
   wcaIFRAME.style.height = "600px";
   wcaIFRAME.style.border = "1px lightgray solid";
-  wcaIFRAME.scrolling = "no";
-  wcaIFRAME.style.overflow = "hidden";
+  wcaIFRAME.style.overflowY = "hidden";
   wcaBtn.style.textAlign = "center";
   wcaBtn.style.verticalAlign = "middle";
   wcaBtn.src = "https://cdn.icon-icons.com/icons2/72/PNG/256/chat_messages_14395.png";
