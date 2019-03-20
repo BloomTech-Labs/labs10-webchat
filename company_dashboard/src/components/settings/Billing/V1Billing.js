@@ -101,7 +101,9 @@ class BillingBaseForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSubscribed: false
+      isSubscribed: false,
+      plan: null,
+      subStatus: null
     }
   }
 
@@ -115,7 +117,29 @@ class BillingBaseForm extends React.Component {
         .then(idToken => {
 
         	console.log("idToken after in Admin panel: ", idToken);
-        	axios.defaults.headers.common['Authorization'] = idToken;
+            axios.defaults.headers.common['Authorization'] = idToken;
+            
+            const id = this.props.company_id;
+            axios.get(`/api/billing/getSub/${id}`)
+            .then(response => {
+                console.log('response from Billing getSub: ', response);
+                if (response.data) {   // if max_reps on subscription is greater than current team size
+                    this.setState({ 
+                        isSubscribed: true,
+                        plan: response.data.stripe_plan_nickname,
+                        subStatus: response.data.stripe_subscription_status
+                    }, () => console.log('Billing state after getSub: ', this.state));
+                } else {
+                    this.setState({ 
+                        isSubscribed: false,
+                        plan: 'Free',
+                        subStatus: 'active'
+                    }, () => console.log('Billing state after getSub: ', this.state));
+                }
+            })
+            .catch(error => {
+                this.setState({ error: error.message });
+            })
 	})	
  	.catch(error => {            // if Firebase getIdToken throws an error
         	console.log(error.message);
@@ -126,6 +150,7 @@ class BillingBaseForm extends React.Component {
                  this.props.history.push('/repslogin');
         }
    });
+
  };
 
 
