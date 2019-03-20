@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import io from 'socket.io-client';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { withRouter} from "react-router-dom"
-
+import Typography from '@material-ui/core/Typography';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from '@material-ui/core/Paper';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import './ChatView.css';
 import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
+import { Grid } from '@material-ui/core';
 
 
 const styles = theme => ({
@@ -20,19 +22,46 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  Paper: {
+    padding: theme.spacing.unit * 2,
+    margin: 'auto',
+    maxWidth: 650,
+    height: 130
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    borderRadius: '3px'
+  },
   chatViewHead: {
     // flexShrink: 0
   },
   messageList: {
-    margin: '10px',
+    margin: 70,
     overflowY: 'scroll',
     // maxHeight: '700px',
     flexGrow: 1,
+    padding: 12,
 
   },
+  message: {
+    marginBottom: 30
+  },
   inputArea: {
-    // height: '100%'
-    // flexShrink: 0
+    height: '40px',
+    marginBottom: '20px'
+  },
+  inputForm: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
@@ -207,24 +236,64 @@ class ChatView extends Component {
 
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
-                <h1>CHAT VIEW HEAD</h1>
+                <h1>Serving: {customer_name}</h1>
               </div>
 
                <div className={classes.messageList}> 
                     {this.state.messages.map((message, index) => {
                         console.log(message.image_url)
                         return (
-                          <div key={index} className={classes.message}>
-
-                            <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-
-                            <p>{message.body}</p>
+                          <div className={classes.message}>
+                            <MuiThemeProvider>
+                              <Paper>
+                                <Grid 
+                                 spacing={12}
+                                //  alignItems="center"
+                                //  justify="center"
+                                 container spacing={16}
+                                 >
+                                  <Grid item>
+                                    <ButtonBase className={classes.image}>
+                                      <img
+                                        className={classes.img}
+                                        alt="complex"
+                                        src={message.image_url}
+                                      />
+                                    </ButtonBase>
+                                  </Grid>
+                                  <Grid item xs={12} sm container>
+                                    <Grid item xs container direction="column" spacing={16}>
+                                      <Grid item xs>
+                                        <Typography gutterBottom variant="subtitle1">
+                                          {message.author_name}
+                                        </Typography>
+                                        <Typography color="primary" gutterBottom>
+                                          {message.body}
+                                        </Typography>
+                                        {/* <Typography color="textSecondary">ID: 1030114</Typography> */}
+                                      </Grid>
+                                      {/* <Grid item>
+                                        <Typography style={{ cursor: "pointer" }}>Remove</Typography>
+                                      </Grid> */}
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              </Paper>
+                            </MuiThemeProvider>
                           </div>
                         );
                     })}
+
               </div>
+
               <div className={classes.inputArea}>
-                <form onSubmit={this.onSubmit}>
+                {/* Scroll div */}
+                {/* <div 
+                  style={{ float:"left", clear: "both" }}
+                  ref={(el) => { this.messagesEnd = el; }
+                }>
+                </div>       */}
+                <form className={classes.inputForm} onSubmit={this.onSubmit}>
                   <input
                     hintText="message"
                     name="message"
@@ -234,25 +303,27 @@ class ChatView extends Component {
                     style ={{ 
                       border: '1.5px solid lightgrey',
                       borderRadius: '3px',
-                      height: '40px',
+                      height: '35px',
                       width: '90vw',
-                      maxWidth: '480px', 
+                      maxWidth: '490px', 
                     }}
                     className="messageInput"
                   />
-                  <span style={{
-                    fontSize: '2rem',
-                    color: 'DodgerBlue',
-                    margin: '20px'
+                  <div style={{
+                    marginLeft: '3px',
                   }}>
-                    <i class="far fa-paper-plane"></i>
-                  </span>
-                  <span style={{
-                    fontSize: '2rem',
-                    margin: '20px'
-                  }}>
-                    <i class="fas fa-times"></i>
-                  </span>
+                    <MuiThemeProvider>
+                      <RaisedButton
+                        label="Send"
+                        primary={true}
+                        type="submit"
+                      />   
+                      <RaisedButton
+                        label="End Convo"
+                        onClick={this.handleCloseConvo}
+                      />
+                    </MuiThemeProvider>
+                  </div>
                 </form>
                 {/* <form>
                   <input
