@@ -20,7 +20,7 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: null,
             currentConvoSummary: null,
             currentCustomerName: null,
-            // currentMessages: [],
+            currentTab: 1,
             convoSelected: false
         }
         this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
@@ -49,26 +49,36 @@ class ChatDashboard extends React.Component {
 
     handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
 
-        this.setState({
-            convoSelected: true,
-            currentConvoId: convo_id,
-            currentConvoSocket: customer_uid,
-            currentConvoSummary: summary,
-            currentCustomerName: customer_name,
-            // currentMessages: response.data
-        }, () => {
-            console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-        });
-        // // Remove convo from the Queue by updating in_q to false in the convo's db entry
-        // const data = { id: convo_id };
-        // const deQueueRequest = axios.put('/api/chat/dequeue', data);
-        // deQueueRequest
-        //     .then(response => {
-        //         console.log("Conversation removed from Queue.")
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //     })
+        // this.setState({
+        //     convoSelected: true,
+        //     currentConvoId: convo_id,
+        //     currentConvoSocket: customer_uid,
+        //     currentConvoSummary: summary,
+        //     currentCustomerName: customer_name,
+        //     // currentMessages: response.data
+        // }, () => {
+        //     console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+        // });
+        // Remove convo from the Queue by updating in_q to false in the convo's db entry
+        const data = { id: convo_id };
+        const deQueueRequest = axios.put('/api/chat/dequeue', data);
+        deQueueRequest
+            .then(response => {
+                console.log("Conversation removed from Queue.")
+                this.setState({
+                    convoSelected: true,
+                    currentConvoId: convo_id,
+                    currentConvoSocket: customer_uid,
+                    currentConvoSummary: summary,
+                    currentCustomerName: customer_name,
+                    currentTab: 0
+                }, () => {
+                    console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+                });
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     }
 
     handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
@@ -78,7 +88,7 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: customer_uid,
             currentConvoSummary: summary,
             currentCustomerName: customer_name,
-            // currentMessages: response.data
+            currentTab: 0
         }, () => {
             console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
         });
@@ -92,7 +102,6 @@ class ChatDashboard extends React.Component {
             currentConvoSocket: customer_uid,
             currentConvoSummary: summary,
             currentCustomerName: customer_name,
-            // currentMessages: response.data
         }, () => {
             console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
         });
@@ -104,6 +113,7 @@ class ChatDashboard extends React.Component {
         axios.put('/api/chat/close', data)
         .then(response => {
             console.log("Conversation closed.")
+            this.setState({ currentTab: 1 })  // Switch to Queue after closing convo
         })
         .catch(error => {
             console.log(error.message);
@@ -119,6 +129,7 @@ class ChatDashboard extends React.Component {
                 <div className="chat-dash-left-container">
                     <ConvoList
                         currentConvoId={this.state.currentConvoId}
+                        currentTab={this.state.currentTab}
                         handleQueueConvoSelect={this.handleQueueConvoSelect}
                         handleActiveConvoSelect={this.handleActiveConvoSelect}
                         handleClosedConvoSelect={this.handleClosedConvoSelect}
