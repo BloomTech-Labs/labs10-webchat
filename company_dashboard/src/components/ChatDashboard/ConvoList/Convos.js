@@ -93,24 +93,19 @@ class Convos extends React.Component {
     }
   }
 
-
-
     render() {
         const { classes } = this.props;
 
         return (
-
           <div className={classes.root}>
             <Typography
               variant='h4'
             >
-              
             </Typography>
             <div className={classes.convoList}>
                 {this.state.conversations.map((convo, index) => {
 
                   return (
-
                     <div className={classes.queueItem} key={index}>
                       <MuiThemeProvider> 
                         <Paper 
@@ -130,9 +125,7 @@ class Convos extends React.Component {
                          {/* </Grid> */}
                         </Paper>
                       </MuiThemeProvider>
-
                     </div>
-
                   );
                 })}
                 <div className={classes.listFooter}>
