@@ -1,16 +1,35 @@
 .company-detail {
-  background-color: #F9FAFF;
-  height: 100%;
+  background-color: #EAEAEA;
+  height: 100vh;
 }
 
-.company-detail-top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  margin: auto;
-  padding-top: 2%;
-  margin-bottom: 2%;
+.company-detail .register-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    height: 70px;
+    background-color: #3F51B5;
+}
+
+.company-detail .register-top-bar img {
+    height: 70px;
+    width: 70px;
+    margin-left: 45%;
+}
+
+.company-detail .register-top-bar .top-bar-links {
+    display: flex;
+    width: 325px;
+    justify-content: space-around;
+}
+
+.register-top-bar .top-bar-links a {
+    color: white;
+}
+
+.register-top-bar .top-bar-links a:last-of-type {
+    color: #64dd17;
 }
 
 
@@ -26,6 +45,7 @@
 .company-detail .header {
   font-size: 2em;
   margin-bottom: 3%;
+  margin-top: 5%;
 }
 
 .company-detail form {
@@ -39,7 +59,6 @@
   background-color: white;
   padding-top: 1%;
   padding-bottom: 1%;
-  margin-bottom: 15%;
 }
 
 .company-detail form .company-register-button {
@@ -65,4 +84,20 @@
 
 .company-detail form input {
   width: 70%;
+}
+
+@media (max-width: 800px) {
+  .company-detail {
+    height: 100%;
+  }
+  .company-detail form {
+      margin-bottom: 15%;
+      padding-bottom: 5%;
+  }
+  .company-detail .register-top-bar img {
+      margin-left: 15%;
+  }
+  .company-detail .header {
+      margin-top: 15%;
+  }
 }
