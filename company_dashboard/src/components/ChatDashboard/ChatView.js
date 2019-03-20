@@ -22,10 +22,11 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
-  paper: {
+  Paper: {
     padding: theme.spacing.unit * 2,
     margin: 'auto',
-    maxWidth: 500,
+    maxWidth: 650,
+    height: 130
   },
   image: {
     width: 100,
@@ -48,6 +49,9 @@ const styles = theme => ({
     flexGrow: 1,
     padding: 20
 
+  },
+  message: {
+    marginBottom: 30
   },
   inputArea: {
     height: '40px',
@@ -241,7 +245,7 @@ class ChatView extends Component {
                         return (
                           <div className={classes.message}>
                             <MuiThemeProvider>
-                              <Paper className={classes.paper}>
+                              <Paper>
                                 <Grid 
                                  spacing={12}
                                 //  alignItems="center"
