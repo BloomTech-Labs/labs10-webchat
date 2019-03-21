@@ -1,6 +1,7 @@
 .customer-chat {
   background-color: #F9FAFF;
   height: 100%;
+  border-radius: 20px;
 }
 
 .customer-chat-top-bar {
@@ -35,10 +36,8 @@
   height: 100%;
 }
 
-.customer-chat .rep-message .MuiGrid-item-38 {
-  height: 60px;
-}
-
 .customer-chat .rep-message .rep-message-text {
-
+  display: inline;
+  border: 1px red solid;
+  padding-left: 0;
 }
