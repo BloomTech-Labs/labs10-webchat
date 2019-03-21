@@ -21,6 +21,14 @@ function TabContainer(props) {
     );
 }
 
+function StyledTab(props) {
+  return (
+    <Typography component="h1" style={{ margin: 'none' }}>
+      {props.children}
+    </Typography>
+  );
+}
+
 const styles = {
     root: {
       flexGrow: 1,
@@ -54,9 +62,9 @@ const styles = {
   tabs1: {
     height: '100%'
   },
-  // tab: {
-  //   borderRadius: '2px'
-  // }
+  tabLabel: {
+    fontSize: 20
+  }
 };
 
 class ConvoList extends React.Component {
@@ -100,12 +108,17 @@ class ConvoList extends React.Component {
                 value={this.state.value}
                 onChange={this.handleTabSelect}
                 indicatorColor="primary"
+                // TabIndicatorProps={{
+                //   style: {
+                //     backgroundColor: "blue"
+                //   }
+                // }}
                 textColor="primary"
                 centered
                 >
-                  <Tab label="New" style={{ border: this.state.value === 0 ? '2.5px solid blue' : ''}}/>
-                  <Tab label="Open" style={{ border: this.state.value === 1 ? '2.5px solid blue' : ''}}/>
-                  <Tab label="Closed" style={{ border: this.state.value === 2 ? '2.5px solid blue' : ''}}/>
+                  <Tab label={<h1 className={classes.tabLabel}>NEW</h1>}/>
+                  <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
+                  <Tab label={<h1 className={classes.tabLabel}>Closed</h1>} />
               </Tabs>
             </Paper>
           </div>
