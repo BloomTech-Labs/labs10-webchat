@@ -41,12 +41,13 @@ const styles = {
     queueMenu: {
       // height: '100%',
       // border: '1px solid red',
-      borderRadius: '0px'
+      borderRadius: '0px',
+      width: '100%',
+      borderBottom: '1px gray solid',
     },
     queueList: {
-      // overflyY: 'scroll',
+      overflow: 'hidden',
       // height: '100% ',
-      // border: '1px solid orange',
       height: '100%',
       display: 'flex',
       flexDirection: 'column'
@@ -63,7 +64,7 @@ const styles = {
     height: '100%'
   },
   tabLabel: {
-    fontSize: 24
+    fontSize: 24,
   }
 };
 
@@ -86,7 +87,7 @@ class ConvoList extends React.Component {
     //   .then(response => {
     //     // if (response.data.length > this.state.newConvos.length) {
     //       this.setState({
-    //         newConvos: response.data  
+    //         newConvos: response.data
     //       });
     //     // }
     //   })
@@ -113,11 +114,11 @@ class ConvoList extends React.Component {
               console.log(error.message);
           })
     }
-  
+
     render() {
       const { classes } = this.props;
       const { value } = this.state;
-  
+
       return (
 
         <div className={classes.root}>
@@ -131,19 +132,19 @@ class ConvoList extends React.Component {
                 textColor="primary"
                 centered
                 >
-                  <Tab 
+                  <Tab
                     label={
                       <div>
                         <h1 className={classes.tabLabel}>NEW</h1>
-                        {this.state.newConvos.length > 0 ? ( 
-                          <h1>{this.state.newConvos.length}</h1>
+                        {this.state.newConvos.length > 0 ? (
+                          <p>{this.state.newConvos.length}</p>
                         ) : (
                           ''
                         )}
                       </div>
                     }
                   />
-                  <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
+                <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
                   <Tab label={<h1 className={classes.tabLabel}>Closed</h1>} />
               </Tabs>
             </Paper>
@@ -154,12 +155,12 @@ class ConvoList extends React.Component {
                 {this.state.value === 1 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} currentConvoClosed={this.props.currentConvoClosed} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
                 {this.state.value === 2 && <Convos  convoStatus={'closed'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
           </div>
-          
+
         </div>
       );
     }
 }
-  
+
 ConvoList.propTypes = {
     classes: PropTypes.object.isRequired
 };

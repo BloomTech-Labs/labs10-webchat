@@ -15,25 +15,26 @@ import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Me
 const styles = theme => ({
   root: {
     // border: '1px dotted black',
-    marginBottom: 300,
     // overflowY: 'scroll',
     // height: '100vh',
   },
   convoList: {
     overflowY: 'scroll',
-    height: '100vh',
+    height: '92vh',
   },
   paper: {
     height: 100,
     textAlign: 'left',
     padding: theme.spacing.unit,
+    paddingLeft: '5%',
     borderRadius: '0px',
     border: '0.2px solid grey',
+    borderTop: 'none',
     // width: '85%',
     // marrgin: 10,
     // maxWidth: 400,
     // margin: `${theme.spacing.unit}px auto`,
-    
+
   },
   queueItem: {
     // padding: theme.spacing.unit * 2,
@@ -44,15 +45,19 @@ const styles = theme => ({
     }
   },
   queueTitle: {
-    positioin: 'absolute',
-    right: 20,
-    top: 20
+    fontSize: '24px',
+    fontWeight: 300,
+    marginTop: '5px',
   },
   queueSummary: {
-
+    fontSize: '20px',
+    fontWeight: 200,
+    marginTop: '0',
   },
   listFooter: {
-    height: '100px'
+    height: '100px',
+    marginTop: '75px',
+    fontSize: '20px',
   }
 });
 
@@ -65,7 +70,7 @@ class Convos extends React.Component {
     const intervalID = 0;
   }
 
-  
+
   componentDidMount() {
     this.getConvos();
     // if (this.props.convoStatus === 'queue') {
@@ -75,7 +80,7 @@ class Convos extends React.Component {
     // getClosed
     //   .then(response => {
     //     this.setState({
-    //       conversations: response.data  
+    //       conversations: response.data
     //     });
     //   })
     //   .catch(error => {
@@ -86,14 +91,14 @@ class Convos extends React.Component {
   componentWillUnmount() {
     clearInterval(this.intervalID);
   }
-  
+
 
   getConvos = () => {
     console.log('getConvos called');
     axios.get(`/api/chat/${this.props.convoStatus}`)
       .then(response => {
         this.setState({
-          conversations: response.data  
+          conversations: response.data
         });
       })
       .catch(error => {
@@ -108,7 +113,7 @@ class Convos extends React.Component {
       getClosed
         .then(response => {
           this.setState({
-            conversations: response.data  
+            conversations: response.data
           });
         })
         .catch(error => {
@@ -131,10 +136,10 @@ class Convos extends React.Component {
 
                   return (
                     <div className={classes.queueItem} key={index}>
-                      <MuiThemeProvider> 
-                        <Paper 
+                      <MuiThemeProvider>
+                        <Paper
                           className={classes.paper}
-                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#AAAAAA' : 'white' }}
+                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
                           onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                         >
                           {/* <Grid item
@@ -158,9 +163,8 @@ class Convos extends React.Component {
             </div>
           </div>
 
-        ); 
+        );
       }
-    } 
-    
-export default withStyles(styles)(Convos);
+    }
 
+export default withStyles(styles)(Convos);
