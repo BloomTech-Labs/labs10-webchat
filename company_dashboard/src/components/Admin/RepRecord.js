@@ -74,7 +74,7 @@ class RepRecord extends React.Component {
         </TableCell>
 
         <TableCell>
-          <IconButton onClick={this.props.removeRep}>
+          <IconButton onClick={() => this.props.removeRep(this.props.id)}>
             <DeleteIcon/>
           </IconButton>	
         </TableCell>

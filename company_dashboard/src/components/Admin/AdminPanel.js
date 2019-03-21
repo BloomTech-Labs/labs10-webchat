@@ -233,7 +233,18 @@ class AdminPanelBaseForm extends React.Component {
           console.log(error.message);
         })*/
   };
-  removeRep = 
+  
+  removeRep = id => {
+    axios.delete(`/api/reps/${id}`)
+      .then(response => {
+        console.log('response from removeRep: ', response);
+        this.reloadRecords();
+      })
+      .catch(error => {
+        console.log(error.message);
+        this.setState({error:error});
+      })
+  };
 
   reloadRecords = () => {
     const comp_id = this.state.company_id;
@@ -286,6 +297,7 @@ class AdminPanelBaseForm extends React.Component {
                           <RepRecord
                           key={index}
                           rep={rep}
+                          id={rep.id}
                           reloadRecords={this.reloadRecords}
                           removeRep={this.removeRep}
                           />
