@@ -233,6 +233,7 @@ class AdminPanelBaseForm extends React.Component {
           console.log(error.message);
         })*/
   };
+  removeRep = 
 
   reloadRecords = () => {
     const comp_id = this.state.company_id;
@@ -286,6 +287,7 @@ class AdminPanelBaseForm extends React.Component {
                           key={index}
                           rep={rep}
                           reloadRecords={this.reloadRecords}
+                          removeRep={this.removeRep}
                           />
                         );
                       })}
