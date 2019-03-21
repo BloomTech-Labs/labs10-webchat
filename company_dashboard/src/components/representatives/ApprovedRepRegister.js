@@ -15,7 +15,7 @@ class ApprovedRepRegisterForm extends Component {
       super(props);
       this.state = {
         name: "", 
-        email: "",
+        email: props.history.location.state.email,
         motto: "",
         phone: "",
         company_id: props.history.location.state.company_id, 
@@ -83,7 +83,7 @@ class ApprovedRepRegisterForm extends Component {
   
     render() {
       const {name, email, error} = this.state;
-      const condition = name === '' || email === '';
+      const condition = name === ''; //|| email === '';
   
   
         return (
@@ -112,7 +112,7 @@ class ApprovedRepRegisterForm extends Component {
              />
             <br/>
       
-           <TextField
+           {/* <TextField
               hintText="Enter your email"
               floatingLabelText="Email"
               name="email"
@@ -121,7 +121,7 @@ class ApprovedRepRegisterForm extends Component {
               value={this.state.email}
               onChange={this.onChange}
              />
-            <br/>
+            <br/> */}
       
        <TextField
               hintText="Enter phone number"
