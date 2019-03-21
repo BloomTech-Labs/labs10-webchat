@@ -70,7 +70,7 @@ const styles = theme => ({
   inputForm: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center',  
     alignItems: 'center',
   },
 

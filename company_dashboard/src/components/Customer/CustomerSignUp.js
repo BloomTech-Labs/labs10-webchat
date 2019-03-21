@@ -110,7 +110,7 @@ class CustomerSignUpFormBase extends Component {
 
 render() {
     const {email, password, password1, error, name, summary} = this.state;
-    const condition = password === '' || password1 === '' || email === '' || name === '' || summary === '';
+    const condition = password === '' || password1 === '' || email === '' || name === ''; // || summary === '';
 
 
     return (
