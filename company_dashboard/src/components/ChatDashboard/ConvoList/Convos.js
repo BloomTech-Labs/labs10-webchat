@@ -111,7 +111,7 @@ class Convos extends React.Component {
                         <Paper 
                           className={classes.paper}
                           style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#AAAAAA' : 'white' }}
-                          onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
+                          onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                         >
                           {/* <Grid item
                             onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}

@@ -217,7 +217,7 @@ class BillingBaseForm extends React.Component {
             <div>
             <h1>Your company has already subscribed</h1>
             {subStatus !== 'active' ? ( 
-                <h1>Your subscriptin status is not active.</h1>
+                <h1>Your subscription status is not active.</h1>
                 ) : ( ''
             )}
             </div>
