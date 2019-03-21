@@ -120,7 +120,7 @@ class RepSignUpFormBase extends Component {
                   </a>
                 </div>
               </div>
-                <p className="header">Create Service Center</p>
+                <p className="header">Sign Up</p>
             <form onSubmit={this.onSubmit}>
               <TextField
                 style = {{width: '65%'}}
