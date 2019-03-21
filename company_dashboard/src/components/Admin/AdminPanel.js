@@ -207,33 +207,7 @@ class AdminPanelBaseForm extends React.Component {
     });
   };
 
-  handleClick = () => {
-    /*const id = this.state.rep_id;
-    const request = axios.delete(`/api/reps/${id}`);
-    request
-      .then(response => {
-        // console.log('delete response', response.data);
 
-        // get all reps that belong to the same company as admin:
-        const comp_id = this.state.company_id;
-        // console.log('comp_id', comp_id);
-        const app_req = axios.get(`/api/reps/company/${comp_id}`);
-        app_req
-          .then(r => {
-            // console.log('all reps are:', r.data);
-            this.setState({allreps: r.data});
-          })
-          .catch(error => {
-            console.log(error.message);
-            this.setState({error:error});
-          });
-
-        })
-        .catch(error => {
-          console.log(error.message);
-        })*/
-  };
-  
   removeRep = id => {
     axios.delete(`/api/reps/${id}`)
       .then(response => {

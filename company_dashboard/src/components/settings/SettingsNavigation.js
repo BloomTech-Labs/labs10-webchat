@@ -133,7 +133,7 @@ class SettingsNavigationBaseForm extends React.Component {
       } else {
         return (
           <NoSsr>
-            <Navigation />
+            {/* <Navigation /> */}
             <div className="settings-navigation">
               <Paper className={classes.root}>
                 <Tabs
