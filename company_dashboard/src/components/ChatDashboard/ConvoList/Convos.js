@@ -65,8 +65,24 @@ class Convos extends React.Component {
   }
 
   componentDidMount() {
-    const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
-    getClosed
+    this.getConvos();
+    if (this.props.convoStatus === 'queue') {
+      this.itervalID = setInterval(this.getConvos, 5000)
+    }
+    // const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
+    // getClosed
+    //   .then(response => {
+    //     this.setState({
+    //       conversations: response.data  
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.log(error.message);
+    //   })
+  }
+
+  getConvos = () => {
+    axios.get(`/api/chat/${this.props.convoStatus}`)
       .then(response => {
         this.setState({
           conversations: response.data  
