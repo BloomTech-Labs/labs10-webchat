@@ -13,19 +13,19 @@ function enableChattr() {
 	wcaIFRAME.style.display = "none";
   wcaIFRAME.style.width = "450px";
   wcaIFRAME.style.height = "600px";
-  wcaIFRAME.style.border = "2px gray solid";
-  wcaIFRAME.scrolling = "no";
-  wcaIFRAME.style.overflow = "hidden";
+  wcaIFRAME.style.border = "1px lightgray solid";
+  wcaIFRAME.style.overflowY = "hidden";
   wcaBtn.style.textAlign = "center";
   wcaBtn.style.verticalAlign = "middle";
-  wcaBtn.src = "https://freeiconshop.com/wp-content/uploads/edd/chat-alt-flat.png";
+  wcaBtn.src = "https://cdn.icon-icons.com/icons2/72/PNG/256/chat_messages_14395.png";
   wcaBtn.style.position = "fixed";
   wcaBtn.style.borderRadius = "80px";
-  wcaBtn.style.width = "90px";
+  wcaBtn.style.width = "75px";
   wcaBtn.style.bottom = "20px";
   wcaBtn.style.outline = "none";
   wcaBtn.style.right = "40px";
   wcaIFRAME.style.position = "fixed";
+	wcaIFRAME.style.borderRadius = "20px";
   wcaIFRAME.style.bottom = "120px";
   wcaIFRAME.style.right = "20px";
   wcaIFRAME.style.backgroundColor ="white";
@@ -38,8 +38,8 @@ function enableChattr() {
       let company_id = wcaIFRAME.getAttribute("data-company-id");
       console.log('company_id in snippet', company_id);
 
-      //  wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
-      wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
+       wcaIFRAME.src = "https://labs10-webchat.netlify.com/customersignup/"+company_id;
+       //wcaIFRAME.src = "http://localhost:3000/customersignup/"+company_id;
 
     } else if (wcaIFRAME.style.display == "none") {
         wcaIFRAME.style.display = "";
@@ -56,4 +56,3 @@ window.onload = function (e) {
 window.onpopstate = function(e){
 	enableChattr();
 };
-

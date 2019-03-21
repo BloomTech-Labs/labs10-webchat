@@ -80,7 +80,9 @@ class CustomerSignUpFormBase extends Component {
                 })
                 .catch(error =>{
                         console.log(error.message);
-                        this.setState({error:error});
+                        this.setState({
+                          error: error
+                        });
                 })
 
           })
@@ -180,7 +182,7 @@ render() {
                     disabled={condition}
               />
               {error && <p>{error.message}</p>}
-              <p className="smaller-text">Powered by chattr</p>
+              <a className="smaller-text" href="https://labs10-webchat.netlify.com/" target="_blank">Powered by chattr</a>
             </form>
             </div>)}
         </MuiThemeProvider>
