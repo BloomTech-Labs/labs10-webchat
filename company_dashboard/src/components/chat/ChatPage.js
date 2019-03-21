@@ -25,20 +25,22 @@ const styles = theme => ({
   },
   paper: {
     maxWidth: 400,
+    width: 300,
 //     margin: `${theme.spacing.unit}px auto`,
     margin: `auto`,
+    marginLeft: 30,
     padding: theme.spacing.unit * 2,
     height: 80,
   },
   repAvatar: {
-    marginLeft: 15,
-    marginTop: 15,
+    marginLeft: 5,
+    marginTop: 5,
     marginBottom: 15,
     width: 40,
     height: 40,
   },
   repName: {
-    padding: 10,
+    padding: 5,
     paddingLeft: 20,
     textAlign: 'justify',
  },
@@ -207,22 +209,15 @@ class ChatPage extends Component {
                                 return (
                                 <div className={classes.message}>
                                         <MuiThemeProvider>
-                                                <Paper className={classes.paper} key={index}>
-                                                        <Grid 
+                                                <Paper className={[classes.paper, "customer-message"].join(' ')} key={index}>
+                                                        <Grid
                                                                 container
-                                                                direction="row-reverse"
+                                                                direction="row"
                                                                 wrap="nowrap"
                                                                 spacing={16}
                                                         >
-                                                                <Grid item>
-                                                                        <Avatar
-                                                                                alt="Avatar" 
-                                                                                className={classes.customerAvatar}>
-                                                                                {this.state.name[0]}
-                                                                        </Avatar>
-                                                                </Grid>
                                                                 <Grid>
-                                                                        <Grid 
+                                                                        <Grid
                                                                         item
                                                                         xs
                                                                         >
@@ -233,7 +228,7 @@ class ChatPage extends Component {
                                                                                 {message.author_name}
                                                                                 </Typography>
                                                                         </Grid>
-                                                                <Grid 
+                                                                <Grid
                                                                 item
                                                                 xs
                                                                 >
@@ -255,17 +250,17 @@ class ChatPage extends Component {
                                 return (
                                 <div className={classes.message}>
                                          <MuiThemeProvider>
-                                                <Paper className={classes.paper} key={index}>
+                                                <Paper className={[classes.paper, "rep-message"].join(' ')} key={index}>
                                                         <Grid container wrap="nowrap" spacing={16}>
                                                                 <Grid item>
-                                                                        <Avatar 
-                                                                                alt="Avatar" 
+                                                                        <Avatar
+                                                                                alt="Avatar"
                                                                                 className={classes.repAvatar}>
                                                                                 {this.state.name[0]}
                                                                         </Avatar>
                                                                 </Grid>
                                                                 <Grid>
-                                                                        <Grid 
+                                                                        <Grid
                                                                         item
                                                                         xs
                                                                         >
@@ -276,13 +271,13 @@ class ChatPage extends Component {
                                                                                 {message.author_name}
                                                                                 </Typography>
                                                                         </Grid>
-                                                                <Grid 
+                                                                <Grid
                                                                 item
                                                                 xs
                                                                 >
                                                                         <Typography
                                                                         variant="componenth6"
-                                                                        className={classes.repMessage}
+                                                                        className={[classes.repMessage, "rep-message-text"].join(' ')}
                                                                         >
                                                                                 {message.body}
                                                                         </Typography>
@@ -316,7 +311,7 @@ class ChatPage extends Component {
             	onChange={this.onChange}
            	/>
           	<br/>
-                
+
 		{this.state.started ? (
                         <RaisedButton
                         label="send"
