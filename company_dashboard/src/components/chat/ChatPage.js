@@ -216,6 +216,14 @@ class ChatPage extends Component {
                                                                 wrap="nowrap"
                                                                 spacing={16}
                                                         >
+                                                              <Grid item>
+                                                                <Avatar
+                                                                        alt="Avatar"
+                                                                        className={classes.customerAvatar}>
+                                                                        {this.state.name[0]}
+                                                                </Avatar>
+                                                                </Grid>
+
                                                                 <Grid>
                                                                         <Grid
                                                                         item
