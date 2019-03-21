@@ -1,12 +1,10 @@
 .admin-panel-container {
   background-color: #EAEAEA;
   height: 100vh;
-  padding-top: 5%;
 }
 
 .admin-panel {
   width: 65%;
-  border: 2px red solid;
   display: flex;
   justify-content: space-around;
   margin-left: 22%;
@@ -14,7 +12,7 @@
   border: 2px gray solid;
   border-radius: 5px;
   background-color: white;
-  margin-top: 2%;
+  margin-top: 5%;
 }
 
 .admin-panel .add-button {
@@ -23,8 +21,48 @@
   width: 70px;
 }
 
-@media (max-width: 1320px) {
+.admin-panel .right-container .code-snippet-info {
+  width: 300px;
+  margin: auto;
+}
+
+@media (max-width: 1280px) {
   .admin-panel-container {
       padding-top: 10%;
+      height: 100%;
+      margin-right: 0;
+      padding-right: 0;
+      right: 0;
+  }
+  .admin-panel {
+      margin-top: -8%;
+      padding-bottom: 20%;
+      width: 60%;
+      margin-bottom: 10%;
+      margin-right: 0;
   }
 }
+
+@media (max-width: 800px) {
+
+  .admin-panel-container {
+    padding-top: 0;
+    height: 100%;
+    }
+
+  .admin-panel {
+    margin: auto;
+    margin-top: 50px;
+    flex-direction: column;
+    align-items: center;
+    width: 65%;
+    padding-top: 0;
+    margin-bottom: 5%;
+    }
+
+    .admin-panel .admin-table {
+      margin: auto;
+      width: 80%;
+    }
+
+  }

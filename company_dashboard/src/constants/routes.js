@@ -20,3 +20,4 @@ export const LIVE_FEED = '/livefeed';
 export const CHAT_DASHBOARD = '/chatdashboard';
 export const PRICING = '/pricing';
 export const BILLING = '/billing';
+export const DEVELOPERS = '/developers';

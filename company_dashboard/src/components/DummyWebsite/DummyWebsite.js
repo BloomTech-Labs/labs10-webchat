@@ -28,7 +28,7 @@ const styles = theme => ({
 	toolBar: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		height: 90,
+		height: 100,
 			[theme.breakpoints.down('sm')]: {
 				// backgroundColor: 'blue',
 			},
@@ -240,7 +240,7 @@ class DummyWebsite extends Component {
               <Typography className={classes.heading} variant='h3' gutterBottom>
                 Why Use Joe's Plumbing?
               </Typography>
-          
+
               <div className={classes.columns}>
                <Grid item xs={12} sm={4}>
                   <div className={classes.benefits}>
@@ -295,7 +295,7 @@ class DummyWebsite extends Component {
 						</div>
 					{/* </Grid> */}
 				</Grid>
-				
+
 				<Grid container spacing={24}>
 					<Paper className={classes.footer}>
 						<div className={classes.location}>
@@ -328,7 +328,7 @@ class DummyWebsite extends Component {
 								9:00AM - 5:00PM
 							</Typography>
 						</div>
-						<Button className="webChatAppBtn">Chat!</Button> <iframe className="wcaIFRAME"></iframe>
+						<input className='webChatAppBtn'type="image"/><iframe data-company-id='2' className="wcaIFRAME"></iframe>
 					</Paper>
 				</Grid>
 			</div>
@@ -341,37 +341,3 @@ DummyWebsite.propTypes = {
 };
 
 export default withStyles(styles)(DummyWebsite);
-
-// class DummyWebsite extends Component {
-//     render() {
-//         return (
-//             <div className="dummy-website">
-//                 <div className="dummy-top-info">
-//                     <h1>Joes Plumbing</h1>
-//                     <p>10800 Greene Street</p>
-//                     <p>1-800-456-7890</p>
-//                     <p>Monday-Saturday 9:00-5:00</p>
-//                 </div>
-//                 <div className="dummy-navigation-container">
-//                     <p className="navigation-link">HOME</p>
-//                     <p className="navigation-link">ABOUT</p>
-//                     <p className="navigation-link">SERVICES</p>
-//                     <p className="navigation-link">PRODUCTS</p>
-//                     <p className="navigation-link">BLOG</p>
-//                     <p className="navigation-link">GET APPOINTMENT</p>
-//                 </div>
-//                 <div className="dummy-info">
-//                     <h3>Joe's Plumbing</h3>
-//                     <ul>
-//                         <li>Upfront, Flat Rate Pricing</li>
-//                         <li>Never an Overtime Charge</li>
-//                         <li>Courtous, Uniformed Professionals</li>
-//                     </ul>
-// 		<Button className="webChatAppBtn">Chat!</Button> <iframe className="wcaIFRAME"></iframe>
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
-// export default DummyWebsite;

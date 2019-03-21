@@ -1,25 +1,25 @@
 .account-settings-container {
   background-color: #EAEAEA;
   height: 100vh;
-  padding-top: 5%;
+  display: flex;
+  align-items: center;
 }
 
-.account-settings {
-    width: 50%;
+.account-settings-container .account-settings {
+    width: 65%;
     display: flex;
-    margin-left: 30%;
+    margin-left: 22%;
     padding: 2.5%;
+    height: 60%;
     border: 2px gray solid;
     border-radius: 5px;
     background-color: white;
-    margin-top: 2%;
   }
 
 .account-settings form {
     display: flex;
     flex-direction: column;
     margin-top: 10%;
-    margin-bottom: 10%;
 }
 
 .account-settings .left-container {
@@ -45,17 +45,18 @@
 }
 
 .account-settings .right-container img {
-    min-width: 50%;
-    min-height: 50%;
-    max-width:50%;
-    max-height:50%;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
 }
 
 .account-settings .image-upload {
-    display: block;
-    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin-top: 10%;
+    align-items: center;
+    height: 80px;
 }
 
 .account-settings .image-upload input {
@@ -63,7 +64,7 @@
 }
 
 .account-settings .image-upload button {
-  margin-left: 5%;
+  width: 120px;
 }
 
 .checkout {
@@ -72,25 +73,43 @@
 }
 
 @media (max-width: 1320px) {
-  .account-settings .image-upload  button {
-      margin-left: 0;
-      margin-top: 5%;
+  .account-settings {
+      height: 100%;
+      width: 85%;
+    }
+
+  .account-settings .right-container img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
   }
 }
 
 @media (max-width: 800px) {
+
   .account-settings-container {
     padding-top: 0;
-  }
+    height: 100%;
+    display: block;
+    }
 
-  .account-settings {
-    margin-top: 70px;
-    margin-left: 5%;
+  .account-settings-container .account-settings {
+    margin: auto;
+    margin-top: 10%;
+    flex-direction: column-reverse;
+    align-items: center;
     width: 85%;
-    height: 70%;
     padding-top: 0;
-  }
+    margin-bottom: 5%;
+    padding-bottom: 10%;
+    }
+
   .account-settings .right-container {
     margin-top: 30%;
-  }
+    margin-left: 0;
+    }
+
+    .account-settings .image-upload button {
+      margin-top: 0;
+    }
   }

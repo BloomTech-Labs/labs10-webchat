@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import classNames from 'classnames';
+
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -15,7 +15,6 @@ import StarIcon from '@material-ui/icons/StarBorder';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 
 
 const styles = theme => ({
@@ -31,8 +30,10 @@ const styles = theme => ({
     flex: 1,
   },
   logo: {
-    width: 80,
+    width: 65,
     height: 60,
+    marginLeft: -3,
+    marginTop: -5,
     display: 'flex',
       [theme.breakpoints.down('sm')]: {
         width: 60,
@@ -40,12 +41,24 @@ const styles = theme => ({
       },
   },
   navButton: {
+    // backgroundColor: 'orange',
+    display: 'flex',
+    paddingRight: 50,
+    color: 'white',
       [theme.breakpoints.down('sm')]: {
-        // backgroundColor: 'orange',
-        fontSize: 13,
+        fontSize: 14,
         padding: 2,
-        marginLeft: 15,
-        marginRight: 18,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
+      },
+  },
+  signupNav: {
+    color: '#64dd17',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 14,
+        padding: 2,
+        marginLeft: 25,
+        // backgroundColor: 'orange',
       },
   },
   layout: {
@@ -67,6 +80,7 @@ const styles = theme => ({
     margin: 'auto',
       [theme.breakpoints.down('sm')]: {
         // backgroundColor: 'purple',
+        width: 300,
       },
   },
   card: {
@@ -91,21 +105,6 @@ const styles = theme => ({
       paddingBottom: theme.spacing.unit * 2,
     },
   },
-  // getStarted: {
-  //   color: 'white',
-  // },
-  // footer: {
-  //   marginTop: theme.spacing.unit * 8,
-  //   borderTop: `1px solid ${theme.palette.divider}`,
-  //   padding: `${theme.spacing.unit * 6}px 0`,
-  //   display: 'flex',
-	// 	alignItems: 'center',
-	// 	justifyContent: 'center',
-  //   width: '100%',
-  //   height: 100,
-  //   backgroundColor: 'black',
-  //   color: 'white',
-  // },
   paper: {
     position: 'absolute',
     width: theme.spacing.unit * 50,
@@ -118,11 +117,25 @@ const styles = theme => ({
 
 const tiers = [
   {
-    title: 'Regular',
+    title: 'Free',
+    price: '0',
+    description: ['1 representative', 'Help center access', '24/7 live chat'],
+    buttonText: 'Sign up for free',
+    buttonVariant: 'outlined',
+  },
+  {
+    title: 'Basic',
     price: '30',
-    description: ['Unlimited users included', 'Help center access', '24/7 live chat'],
+    description: ['5 representative', 'Help center access', '24/7 live chat'],
     buttonText: 'Get Started',
     buttonVariant: 'contained',
+  },
+  {
+    title: 'Enterprise',
+    price: '50',
+    description: ['30 representative', 'Help center access', '24/7 live chat'],
+    buttonText: 'Get Started',
+    buttonVariant: 'outlined',
   },
 ];
 
@@ -143,22 +156,22 @@ class Pricing extends Component {
           <Toolbar>
             <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
               <Link to={ROUTES.LANDING}>
-                <img
-                  className={classes.logo}
-                  src={require("../images/logo.png")}
-                  alt="logo"
+                <img 
+                  className={classes.logo} 
+                  src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" 
+                  alt="logo" 
                 />
               </Link>
             </Typography>
-            <Button className={classes.navButton} size="large" color="primary"> 
-              <Link to={ROUTES.PRICING}>Pricing</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REPS_LOGIN}>Sign In</Link>
-            </Button>
-            <Button className={classes.navButton} size="large" color="primary">
-              <Link to={ROUTES.REP_REGISTER}>Sign Up</Link>
-            </Button>
+            <a href='/pricing'>
+              <p className={classes.navButton}>PRICING</p>
+            </a>
+            <a href='/repslogin'>
+              <p className={classes.navButton}>SIGN IN</p>
+            </a>
+            <a href='/repregister'>
+              <p className={classes.signupNav}>SIGN UP</p>
+            </a>
           </Toolbar>
         </AppBar>
         
@@ -173,14 +186,14 @@ class Pricing extends Component {
           </div>
           <Grid container spacing={40} alignItems="flex-end">
             {tiers.map(tier => (
-              <Grid className={classes.table} item key={tier.title} md={4}>
+              <Grid className={classes.table} item key={tier.title} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
                 <Card className={classes.card}>
                   <CardHeader
                     title={tier.title}
                     subheader={tier.subheader}
                     titleTypographyProps={{ align: 'center' }}
                     subheaderTypographyProps={{ align: 'center' }}
-                    action={tier.title === 'Regular' ? <StarIcon /> : null}
+                    action={tier.title === 'Basic' ? <StarIcon /> : null}
                     className={classes.cardHeader}
                   />
                   <CardContent>
@@ -189,7 +202,7 @@ class Pricing extends Component {
                         ${tier.price}
                       </Typography>
                       <Typography variant="h6" color="textSecondary">
-                        for lifetime
+                        /mo
                       </Typography>
                     </div>
                     {tier.description.map(line => (
@@ -202,12 +215,9 @@ class Pricing extends Component {
                     <Button
                       fullWidth
                       variant={tier.buttonVariant}
-                      color='primary'
-                      className={classes.getStarted}
                     >
                       <Link to={ROUTES.REP_REGISTER}>{tier.buttonText}</Link>
                     </Button>
-                   
                   </CardActions>
                 </Card>
               </Grid>
@@ -232,26 +242,3 @@ Pricing.propTypes = {
 };
 
 export default withStyles(styles)(Pricing);
-
-
-
-// import React, { Component } from "react";
-// import { Elements, StripeProvider } from "react-stripe-elements";
-// import CheckoutForm from "./CheckoutForm";
-
-// class Billing extends Component {
-//   render() {
-//     return (
-//       <StripeProvider apiKey="pk_test_rY8prrYy1Hij91qrNdI5zpYu">
-//         <div className="example">
-//           <h1>Lifetime purchase of webchat for $30</h1>
-//           <Elements>
-//             <CheckoutForm />
-//           </Elements>
-//         </div>
-//       </StripeProvider>
-//     );
-//   }
-// }
-
-// export default Billing;

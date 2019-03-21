@@ -23,7 +23,8 @@ import LiveFeed from './components/rep1/LiveFeed';
 import ChatRepPage from './components/rep1/ChatRepPage';
 import ChatDashboard from './components/ChatDashboard/ChatDashboard';
 import Pricing from './components/settings/Pricing';
-import Billing from './components/settings/Billing';
+import Billing from './components/settings/Billing/V1Billing';
+import Developers from './components/developers';
 
 
 class App extends Component {
@@ -48,8 +49,9 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route path={ROUTES.DEVELOPERS} component={Developers} />
 
-          <Route path={ROUTES.CUSTOMER_SIGN_UP} component={CustomerSignUp} />
+          <Route path="/customersignup/:id" render ={(props) => < CustomerSignUp {...props} />} />
 
           <Route path={ROUTES.REP_REGISTER} component={RepRegister} />
           <Route path={ROUTES.APPROVED_REP_REGISTER} component={ApprovedRepRegisterForm} />

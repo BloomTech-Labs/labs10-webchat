@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import './ChatPage.css';
 import { ThemeProvider, AgentBar, Subtitle, Title, Column } from '@livechat/ui-kit';
 
 const styles = theme => ({
@@ -147,7 +148,7 @@ class ChatPage extends Component {
                 console.log("ChatPage state on render: ", this.state);
 		const { classes } = this.props;
                 return(
-                <div>
+                <div className="customer-chat">
 		<MuiThemeProvider>
 		<ThemeProvider>
                 <div>
@@ -157,9 +158,9 @@ class ChatPage extends Component {
                 <div>
                 <div>
                 </div>
-		<AppBar
-                title="Customer Chat Panel"
-                />
+                <div className="customer-chat-top-bar">
+                  <p>Customer Support Live Chat</p>
+                </div>
 		<br/>
 		<br/>
 
@@ -209,7 +210,7 @@ class ChatPage extends Component {
                 ) : (
                         <RaisedButton
                         label="Start a conversation"
-                        secondary={true}
+                        primary={true}
                         type="submit"
                         onSubmit={this.onStart}
                         onClick={this.onStart}

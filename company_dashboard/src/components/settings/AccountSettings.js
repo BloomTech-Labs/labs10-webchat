@@ -38,7 +38,10 @@ const AccountSettings = () => (
  );
 
 class AccountSettingsBaseForm extends React.Component {
-  state = {
+constructor(props) {
+super(props);
+
+this.state = {
     name: "",
     uid:"",
     email: "",
@@ -49,10 +52,9 @@ class AccountSettingsBaseForm extends React.Component {
     selectedFile: null,
     id: "",
     error:null,
-  };
-
+  }
+};
   componentDidMount() {
-    //const request = axios.get(`/api/reps/getbyUID`);
 
 //check if a user is signed in or signed out
 this.props.firebase.auth.onAuthStateChanged(user => {
@@ -69,7 +71,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
     const request = axios.get("/api/reps/alldetails");
 
     request.then(response => {
-      console.log("Account Settings CDM getByUID response: ", response);
+      console.log("Inside Account Settings alldetails response: ", response.data);
       // console.log(response.data);
 
       this.setState({
@@ -79,8 +81,8 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         motto: response.data.motto,
         id: response.data.id,
         image_id:response.data.image_id,
-	      image_url: response.data.url,
-	      uid: response.data.uid
+	image_url: response.data.url,
+	uid: response.data.uid
        });
     })
     .catch(err => {
@@ -115,7 +117,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
       motto: this.state.motto,
       email: this.state.email,
     };
-	  
+
 
     const request = axios.put('/api/reps/updaterepinfo', user);
 
@@ -127,13 +129,13 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         email: response.data.email,
         phone_number: response.data.phone_number,
         motto: response.data.motto,
-       });      
+       });
       })
       .catch(err => {
         console.log(err.message);
       });
-	
-      event.preventDefault(); 
+
+      event.preventDefault();
   };
 
   //Sets selectedFile in state after selecting an image
@@ -179,7 +181,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         <Navigation />
       <div className="account-settings">
           <div className="left-container">
-            
+
 	    <form onSubmit={this.handleSubmit}>
             <h2>Edit Account Information</h2>
             <TextField
