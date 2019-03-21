@@ -76,22 +76,24 @@ class ConvoList extends React.Component {
         };
     }
 
-    componentDidMount() {
-      setInterval(this.getNewConvos, 5000);
+    // componentDidMount() {
+    //   setInterval(this.getNewConvos, 5000);
 
-    }
+    // }
 
-    getNewConvos() {
-      axios.get(`/api/chat/queue`)
-      .then(response => {
-        this.setState({
-          newConvos: response.data  
-        });
-      })
-      .catch(error => {
-        console.log(error.message);
-      })
-    }
+    // getNewConvos() {
+    //   axios.get(`/api/chat/queue`)
+    //   .then(response => {
+    //     // if (response.data.length > this.state.newConvos.length) {
+    //       this.setState({
+    //         newConvos: response.data  
+    //       });
+    //     // }
+    //   })
+    //   .catch(error => {
+    //     console.log(error.message);
+    //   })
+    // }
 
     handleTabSelect= (event, value) => {
       this.setState({ value });
@@ -129,7 +131,18 @@ class ConvoList extends React.Component {
                 textColor="primary"
                 centered
                 >
-                  <Tab label={<h1 className={classes.tabLabel}>NEW</h1>}/>
+                  <Tab 
+                    label={
+                      <div>
+                        <h1 className={classes.tabLabel}>NEW</h1>
+                        {this.state.newConvos.length > 0 ? ( 
+                          <h1>{this.state.newConvos.length}</h1>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                    }
+                  />
                   <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
                   <Tab label={<h1 className={classes.tabLabel}>Closed</h1>} />
               </Tabs>
