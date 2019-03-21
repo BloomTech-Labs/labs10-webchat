@@ -23,7 +23,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
-  Paper: {
+  paper: {
     padding: theme.spacing.unit * 2,
     margin: 'auto',
     maxWidth: 650,
@@ -43,7 +43,7 @@ const styles = theme => ({
   message: {
     marginBottom: 30
   },
-  bigAvatar: {
+  avatar: {
     marginLeft: 15,
     marginTop: 15,
     marginBottom: 15,
@@ -90,8 +90,8 @@ class ChatView extends Component {
       rep_name: "",
     };
 
-    this.socket = io('localhost:5000');
-    // this.socket = io('https://webchatlabs10.herokuapp.com');
+    //this.socket = io('localhost:5000');
+     this.socket = io('https://webchatlabs10.herokuapp.com');
 
     this.socket.on(this.props.currentConvoSocket, function(message) {
       console.log('Incoming message:', message);
@@ -241,38 +241,17 @@ class ChatView extends Component {
 
                <div className={classes.messageList}> 
                     {this.state.messages.map((message, index) => {
-                        console.log(message.image_url)
+                        console.log(this.state)
+                        console.log(message)
                         return (
-                          <div className={classes.message}>
+                          <div className={classes.message} key={index}>
                             <MuiThemeProvider>
-                              {/* <Paper>
-                                <Grid 
-                                 spacing={12}
-                                //  alignItems="center"
-                                //  justify="center"
-                                 container spacing={16}
-                                 >
-                                  <Grid item>
-                                    <Avatar alt="Avatar" src={message.image_url} />
-                                  </Grid>
-                                  <Grid item xs={12} sm container>
-                                    <Grid item xs container direction="column" spacing={16}>
-                                      <Grid item xs>
-                                        <Typography gutterBottom variant="subtitle1">
-                                          {message.author_name}
-                                        </Typography>
-                                        <Typography color="primary" gutterBottom>
-                                          {message.body}
-                                        </Typography>
-                                      </Grid>
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-                              </Paper> */}
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <Avatar alt="Avatar" src={message.image_url} className={classes.bigAvatar} />
+                                    <Avatar alt="Avatar" className={classes.avatar}>
+                                      {message.author_name[0]}
+                                    </Avatar>
                                   </Grid>
                                   <Grid>
                                     <Grid 
