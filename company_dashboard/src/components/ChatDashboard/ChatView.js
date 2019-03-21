@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -22,22 +23,11 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
-  Paper: {
+  paper: {
     padding: theme.spacing.unit * 2,
     margin: 'auto',
     maxWidth: 650,
     height: 130
-  },
-  image: {
-    width: 100,
-    height: 100,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-    borderRadius: '3px'
   },
   chatViewHead: {
     // flexShrink: 0
@@ -53,6 +43,26 @@ const styles = theme => ({
   message: {
     marginBottom: 30
   },
+  avatar: {
+    marginLeft: 15,
+    marginTop: 15,
+    marginBottom: 15,
+    width: 55,
+    height: 55,
+  },
+  messageAuthor: {
+    textAlign: 'justify',
+    padding: 10,
+    paddingLeft: 20,
+    // fontWeight: 'bold'
+  },
+  messageBody: {
+    // marginTop: 20,
+    paddingLeft: 20,
+    paddingRight: 25,
+    paddingBottom: 30,
+    textAlign: 'justify'
+  },
   inputArea: {
     height: '40px',
     marginBottom: '20px'
@@ -60,9 +70,10 @@ const styles = theme => ({
   inputForm: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center',  
     alignItems: 'center',
-  }
+  },
+
 });
 
 
@@ -79,8 +90,8 @@ class ChatView extends Component {
       rep_name: "",
     };
 
-    this.socket = io('localhost:5000');
-    // this.socket = io('https://webchatlabs10.herokuapp.com');
+    // this.socket = io('localhost:5000');
+     this.socket = io('https://webchatlabs10.herokuapp.com');
 
     this.socket.on(this.props.currentConvoSocket, function(message) {
       console.log('Incoming message:', message);
@@ -230,42 +241,43 @@ class ChatView extends Component {
 
                <div className={classes.messageList}> 
                     {this.state.messages.map((message, index) => {
-                        console.log(message.image_url)
+                        console.log(this.state)
+                        console.log(message)
                         return (
-                          <div className={classes.message}>
+                          <div className={classes.message} key={index}>
                             <MuiThemeProvider>
-                              <Paper>
-                                <Grid 
-                                 spacing={12}
-                                //  alignItems="center"
-                                //  justify="center"
-                                 container spacing={16}
-                                 >
+                              <Paper className={classes.paper}>
+                                <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <ButtonBase className={classes.image}>
-                                      <img
-                                        className={classes.img}
-                                        alt="complex"
-                                        src={message.image_url}
-                                      />
-                                    </ButtonBase>
+                                    <Avatar alt="Avatar" className={classes.avatar}>
+                                      {message.author_name[0]}
+                                    </Avatar>
                                   </Grid>
-                                  <Grid item xs={12} sm container>
-                                    <Grid item xs container direction="column" spacing={16}>
-                                      <Grid item xs>
-                                        <Typography gutterBottom variant="subtitle1">
-                                          {message.author_name}
-                                        </Typography>
-                                        <Typography color="primary" gutterBottom>
-                                          {message.body}
-                                        </Typography>
-                                        {/* <Typography color="textSecondary">ID: 1030114</Typography> */}
-                                      </Grid>
-                                      {/* <Grid item>
-                                        <Typography style={{ cursor: "pointer" }}>Remove</Typography>
-                                      </Grid> */}
+                                  <Grid>
+                                    <Grid 
+                                      item
+                                      xs
+                                    >
+                                      <Typography
+                                        variant="h6"
+                                        className={classes.messageAuthor}
+                                      >
+                                        {message.author_name}
+                                      </Typography>
+                                    </Grid>
+                                    <Grid 
+                                      item
+                                      xs
+                                    >
+                                      <Typography
+                                        variant="componenth6"
+                                        className={classes.messageBody}
+                                      >
+                                      {message.body}
+                                      </Typography>
                                     </Grid>
                                   </Grid>
+
                                 </Grid>
                               </Paper>
                             </MuiThemeProvider>

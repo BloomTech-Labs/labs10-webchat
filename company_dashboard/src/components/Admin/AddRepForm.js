@@ -20,7 +20,7 @@ class AddRepForm extends React.Component {
 
   handleClickOpen = () => {
     const id = this.props.company_id;
-    axios.get(`/api/billing/getSub/${id}`)
+    axios.get(`/api/billing/getSubMax/${id}`)
       .then(response => {
         console.log('response from AddRepForm getSub: ', response);
         if (response.data > this.props.teamSize) {   // if max_reps on subscription is greater than current team size

@@ -7,25 +7,26 @@ import axios from 'axios';
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-// import AppBar from "@material-ui/core/AppBar";
 import NoSsr from "@material-ui/core/NoSsr";
 import Typography from "@material-ui/core/Typography";
 
-import ActiveConvos from './ActiveConvos';
-import Queue from './Queue';
-import ClosedConvos from './ClosedConvos';
 import Convos from './Convos';
 
 
 function TabContainer(props) {
     return (
-      // <Typography component="div" style={{ padding: 8 * 3 }}>
-      //   {props.children}
-      // </Typography>
       <Typography component="div" style={{ margin: 'none' }}>
         {props.children}
       </Typography>
     );
+}
+
+function StyledTab(props) {
+  return (
+    <Typography component="h1" style={{ margin: 'none' }}>
+      {props.children}
+    </Typography>
+  );
 }
 
 const styles = {
@@ -61,9 +62,9 @@ const styles = {
   tabs1: {
     height: '100%'
   },
-  // tab: {
-  //   borderRadius: '2px'
-  // }
+  tabLabel: {
+    fontSize: 24
+  }
 };
 
 class ConvoList extends React.Component {
@@ -71,10 +72,28 @@ class ConvoList extends React.Component {
         super(props);
         this.state = {
           value: 1,
+          newConvos: []
         };
     }
-    
-    
+
+    // componentDidMount() {
+    //   setInterval(this.getNewConvos, 5000);
+
+    // }
+
+    // getNewConvos() {
+    //   axios.get(`/api/chat/queue`)
+    //   .then(response => {
+    //     // if (response.data.length > this.state.newConvos.length) {
+    //       this.setState({
+    //         newConvos: response.data  
+    //       });
+    //     // }
+    //   })
+    //   .catch(error => {
+    //     console.log(error.message);
+    //   })
+    // }
 
     handleTabSelect= (event, value) => {
       this.setState({ value });
@@ -112,16 +131,27 @@ class ConvoList extends React.Component {
                 textColor="primary"
                 centered
                 >
-                  <Tab label="Open" style={{ border: this.state.value === 0 ? '2.5px solid blue' : ''}}/>
-                  <Tab label="Queue" style={{ border: this.state.value === 1 ? '2.5px solid blue' : ''}}/>
-                  <Tab label="Closed" style={{ border: this.state.value === 2 ? '2.5px solid blue' : ''}}/>
+                  <Tab 
+                    label={
+                      <div>
+                        <h1 className={classes.tabLabel}>NEW</h1>
+                        {this.state.newConvos.length > 0 ? ( 
+                          <h1>{this.state.newConvos.length}</h1>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                    }
+                  />
+                  <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
+                  <Tab label={<h1 className={classes.tabLabel}>Closed</h1>} />
               </Tabs>
             </Paper>
           </div>
 
           <div className={classes.queueList}>
-                {this.state.value === 0 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} currentConvoClosed={this.props.currentConvoClosed} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
-                {this.state.value === 1 && <Convos  convoStatus={'queue'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.handleQueueConvoSelect} />}
+                {this.state.value === 0 && <Convos  convoStatus={'queue'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.handleQueueConvoSelect} />}
+                {this.state.value === 1 && <Convos  convoStatus={'active'} currentConvoId={this.props.currentConvoId} currentConvoClosed={this.props.currentConvoClosed} handleConvoSelect={this.props.handleActiveConvoSelect}/>}
                 {this.state.value === 2 && <Convos  convoStatus={'closed'} currentConvoId={this.props.currentConvoId} handleConvoSelect={this.props.handleClosedConvoSelect}/>}
           </div>
           

@@ -98,13 +98,21 @@ const request = axios.post('/api/reps/admin', data);
             Successfully Logged In
             </Typography>):(
           <div>
-            <div className="company-detail-top-bar">
-              <img src="https://i.ibb.co/Mpy1WhB/3029ba78-770c-49a3-aaa6-6a6cfc58b56c.png" alt="logo" />
+            <div className="register-top-bar">
               <Link to={ROUTES.LANDING}>
-                  <RaisedButton
-                    label="Home"
-                  />
-                </Link>
+                <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
+              </Link>
+              <div className="top-bar-links">
+                <a href='/pricing'>
+                  <p className="navigation-button">PRICING</p>
+                </a>
+                <a href='/repslogin'>
+                  <p className="navigation-button">SIGN IN</p>
+                </a>
+                <a href='/repregister'>
+                  <p className="navigation-button">SIGN UP</p>
+                </a>
+              </div>
             </div>
             <p className="header">Enter your Company Details</p>
             <form onSubmit={this.onSubmit}>

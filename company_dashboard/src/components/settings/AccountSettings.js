@@ -39,8 +39,8 @@ const AccountSettings = () => (
 
 class AccountSettingsBaseForm extends React.Component {
 constructor(props) {
-super(props);  
-	
+super(props);
+
 this.state = {
     name: "",
     uid:"",
@@ -117,7 +117,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
       motto: this.state.motto,
       email: this.state.email,
     };
-	  
+
 
     const request = axios.put('/api/reps/updaterepinfo', user);
 
@@ -129,19 +129,23 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         email: response.data.email,
         phone_number: response.data.phone_number,
         motto: response.data.motto,
-       });      
+       });
       })
       .catch(err => {
         console.log(err.message);
       });
-	
-      event.preventDefault(); 
+
+      event.preventDefault();
   };
 
   //Sets selectedFile in state after selecting an image
 
  fileChangedHandler = (event) => {
-    this.setState({selectedFile: event.target.files[0]});
+    this.setState({
+      selectedFile: event.target.files[0]
+    }, () => {
+      this.onSubmit(event);
+    });
   };
 
 
@@ -169,7 +173,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
                 //this.setState({error:err});
       })
 
-         event.preventDefault();
+        //  event.preventDefault();
   };
 
 
@@ -181,7 +185,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         <Navigation />
       <div className="account-settings">
           <div className="left-container">
-            
+
 	    <form onSubmit={this.handleSubmit}>
             <h2>Edit Account Information</h2>
             <TextField
@@ -246,6 +250,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         accept="image/*"
         id="outlined-button-file"
         type="file"
+        // onChange={this.onSubmit()}
         onChange={this.fileChangedHandler}
       />
       <label htmlFor="outlined-button-file">
@@ -253,10 +258,10 @@ this.props.firebase.auth.onAuthStateChanged(user => {
           Upload
         </Button>
       </label>
-	    <Button type="submit" variant="outlined" color="primary" className="save-button">
+	      {/* <Button type="submit" variant="outlined" color="primary" className="save-button">
               Save Image
-            </Button>
-	         </form>
+        </Button> */}
+	    </form>
             </div>
           </div>
         </div>

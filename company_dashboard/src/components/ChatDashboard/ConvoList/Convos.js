@@ -62,11 +62,35 @@ class Convos extends React.Component {
     this.state = {
       conversations: []
     }
+    const intervalID = 0;
   }
 
+  
   componentDidMount() {
-    const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
-    getClosed
+    this.getConvos();
+    // if (this.props.convoStatus === 'queue') {
+    //   this.IntervalID = setInterval(this.getConvos, 5000);
+    // }
+    // const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
+    // getClosed
+    //   .then(response => {
+    //     this.setState({
+    //       conversations: response.data  
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.log(error.message);
+    //   })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+  
+
+  getConvos = () => {
+    console.log('getConvos called');
+    axios.get(`/api/chat/${this.props.convoStatus}`)
       .then(response => {
         this.setState({
           conversations: response.data  
@@ -111,7 +135,7 @@ class Convos extends React.Component {
                         <Paper 
                           className={classes.paper}
                           style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#AAAAAA' : 'white' }}
-                          onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
+                          onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                         >
                           {/* <Grid item
                             onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}

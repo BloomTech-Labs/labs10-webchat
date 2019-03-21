@@ -1,8 +1,6 @@
 .register {
     background-color: #EAEAEA;
     height: 100vh;
-    padding-bottom: 15%;
-    overflow: hidden;
 }
 
 .register .register-top-bar {
@@ -51,7 +49,6 @@
     background-color: white;
     padding-top: 1%;
     padding-bottom: 1%;
-    margin-bottom: 15%;
 }
 
 .register form .register-button {
@@ -76,6 +73,16 @@
 }
 
 @media (max-width: 800px) {
+  .register {
+    height: 100%;
+  }
+  .register form {
+      margin-bottom: 15%;
+      padding-bottom: 5%;
+  }
+  .register .register-top-bar img {
+      margin-left: 15%;
+  }
   .register .header {
       margin-top: 15%;
   }
