@@ -18,7 +18,7 @@ import { Grid } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    // overflowY: 'scroll', 
+    // overflowY: 'scroll',
     height: '100%',
     display: 'flex',
     flexDirection: 'column'
@@ -70,7 +70,7 @@ const styles = theme => ({
   inputForm: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',  
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -185,7 +185,7 @@ class ChatView extends Component {
 
     onSubmit = event =>{
         console.log('\ncurrentConvoSocket/uid in ChatView onSubmit: ', this.props.currentConvoSocket);
-        
+
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
@@ -239,7 +239,7 @@ class ChatView extends Component {
                 <h1>Serving: {customer_name}</h1>
               </div>
 
-               <div className={classes.messageList}> 
+               <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
                         console.log(this.state)
                         console.log(message)
@@ -254,7 +254,7 @@ class ChatView extends Component {
                                     </Avatar>
                                   </Grid>
                                   <Grid>
-                                    <Grid 
+                                    <Grid
                                       item
                                       xs
                                     >
@@ -265,7 +265,7 @@ class ChatView extends Component {
                                         {message.author_name}
                                       </Typography>
                                     </Grid>
-                                    <Grid 
+                                    <Grid
                                       item
                                       xs
                                     >
@@ -289,7 +289,7 @@ class ChatView extends Component {
 
               <div className={classes.inputArea}>
                 {/* Scroll div */}
-                {/* <div 
+                {/* <div
                   style={{ float:"left", clear: "both" }}
                   ref={(el) => { this.messagesEnd = el; }
                 }>
@@ -301,12 +301,12 @@ class ChatView extends Component {
                     type="text"
                     value={this.state.message}
                     onChange={this.onChange}
-                    style ={{ 
+                    style ={{
                       border: '1.5px solid lightgrey',
                       borderRadius: '3px',
                       height: '35px',
                       width: '90vw',
-                      maxWidth: '490px', 
+                      maxWidth: '490px',
                     }}
                     className="messageInput"
                   />
@@ -318,7 +318,7 @@ class ChatView extends Component {
                         label="Send"
                         primary={true}
                         type="submit"
-                      />   
+                      />
                       <RaisedButton
                         label="End Convo"
                         onClick={this.handleCloseConvo}
@@ -398,8 +398,8 @@ export default withStyles(styles)(withRouter(ChatView));
         })}
       </MessageList>
     </div>
-    <form 
-      className="form"    
+    <form
+      className="form"
       onSubmit={this.onSubmit}
     >
 
@@ -407,10 +407,10 @@ export default withStyles(styles)(withRouter(ChatView));
           hintText="message"
           name="message"
           type="text"
-          style ={{ 
+          style ={{
             padding: '20px',
             border: '2px solid red',
-            width: '90vw', 
+            width: '90vw',
             padding:'0px 15px 0px 10px'
           }}
           inputStyle ={{width: '100%' }}
@@ -418,7 +418,7 @@ export default withStyles(styles)(withRouter(ChatView));
           value={this.state.message}
           onChange={this.onChange}
       />
-        
+
       {is_closed ? (
           <p>This conversation is closed.</p>
       ) : (
@@ -428,7 +428,7 @@ export default withStyles(styles)(withRouter(ChatView));
               primary={true}
               type="submit"
           />
-          
+
           <RaisedButton
               label="End Conversation"
               secondary={true}
