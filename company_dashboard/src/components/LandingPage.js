@@ -325,7 +325,7 @@ render() {
               </div>
                 <img
                   className={classes.landing}
-                  src={require("./images/landing.png")}
+                  src={require("./images/pexels.jpg")}
                   alt="landingImage"
                 />
             </Paper>
