@@ -70,7 +70,7 @@ const styles = theme => ({
   inputForm: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center',  
     alignItems: 'center',
   },
 
@@ -90,8 +90,8 @@ class ChatView extends Component {
       rep_name: "",
     };
 
-    // this.socket = io('localhost:5000');
-    this.socket = io('https://webchatlabs10.herokuapp.com');
+    this.socket = io('localhost:5000');
+    // this.socket = io('https://webchatlabs10.herokuapp.com');
 
     this.socket.on(this.props.currentConvoSocket, function(message) {
       console.log('Incoming message:', message);
