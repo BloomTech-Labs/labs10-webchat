@@ -34,35 +34,7 @@ class RepSignUpFormBase extends Component {
         authTokenReceived: false,
     };
   }
-  // Leaving CDM temporarily as example of listener for auth state change
-  componentDidMount() {
-    // this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-    //   if (authUser) {
-    //     this.props.firebase.auth.currentUser.getIdToken().then(idToken => {
-    //       console.log("idToken in CDM: ", idToken);
-    //       // this.setState({ idToken: idToken });
-    //       axios.defaults.headers.common['Authorization'] = idToken;
-    //       axios
-    //         .get('/')
-    //         .then(response => {
-    //           localStorage.setItem('authUser', JSON.stringify(authUser));
-    //           this.setState({
-    //             authUser: authUser,
-    //             authTokenReceived: true,
-    //             // idToken: idToken,
-    //           });
-    //         })
-    //         .catch(err => console.log(err.message));
-    //     });
-    //   } else {
-    //     localStorage.setItem('authUser', null);
-    //     this.setState({
-    //       authUser: null,
-    //       authTokenReceived: false
-    //     });
-    //   }
-    // })
-  }
+  
 
   onSubmit = event => {
     const {email, password } = this.state;
