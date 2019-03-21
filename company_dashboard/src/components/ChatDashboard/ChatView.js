@@ -23,7 +23,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
-  aper: {
+  paper: {
     padding: theme.spacing.unit * 2,
     margin: 'auto',
     maxWidth: 650,
@@ -43,7 +43,7 @@ const styles = theme => ({
   message: {
     marginBottom: 30
   },
-  bigAvatar: {
+  avatar: {
     marginLeft: 15,
     marginTop: 15,
     marginBottom: 15,
@@ -249,7 +249,7 @@ class ChatView extends Component {
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <Avatar alt="Avatar" className={classes.bigAvatar}>
+                                    <Avatar alt="Avatar" className={classes.avatar}>
                                       {message.author_name[0]}
                                     </Avatar>
                                   </Grid>
