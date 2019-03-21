@@ -173,7 +173,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
                 //this.setState({error:err});
       })
 
-         event.preventDefault();
+        //  event.preventDefault();
   };
 
 
@@ -258,10 +258,10 @@ this.props.firebase.auth.onAuthStateChanged(user => {
           Upload
         </Button>
       </label>
-	    {/* <Button type="submit" variant="outlined" color="primary" className="save-button">
+	      {/* <Button type="submit" variant="outlined" color="primary" className="save-button">
               Save Image
-            </Button> */}
-	         </form>
+        </Button> */}
+	    </form>
             </div>
           </div>
         </div>
