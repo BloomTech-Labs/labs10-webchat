@@ -141,7 +141,11 @@ this.props.firebase.auth.onAuthStateChanged(user => {
   //Sets selectedFile in state after selecting an image
 
  fileChangedHandler = (event) => {
-    this.setState({selectedFile: event.target.files[0]});
+    this.setState({
+      selectedFile: event.target.files[0]
+    }, () => {
+      this.onSubmit(event);
+    });
   };
 
 
@@ -169,7 +173,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
                 //this.setState({error:err});
       })
 
-         event.preventDefault();
+        //  event.preventDefault();
   };
 
 
@@ -246,6 +250,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         accept="image/*"
         id="outlined-button-file"
         type="file"
+        // onChange={this.onSubmit()}
         onChange={this.fileChangedHandler}
       />
       <label htmlFor="outlined-button-file">
@@ -253,10 +258,10 @@ this.props.firebase.auth.onAuthStateChanged(user => {
           Upload
         </Button>
       </label>
-	    <Button type="submit" variant="outlined" color="primary" className="save-button">
+	      {/* <Button type="submit" variant="outlined" color="primary" className="save-button">
               Save Image
-            </Button>
-	         </form>
+        </Button> */}
+	    </form>
             </div>
           </div>
         </div>
