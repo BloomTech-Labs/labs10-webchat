@@ -7,21 +7,14 @@ import axios from 'axios';
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-// import AppBar from "@material-ui/core/AppBar";
 import NoSsr from "@material-ui/core/NoSsr";
 import Typography from "@material-ui/core/Typography";
 
-import ActiveConvos from './ActiveConvos';
-import Queue from './Queue';
-import ClosedConvos from './ClosedConvos';
 import Convos from './Convos';
 
 
 function TabContainer(props) {
     return (
-      // <Typography component="div" style={{ padding: 8 * 3 }}>
-      //   {props.children}
-      // </Typography>
       <Typography component="div" style={{ margin: 'none' }}>
         {props.children}
       </Typography>
