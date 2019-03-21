@@ -20,11 +20,52 @@ const styles = theme => ({
     overflow: 'hidden',
     padding: `0 ${theme.spacing.unit * 3}px`,
   },
+  message: {
+    marginBottom: 30
+  },
   paper: {
     maxWidth: 400,
-    margin: `${theme.spacing.unit}px auto`,
+//     margin: `${theme.spacing.unit}px auto`,
+    margin: `auto`,
     padding: theme.spacing.unit * 2,
+    height: 80,
   },
+  repAvatar: {
+    marginLeft: 15,
+    marginTop: 15,
+    marginBottom: 15,
+    width: 40,
+    height: 40,
+  },
+  repName: {
+    padding: 10,
+    paddingLeft: 20,
+    textAlign: 'justify',
+ },
+  repMessage: {
+    paddingLeft: 20,
+    paddingRight: 25,
+    paddingBottom: 30,
+    textAlign: 'justify',
+ },
+  customerAvatar: {
+    marginRight: 15,
+    marginTop: 15,
+    marginBottom: 15,
+    width: 40,
+    height: 40,
+  },
+  customerName: {
+    padding: 10,
+    paddingRight: 20,
+    textAlign: 'justify',
+  },
+  customerMessage: {
+    paddingRight: 20,
+    paddingLeft: 25,
+    paddingBottom: 30,
+    textAlign: 'justify',
+  }
 });
 
 class ChatPage extends Component {
@@ -45,7 +86,6 @@ class ChatPage extends Component {
         //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
-                console.log('Incoming message:', message);
 		addMessage(message);
         });
 
@@ -58,7 +98,6 @@ class ChatPage extends Component {
                 const request = axios.get("/api/customers/getbyUID");
 
                 request.then(response => {
-                        console.log('customer details', response);
                         this.setState({
                                 name: response.data.name
                         });
@@ -89,7 +128,6 @@ class ChatPage extends Component {
 
                 axios.post('/api/chat/newconvo', convo)
                 .then(response => {
-                        console.log("response from POST to /newconvo (convo id):", response)
                         let messageBody = convo.summary;
                         this.setState({
                                 started: true,
@@ -111,8 +149,6 @@ class ChatPage extends Component {
                 .catch(error => {
                         console.log(error.message);
                 });
-
-                console.log('Messages after Customer onStart', this.state.messages);
 
                 // this.setState({message: ""});
                 event.preventDefault();
@@ -145,12 +181,9 @@ class ChatPage extends Component {
 
 
 	render() {
-                console.log("ChatPage state on render: ", this.state);
 		const { classes } = this.props;
                 return(
                 <div className="customer-chat">
-		<MuiThemeProvider>
-		<ThemeProvider>
                 <div>
                 <div>
                 <div>
@@ -167,19 +200,102 @@ class ChatPage extends Component {
 		<div className={classes.root}>
                 <div className="messages">
                 {this.state.messages.map((message, index) => {
-                return(
-		<Paper key={index} className={classes.paper}>
-                <AgentBar>
-                <Avatar src={message.image_url} />
-                <Column>
-                <Title>{message.author_name}</Title>
-                <Subtitle>{message.body}</Subtitle>
-                </Column>
-                </AgentBar>
+                        console.log("== wj == Each message: ", message);
+                        console.log("== wj == ChatPage state on render: ", this.state);
+                        // If message's author uid (Customer or Rep) matches this.state.uid whichh is the customer's uid, we will render that message on the right side
+                        if(message.author_uid === this.state.uid) {
+                                return (
+                                <div className={classes.message}>
+                                        <MuiThemeProvider>
+                                                <Paper className={classes.paper} key={index}>
+                                                        <Grid 
+                                                                container
+                                                                direction="row-reverse"
+                                                                wrap="nowrap"
+                                                                spacing={16}
+                                                        >
+                                                                <Grid item>
+                                                                        <Avatar
+                                                                                alt="Avatar" 
+                                                                                className={classes.customerAvatar}>
+                                                                                {this.state.name[0]}
+                                                                        </Avatar>
+                                                                </Grid>
+                                                                <Grid>
+                                                                        <Grid 
+                                                                        item
+                                                                        xs
+                                                                        >
+                                                                                <Typography
+                                                                                variant="h6"
+                                                                                className={classes.customerName}
+                                                                                >
+                                                                                {message.author_name}
+                                                                                </Typography>
+                                                                        </Grid>
+                                                                <Grid 
+                                                                item
+                                                                xs
+                                                                >
+                                                                        <Typography
+                                                                        variant="componenth6"
+                                                                        className={classes.customerMessage}
+                                                                        >
+                                                                                {message.body}
+                                                                        </Typography>
+                                                                </Grid>
+                                                                </Grid>
 
-		</Paper>
-                );
-		})}
+                                                        </Grid>
+                                                </Paper>
+                                        </MuiThemeProvider>
+                                </div>
+                                )
+                        } else {
+                                return (
+                                <div className={classes.message}>
+                                         <MuiThemeProvider>
+                                                <Paper className={classes.paper} key={index}>
+                                                        <Grid container wrap="nowrap" spacing={16}>
+                                                                <Grid item>
+                                                                        <Avatar 
+                                                                                alt="Avatar" 
+                                                                                className={classes.repAvatar}>
+                                                                                {this.state.name[0]}
+                                                                        </Avatar>
+                                                                </Grid>
+                                                                <Grid>
+                                                                        <Grid 
+                                                                        item
+                                                                        xs
+                                                                        >
+                                                                                <Typography
+                                                                                variant="h6"
+                                                                                className={classes.repName}
+                                                                                >
+                                                                                {message.author_name}
+                                                                                </Typography>
+                                                                        </Grid>
+                                                                <Grid 
+                                                                item
+                                                                xs
+                                                                >
+                                                                        <Typography
+                                                                        variant="componenth6"
+                                                                        className={classes.repMessage}
+                                                                        >
+                                                                                {message.body}
+                                                                        </Typography>
+                                                                </Grid>
+                                                                </Grid>
+
+                                                        </Grid>
+                                                </Paper>
+                                        </MuiThemeProvider>
+                                </div>
+                                )
+                        }
+                        })}
                 </div>
                 <div className="autoscrolldiv">
                         <div style={{ float:"left", clear: "both" }}
@@ -188,6 +304,7 @@ class ChatPage extends Component {
                 </div>
                 <div className="footer">
 		<form onSubmit={this.onSend}>
+                        <MuiThemeProvider>
                	<br/>
 		<br/>
                 <br/>
@@ -199,6 +316,7 @@ class ChatPage extends Component {
             	onChange={this.onChange}
            	/>
           	<br/>
+                
 		{this.state.started ? (
                         <RaisedButton
                         label="send"
@@ -216,6 +334,7 @@ class ChatPage extends Component {
                         onClick={this.onStart}
                         />
                 )}
+                        </MuiThemeProvider>
 		</form>
 
                 </div>
@@ -225,8 +344,6 @@ class ChatPage extends Component {
                 </div>
                 </div>
 		</div>
-		</ThemeProvider>
-		</MuiThemeProvider>
                 </div>
                 );
         }
