@@ -63,7 +63,7 @@ const styles = {
     height: '100%'
   },
   tabLabel: {
-    fontSize: 20
+    fontSize: 24
   }
 };
 
@@ -108,11 +108,6 @@ class ConvoList extends React.Component {
                 value={this.state.value}
                 onChange={this.handleTabSelect}
                 indicatorColor="primary"
-                // TabIndicatorProps={{
-                //   style: {
-                //     backgroundColor: "blue"
-                //   }
-                // }}
                 textColor="primary"
                 centered
                 >
