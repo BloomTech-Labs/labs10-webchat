@@ -183,7 +183,7 @@ const styles = theme => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 250,
+        height: 350,
         marginTop: 12,
       },
 	},
@@ -192,7 +192,7 @@ const styles = theme => ({
       [theme.breakpoints.down('sm')]: {
         // backgroundColor: 'orange',
         width: 300,
-        marginTop: -5,
+        marginTop: 0,
       },
   },
   tiers: {
@@ -204,6 +204,9 @@ const styles = theme => ({
     fontWeight: 'bold',
     fontSize: 16,
     marginTop: 15,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 15,
+      },
   },
 	signup: {
     marginTop: 55,
