@@ -72,9 +72,27 @@ class ConvoList extends React.Component {
         super(props);
         this.state = {
           value: 1,
+          newConvos: []
         };
     }
-    
+
+    componentDidMount() {
+      setInterval(this.getNewConvos, 5000);
+
+    }
+
+    getNewConvos() {
+      axios.get(`/api/chat/queue`)
+      .then(response => {
+        this.setState({
+          newConvos: response.data  
+        });
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
+    }
+
     handleTabSelect= (event, value) => {
       this.setState({ value });
     };
