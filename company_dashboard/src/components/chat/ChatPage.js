@@ -26,26 +26,40 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     height: 75,
   },
-  bigAvatar: {
+  repAvatar: {
     marginLeft: 15,
     marginTop: 15,
     marginBottom: 15,
-    width: 55,
-    height: 55,
+    width: 40,
+    height: 40,
   },
-  messageAuthor: {
-    textAlign: 'justify',
+  repName: {
+//     textAlign: 'justify',
     padding: 10,
     paddingLeft: 20,
-        // fontWeight: 'bold'
-      },
-      messageBody: {
-    // marginTop: 20,
+ },
+  repMessage: {
     paddingLeft: 20,
     paddingRight: 25,
     paddingBottom: 30,
-    textAlign: 'justify'
-      },
+//     textAlign: 'justify'
+ },
+  customerAvatar: {
+    marginRight: 15,
+    marginTop: 15,
+    marginBottom: 15,
+    width: 40,
+    height: 40,
+  },
+  customerName: {
+    padding: 10,
+    paddingRight: 20
+  },
+  customerMessage: {
+    paddingRight: 20,
+    paddingLeft: 25,
+    paddingBottom: 30,
+  }
 });
 
 class ChatPage extends Component {
@@ -197,7 +211,7 @@ class ChatPage extends Component {
                                                 <Grid item>
                                                         <Avatar
                                                                 alt="Avatar" 
-                                                                className={classes.bigAvatar}>
+                                                                className={classes.customerAvatar}>
                                                                 {this.state.name[0]}
                                                         </Avatar>
                                                 </Grid>
@@ -208,7 +222,7 @@ class ChatPage extends Component {
                                                         >
                                                                 <Typography
                                                                 variant="h6"
-                                                                className={classes.messageAuthor}
+                                                                className={classes.customerName}
                                                                 >
                                                                 {message.author_name}
                                                                 </Typography>
@@ -219,7 +233,7 @@ class ChatPage extends Component {
                                                 >
                                                         <Typography
                                                         variant="h6"
-                                                        className={classes.messageBody}
+                                                        className={classes.customerMessage}
                                                         >
                                                                 {message.body}
                                                         </Typography>
@@ -236,7 +250,7 @@ class ChatPage extends Component {
                                                 <Grid item>
                                                         <Avatar 
                                                                 alt="Avatar" 
-                                                                className={classes.bigAvatar}>
+                                                                className={classes.repAvatar}>
                                                                 {this.state.name[0]}
                                                         </Avatar>
                                                 </Grid>
@@ -247,7 +261,7 @@ class ChatPage extends Component {
                                                         >
                                                                 <Typography
                                                                 variant="h6"
-                                                                className={classes.messageAuthor}
+                                                                className={classes.repName}
                                                                 >
                                                                 {message.author_name}
                                                                 </Typography>
@@ -258,7 +272,7 @@ class ChatPage extends Component {
                                                 >
                                                         <Typography
                                                         variant="h6"
-                                                        className={classes.messageBody}
+                                                        className={classes.repMessage}
                                                         >
                                                                 {message.body}
                                                         </Typography>
