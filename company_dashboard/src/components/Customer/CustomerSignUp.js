@@ -110,7 +110,7 @@ class CustomerSignUpFormBase extends Component {
 
 render() {
     const {email, password, password1, error, name, summary} = this.state;
-    const condition = password === '' || password1 === '' || email === '' || name === ''; // || summary === '';
+    const condition = password === '' || password1 === '' || email === '' || name === ''; 
 
 
     return (
@@ -168,17 +168,6 @@ render() {
                   value={this.state.password1}
                   onChange={this.onChange}
                 />
-
-                {/* <TextField
-                  style = {{width: '65%'}}
-                  hintText="summary"
-                  floatingLabelText="What can we help you with?"
-                  required={true}
-                  name="summary"
-                  type="text"
-                  value={this.state.summary}
-                  onChange={this.onChange}
-                /> */}
 
                 <RaisedButton
                     className="customer-signup-button"
