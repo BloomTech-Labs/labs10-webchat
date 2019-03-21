@@ -185,102 +185,9 @@ class ChatPage extends Component {
                         console.log("== wj == Each message: ", message);
                         console.log("== wj == ChatPage state on render: ", this.state);
                         // If message's author uid (Customer or Rep) matches this.state.uid whichh is the customer's uid, we will render that message on the right side
-                        // if(message.author_uid === this.state.uid) {
-                        //         return (
-                                // <Paper className={classes.paper} key={index}>
-                                //         <Grid 
-                                //                 container
-                                //                 direction="row-reverse"
-                                //                 wrap="nowrap"
-                                //                 spacing={16}
-                                //         >
-                                //                 <Grid item>
-                                //                         <Avatar
-                                //                                 alt="Avatar" 
-                                //                                 className={classes.bigAvatar}>
-                                //                                 {this.state.name[0]}
-                                //                         </Avatar>
-                                //                 </Grid>
-                                //                 <Grid>
-                                //                         <Grid 
-                                //                         item
-                                //                         xs
-                                //                         >
-                                //                                 <Typography
-                                //                                 variant="h6"
-                                //                                 className={classes.messageAuthor}
-                                //                                 >
-                                //                                 {message.author_name}
-                                //                                 </Typography>
-                                //                         </Grid>
-                                //                 <Grid 
-                                //                 item
-                                //                 xs
-                                //                 >
-                                //                         <Typography
-                                //                         variant="h6"
-                                //                         className={classes.messageBody}
-                                //                         >
-                                //                                 {message.body}
-                                //                         </Typography>
-                                //                 </Grid>
-                                //                 </Grid>
-
-                                //         </Grid>
-                                // </Paper>
-                        //         )
-                        // } else {
-                        //         return (
-                                // <Paper className={classes.paper} key={index}>
-                                //         <Grid container wrap="nowrap" spacing={16}>
-                                //                 <Grid item>
-                                //                         <Avatar 
-                                //                                 alt="Avatar" 
-                                //                                 className={classes.bigAvatar}>
-                                //                                 {this.state.name[0]}
-                                //                         </Avatar>
-                                //                 </Grid>
-                                //                 <Grid>
-                                //                         <Grid 
-                                //                         item
-                                //                         xs
-                                //                         >
-                                //                                 <Typography
-                                //                                 variant="h6"
-                                //                                 className={classes.messageAuthor}
-                                //                                 >
-                                //                                 {message.author_name}
-                                //                                 </Typography>
-                                //                         </Grid>
-                                //                 <Grid 
-                                //                 item
-                                //                 xs
-                                //                 >
-                                //                         <Typography
-                                //                         variant="h6"
-                                //                         className={classes.messageBody}
-                                //                         >
-                                //                                 {message.body}
-                                //                         </Typography>
-                                //                 </Grid>
-                                //                 </Grid>
-
-                                //         </Grid>
-                                // </Paper>
-                        //         )
-                        // }
-                        return(
-                        // <Paper key={index} className={classes.paper}>
-                        // <AgentBar>
-                        // <Avatar src={message.image_url} />
-                        // <Column>
-                        // <Title>{message.author_name}</Title>
-                        // <Subtitle>{message.body}</Subtitle>
-                        // </Column>
-                        // </AgentBar>
-
-                        // </Paper>
-                        <Paper className={classes.paper} key={index}>
+                        if(message.author_uid === this.state.uid) {
+                                return (
+                                <Paper className={classes.paper} key={index}>
                                         <Grid 
                                                 container
                                                 direction="row-reverse"
@@ -321,7 +228,47 @@ class ChatPage extends Component {
 
                                         </Grid>
                                 </Paper>
-                        );
+                                )
+                        } else {
+                                return (
+                                <Paper className={classes.paper} key={index}>
+                                        <Grid container wrap="nowrap" spacing={16}>
+                                                <Grid item>
+                                                        <Avatar 
+                                                                alt="Avatar" 
+                                                                className={classes.bigAvatar}>
+                                                                {this.state.name[0]}
+                                                        </Avatar>
+                                                </Grid>
+                                                <Grid>
+                                                        <Grid 
+                                                        item
+                                                        xs
+                                                        >
+                                                                <Typography
+                                                                variant="h6"
+                                                                className={classes.messageAuthor}
+                                                                >
+                                                                {message.author_name}
+                                                                </Typography>
+                                                        </Grid>
+                                                <Grid 
+                                                item
+                                                xs
+                                                >
+                                                        <Typography
+                                                        variant="h6"
+                                                        className={classes.messageBody}
+                                                        >
+                                                                {message.body}
+                                                        </Typography>
+                                                </Grid>
+                                                </Grid>
+
+                                        </Grid>
+                                </Paper>
+                                )
+                        }
                         })}
                 </div>
                 <div className="autoscrolldiv">
