@@ -178,7 +178,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
 
     return (
       <div className="account-settings-container">
-        {/* <Navigation /> */}
+        <Navigation />
       <div className="account-settings">
           <div className="left-container">
 
