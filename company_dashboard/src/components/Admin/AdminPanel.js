@@ -152,26 +152,24 @@ class AdminPanelBaseForm extends React.Component {
 
   //onAuthStateChanged required before getIdToken() to ensure that the Auth object isn't in an intermediate state—such as initialization—when you get the current user.	Without onAuthStateChanged on refreshing currentUser.getIdToken() was null since it's async
 
-   this.props.firebase.auth.onAuthStateChanged(user => {
-  	if (user) {
+    this.props.firebase.auth.onAuthStateChanged(user => {
+  	  if (user) {
+	      this.props.firebase.auth.currentUser.getIdToken()
+      	  .then(idToken => {
+	          console.log("idToken after in Admin panel: ", idToken);
+            axios.defaults.headers.common['Authorization'] = idToken;
 
-	this.props.firebase.auth.currentUser.getIdToken()
-      	.then(idToken => {
+            //get  details like componay name, motto, image url
+            //const request = axios.get(`/api/reps/adminpanel/${id}`);
+            const request = axios.get("/api/reps/alldetails");
+            request
+              .then(response => {
+                // console.log('respnse.data is:', response.data);
+                // console.log('companyname is: ', response.data.name);
+                // console.log('on client side image_id is:', response.data.image_id);
 
-	console.log("idToken after in Admin panel: ", idToken);
-        axios.defaults.headers.common['Authorization'] = idToken;
-
-	      //get  details like componay name, motto, image url
-	      //const request = axios.get(`/api/reps/adminpanel/${id}`);
-	      const request = axios.get("/api/reps/alldetails");
-        request
-          .then(response => {
-            // console.log('respnse.data is:', response.data);
-            // console.log('companyname is: ', response.data.name);
-            // console.log('on client side image_id is:', response.data.image_id);
-
-            //get all the team members that belong to the same comapny as the admin
-	    //const app_req = axios.get(`/api/reps/allreps/${id}`);
+                //get all the team members that belong to the same comapny as the admin
+	              //const app_req = axios.get(`/api/reps/allreps/${id}`);
 
             const app_req = axios.get("/api/reps/allreps");
             app_req
@@ -198,43 +196,28 @@ class AdminPanelBaseForm extends React.Component {
             console.log(error.message);
             this.setState({error:error});
           })
-	    })
-      .catch(error => {            // if Firebase getIdToken throws an error
-        console.log(error.message);
-	      this.setState({ error:error });
-      })
-}
-	else {
-		 this.props.history.push('/repslogin');
-	}
-   });
+        })
+        .catch(error => {            // if Firebase getIdToken throws an error
+          console.log(error.message);
+          this.setState({ error:error });
+        })
+      } else {
+          this.props.history.push('/repslogin');
+      }
+    });
   };
 
-  handleClick = () => {
-    /*const id = this.state.rep_id;
-    const request = axios.delete(`/api/reps/${id}`);
-    request
+
+  removeRep = id => {
+    axios.delete(`/api/reps/${id}`)
       .then(response => {
-        // console.log('delete response', response.data);
-
-        // get all reps that belong to the same company as admin:
-        const comp_id = this.state.company_id;
-        // console.log('comp_id', comp_id);
-        const app_req = axios.get(`/api/reps/company/${comp_id}`);
-        app_req
-          .then(r => {
-            // console.log('all reps are:', r.data);
-            this.setState({allreps: r.data});
-          })
-          .catch(error => {
-            console.log(error.message);
-            this.setState({error:error});
-          });
-
-        })
-        .catch(error => {
-          console.log(error.message);
-        })*/
+        console.log('response from removeRep: ', response);
+        this.reloadRecords();
+      })
+      .catch(error => {
+        console.log(error.message);
+        this.setState({error:error});
+      })
   };
 
   reloadRecords = () => {
@@ -288,7 +271,9 @@ class AdminPanelBaseForm extends React.Component {
                           <RepRecord
                           key={index}
                           rep={rep}
+                          id={rep.id}
                           reloadRecords={this.reloadRecords}
+                          removeRep={this.removeRep}
                           />
                         );
                       })}

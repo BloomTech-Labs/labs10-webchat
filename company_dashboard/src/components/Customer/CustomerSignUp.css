@@ -9,7 +9,7 @@
   align-items: center;
   margin: auto;
   padding-top: 1%;
-  margin-bottom: 5%;
+  margin-bottom: 15%;
   background-color: #3BBCD4;
   height: 65px;
   color: white;
@@ -53,9 +53,8 @@
   font-size: .8em;
 }
 
-
 .customer-signup form a {
   color: #4C7AF1;
   padding-bottom: 0;
-  margin-top: 5%;
+  margin-top: 15%;
 }

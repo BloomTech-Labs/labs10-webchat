@@ -9,10 +9,36 @@
   align-items: center;
   margin: auto;
   padding-top: 1%;
-  margin-bottom: 8%;
+  margin-bottom: 70px;
   background-color: #3BBCD4;
   height: 80px;
   color: white;
   font-size: 19px;
   font-weight: 200;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.customer-chat .messages {
+  margin-top: 100px;
+}
+.customer-chat .customer-message {
+  width: 60%;
+  margin-left: 32%;
+  height: 100%;
+}
+
+.customer-chat .rep-message {
+  width: 60%;
+  margin-left: 0%;
+  height: 100%;
+}
+
+.customer-chat .rep-message .MuiGrid-item-38 {
+  height: 60px;
+}
+
+.customer-chat .rep-message .rep-message-text {
+
 }
