@@ -47,7 +47,7 @@ router.post('/addSub', async (req, res) => {
     }
 });
 
-router.get('/getSub/:id', async (req, res) => {
+router.get('/getSubMax/:id', async (req, res) => {
     const company_id = req.params.id; 
     console.log('company_id in getSub endpoint: ', company_id);
     const noSubTeamSize = 4;                              // max_reps to return for 'Free' plan if no sub exists
@@ -62,6 +62,24 @@ router.get('/getSub/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+});
+
+router.get('/getSub/', async (req, res) => {
+  const repInfo = await repDb.getByUid(req.body.uid)
+  const company_id = repInfo.company_id;
+  console.log('company_id in getSub endpoint: ', company_id);
+  
+  try {
+      const existingSub = await db.getSub(company_id); 
+      res.status(200).json(existingSub);
+      // if(!existingSub) {
+      //     res.status(200).json(noSubTeamSize);          // if no sub, return max-reps for 'Free' plan
+      // } else {
+      //     res.status(200).json(existingSub);
+      // }
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
 });
 
 

@@ -1,7 +1,6 @@
 .customer-chat {
   background-color: #F9FAFF;
   height: 100%;
-  padding-bottom: 80%;
 }
 
 .customer-chat-top-bar {
@@ -10,8 +9,8 @@
   align-items: center;
   margin: auto;
   padding-top: 1%;
-  margin-bottom: 10px;
-  background-color: gray;
+  margin-bottom: 8%;
+  background-color: #3BBCD4;
   height: 80px;
   color: white;
   font-size: 19px;

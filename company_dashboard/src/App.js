@@ -23,7 +23,7 @@ import LiveFeed from './components/rep1/LiveFeed';
 import ChatRepPage from './components/rep1/ChatRepPage';
 import ChatDashboard from './components/ChatDashboard/ChatDashboard';
 import Pricing from './components/settings/Pricing';
-import Billing from './components/settings/Billing';
+import Billing from './components/settings/Billing/V1Billing';
 import Developers from './components/developers';
 
 
