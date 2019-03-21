@@ -48,20 +48,26 @@ class CustomerSignUpFormBase extends Component {
     }
 
     else{
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then(authUser => {
-            console.log(authUser.user.uid);
+      this.props.firebase
+        .doCreateUserWithEmailAndPassword(email, password)
+        .then(authUser => {
+              console.log(authUser.user.uid);
 
-	this.props.firebase.auth.currentUser.getIdToken()
-          .then(idToken => {
-            console.log("idToken from curentUser: ", idToken);
-            axios.defaults.headers.common['Authorization'] = idToken;
-	    console.log('company id in Customer Signup page is:', this.state.company_id);
-	    const data ={company_id: this.state.company_id, name: this.state.name, email: this.state.email, summary: this.state.summary, uid:authUser.user.uid}
+	    this.props.firebase.auth.currentUser.getIdToken()
+        .then(idToken => {
+          console.log("idToken from curentUser: ", idToken);
+          axios.defaults.headers.common['Authorization'] = idToken;
+	        console.log('company id in Customer Signup page is:', this.state.company_id);
+	        const data = {
+            company_id: this.state.company_id, 
+            name: this.state.name, 
+            email: this.state.email, 
+            summary: 'customer summary', 
+            uid:authUser.user.uid
+          }
 
-	    	//add customer details to customer table
-		const request = axios.post('/api/customers', data);
+	    	  //add customer details to customer table
+		      const request = axios.post('/api/customers', data);
 
         	request.then(response => {
                 console.log('newly added customer', response.data);
@@ -104,7 +110,7 @@ class CustomerSignUpFormBase extends Component {
 
 render() {
     const {email, password, password1, error, name, summary} = this.state;
-    const condition = password === '' || password1 === '' || email === '' || name === '' || summary === '';
+    const condition = password === '' || password1 === '' || email === '' || name === ''; 
 
 
     return (
@@ -160,17 +166,6 @@ render() {
                   type="password"
                   required={true}
                   value={this.state.password1}
-                  onChange={this.onChange}
-                />
-
-                <TextField
-                  style = {{width: '65%'}}
-                  hintText="summary"
-                  floatingLabelText="What can we help you with?"
-                  required={true}
-                  name="summary"
-                  type="text"
-                  value={this.state.summary}
                   onChange={this.onChange}
                 />
 
