@@ -62,7 +62,8 @@ class RepSignUpFormBase extends Component {
                   pathname: ROUTES.APPROVED_REP_REGISTER,
                   state: {
                     company_id: company_id.data,  //company_id.data gives the company_id int value
-                    uid: authUser.user.uid        // authUser returned from Firebase
+                    uid: authUser.user.uid,        // authUser returned from Firebase
+                    email: email
                   }
                 });
               })
