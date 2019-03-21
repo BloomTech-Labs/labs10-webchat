@@ -174,7 +174,7 @@ const styles = theme => ({
 	},
 	pricing: {
 		width: '100%',
-		height: 200,
+		height: 250,
 		display: 'flex',
 		justifyContent: 'space-around',
     // backgroundColor: 'purple',
@@ -194,7 +194,17 @@ const styles = theme => ({
         width: 300,
         marginTop: -5,
       },
-	},
+  },
+  tiers: {
+    textAlign: 'justify',
+    fontSize: 15,
+  },
+  tiersInfo: {
+    color: '#004D40',
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginTop: 15,
+  },
 	signup: {
     marginTop: 55,
     margin: 'auto',
@@ -374,8 +384,11 @@ render() {
                 <Typography variant='h4' gutterBottom>
                   Subscribe to Chattr
                 </Typography>
-                <Typography variant='body1' gutterBottom>
-                  All companies get our features for just one payment of $30
+                <Typography className={classes.tiers} variant='body1' gutterBottom>
+                  - Try for Free <br/>
+                  - Subscribe Basic for $30/mo <br/>
+                  - Subscribe Enterprise for $50/mo <br/>
+                  <div className={classes.tiersInfo}> Click the Get Started button for more info</div>
                 </Typography>
               </div>
               <a href='/repregister'>
