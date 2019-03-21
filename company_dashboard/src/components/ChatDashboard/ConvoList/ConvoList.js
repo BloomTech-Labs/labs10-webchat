@@ -64,7 +64,7 @@ const styles = {
     height: '100%'
   },
   tabLabel: {
-    fontSize: 24
+    fontSize: 24,
   }
 };
 
@@ -137,14 +137,14 @@ class ConvoList extends React.Component {
                       <div>
                         <h1 className={classes.tabLabel}>NEW</h1>
                         {this.state.newConvos.length > 0 ? (
-                          <h1>{this.state.newConvos.length}</h1>
+                          <p>{this.state.newConvos.length}</p>
                         ) : (
                           ''
                         )}
                       </div>
                     }
                   />
-                  <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
+                <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
                   <Tab label={<h1 className={classes.tabLabel}>Closed</h1>} />
               </Tabs>
             </Paper>

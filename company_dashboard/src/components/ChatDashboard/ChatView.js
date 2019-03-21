@@ -30,14 +30,36 @@ const styles = theme => ({
     height: 130
   },
   chatViewHead: {
-    // flexShrink: 0
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    justifyContent: 'spaceEvenly',
+    padding: '0',
+    paddingLeft: '5%',
+    height: '100px',
+    borderBottom: '.5px lightgray solid',
+  },
+  chatViewHeadName: {
+    fontSize: '24px',
+    fontWeight: '300',
+    padding: '0',
+    marginBottom: '-2%',
+  },
+  chatViewHeadSummary: {
+    fontSize: '18px',
+    fontWeight: '200',
+    padding: '0',
   },
   messageList: {
-    margin: 70,
+    marginBottom: 70,
+    marginTop: 20,
     overflowY: 'scroll',
+    overflowX: 'hidden',
     // maxHeight: '700px',
     flexGrow: 1,
     padding: 12,
+    width: '100%',
+    backgroundColor: 'white',
 
   },
   message: {
@@ -65,7 +87,7 @@ const styles = theme => ({
   },
   inputArea: {
     height: '40px',
-    marginBottom: '20px'
+    marginBottom: '5%'
   },
   inputForm: {
     display: 'flex',
@@ -236,7 +258,8 @@ class ChatView extends Component {
 
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
-                <h1>Serving: {customer_name}</h1>
+                <p className={classes.chatViewHeadName}>{customer_name}</p>
+                <p className={classes.chatViewHeadSummary}>{conversation_summary}</p>
               </div>
 
                <div className={classes.messageList}>
@@ -305,6 +328,7 @@ class ChatView extends Component {
                       border: '1.5px solid lightgrey',
                       borderRadius: '3px',
                       height: '35px',
+                      padding: '0',
                       width: '90vw',
                       maxWidth: '490px',
                     }}

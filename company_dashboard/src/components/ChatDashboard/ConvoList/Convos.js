@@ -45,16 +45,19 @@ const styles = theme => ({
     }
   },
   queueTitle: {
-    positioin: 'absolute',
-    right: 20,
-    top: 20
+    fontSize: '24px',
+    fontWeight: 300,
+    marginTop: '5px',
   },
   queueSummary: {
-
+    fontSize: '20px',
+    fontWeight: 200,
+    marginTop: '0',
   },
   listFooter: {
     height: '100px',
-    marginTop: '75px'
+    marginTop: '75px',
+    fontSize: '20px',
   }
 });
 
@@ -136,7 +139,7 @@ class Convos extends React.Component {
                       <MuiThemeProvider>
                         <Paper
                           className={classes.paper}
-                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E1F5FF' : 'white' }}
+                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
                           onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
                         >
                           {/* <Grid item

@@ -5,6 +5,7 @@
     margin-left: 250px;
     height: 100vh;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .chat-dash-left-container {
@@ -15,7 +16,12 @@
 .chat-dash-right-container {
     border: 1px solid lightgray;
     width: 65%;
-    background-color: #EAEAEA;
+    overflow-x: hidden;
+}
+
+.chat-dash-right-container p {
+  font-size: 22px;
+  margin-top: 5%;
 }
 
 @media (max-width: 1250px) {
