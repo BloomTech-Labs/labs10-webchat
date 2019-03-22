@@ -313,7 +313,6 @@ class ChatView extends Component {
                           </div>
                         );
                     })}
-
               </div>
               {currentConvoClosed ? (
                 <h1>This conversation is closed.</h1>
