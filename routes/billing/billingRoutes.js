@@ -9,7 +9,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 router.post('/addSub', async (req, res) => {
     let plan = req.body.subscription.plan;  // comes from Billing form
     let uid = req.body.uid;                  // rep uid attached to body in firebase auth check on base url
-
+    console.log('plan and uid in addSub: ', plan, uid);
     let rep_info = await repDb.getByUid(uid);               // get info for current rep using uid
     let company_id = rep_info.company_id;              // take company_id from rep info
     let existingSub = await db.getSub(company_id);          // check Database for an existing subscription
@@ -40,6 +40,7 @@ router.post('/addSub', async (req, res) => {
 
         res.status(201).json({ message: `subscription created`, inserted })
       } catch (err) {
+        console.log(err.message);
         res.status(500).json({ error: err })
       }
     } else {
