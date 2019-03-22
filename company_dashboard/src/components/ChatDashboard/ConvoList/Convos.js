@@ -67,31 +67,12 @@ class Convos extends React.Component {
     this.state = {
       conversations: []
     }
-    const intervalID = 0;
+    
   }
-
 
   componentDidMount() {
     this.getConvos();
-    // if (this.props.convoStatus === 'queue') {
-    //   this.IntervalID = setInterval(this.getConvos, 5000);
-    // }
-    // const getClosed = axios.get(`/api/chat/${this.props.convoStatus}`);
-    // getClosed
-    //   .then(response => {
-    //     this.setState({
-    //       conversations: response.data
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log(error.message);
-    //   })
   }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalID);
-  }
-
 
   getConvos = () => {
     console.log('getConvos called');
@@ -99,7 +80,7 @@ class Convos extends React.Component {
       .then(response => {
         this.setState({
           conversations: response.data
-        });
+        }, () => console.log(this.state.conversations));
       })
       .catch(error => {
         console.log(error.message);

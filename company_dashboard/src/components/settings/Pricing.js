@@ -23,8 +23,12 @@ const styles = theme => ({
       backgroundColor: theme.palette.common.white,
     },
   },
+  title: {
+      color: '#ffffff',
+  },	
   appBar: {
     position: 'relative',
+    backgroundColor: '#323439',
   },
   toolbarTitle: {
     flex: 1,
@@ -89,7 +93,7 @@ const styles = theme => ({
     },
   },
   cardHeader: {
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: '#323439',
       [theme.breakpoints.down('sm')]: {
         // backgroundColor: 'orange',
       },
@@ -119,21 +123,21 @@ const tiers = [
   {
     title: 'Free',
     price: '0',
-    description: ['1 representative', 'Help center access', '24/7 live chat'],
+    description: ['5 representative', 'Help center access', '24/7 live chat'],
     buttonText: 'Sign up for free',
     buttonVariant: 'outlined',
   },
   {
     title: 'Basic',
     price: '30',
-    description: ['5 representative', 'Help center access', '24/7 live chat'],
+    description: ['10 representatives', 'Help center access', '24/7 live chat'],
     buttonText: 'Get Started',
-    buttonVariant: 'contained',
+    buttonVariant: 'outlined',
   },
   {
     title: 'Enterprise',
     price: '50',
-    description: ['30 representative', 'Help center access', '24/7 live chat'],
+    description: ['30 representatives', 'Help center access', '24/7 live chat'],
     buttonText: 'Get Started',
     buttonVariant: 'outlined',
   },
@@ -189,6 +193,7 @@ class Pricing extends Component {
               <Grid className={classes.table} item key={tier.title} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
                 <Card className={classes.card}>
                   <CardHeader
+		    classes={{title: classes.title,}}
                     title={tier.title}
                     subheader={tier.subheader}
                     titleTypographyProps={{ align: 'center' }}

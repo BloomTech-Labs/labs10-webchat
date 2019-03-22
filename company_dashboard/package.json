@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.9",
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
@@ -20,6 +21,7 @@
     "react-router-dom": "^4.3.1",
     "react-script-tag": "^1.1.2",
     "react-scripts": "2.1.5",
+    "react-spinners": "^0.5.3",
     "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^2.0.3",
     "react-virtualized": "^9.21.0",

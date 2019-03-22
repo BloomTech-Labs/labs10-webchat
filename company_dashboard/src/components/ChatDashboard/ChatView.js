@@ -112,8 +112,14 @@ class ChatView extends Component {
       rep_name: "",
     };
 
+    if(process.env.NODE_ENV === 'development') {
+      this.socket = io('localhost:5000');
+    } else {
+      this.socket = io('https://webchatlabs10.herokuapp.com');
+    }
+    // this.socket = io(serverUrl);
     // this.socket = io('localhost:5000');
-     this.socket = io('https://webchatlabs10.herokuapp.com');
+    //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
     this.socket.on(this.props.currentConvoSocket, function(message) {
       console.log('Incoming message:', message);
@@ -250,7 +256,7 @@ class ChatView extends Component {
 
 
     render() {
-        const is_closed = this.state.is_closed;
+        const currentConvoClosed = this.props.currentConvoClosed;
         const customer_name = `${this.props.customerName}`;
         const conversation_summary = `${this.props.summary}`
         const { classes } = this.props;
@@ -307,10 +313,11 @@ class ChatView extends Component {
                           </div>
                         );
                     })}
-
               </div>
-
-              <div className={classes.inputArea}>
+              {currentConvoClosed ? (
+                <h1>This conversation is closed.</h1>
+              ) : (
+                <div className={classes.inputArea}>
                 {/* Scroll div */}
                 {/* <div
                   style={{ float:"left", clear: "both" }}
@@ -350,7 +357,9 @@ class ChatView extends Component {
                     </MuiThemeProvider>
                   </div>
                 </form>
-            </div>
+                </div>
+              )}
+              
           </div>
     );
   }
