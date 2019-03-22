@@ -110,7 +110,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
     });
   };
 
-  handleSubmit = (event) => {
+  editRepDetails = (event) => {
     const user = {
       name: this.state.name,
       phone_number: this.state.phone_number,
@@ -144,14 +144,13 @@ this.props.firebase.auth.onAuthStateChanged(user => {
     this.setState({
       selectedFile: event.target.files[0]
     }, () => {
-      this.onSubmit(event);
+      this.imageUpload(event);
     });
   };
 
 
-  onSubmit = event => {
-    console.log('inside onSubmit');
-    console.log('inside onSubmit file is', this.state.selectedFile);
+  imageUpload = event => {
+    console.log('inside imageUpload file is', this.state.selectedFile);
 
     let data = new FormData();
      data.append('uid', this.state.uid);
@@ -170,7 +169,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
       })
       .catch(err => {
                 console.log(err.message);
-                //this.setState({error:err});
+                this.setState({error:err});
       })
 
         //  event.preventDefault();
@@ -186,7 +185,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
       <div className="account-settings">
           <div className="left-container">
 
-	    <form onSubmit={this.handleSubmit}>
+	    <form onSubmit={this.editRepDetails}>
             <h2>Edit Account Information</h2>
             <TextField
               id="outlined-name"
@@ -245,12 +244,12 @@ this.props.firebase.auth.onAuthStateChanged(user => {
               />
               <h2>Your Profile Photo</h2>
 
-	    <form className="image-upload" onSubmit={this.onSubmit}>
+	    <form className="image-upload" onSubmit={this.imageUpload}>
         <input
         accept="image/*"
         id="outlined-button-file"
         type="file"
-        // onChange={this.onSubmit()}
+        // onChange={this.imageUpload()}
         onChange={this.fileChangedHandler}
       />
       <label htmlFor="outlined-button-file">
@@ -269,13 +268,6 @@ this.props.firebase.auth.onAuthStateChanged(user => {
     );
   }
 }
-
-//AccountSettings.propTypes = {
-//  classes: PropTypes.object.isRequired
-//};
-
-
-//export default withStyles(styles)(AccountSettings);
 
 
 AccountSettingsBaseForm.propTypes = {
