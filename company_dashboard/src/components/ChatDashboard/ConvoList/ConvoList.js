@@ -63,8 +63,23 @@ const styles = {
   tabs1: {
     height: '100%'
   },
+  tabElement: {
+    width: '30%',
+    minWidth: 50,
+    maxWidth: 200
+  },
+  tab: {
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
   tabLabel: {
-    fontSize: 24,
+    fontSize: 16,
+    padding: 0
+  },
+  convoCount: {
+    padding: 0,
+    color: '#69DB30',
+    'font-weight': 'bold'
   }
 };
 
@@ -73,28 +88,34 @@ class ConvoList extends React.Component {
         super(props);
         this.state = {
           value: 1,
-          newConvos: []
+          newConvosCount: 0
         };
+        this.intervalID = 0;
     }
 
-    // componentDidMount() {
-    //   setInterval(this.getNewConvos, 5000);
+    
 
-    // }
+    componentDidMount() {
+      this.intervalID = setInterval(this.getNewConvos, 5000);
+    }
 
-    // getNewConvos() {
-    //   axios.get(`/api/chat/queue`)
-    //   .then(response => {
-    //     // if (response.data.length > this.state.newConvos.length) {
-    //       this.setState({
-    //         newConvos: response.data
-    //       });
-    //     // }
-    //   })
-    //   .catch(error => {
-    //     console.log(error.message);
-    //   })
-    // }
+    componentWillUnmount() {
+      clearInterval(this.intervalID);
+    }
+
+    getNewConvos= () => {
+      axios.get(`/api/chat/queue`)
+      .then(response => {
+        // if (response.data.length > this.state.newConvos.length) {
+          this.setState({
+            newConvosCount: response.data.length
+          }, () => console.log('newConvosLength: ', this.state.newConvosLength));
+        // }
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
+    }
 
     handleTabSelect= (event, value) => {
       this.setState({ value });
@@ -118,7 +139,7 @@ class ConvoList extends React.Component {
     render() {
       const { classes } = this.props;
       const { value } = this.state;
-
+      const newConvosCount = this.state.newConvosCount;
       return (
 
         <div className={classes.root}>
@@ -133,19 +154,20 @@ class ConvoList extends React.Component {
                 centered
                 >
                   <Tab
+                    className={classes.tabElement}
                     label={
-                      <div>
+                      <div className={classes.tab}>
                         <h1 className={classes.tabLabel}>NEW</h1>
-                        {this.state.newConvos.length > 0 ? (
-                          <p>{this.state.newConvos.length}</p>
-                        ) : (
-                          ''
-                        )}
+                        
+                          {newConvosCount > 0 ? ( <span className={classes.convoCount}>{newConvosCount}</span>
+                            ) : ('')
+                          }
+                        
                       </div>
                     }
                   />
-                <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
-                  <Tab label={<h1 className={classes.tabLabel}>Closed</h1>} />
+                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>OPEN</h1>} />
+                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} />
               </Tabs>
             </Paper>
           </div>

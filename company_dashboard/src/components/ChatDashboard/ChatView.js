@@ -112,8 +112,14 @@ class ChatView extends Component {
       rep_name: "",
     };
 
+    if(process.env.NODE_ENV === 'development') {
+      this.socket = io('localhost:5000');
+    } else {
+      this.socket = io('https://webchatlabs10.herokuapp.com');
+    }
+    // this.socket = io(serverUrl);
     // this.socket = io('localhost:5000');
-     this.socket = io('https://webchatlabs10.herokuapp.com');
+    //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
     this.socket.on(this.props.currentConvoSocket, function(message) {
       console.log('Incoming message:', message);
