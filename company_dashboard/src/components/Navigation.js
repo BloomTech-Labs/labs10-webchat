@@ -102,7 +102,7 @@ render() {
         <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
         <div className="navigation-links">
           <Link to={ROUTES.CHAT_DASHBOARD}>Chat Dashboard</Link>
-          <Link to={ROUTES.ACCOUNT_SETTINGS}></Link>
+          <Link to={ROUTES.ACCOUNT_SETTINGS}>Account Settings</Link>
           <SignOut />
         </div>
       </div>

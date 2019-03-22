@@ -6,7 +6,7 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('images').insert([
-        {id: 1, url: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_960_720.png'}
+        {id: 1, url: 'https://res.cloudinary.com/dvgfmipda/image/upload/v1553212670/pbp9mypnsvfnex9dxbo7.png'}
       ]);
     });
 };
