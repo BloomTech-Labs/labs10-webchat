@@ -72,7 +72,8 @@ class RepSignUpFormBase extends Component {
                 this.props.history.push({             // send the user to register a new company
                   pathname: ROUTES.COMPANY_REGISTER,
                   state: {
-                    uid: authUser.user.uid
+                    uid: authUser.user.uid,
+                    email: email
                   }
                 });
               })
