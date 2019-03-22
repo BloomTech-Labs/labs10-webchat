@@ -146,9 +146,6 @@ class AdminPanelBaseForm extends React.Component {
 
 
   componentDidMount() {
-    //using rep_id to get representative details to display on Admin panel
-
-    //const id = this.state.rep_id;
 
   //onAuthStateChanged required before getIdToken() to ensure that the Auth object isn't in an intermediate state—such as initialization—when you get the current user.	Without onAuthStateChanged on refreshing currentUser.getIdToken() was null since it's async
 
@@ -159,22 +156,14 @@ class AdminPanelBaseForm extends React.Component {
 	          console.log("idToken after in Admin panel: ", idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
 
-            //get  details like componay name, motto, image url
-            //const request = axios.get(`/api/reps/adminpanel/${id}`);
             const request = axios.get("/api/reps/alldetails");
             request
               .then(response => {
-                // console.log('respnse.data is:', response.data);
-                // console.log('companyname is: ', response.data.name);
-                // console.log('on client side image_id is:', response.data.image_id);
-
                 //get all the team members that belong to the same comapny as the admin
-	              //const app_req = axios.get(`/api/reps/allreps/${id}`);
 
             const app_req = axios.get("/api/reps/allreps");
             app_req
               .then(reps => {
-                // console.log('all reps are on client side are: ', reps.data);
                 // console.log('compnay_id is', response.data.company_id);
                 this.setState({
                   company_id: response.data.company_id,
@@ -298,7 +287,7 @@ class AdminPanelBaseForm extends React.Component {
                 value={this.state.companyName}
               />
               <h3>Code Snippet</h3>
-              <p className="code-snippet-info">Add the Code Snippet to the html for any page that you want to have the Customer Service widget on</p>
+              <p className="code-snippet-info">Add the Code Snippet to the html of any page that you want to have the chattr Customer Service widget on</p>
               <TextField
                 id='outlined-codeSnippet'
                 multiline={true}
@@ -306,64 +295,13 @@ class AdminPanelBaseForm extends React.Component {
                 rowsMax={Infinity}
                 fullWidth
                 className={[classes.TextField, "code-snippet"].join(' ')}
-                value={"<input class='webChatAppBtn'type='image'/><iframe class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js?company_id="+this.state.company_id+"'></script>"}
+                value={"<input class='webChatAppBtn'type='image'/><iframe data-company-id='"+this.state.company_id+"' class='wcaIFRAME'></iframe><script src='https://labs10-webchat.netlify.com/snippet.js'></script>"}
                 margin='normal'
                 variant='outlined'
               />
             </form>
           </div>
         </div>
-
-
-            {/* <Button
-              variant="outlined"
-              color="primary"
-              className="add-button"
-              onClick={this.handleOpen}
-            >
-              Add Team Member
-            </Button> */}
-
-            {/* <Modal
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-              open={this.state.open}
-              onClose={this.handleClose}
-            >
-              <div style={getModalStyle()} className={classes.paper}>
-                <Typography variant="h6" id="modal-title">
-                  Add Team Member
-                </Typography>
-
-                <form onSubmit={this.onSubmit}>
-                  <TextField
-                    hintText="Enter your Name"
-                    floatingLabelText="Name"
-                    required={true}
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                  />
-                  <br/>
-                  <TextField
-                    hintText="Enter your Email"
-                    floatingLabelText="Email"
-                    required={true}
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                  />
-                  <br/>
-
-                  <Button
-                    variant='outlined'
-                    className={classes.button}
-                  >
-                    Add Team Member
-                  </Button>
-                </form>
-              </div>
-            </Modal> */}
       </div>
     );
   }
@@ -375,9 +313,7 @@ AdminPanelBaseForm.propTypes = {
 
 const AdminPanelComponent = withStyles (styles) (withRouter(withFirebase(AdminPanelBaseForm)));
 
-//export withStyles (styles) (AdminPanelBaseForm);
 export default AdminPanel;
 
 export { AdminPanelComponent};
 
-//export default withStyles(styles)(AdminPanel);

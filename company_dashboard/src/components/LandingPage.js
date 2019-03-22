@@ -18,6 +18,7 @@ const styles = theme => ({
   },
   appbar: {
     position: 'fixed',
+    backgroundColor: '#323439',
   },
   toolbar: {
     height: 70,
@@ -33,6 +34,10 @@ const styles = theme => ({
         width: 60,
         height: 60,
       },
+  },
+  chattrLogo: {
+	  width: 200,
+	  height: 200,
   },
   navButton: {
     // backgroundColor: 'orange',
@@ -87,7 +92,7 @@ const styles = theme => ({
       },
   },
   main: {
-    letterSpacing: 2,
+    letterSpacing: 1,
       [theme.breakpoints.down('sm')]: {
         letterSpacing: 0,
         fontSize: 28,
@@ -200,7 +205,7 @@ const styles = theme => ({
     fontSize: 15,
   },
   tiersInfo: {
-    color: '#004D40',
+    color: '#77bf44',
     fontWeight: 'bold',
     fontSize: 16,
     marginTop: 15,
@@ -209,15 +214,14 @@ const styles = theme => ({
       },
   },
 	signup: {
-    marginTop: 55,
+    marginTop: 35,
     margin: 'auto',
     width: 130,
     height: 50,
-    color: '#004D40',
+    color: '#77bf44',
     fontWeight: 'bold',
     fontSize: 18,
     borderStyle: 'solid',
-    borderColor: '#2d8754',
     borderRadius: 5,
     border: 1,
     display: 'flex',
@@ -295,14 +299,6 @@ render() {
       <div className={classes.root}>
         <AppBar className={classes.appbar}>
           <Toolbar className={classes.toolbar}>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              {/* <MenuIcon /> */}
-              <img
-                className={classes.logo}
-                src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297"
-                alt="logo"
-              />
-            </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               {/* <img
                 className={classes.logo}
@@ -326,8 +322,13 @@ render() {
           {/* <Grid item xs={12}> */}
             <Paper className={classes.home}>
               <div className={classes.info}>
-                <Typography className={classes.main} component='h2' variant='h3' gutterBottom>
-                  Welcome to Chattr, the new way to chat with your customers
+                <img
+                  className={classes.chattrLogo}
+                  src={require("./images/chattrIconLogo.png")}
+                  alt="chattrLogo"
+                />
+                <Typography className={classes.main} component='h2' variant='h5' gutterBottom>
+                  welcome to chattr, the new way to chat with your customers
                 </Typography>
                 {/* <Button variant="outlined" color="primary" className={classes.signup}>
                   <Link to={ROUTES.REP_REGISTER}>Get Started</Link>
@@ -338,7 +339,7 @@ render() {
               </div>
                 <img
                   className={classes.landing}
-                  src={require("./images/pexels.jpg")}
+                  src={require("./images/chattrWindow.jpg")}
                   alt="landingImage"
                 />
             </Paper>
@@ -350,7 +351,6 @@ render() {
             <Paper className={classes.reasons}>
               <Typography className={classes.heading} variant='h3' gutterBottom>
                 Why Use Chattr?
-                <i class="far fa-comments fa-2x" style={{color: '#64b5f6'}}></i>
               </Typography>
 
               <div className={classes.columns}>
@@ -362,7 +362,7 @@ render() {
                 </Grid> */}
                 <Grid item xs={12} sm={6}>
                   <div className={classes.benefits}>
-                    <i class="fab fa-rocketchat fa-7x" style={{color: '#b71c1c'}}></i>
+                    <i class="fab fa-rocketchat fa-7x" style={{color: '#77bf44'}}></i>
                     <h3 className={classes.reason}>Quick Response</h3>
                     <p className={classes.description}>With live chat, companies can quickly connect customers to customer service reps who can manage
                     conversations with multiple customers.</p>
@@ -370,7 +370,7 @@ render() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <div className={classes.benefits}>
-                    <i class="fas fa-users fa-7x" style={{color: '#607d8b'}}></i>
+                    <i class="fas fa-users fa-7x" style={{color: '#77bf44'}}></i>
                     <h3 className={classes.reason}>Engage customers</h3>
                     <p className={classes.description}>Chattr are also used by sales and marketing teams to engage with interested potential customers.</p>
                   </div>
@@ -391,7 +391,6 @@ render() {
                   - Try for Free <br/>
                   - Subscribe Basic for $30/mo <br/>
                   - Subscribe Enterprise for $50/mo <br/>
-                  <div className={classes.tiersInfo}> Click the Get Started button for more info</div>
                 </Typography>
               </div>
               <a href='/repregister'>
