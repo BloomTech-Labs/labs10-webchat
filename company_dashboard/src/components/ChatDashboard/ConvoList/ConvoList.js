@@ -77,7 +77,9 @@ const styles = {
     padding: 0
   },
   convoCount: {
-    padding: 0
+    padding: 0,
+    color: '#69DB30',
+    'font-weight': 'bold'
   }
 };
 
@@ -86,7 +88,7 @@ class ConvoList extends React.Component {
         super(props);
         this.state = {
           value: 1,
-          newConvosLength: 0
+          newConvosCount: 0
         };
     }
 
@@ -100,7 +102,7 @@ class ConvoList extends React.Component {
       .then(response => {
         // if (response.data.length > this.state.newConvos.length) {
           this.setState({
-            newConvosLength: response.data.length
+            newConvosCount: response.data.length
           }, () => console.log('newConvosLength: ', this.state.newConvosLength));
         // }
       })
@@ -131,7 +133,7 @@ class ConvoList extends React.Component {
     render() {
       const { classes } = this.props;
       const { value } = this.state;
-      const newConvosLength = this.state.newConvosLength;
+      const newConvosCount = this.state.newConvosCount;
       return (
 
         <div className={classes.root}>
@@ -150,7 +152,11 @@ class ConvoList extends React.Component {
                     label={
                       <div className={classes.tab}>
                         <h1 className={classes.tabLabel}>NEW</h1>
-                        <span className={classes.convoCount}>{newConvosLength}</span>
+                        
+                          {newConvosCount > 0 ? ( <span className={classes.convoCount}>{newConvosCount}</span>
+                            ) : ('')
+                          }
+                        
                       </div>
                     }
                   />
