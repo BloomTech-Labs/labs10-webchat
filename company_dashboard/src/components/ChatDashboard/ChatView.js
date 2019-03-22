@@ -278,8 +278,9 @@ class ChatView extends Component {
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <Avatar alt="Avatar" className={classes.avatar}>
-                                      {message.author_name[0]}
+                                    <Avatar alt="Avatar" className={classes.avatar}
+                                      src={message.image_url}
+                                    >
                                     </Avatar>
                                   </Grid>
                                   <Grid>
