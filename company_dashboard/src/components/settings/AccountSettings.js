@@ -11,7 +11,16 @@ import IconButton from '@material-ui/core/IconButton';
 import UpdatePassword from './UpdatePassword';
 import axios from 'axios';
 import Navigation from '../Navigation'
+import {FadeLoader} from 'react-spinners';
+import {css} from '@emotion/core'
 import "./AccountSettings.css";
+
+
+const fadeloader = css`
+    display: block;
+    margin: 0% auto;
+`;
+
 
 const styles = theme => ({
   container: {
@@ -52,11 +61,13 @@ this.state = {
     selectedFile: null,
     id: "",
     error:null,
+    loading:false,
+    updated:false,	
   }
 };
   componentDidMount() {
 
-//check if a user is signed in or signed out
+	//check if a user is signed in or signed out
 this.props.firebase.auth.onAuthStateChanged(user => {
         if (user) {
 
@@ -66,7 +77,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         console.log("idToken after in Account Settings: ", idToken);
         axios.defaults.headers.common['Authorization'] = idToken;
 
-    //using allDetails endpoint instead of getbyUID since image_url wasn't present in getByUID endpoint, allDetails endpoints uses innerJoin to get all the rep details as well as image_url, instead of making 2 different axios calls, one for image and one for reps
+    //allDetails endpoint uses innerJoin to get all the rep details
 
     const request = axios.get("/api/reps/alldetails");
 
@@ -118,7 +129,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
       email: this.state.email,
     };
 
-
+    this.setState({updated:true});
     const request = axios.put('/api/reps/updaterepinfo', user);
 
     request
@@ -128,7 +139,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         name: response.data.name,
         email: response.data.email,
         phone_number: response.data.phone_number,
-        motto: response.data.motto,
+        motto: response.data.motto,	
        });
       })
       .catch(err => {
@@ -159,13 +170,14 @@ this.props.firebase.auth.onAuthStateChanged(user => {
 
 
     const id = this.state.image_id;   //image_id to update an existing image to a new one
-
+    
+    this.setState({loading:true});	  
     const request = axios.put(`/api/images/${id}`, data);
 
     request
       .then(response => {
                   console.log('response after image update', response.data);
-                  this.setState({image_url:response.data.url});
+                  this.setState({image_url:response.data.url, loading:false});
       })
       .catch(err => {
                 console.log(err.message);
@@ -184,7 +196,6 @@ this.props.firebase.auth.onAuthStateChanged(user => {
         <Navigation />
       <div className="account-settings">
           <div className="left-container">
-
 	    <form onSubmit={this.editRepDetails}>
             <h2>Edit Account Information</h2>
             <TextField
@@ -234,16 +245,21 @@ this.props.firebase.auth.onAuthStateChanged(user => {
               Save
             </Button>
           </form>
+	  <div>  
+	  {this.state.updated?(<p className="update-text">Details updated</p>):('')}
+	  </div>  
           <Link to="/updatepassword">Update Password</Link>
           </div>
           <div className="right-container">
             <div className="profile-picture">
+	    <div>
+	    {!this.state.loading?(
               <img
                 src={this.state.image_url}
                 alt="profile picture"
               />
+	     ):(<FadeLoader  css={fadeloader}  color={'#36D7B7'}  size={200} />)}</div>	    
               <h2>Your Profile Photo</h2>
-
 	    <form className="image-upload" onSubmit={this.imageUpload}>
         <input
         accept="image/*"
