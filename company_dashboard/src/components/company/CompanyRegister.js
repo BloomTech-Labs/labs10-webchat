@@ -46,7 +46,7 @@ class CompanyRegisterFormBase extends Component {
 
     let data = new FormData();
       data.append('name', this.state.name);
-      data.append('email', this.state.email);
+      data.append('email', props.history.location.state.email);
       data.append('companyname', this.state.companyname);
       data.append('motto', this.state.motto);
       data.append('phone_number', this.state.phone);
