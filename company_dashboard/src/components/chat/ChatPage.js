@@ -118,7 +118,7 @@ class ChatPage extends Component {
         componentDidUpdate() {
                 // console.log('ChatView CDU props: ', this.props);
 
-                this.scrollToBottom();
+                // this.scrollToBottom();
         }
 
         // Join conversation and send initial message:
@@ -182,9 +182,9 @@ class ChatPage extends Component {
                 this.setState({ [event.target.name]: event.target.value });
         };
 
-        scrollToBottom = () => {
-                this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-        }
+        // scrollToBottom = () => {
+        //         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        // }
 
 
 	render() {
@@ -224,8 +224,8 @@ class ChatPage extends Component {
                                                               <Grid item>
                                                                 <Avatar
                                                                         alt="Avatar"
-                                                                        className={classes.customerAvatar}>
-                                                                        {this.state.name[0]}
+                                                                        className={classes.customerAvatar}
+                                                                        >
                                                                 </Avatar>
                                                                 </Grid>
 
@@ -268,8 +268,9 @@ class ChatPage extends Component {
                                                                 <Grid item>
                                                                         <Avatar
                                                                                 alt="Avatar"
-                                                                                className={classes.repAvatar}>
-                                                                                {this.state.name[0]}
+                                                                                className={classes.repAvatar}
+                                                                                src={message.image_url}
+                                                                                >
                                                                         </Avatar>
                                                                 </Grid>
                                                                 <Grid>
@@ -305,11 +306,11 @@ class ChatPage extends Component {
                         }
                         })}
                 </div>
-                <div className="autoscrolldiv">
+                {/* <div className="autoscrolldiv">
                         <div style={{ float:"left", clear: "both" }}
                                 ref={(el) => { this.messagesEnd = el; }}>
-                        </div>
-                </div>
+                        </div> */}
+                {/* </div> */}
                 <div className="footer">
 		<form onSubmit={this.onSend}>
                         <MuiThemeProvider>
