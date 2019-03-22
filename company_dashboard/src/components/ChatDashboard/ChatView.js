@@ -256,7 +256,7 @@ class ChatView extends Component {
 
 
     render() {
-        const is_closed = this.state.is_closed;
+        const currentConvoClosed = this.props.currentConvoClosed;
         const customer_name = `${this.props.customerName}`;
         const conversation_summary = `${this.props.summary}`
         const { classes } = this.props;
@@ -313,10 +313,11 @@ class ChatView extends Component {
                           </div>
                         );
                     })}
-
               </div>
-
-              <div className={classes.inputArea}>
+              {currentConvoClosed ? (
+                <h1>This conversation is closed.</h1>
+              ) : (
+                <div className={classes.inputArea}>
                 {/* Scroll div */}
                 {/* <div
                   style={{ float:"left", clear: "both" }}
@@ -356,7 +357,9 @@ class ChatView extends Component {
                     </MuiThemeProvider>
                   </div>
                 </form>
-            </div>
+                </div>
+              )}
+              
           </div>
     );
   }
