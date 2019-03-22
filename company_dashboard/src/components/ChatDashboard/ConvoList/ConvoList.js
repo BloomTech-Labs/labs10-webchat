@@ -64,8 +64,9 @@ const styles = {
     height: '100%'
   },
   tabElement: {
-    width: 100,
-    minWidth: 50
+    width: '30%',
+    minWidth: 50,
+    maxWidth: 200
   },
   tab: {
     display: 'flex',
@@ -153,8 +154,8 @@ class ConvoList extends React.Component {
                       </div>
                     }
                   />
-                <Tab label={<h1 className={classes.tabLabel}>OPEN</h1>} />
-                  <Tab label={<h1 className={classes.tabLabel}>Closed</h1>} />
+                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>OPEN</h1>} />
+                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} />
               </Tabs>
             </Paper>
           </div>
