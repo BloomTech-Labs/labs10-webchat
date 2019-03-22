@@ -94,7 +94,6 @@ class ChatDashboard extends React.Component {
         .then(response => {
             console.log("Conversation closed.")
             this.setState({ 
-                // convoSelected: false, 
                 currentConvoClosed: true 
             });
         })
