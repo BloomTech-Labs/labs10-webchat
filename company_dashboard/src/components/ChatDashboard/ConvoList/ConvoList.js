@@ -90,11 +90,17 @@ class ConvoList extends React.Component {
           value: 1,
           newConvosCount: 0
         };
+        this.intervalID = 0;
     }
 
-    componentDidMount() {
-      setInterval(this.getNewConvos, 5000);
+    
 
+    componentDidMount() {
+      this.intervalID = setInterval(this.getNewConvos, 5000);
+    }
+
+    componentWillUnmount() {
+      clearInterval(this.intervalID);
     }
 
     getNewConvos= () => {
