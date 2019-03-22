@@ -38,6 +38,5 @@
 
 .customer-chat .rep-message .rep-message-text {
   display: inline;
-  border: 1px red solid;
   padding-left: 0;
 }
