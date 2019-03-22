@@ -46,7 +46,7 @@ class CompanyRegisterFormBase extends Component {
 
     let data = new FormData();
       data.append('name', this.state.name);
-      data.append('email', props.history.location.state.email);
+      data.append('email', this.props.history.location.state.email);
       data.append('companyname', this.state.companyname);
       data.append('motto', this.state.motto);
       data.append('phone_number', this.state.phone);
@@ -87,7 +87,7 @@ const request = axios.post('/api/reps/admin', data);
 
   render() {
     const {name, companyname, email, error} = this.state;
-    const condition = name === '' || email === '' || companyname === '';
+    const condition = name === '' || companyname === '';
 
 
     return (
@@ -140,7 +140,7 @@ const request = axios.post('/api/reps/admin', data);
                 />
                 <br/>
 
-              <TextField
+              {/* <TextField
                   style = {{width: '65%'}}
                   hintText="Enter your email"
                   floatingLabelText="Email"
@@ -149,7 +149,7 @@ const request = axios.post('/api/reps/admin', data);
                   required={true}
                   value={this.state.email}
                   onChange={this.onChange}
-                />
+                /> */}
                 <br/>
 
                 <TextField
