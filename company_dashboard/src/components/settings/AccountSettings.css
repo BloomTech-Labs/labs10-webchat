@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.update-text{
+   color: #77bf44;
+}
+
 .account-settings-container .account-settings {
     width: 65%;
     display: flex;
