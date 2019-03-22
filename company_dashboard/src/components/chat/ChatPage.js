@@ -225,6 +225,7 @@ class ChatPage extends Component {
                                                                 <Avatar
                                                                         alt="Avatar"
                                                                         className={classes.customerAvatar}
+                                                                        src={message.image_url}
                                                                         >
                                                                 </Avatar>
                                                                 </Grid>

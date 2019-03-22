@@ -265,7 +265,7 @@ class ChatView extends Component {
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
                 <p className={classes.chatViewHeadName}>{customer_name}</p>
-                <p className={classes.chatViewHeadSummary}>{conversation_summary}</p>
+                <p className={classes.chatViewHeadSummary}></p>
               </div>
 
                <div className={classes.messageList}>
