@@ -87,7 +87,9 @@ router.put('/:id', upload.single('file'), (req, res) => {
 	console.log('req.file is', req.file);
 
 	cloudinary.uploader.upload(req.file.path,(result) =>{
-                console.log('inside cloudinary uploader');
+                //imageId = req.params.id;
+		console.log('image id inside cloudinary is', id);
+		console.log('inside cloudinary uploader');
                 console.log('cloudinary result', result);
 
                 imgUrl = result.secure_url;
@@ -96,10 +98,15 @@ router.put('/:id', upload.single('file'), (req, res) => {
                 console.log('inside cloudinary then');
                 console.log('image url', imgUrl);
                 const image = {url:imgUrl};
+	
+	console.log('image id just before if statement is', id);
 
-	if(id === 1){                            //default image id for users who haven't uploaded any images
+	if(Number(id) == 1){                            //default image id for users who haven't uploaded any images
+				
+		console.log('image id inside if statement is', id);
+                console.log('image url id inside if statement is', imgUrl);
 
-                const request = db.insert(image);   //create  a new record in the images table
+		const request = db.insert(image);   //create  a new record in the images table
 
 		request.then(response => {
                         console.log('inside image db insert then, response is', response);
