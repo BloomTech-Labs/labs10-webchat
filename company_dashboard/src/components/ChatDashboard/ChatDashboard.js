@@ -77,6 +77,7 @@ class ChatDashboard extends React.Component {
         
         this.setState({
             convoSelected: true,
+            currentConvoClosed: true,
             currentConvoId: convo_id,
             currentConvoSocket: customer_uid,
             currentConvoSummary: summary,
@@ -131,6 +132,7 @@ class ChatDashboard extends React.Component {
                                 summary={this.state.currentConvoSummary}
                                 customerName={this.state.currentCustomerName}
                                 closeConvo={this.closeConvo}
+                                currentConvoClosed={this.state.currentConvoClosed}
                             />
                         )
                     }

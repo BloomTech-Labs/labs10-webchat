@@ -256,7 +256,7 @@ class ChatView extends Component {
 
 
     render() {
-        const is_closed = this.state.is_closed;
+        const is_closed = this.props.currentConvoClosed;
         const customer_name = `${this.props.customerName}`;
         const conversation_summary = `${this.props.summary}`
         const { classes } = this.props;
