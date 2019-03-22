@@ -35,6 +35,10 @@ const styles = theme => ({
   },
   menu: {
     width: 200
+  },
+  updateInfo: {
+    marginTop: 5,
+    marginBottom: -2
   }
 });
 
@@ -245,7 +249,7 @@ this.props.firebase.auth.onAuthStateChanged(user => {
               Save
             </Button>
           </form>
-	  <div>  
+	  <div className={classes.updateInfo}>  
 	  {this.state.updated?(<p className="update-text">Details updated</p>):('')}
 	  </div>  
           <Link to="/updatepassword">Update Password</Link>
