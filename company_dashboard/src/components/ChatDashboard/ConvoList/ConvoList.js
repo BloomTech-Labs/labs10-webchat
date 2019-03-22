@@ -63,8 +63,20 @@ const styles = {
   tabs1: {
     height: '100%'
   },
+  tabElement: {
+    width: 100,
+    minWidth: 50
+  },
+  tab: {
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
   tabLabel: {
-    fontSize: 24,
+    fontSize: 16,
+    padding: 0
+  },
+  convoCount: {
+    padding: 0
   }
 };
 
@@ -133,10 +145,11 @@ class ConvoList extends React.Component {
                 centered
                 >
                   <Tab
+                    className={classes.tabElement}
                     label={
-                      <div>
+                      <div className={classes.tab}>
                         <h1 className={classes.tabLabel}>NEW</h1>
-                        <span>{newConvosLength}</span>
+                        <span className={classes.convoCount}>{newConvosLength}</span>
                       </div>
                     }
                   />
