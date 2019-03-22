@@ -73,28 +73,28 @@ class ConvoList extends React.Component {
         super(props);
         this.state = {
           value: 1,
-          newConvos: []
+          newConvosLength: 0
         };
     }
 
-    // componentDidMount() {
-    //   setInterval(this.getNewConvos, 5000);
+    componentDidMount() {
+      setInterval(this.getNewConvos, 5000);
 
-    // }
+    }
 
-    // getNewConvos() {
-    //   axios.get(`/api/chat/queue`)
-    //   .then(response => {
-    //     // if (response.data.length > this.state.newConvos.length) {
-    //       this.setState({
-    //         newConvos: response.data
-    //       });
-    //     // }
-    //   })
-    //   .catch(error => {
-    //     console.log(error.message);
-    //   })
-    // }
+    getNewConvos= () => {
+      axios.get(`/api/chat/queue`)
+      .then(response => {
+        // if (response.data.length > this.state.newConvos.length) {
+          this.setState({
+            newConvosLength: response.data.length
+          }, () => console.log('newConvosLength: ', this.state.newConvosLength));
+        // }
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
+    }
 
     handleTabSelect= (event, value) => {
       this.setState({ value });
@@ -118,7 +118,7 @@ class ConvoList extends React.Component {
     render() {
       const { classes } = this.props;
       const { value } = this.state;
-
+      const newConvosLength = this.state.newConvosLength;
       return (
 
         <div className={classes.root}>
@@ -136,11 +136,7 @@ class ConvoList extends React.Component {
                     label={
                       <div>
                         <h1 className={classes.tabLabel}>NEW</h1>
-                        {this.state.newConvos.length > 0 ? (
-                          <p>{this.state.newConvos.length}</p>
-                        ) : (
-                          ''
-                        )}
+                        <span>{newConvosLength}</span>
                       </div>
                     }
                   />

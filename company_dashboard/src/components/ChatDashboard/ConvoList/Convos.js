@@ -99,7 +99,7 @@ class Convos extends React.Component {
       .then(response => {
         this.setState({
           conversations: response.data
-        });
+        }, () => console.log(this.state.conversations));
       })
       .catch(error => {
         console.log(error.message);

@@ -84,8 +84,13 @@ class ChatPage extends Component {
                         started: false
         	};
 
+                if(process.env.NODE_ENV === 'development') {
+                        this.socket = io('localhost:5000');
+                } else {
+                        this.socket = io('https://webchatlabs10.herokuapp.com');
+                }
 	       //this.socket = io('localhost:5000');
-         this.socket = io('https://webchatlabs10.herokuapp.com');
+        //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
 		addMessage(message);
