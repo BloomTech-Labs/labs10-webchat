@@ -4,17 +4,24 @@
     justify-content: center;
     margin-left: 250px;
     height: 100vh;
-    /* overflow-y: hidden; */
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .chat-dash-left-container {
-    width: 47%;
+    width: 35%;
     height: 100%;
 }
 
 .chat-dash-right-container {
     border: 1px solid lightgray;
-    width: 53%;
+    width: 65%;
+    overflow-x: hidden;
+}
+
+.chat-dash-right-container p {
+  font-size: 22px;
+  margin-top: 5%;
 }
 
 @media (max-width: 1250px) {
