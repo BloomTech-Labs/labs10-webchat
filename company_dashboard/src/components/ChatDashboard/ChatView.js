@@ -18,7 +18,7 @@ import { Grid } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    // overflowY: 'scroll', 
+    // overflowY: 'scroll',
     height: '100%',
     display: 'flex',
     flexDirection: 'column'
@@ -30,14 +30,36 @@ const styles = theme => ({
     height: 130
   },
   chatViewHead: {
-    // flexShrink: 0
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+    justifyContent: 'spaceEvenly',
+    padding: '0',
+    paddingLeft: '5%',
+    height: '100px',
+    borderBottom: '.5px lightgray solid',
+  },
+  chatViewHeadName: {
+    fontSize: '24px',
+    fontWeight: '300',
+    padding: '0',
+    marginBottom: '-2%',
+  },
+  chatViewHeadSummary: {
+    fontSize: '18px',
+    fontWeight: '200',
+    padding: '0',
   },
   messageList: {
-    margin: 70,
+    marginBottom: 70,
+    marginTop: 20,
     overflowY: 'scroll',
+    overflowX: 'hidden',
     // maxHeight: '700px',
     flexGrow: 1,
     padding: 12,
+    width: '100%',
+    backgroundColor: 'white',
 
   },
   message: {
@@ -65,12 +87,12 @@ const styles = theme => ({
   },
   inputArea: {
     height: '40px',
-    marginBottom: '20px'
+    marginBottom: '5%'
   },
   inputForm: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',  
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -90,8 +112,14 @@ class ChatView extends Component {
       rep_name: "",
     };
 
+    if(process.env.NODE_ENV === 'development') {
+      this.socket = io('localhost:5000');
+    } else {
+      this.socket = io('https://webchatlabs10.herokuapp.com');
+    }
+    // this.socket = io(serverUrl);
     // this.socket = io('localhost:5000');
-     this.socket = io('https://webchatlabs10.herokuapp.com');
+    //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
     this.socket.on(this.props.currentConvoSocket, function(message) {
       console.log('Incoming message:', message);
@@ -185,7 +213,7 @@ class ChatView extends Component {
 
     onSubmit = event =>{
         console.log('\ncurrentConvoSocket/uid in ChatView onSubmit: ', this.props.currentConvoSocket);
-        
+
         let data = {
             socket_uid: this.props.currentConvoSocket,  // socket room
             conversation_id: this.props.currentConvoId,
@@ -228,7 +256,7 @@ class ChatView extends Component {
 
 
     render() {
-        const is_closed = this.state.is_closed;
+        const currentConvoClosed = this.props.currentConvoClosed;
         const customer_name = `${this.props.customerName}`;
         const conversation_summary = `${this.props.summary}`
         const { classes } = this.props;
@@ -236,10 +264,11 @@ class ChatView extends Component {
 
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
-                <h1>Serving: {customer_name}</h1>
+                <p className={classes.chatViewHeadName}>{customer_name}</p>
+                <p className={classes.chatViewHeadSummary}></p>
               </div>
 
-               <div className={classes.messageList}> 
+               <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
                         console.log(this.state)
                         console.log(message)
@@ -249,12 +278,13 @@ class ChatView extends Component {
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <Avatar alt="Avatar" className={classes.avatar}>
-                                      {message.author_name[0]}
+                                    <Avatar alt="Avatar" className={classes.avatar}
+                                      src={message.image_url}
+                                    >
                                     </Avatar>
                                   </Grid>
                                   <Grid>
-                                    <Grid 
+                                    <Grid
                                       item
                                       xs
                                     >
@@ -265,7 +295,7 @@ class ChatView extends Component {
                                         {message.author_name}
                                       </Typography>
                                     </Grid>
-                                    <Grid 
+                                    <Grid
                                       item
                                       xs
                                     >
@@ -284,12 +314,13 @@ class ChatView extends Component {
                           </div>
                         );
                     })}
-
               </div>
-
-              <div className={classes.inputArea}>
+              {currentConvoClosed ? (
+                <h1>This conversation is closed.</h1>
+              ) : (
+                <div className={classes.inputArea}>
                 {/* Scroll div */}
-                {/* <div 
+                {/* <div
                   style={{ float:"left", clear: "both" }}
                   ref={(el) => { this.messagesEnd = el; }
                 }>
@@ -301,12 +332,13 @@ class ChatView extends Component {
                     type="text"
                     value={this.state.message}
                     onChange={this.onChange}
-                    style ={{ 
+                    style ={{
                       border: '1.5px solid lightgrey',
                       borderRadius: '3px',
                       height: '35px',
+                      padding: '0',
                       width: '90vw',
-                      maxWidth: '490px', 
+                      maxWidth: '490px',
                     }}
                     className="messageInput"
                   />
@@ -318,7 +350,7 @@ class ChatView extends Component {
                         label="Send"
                         primary={true}
                         type="submit"
-                      />   
+                      />
                       <RaisedButton
                         label="End Convo"
                         onClick={this.handleCloseConvo}
@@ -326,7 +358,9 @@ class ChatView extends Component {
                     </MuiThemeProvider>
                   </div>
                 </form>
-            </div>
+                </div>
+              )}
+              
           </div>
     );
   }
@@ -398,8 +432,8 @@ export default withStyles(styles)(withRouter(ChatView));
         })}
       </MessageList>
     </div>
-    <form 
-      className="form"    
+    <form
+      className="form"
       onSubmit={this.onSubmit}
     >
 
@@ -407,10 +441,10 @@ export default withStyles(styles)(withRouter(ChatView));
           hintText="message"
           name="message"
           type="text"
-          style ={{ 
+          style ={{
             padding: '20px',
             border: '2px solid red',
-            width: '90vw', 
+            width: '90vw',
             padding:'0px 15px 0px 10px'
           }}
           inputStyle ={{width: '100%' }}
@@ -418,7 +452,7 @@ export default withStyles(styles)(withRouter(ChatView));
           value={this.state.message}
           onChange={this.onChange}
       />
-        
+
       {is_closed ? (
           <p>This conversation is closed.</p>
       ) : (
@@ -428,7 +462,7 @@ export default withStyles(styles)(withRouter(ChatView));
               primary={true}
               type="submit"
           />
-          
+
           <RaisedButton
               label="End Conversation"
               secondary={true}

@@ -87,7 +87,8 @@ router.put('/:id', upload.single('file'), (req, res) => {
 	console.log('req.file is', req.file);
 
 	cloudinary.uploader.upload(req.file.path,(result) =>{
-                console.log('inside cloudinary uploader');
+		console.log('image id inside cloudinary is', id);
+		console.log('inside cloudinary uploader');
                 console.log('cloudinary result', result);
 
                 imgUrl = result.secure_url;
@@ -96,30 +97,23 @@ router.put('/:id', upload.single('file'), (req, res) => {
                 console.log('inside cloudinary then');
                 console.log('image url', imgUrl);
                 const image = {url:imgUrl};
+	
 
-	if(id === 1){                            //default image id for users who haven't uploaded any images
+	if(Number(id) == 1){                            //default image id for users who haven't uploaded any images
+				
 
-                const request = db.insert(image);   //create  a new record in the images table
+		const request = db.insert(image);   //create  a new record in the images table
 
 		request.then(response => {
                         console.log('inside image db insert then, response is', response);
 						
 			let updateRepresentative = { image_id: response };
-
-			const req_rep = dbrep.updateByUid(uid, updateRepresentative);
+			
+			const req_rep = dbrep.updateByUid(uid, updateRepresentative);  //update the new image_id in rep table
 
                         req_rep.then(representative => {
                                 console.log(representative);
-                                //res.status(200).json(representative);
-				const details_req = dbrep.getDetails(uid);
-        			
-				 details_req.then(details => {
-                       			res.status(200).json(details);
-               			 })
-                		.catch(err => {
-                        		res.status(500).json(err.message);
-               			 })
-
+                                res.status(200).json(image);
                         })
                         .catch(err => {
                                 console.log(err.message);
@@ -137,15 +131,7 @@ router.put('/:id', upload.single('file'), (req, res) => {
                         
                         request.then(res_image => {
                                 console.log(res_image);
-				
-				const details_req = dbrep.getDetails(uid);
-                                 
-                                 details_req.then(details => {
-                                        res.status(200).json(details);
-                                 })
-                                .catch(err => {
-                                        res.status(500).json(err.message);
-                                 })
+				res.status(200).json(image);
                         })
                         .catch(err => {
                                 console.log(err.message);

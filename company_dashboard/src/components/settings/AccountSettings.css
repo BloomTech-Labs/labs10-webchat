@@ -1,25 +1,32 @@
 .account-settings-container {
   background-color: #EAEAEA;
-  height: 100vh;
+  height: 100%;
   display: flex;
-  align-items: center;
+}
+
+.update-text{
+   color: #77bf44;
 }
 
 .account-settings-container .account-settings {
     width: 65%;
     display: flex;
     margin-left: 22%;
+    margin-bottom: 15%;
     padding: 2.5%;
-    height: 60%;
+    margin-top: 5%;
+    height: 600px;
     border: 2px gray solid;
     border-radius: 5px;
     background-color: white;
   }
 
-.account-settings form {
+.account-settings .left-container form {
     display: flex;
     flex-direction: column;
     margin-top: 10%;
+    margin-bottom: 15%;
+    height: 80%;
 }
 
 .account-settings .left-container {
@@ -98,6 +105,7 @@
     margin-top: 10%;
     flex-direction: column-reverse;
     align-items: center;
+    height: 60%;
     width: 85%;
     padding-top: 0;
     margin-bottom: 5%;

@@ -84,8 +84,13 @@ class ChatPage extends Component {
                         started: false
         	};
 
-	//        this.socket = io('localhost:5000');
-          this.socket = io('https://webchatlabs10.herokuapp.com');
+                if(process.env.NODE_ENV === 'development') {
+                        this.socket = io('localhost:5000');
+                } else {
+                        this.socket = io('https://webchatlabs10.herokuapp.com');
+                }
+	       //this.socket = io('localhost:5000');
+        //  this.socket = io('https://webchatlabs10.herokuapp.com');
 
         this.socket.on(this.state.uid, function(message) {
 		addMessage(message);
@@ -113,7 +118,7 @@ class ChatPage extends Component {
         componentDidUpdate() {
                 // console.log('ChatView CDU props: ', this.props);
 
-                this.scrollToBottom();
+                // this.scrollToBottom();
         }
 
         // Join conversation and send initial message:
@@ -177,9 +182,9 @@ class ChatPage extends Component {
                 this.setState({ [event.target.name]: event.target.value });
         };
 
-        scrollToBottom = () => {
-                this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-        }
+        // scrollToBottom = () => {
+        //         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        // }
 
 
 	render() {
@@ -219,8 +224,9 @@ class ChatPage extends Component {
                                                               <Grid item>
                                                                 <Avatar
                                                                         alt="Avatar"
-                                                                        className={classes.customerAvatar}>
-                                                                        {this.state.name[0]}
+                                                                        className={classes.customerAvatar}
+                                                                        src={message.image_url}
+                                                                        >
                                                                 </Avatar>
                                                                 </Grid>
 
@@ -263,8 +269,9 @@ class ChatPage extends Component {
                                                                 <Grid item>
                                                                         <Avatar
                                                                                 alt="Avatar"
-                                                                                className={classes.repAvatar}>
-                                                                                {this.state.name[0]}
+                                                                                className={classes.repAvatar}
+                                                                                src={message.image_url}
+                                                                                >
                                                                         </Avatar>
                                                                 </Grid>
                                                                 <Grid>
@@ -300,11 +307,11 @@ class ChatPage extends Component {
                         }
                         })}
                 </div>
-                <div className="autoscrolldiv">
+                {/* <div className="autoscrolldiv">
                         <div style={{ float:"left", clear: "both" }}
                                 ref={(el) => { this.messagesEnd = el; }}>
-                        </div>
-                </div>
+                        </div> */}
+                {/* </div> */}
                 <div className="footer">
 		<form onSubmit={this.onSend}>
                         <MuiThemeProvider>
