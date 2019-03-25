@@ -17,7 +17,8 @@ const styles = theme => ({
     height: 1085,
   },
   appbar: {
-    position: 'fixed',
+		position: 'fixed',
+		backgroundColor: '#323439',
   },
   toolbar: {
     height: 70,
@@ -28,7 +29,7 @@ const styles = theme => ({
   logo: {
     width: 65,
     height: 60,
-    marginLeft: -25,
+    marginLeft: -15,
     marginTop: -6,
       [theme.breakpoints.down('sm')]: {
         width: 60,
