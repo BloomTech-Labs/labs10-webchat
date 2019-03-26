@@ -28,7 +28,7 @@
     color: white;
 }
 
-.login-top-bar .top-bar-links a:last-of-type {
+.login-top-bar .top-bar-links a:nth-of-type(2) {
     color: #64dd17;
 }
 

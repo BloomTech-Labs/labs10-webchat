@@ -56,8 +56,9 @@ const styles = theme => ({
         // backgroundColor: 'orange',
       },
   },
-  signupNav: {
+  activeButton: {
     color: '#64dd17',
+    paddingRight: 50,
       [theme.breakpoints.down('sm')]: {
         fontSize: 14,
         padding: 2,
@@ -168,13 +169,13 @@ class Pricing extends Component {
               </Link>
             </Typography>
             <a href='/pricing'>
-              <p className={classes.navButton}>PRICING</p>
+              <p className={classes.activeButton}>PRICING</p>
             </a>
             <a href='/repslogin'>
               <p className={classes.navButton}>SIGN IN</p>
             </a>
             <a href='/repregister'>
-              <p className={classes.signupNav}>SIGN UP</p>
+              <p className={classes.navButton}>SIGN UP</p>
             </a>
           </Toolbar>
         </AppBar>
