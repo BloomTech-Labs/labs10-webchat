@@ -9,23 +9,25 @@ const upload = multer({ dest: __dirname + '/files/' });
 const fs = require('fs');
 const cloudinary = require('cloudinary');
 
+let redis_url = process.env.REDIS_URL;
+
 if (process.env.ENVIRONMENT == 'development') {
   require('dotenv').config();
+  redis_url = "redis://127.0.0.1";	
 }
 
 
 //redis setup
-//var client = require('redis').createClient(process.env.REDIS_URL);
-//var Redis = require('ioredis');
-//var redis = new Redis(process.env.REDIS_URL);
+let client = require('redis').createClient(redis_url);
+let Redis = require('ioredis');
+let redis = new Redis(redis_url);
 
-
-cloudinary.config({ 
-  cloud_name:"dvgfmipda",
-  api_key:"682433638449357",
-  api_secret:"XCwRt4rmt3a6-Jc06bzwSRhv3ns"
+//cloudinary setup
+cloudinary.config({
+  cloud_name:process.env.CLOUD_NAME,
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET
 });
-
 
 router.get('/', (req, res) => {
 	db.get()
@@ -39,7 +41,6 @@ router.get('/', (req, res) => {
 
 
 router.get('/getbyUID', (req, res) => {
-	console.log(req.body.uid);
 	const uid  = req.body.uid;
 	console.log('uid is', uid);
 	
@@ -47,7 +48,7 @@ router.get('/getbyUID', (req, res) => {
 		const request = db.getByUid(uid);
         	
 		request.then(response_data => { 
-                	console.log(response_data);
+                	//console.log(response_data);
 
                 	if(response_data.length == 0) {
                         	res.status(400).json({ error: "The representative with the specified id does not exist" });
@@ -66,32 +67,68 @@ router.get('/getbyUID', (req, res) => {
 
 
 router.get('/alldetails', (req,res) => {
-	//const id = req.params.id;   //req.params.id is rep id
-        //console.log('GET req at /adminpanel/:id -- id is ', id);
 	const uid = req.body.uid;
 	console.log('uid inside alldetails is:', uid);
 
-	//geDetails() helper function uses inner join to join representative, companies and images table to get all the details required from 3 different tables
 
-	const request = db.getDetails(uid);
-	request.then(details => {
-                       res.status(200).json(details);	
+	client.get(uid, (error, rep)=> {
+                if(error){
+                        console.log(error);
+                        res.status(500).json({error: error});
+                        return;
+                }
+
+                if(rep){
+                        console.log('response from redis client.get', JSON.parse(rep));   //JSON objects need to be parsed after reading from redis since it is stringified before storing into redis cache
+                        res.status(200).json(JSON.parse(rep));
+
+                }
+                else{
+		const request = db.getDetails(uid);
+
+                request.then(response_data => {
+
+                        if(response_data.length == 0) {
+                                res.status(400).json({ error: "The representative with the specified uid does not exist" });
+                        }
+                        else {
+                                //console.log(response_data);
+                                res.status(200).json(response_data);
+
+                //if the requested rep with the specified uid is not present in redis, client.set() stores the rep details in redis using the uid as key and the rep details as the value associated with the key, it is stringified before being stored in redis 
+
+                client.set(uid, JSON.stringify(response_data),(error, result)=> {
+                if(error){
+                         console.log(error);
+                         res.status(500).json({ error: error});
+                        }
+                else{
+			console.log('after client.set result is', result);
+		}
+
+		})
+                }
+
                 })
                 .catch(err => {
-                        res.status(500).json(err.message);
+                        res.status(500).json({ err: err.message });
                 })
+
+        }
+})
+
 });
 
 
 
 router.get('/company/:id', (req, res)=>{
-	const company_id = req.params.id;         
+	const company_id = req.params.id;
+	const uid = req.body.uid;
         console.log('company_id is', company_id);
 
-        const request = db.getByCompanyId(company_id);
+        const request = db.getByCompanyId(company_id, uid);
 	
 	request.then(response => {
-
                 console.log('all the reps that belong to a company', response);
 		res.status(200).json(response);
         })
@@ -101,13 +138,10 @@ router.get('/company/:id', (req, res)=>{
 });
 
 
-router.get('/allreps', (req,res) =>{
-	//const id = req.params.id;       //later modify it to get by uid if required
-	
+router.get('/allreps', (req,res) =>{	
 	const uid = req.body.uid;
-	console.log('uid is', req.body.uid);
+	console.log('uid is', uid);
 
-        //const request = db.getById(id);
 	const request = db.getByUid(uid);
 
 	request.then(response => {
@@ -115,7 +149,7 @@ router.get('/allreps', (req,res) =>{
 		let company_id = response.company_id;
 		console.log('company_id', company_id);
 
-			const repsall_req = db.getByCompanyId(company_id);	
+			const repsall_req = db.getByCompanyId(company_id, uid);	
 			
 			repsall_req.then(response_data => {
 				console.log('all the reps that belong to a company', response_data);
@@ -289,38 +323,56 @@ router.put('/updaterepinfo', (req, res) => {
 		email: req.body.email,
 	};
 	
-	console.log('user in update endpoint', user);
+	
+	const request = db.updaterepinfo(uid, user);
 
-	const request = db.updaterepinfo(uid, user);    //using uid to update rep info
+	request.then(response => {
+		client.del(uid, (error, result)=> {
+                if(error){
+                        console.log(error);
+                        res.status(500).json({error: error});
+                        return;
+                }
 
-	request.then(response_data => {
-		res.status(200).json(user); //after successfull update sending the updated user info back to display on accout settings page
+                if(result){
+                        console.log('after client.del result is', result);
+                	res.status(200).json(user); //after successfull update sending the updated user info back to display on accout settings page      
+        	}
+		})		
 	})
 	.catch(error => {
-		res.status(500).json({ error: "Failed to update account information" });
-		console.log(error.message);
-	})
-})
+                console.log(error.message);
+                res.status(500).json({ error: "Failed to update rep information" });
+        })
+});	
 
 
 //update a representative's admin status
 
 router.put('/adminstatus/:id', (req, res) => {
         const id = req.params.id;
-
+	const uid = req.body.uid;
         const is_admin = req.body.is_admin;
         const user = {is_admin};
 
-        console.log(user);
-        // console.log(req.body);
-
+        console.log('uid is', uid);
 
         const request= db.update(id, user);
 
         request.then(response_data => {
-                res.status(200).json(response_data);
+		client.del(uid, (error, result)=> {
+                if(error){
+                        console.log('error in client.del is', error);
+                        res.status(500).json({error: error});
+                        return;
+                }
+                
+                if(result){
+                        console.log('after client.del result is', result);
+                        res.status(200).json(response_data);      
+                }
+                })
         })
-
         .catch(error => {
                 res.status(500).json({error: "Failed to update admin status"});
         })
@@ -330,34 +382,28 @@ router.put('/adminstatus/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
 	const {id} = req.params;
+	const uid = req.body.uid;
 
 	const request = db.remove(id);
 
 	request.then(response_data => {
-		res.status(200).json(response_data);
-	})
-
+                client.del(uid, (error, result)=> {
+                
+		if(error){
+                        console.log('error in client.del is', error);
+                        res.status(500).json({error: error});
+                        return;
+                }
+                if(result){
+                        console.log('after client.del result is', result);
+                        res.status(200).json(response_data);
+                }
+                })
+        })
 	.catch(error => {
     		res.status(500).json({error: "Failed to delete user"});
   	})
 });
-
-
-// router.post('/verifyemail', (req, res) => {
-// 	console.log("verifyemail endpoint hit");
-// 	const { email } = req.body;
-// 	const table = 'approved_emails';
-// 	const request = db.getByEmail(email);
-// 	request.then(response_data => {
-// 		console.log("verifyemail response: ", response_data);
-// 		if (response_data) {
-// 			res.status(200).json(response_data.company_id);
-// 		} else {
-// 			res.status(400).json({ message: "Not an approved email. Register a new company or check with admin of existing company." });
-// 		}
-// 	});
-
-// })
 
 
 
@@ -368,7 +414,7 @@ router.post('/nonadmin', upload.single('file'),(req, res) => {
 		let image_id = 1;
 		let newRep = {
 			name: name,
-			email: email,  // ??? Do we need to make sure this matches their registration email?
+			email: email, 
 			company_id: company_id,
 			phone_number: phone_number,
 			motto: motto,
