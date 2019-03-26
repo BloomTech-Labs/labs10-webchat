@@ -3,6 +3,7 @@
 
 # Chattr
 Chattr is a live chat tool for B2C and B2B companies to connect with visitors to their website. The product includes a dashboard for representatives to manage and engage in conversations,  and a customer chat widget deployed with a code snippet.
+[Check out Chattr](https://labs10-webchat.netlify.com/)
 
 
 ## Table of Contents
@@ -41,6 +42,7 @@ Chattr is a live chat tool for B2C and B2B companies to connect with visitors to
 - [cors](https://www.npmjs.com/package/cors)
 - [PostgreSQL](https://www.postgresql.org/)
 - [knex.js](https://knexjs.org/)
+- [redis](https://redis.io/)
 - [Cloudinary](https://www.npmjs.com/package/cloudinary)
 
 
