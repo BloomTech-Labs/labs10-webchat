@@ -169,7 +169,6 @@ const styles = theme => ({
 	reason: {
 		fontSize: 20,
 		fontWeight: 'bold',
-		textDecoration: 'underline',
 	},
 	description: {
 		fontSize: 16,
