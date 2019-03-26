@@ -74,7 +74,7 @@ const styles = theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         marginTop: 72,
-        height: 520,
+        height: 720,
         // backgroundColor: 'orange',
       },
   },
@@ -86,8 +86,8 @@ const styles = theme => ({
     // backgroundColor: 'orange',
       [theme.breakpoints.down('sm')]: {
         width: 300,
-        height: 225,
-        marginTop: -40,
+        height: 420,
+        marginTop: -70,
         // backgroundColor: 'red',
       },
   },
@@ -288,8 +288,8 @@ const styles = theme => ({
 })
 
 class LandingPage extends Component {
-constructor(props){
-    super(props);
+  constructor(props){
+  super(props);
 }	
 	
 render() {
