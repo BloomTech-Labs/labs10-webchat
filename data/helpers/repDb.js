@@ -43,8 +43,8 @@ const query = db('representatives').where('email', email);
 }
 
 
-function getByCompanyId(company_id){
-const query = db('representatives').where('company_id', company_id);
+function getByCompanyId(company_id, uid){
+const query = db('representatives').where('company_id', company_id).whereNot('uid', uid);
 
 	return query.then(representatives =>{
 		return representatives;
