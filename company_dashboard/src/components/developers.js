@@ -29,11 +29,12 @@ const styles = theme => ({
   logo: {
     width: 65,
     height: 60,
-    marginLeft: -15,
+    marginLeft: -25,
     marginTop: -6,
       [theme.breakpoints.down('sm')]: {
         width: 60,
-        height: 60,
+				height: 60,
+				marginLeft: -15,
       },
   },
   navButton: {
@@ -41,15 +42,6 @@ const styles = theme => ({
     display: 'flex',
     paddingRight: 50,
     color: 'white',
-      [theme.breakpoints.down('sm')]: {
-        fontSize: 14,
-        padding: 2,
-        marginLeft: 25,
-        // backgroundColor: 'orange',
-      },
-  },
-  signupNav: {
-    color: '#64dd17',
       [theme.breakpoints.down('sm')]: {
         fontSize: 14,
         padding: 2,
@@ -92,7 +84,7 @@ class Developers extends Component {
               <p className={classes.navButton}>SIGN IN</p>
             </a>
             <a href='/repregister'>
-              <p className={classes.signupNav}>SIGN UP</p>
+              <p className={classes.navButton}>SIGN UP</p>
             </a>
           </Toolbar>
         </AppBar>
