@@ -169,7 +169,6 @@ const styles = theme => ({
 	reason: {
 		fontSize: 20,
 		fontWeight: 'bold',
-		textDecoration: 'underline',
 	},
 	description: {
 		fontSize: 16,
@@ -313,7 +312,7 @@ render() {
               <p className={classes.navButton}>SIGN IN</p>
             </a>
             <a href='/repregister'>
-              <p className={classes.signupNav}>SIGN UP</p>
+              <p className={classes.navButton}>SIGN UP</p>
             </a>
           </Toolbar>
         </AppBar>
