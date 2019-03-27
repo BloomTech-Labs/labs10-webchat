@@ -51,15 +51,6 @@ const styles = theme => ({
         // backgroundColor: 'orange',
       },
   },
-  signupNav: {
-    color: '#64dd17',
-      [theme.breakpoints.down('sm')]: {
-        fontSize: 14,
-        padding: 2,
-        marginLeft: 25,
-        // backgroundColor: 'orange',
-      },
-  },
   home: {
     padding: theme.spacing.unit * 2,
     display: 'flex',
@@ -175,7 +166,97 @@ const styles = theme => ({
 		fontWeight: 'normal',
     textDecoration: 'none',
     textAlign: 'center',
-	},
+  },
+  testing: {
+    width: '100%',
+    height: 350,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  directions: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    letterSpacing: 2,
+    marginTop: -25,
+  },
+  direction: {
+    // backgroundColor: 'orange',
+    margin: 'auto',
+    width: 280,
+  },
+  side: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  repLogin: {
+    // backgroundColor: 'green',
+    // textAlign: 'justify',
+    margin: 'auto',
+    width: 300,
+  },
+  login: {
+    // backgroundColor: 'yellow',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: 250,
+    margin: 'auto',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  signIn: {
+    margin: 'auto',
+    width: 130,
+    height: 50,
+    color: '#77bf44',
+    fontWeight: 'bold',
+    fontSize: 18,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    border: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  email: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  password: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  siginInfo: {
+    fontSize: 16,
+    fontWeight: 'normal',
+    marginLeft: 8,
+  },
+  customerChat: {
+    // backgroundColor: 'yellow',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: 350,
+    margin: 'auto',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  joes: {
+    margin: 'auto',
+    marginRight: 80,
+    width: 130,
+    height: 50,
+    color: '#77bf44',
+    fontWeight: 'bold',
+    fontSize: 18,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    border: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 	pricing: {
 		width: '100%',
 		height: 250,
@@ -378,6 +459,50 @@ render() {
             </Paper>
           {/* </Grid> */}
         </Grid>
+
+        <Grid container spacing={24}>
+          {/* <Grid item xs={12}> */}
+            <Paper className={classes.testing}>
+              <Typography className={classes.directions} variant='h3' gutterBottom>
+                Test Chattr
+              </Typography>
+
+              <div className={classes.columns}>
+                <Grid item xs={12} sm={6}>
+                  <div className={classes.direction}>
+                    <h3 className={classes.side}>Company Representative</h3>
+                    <div className={classes.repLogin}>
+                      <p className={classes.login}>Login:
+                        <a href='/repslogin' target='_blank'>
+                          <p className={classes.signIn}>Sign In</p>
+                        </a>
+                      </p>
+                      <p className={classes.email}>Email: 
+                        <span className={classes.siginInfo}>joeplumbing111@gmail.com</span>
+                      </p>
+                      <p className={classes.password}>Password: 
+                        <span className={classes.siginInfo}>Labs10webchat</span>
+                      </p>
+                    </div>
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <div className={classes.direction}>
+                    <h3 className={classes.side}>Customer Test</h3>
+                    <p className={classes.customerChat}>
+                      Test chat:
+                      <a href='https://plumbingwithjoe.netlify.com/' target='_blank'>
+                        <p className={classes.joes}>Customer Page</p>
+                      </a>
+                    </p>
+                  </div>
+                </Grid>
+              </div>
+            </Paper>
+          {/* </Grid> */}
+        </Grid>
+
+
 
         <Grid container spacing={24}>
           {/* <Grid item xs={12}> */}
