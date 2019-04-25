@@ -34,6 +34,7 @@ Chattr is a live chat tool for B2C and B2B companies to connect with visitors to
 
 ### Back-End
 - [Socket.io](https://socket.io/)
+- [Redis](https://redis.io/)
 - [FireBase](https://firebase.google.com/)
 - [Stripe](https://stripe.com/docs)
 - [Node.js](https://nodejs.org/)
