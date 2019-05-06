@@ -25,6 +25,7 @@ import ChatDashboard from './components/ChatDashboard/ChatDashboard';
 import Pricing from './components/settings/Pricing';
 import Billing from './components/settings/Billing/V1Billing';
 import Developers from './components/developers';
+import Demo from './components/demo';
 
 
 class App extends Component {
@@ -50,6 +51,7 @@ class App extends Component {
         <div className="App">
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
           <Route path={ROUTES.DEVELOPERS} component={Developers} />
+          <Route path={ROUTES.DEMO} component={Demo} />
 
           <Route path="/customersignup/:id" render ={(props) => < CustomerSignUp {...props} />} />
 

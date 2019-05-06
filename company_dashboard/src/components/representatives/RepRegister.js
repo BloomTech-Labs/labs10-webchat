@@ -111,6 +111,9 @@ class RepSignUpFormBase extends Component {
                   <img src="https://tbncdn.freelogodesign.org/cf170e4b-6edc-484b-9bca-ce1c01756b07.png?1552522558297" alt="logo" />
                 </Link>
                 <div className="top-bar-links">
+                  <a href='/demo'>
+                    <p className="navigation-button">DEMO</p>
+                  </a>
                   <a href='/pricing'>
                     <p className="navigation-button">PRICING</p>
                   </a>

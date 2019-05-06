@@ -28,7 +28,7 @@
     color: white;
 }
 
-.login-top-bar .top-bar-links a:nth-of-type(2) {
+.login-top-bar .top-bar-links a:nth-of-type(3) {
     color: #64dd17;
 }
 
@@ -81,3 +81,5 @@
       margin-top: 15%;
   }
 }
+
+
