@@ -386,6 +386,9 @@ render() {
                 alt="logo"
               /> */}
             </Typography>
+            <a href='/demo'>
+              <p className={classes.navButton}>DEMO</p>
+            </a>
             <a href='/pricing'>
               <p className={classes.navButton}>PRICING</p>
             </a>
@@ -478,7 +481,7 @@ render() {
                         </a>
                       </p>
                       <p className={classes.email}>Email: 
-                        <span className={classes.siginInfo}>joeplumbing111@gmail.com</span>
+                        <span className={classes.siginInfo}>joeplumbing1111@gmail.com</span>
                       </p>
                       <p className={classes.password}>Password: 
                         <span className={classes.siginInfo}>Labs10webchat</span>

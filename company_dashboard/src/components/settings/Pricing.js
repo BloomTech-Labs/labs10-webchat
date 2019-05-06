@@ -168,6 +168,9 @@ class Pricing extends Component {
                 />
               </Link>
             </Typography>
+            <a href='/demo'>
+              <p className={classes.navButton}>DEMO</p>
+            </a>
             <a href='/pricing'>
               <p className={classes.activeButton}>PRICING</p>
             </a>
