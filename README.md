@@ -27,6 +27,11 @@ Chattr is a live chat tool for B2C and B2B companies to connect with visitors to
 ## Dependencies
 
 ### Front-End
+
+#### React
+React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes.
+
+
 - [React](https://reactjs.org/)
 - [Axios](https://www.npmjs.com/package/axios) 
 - [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
