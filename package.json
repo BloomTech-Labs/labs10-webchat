@@ -9,7 +9,7 @@
     "body-parser": "^1.18.3",
     "cloudinary": "^1.13.2",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "file-system": "^2.2.2",
     "firebase": "^5.8.3",
     "firebase-admin": "^7.0.0",
