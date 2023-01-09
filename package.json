@@ -12,7 +12,7 @@
     "express": "^4.16.4",
     "file-system": "^2.2.2",
     "firebase": "^5.8.3",
-    "firebase-admin": "^7.0.0",
+    "firebase-admin": "^11.4.1",
     "helmet": "^3.15.1",
     "ioredis": "^4.6.2",
     "knex": "^0.16.3",
